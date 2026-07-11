@@ -2,7 +2,7 @@
 title: "Changelog — <project>"
 force: account
 verb: report-against
-formative: false
+perlocution: none
 view: diachronic
 provenance: { type: project, id: <project-id> }
 distance: near

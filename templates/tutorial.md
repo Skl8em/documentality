@@ -2,8 +2,7 @@
 title: "Getting started — <subject>"
 force: teach
 verb: bring-along
-formative: true
-diataxis: tutorial
+perlocution: enable
 view: synchronic
 provenance: { type: function, id: <function-id> }
 distance: far

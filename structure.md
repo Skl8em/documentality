@@ -2,8 +2,7 @@
 title: "Structuring and keeping the documentation"
 force: explain+mandate
 verb: illuminate
-formative: true
-diataxis: explanation
+perlocution: model
 view: synchronic
 audience: [developer, AI, maintainer, archivist]
 status: stable
@@ -74,12 +73,13 @@ Since a shelf admits one order, the whole difficulty concentrates in choosing it
 
 In-repo tree skeleton (the project's shelf):
 
-```
+```text
 README.md                 # orient — front door
 docs/
   architecture.md         # explain — the why
   reference/              # describe — current state, kept up to date (synchronic)
   guides/                 # instruct — how-tos, runbooks
+  guidelines/             # recommend — best practices, non-binding
   tutorials/              # teach — learning paths
   decisions/              # decide — ADRs, frozen (diachronic)
   CHANGELOG.md            # account — frozen, append-only (diachronic)
@@ -88,7 +88,7 @@ CONTRIBUTING.md           # mandate — the rules
 
 Cross-project docs-repo skeleton (the shelf by function):
 
-```
+```text
 README.md                       # orient — map of functions and projects
 functions/                      # synchronic — current state per business function
   reporting/
@@ -129,11 +129,12 @@ A document's coordinates engender its trajectory: what **decides** freezes and i
 **RULE (retention).** Each document type has an explicit retention rule. Recommended defaults:
 
 | Type (force) | View | Retention |
-|---|---|---|
+| --- | --- | --- |
 | Decision (`decide`) | diachronic | permanent, never rewritten |
 | Changelog / report (`account`) | diachronic | permanent, append-only |
 | Proof / dossier (`prove`) | diachronic | per legal/contractual obligation |
 | Reference, architecture (`describe`,`explain`) | synchronic | maintained while the function lives; archived version per release |
+| Guidelines (`recommend`), conventions (`mandate`) | synchronic | maintained while the function lives; supersede rather than silently edit |
 | Working note, draft | — | ephemeral; deleted or promoted, never left to sediment |
 | Proposal (`propose`) | diachronic | frozen once decided; the ADR references it |
 

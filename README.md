@@ -2,8 +2,7 @@
 title: "Project documentation system — start here"
 force: orient
 verb: situate
-formative: true
-diataxis: explanation
+perlocution: locate
 view: synchronic
 audience: [developer, AI, maintainer]
 status: stable
@@ -20,9 +19,9 @@ It is itself written by the rules it states: every file declares its **force** i
 The system rests on one idea: a document is not a container of information to be sorted by subject, it is an **act** performed from a definite position (what it does, toward whom) and made to live through time.
 Three practical questions follow, one per file:
 
-- **What to write, and how to phrase it** → `writing.md`. The eleven *forces* (orient, explain, describe, prove, account, instruct, teach, mandate, commit, propose, decide), each with its generative verb, move structure, and failure mode — fused with the writing patterns that lower cognitive load for both human and LLM.
+- **What to write, and how to phrase it** → `writing.md`. The twelve *forces* (orient, explain, describe, prove, account, instruct, teach, recommend, mandate, commit, propose, decide), grouped into three doors — **know**, **do**, **govern & record** — each with its generative verb, move structure, and failure mode, fused with the writing patterns that lower cognitive load for both human and LLM.
 - **Where to put it, and how to keep it** → `structure.md`. The topology (docs living with the project vs. a separate docs repo with submodules), the reading tree, provenance (function vs. project), the state/change seam, life cycle and retention, export.
-- **How to tag it for the machine** → `frontmatter.md`. The YAML metadata schema that makes each file self-describing: its force, type, view, provenance, audience, status.
+- **How to tag it for the machine** → `frontmatter.md`. The YAML metadata schema that makes each file self-describing: its force, perlocution, view, provenance, audience, status (no `diataxis` field — it is re-derived from force × perlocution).
 
 Plus a `templates/` folder: one skeleton per force, with its move structure already wired in.
 Copy, fill, done.

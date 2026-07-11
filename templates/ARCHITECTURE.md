@@ -2,8 +2,7 @@
 title: "Architecture of <project>"
 force: explain
 verb: illuminate
-formative: true
-diataxis: explanation
+perlocution: model
 view: synchronic
 provenance: { type: function, id: <function-id> }
 distance: near
