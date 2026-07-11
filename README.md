@@ -4,49 +4,50 @@ force: orient
 verb: situate
 perlocution: locate
 view: synchronic
-audience: [developer, AI, maintainer]
+provenance: { type: function, id: doc-system }
+axis: activity            # primary shelf axis (sub-axis in forces/: by door)
+dominant-community: contributor
+audience: [user, contributor, decider]
+reader: H+M
 status: stable
-written-at: v1
-valid-for: v1
+written-at: v3
+valid-for: v3
 ---
 
-This repository holds a **system for writing, structuring, and keeping project documentation**.
-It does not explain *your* project; it explains how to document any project so that it is legible to a hurried human *and* to an LLM.
-It is itself written by the rules it states: every file declares its **force** in its frontmatter, and this page is an `orient` — its only job is to situate you and route you onward.
+This repository is a **system for writing, structuring, and keeping project documentation** — and it is written according to its own rules, so its file tree is the first worked example of the theory. Every file declares its **force** in its frontmatter; this page is an `orient`, so its only job is to situate you and route you onward.
 
-## What you're holding
+**New here?** Start with the guided [`tutorial.md`](tutorial.md) — you'll write your first real document in about ten minutes and meet the pieces in context. Come back to this page once you know what you need; it routes by need, not as a course to read in order.
 
-The system rests on one idea: a document is not a container of information to be sorted by subject, it is an **act** performed from a definite position (what it does, toward whom) and made to live through time.
-Three practical questions follow, one per file:
+## The one idea
 
-- **What to write, and how to phrase it** → `writing.md`. The twelve *forces* (orient, explain, describe, prove, account, instruct, teach, recommend, mandate, commit, propose, decide), grouped into three doors — **know**, **do**, **govern & record** — each with its generative verb, move structure, and failure mode, fused with the writing patterns that lower cognitive load for both human and LLM.
-- **Where to put it, and how to keep it** → `structure.md`. The topology (docs living with the project vs. a separate docs repo with submodules), the reading tree, provenance (function vs. project), the state/change seam, life cycle and retention, export.
-- **How to tag it for the machine** → `frontmatter.md`. The YAML metadata schema that makes each file self-describing: its force, perlocution, view, provenance, audience, status (no `diataxis` field — it is re-derived from force × perlocution).
+A document is not a container of information sorted by subject. It is an **act** performed from a definite position — *what* it does (its force) and *toward whom* (its audience, at some distance and power) — and made to live through time. Name the act correctly and the form follows; misname it and no polish recovers the wrong centre of gravity.
 
-Plus a `templates/` folder: one skeleton per force, with its move structure already wired in.
-Copy, fill, done.
+## Two activities, one shape
 
-## Where to enter, by need
+There are only two things you ever do here, so there are two top-level folders — and each is itself documented by the forces it needs (an `explain` of the concepts, an `instruct` for the procedure, a `recommend` for the defaults, a `mandate` for the rules). The system is **self-similar**: the same twelve forces organize the guidance about the forces.
 
-You're **starting the docs for a new project** → read `structure.md` (topology and tree sections), lay down the skeleton, then copy `templates/README.md` and `templates/ARCHITECTURE.md`.
+- **[`write/`](write/README.md)** — how to write one document: find its force, follow the move structure, apply the readability patterns. Holds the **frontmatter** schema (you need it *while* writing) and one folder per force under the three doors.
+- **[`structure/`](structure/README.md)** — where documents live, how the tree is organized, how long they are kept, how the whole thing is exported, and the **audience model** ([`structure/audience.md`](structure/audience.md), generic roles × reader kind) that both activities reference — because who the tree serves is a structural decision.
 
-You **need to write one specific document** (a decision, a proposal, a procedure…) → go straight to `writing.md`, find the force, take the matching template in `templates/`.
+## How this tree is organized
 
-You **have several projects to federate** → read `structure.md` (docs repo + submodules section): that's where exact per-commit anchoring is settled.
+*(This section is the axis-and-dominant-community declaration that `structure/rules.md` requires every tree to carry at its root — you are reading it. It always lives in the root README, so that is where to look for any project.)*
 
-You **don't know which force your document has** → `writing.md` opens with a short five-question interrogation that gives you the dominant force in a minute.
+- **Axis: by activity.** The top level splits into `write/` and `structure/` — the two things you ever do here — and inside `write/forces/` the sub-axis is **by door** (know / do / govern-and-record).
+- **Dominant community: `contributor`** (someone using the system to author docs), with `decider` (convention owner) second. `user` meets the system only through the projects that adopt it, so the shelf is ordered for authors, not end-readers.
 
-You're **preparing for AI use** (generation, validation, RAG) → the `frontmatter.md` + `templates/` pair is the raw material; the frontmatter becomes the spec, the moves become the prompts.
-This step is deliberately left for later, but everything here is built to make it direct.
+## The three doors (how a newcomer navigates)
+
+The forces group into three doors, and `write/forces/` is split along them:
+
+- **[know](write/forces/know/README.md)** (savoir) — `orient`, `explain`, `describe`. Understand where you are, why, and the facts.
+- **[do](write/forces/do/README.md)** (savoir-faire) — `instruct`, `teach`, `recommend`. Execute, learn, or take advice. Read as a deontic gradient: *here is how* → *you should* → *you must* (that last one is `mandate`, next door).
+- **[govern & record](write/forces/govern-and-record/README.md)** — `mandate`, `commit`, `propose`, `decide`, and the evidence/memory forces `prove`, `account`. The project's own acts: rules, promises, deliberation, decisions, proof, history.
 
 ## The rule that governs everything else
 
-A corpus serves two incompatible masters: **be found and read now** (communication) and **stand as evidence over time** (archive).
-No single order serves both. Almost every failed doc conflates them.
-This system keeps them apart — the readable tree on one side, frozen provenance on the other — and stitches them at a single point: *the frozen record of a change becomes the current state you maintain*.
-If you remember one thing, remember that one; `structure.md` develops it.
+A corpus serves two incompatible masters: **be found and read now** (communication) and **stand as evidence over time** (archive). No single order serves both. This system keeps them apart — the readable tree on one side, frozen provenance on the other — and stitches them at one point: *the frozen record of a change becomes the current state you maintain*. `structure/concepts.md` develops it.
 
-## In short
+## Status
 
-Three guidance files (structure, write, tag) + templates.
-Every document you produce answers three questions: *what does it do?* (its force → `writing.md`), *where does it live and for how long?* (its provenance and view → `structure.md`), *how does the machine read it?* (its frontmatter → `frontmatter.md`).
+This is **v3**, a reorganization into the self-similar shape above. The frame and one exemplar force per door are built (`orient`, `instruct`, `decide`); the remaining nine forces are still being migrated from `_legacy/` (the previous flat version, kept as source until migration completes).
