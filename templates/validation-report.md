@@ -2,7 +2,7 @@
 title: "Validation dossier — <claim>"
 force: prove
 verb: demonstrate
-formative: false
+perlocution: convince
 view: diachronic
 provenance: { type: project, id: <project-id> }
 distance: far

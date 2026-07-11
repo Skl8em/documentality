@@ -2,8 +2,7 @@
 title: "<Project name>"
 force: orient
 verb: situate
-formative: true
-diataxis: explanation
+perlocution: locate
 view: synchronic
 provenance: { type: project, id: <project-id> }
 distance: near

@@ -2,7 +2,7 @@
 title: "RFC-<NNN> — <proposal title>"
 force: propose
 verb: argue
-formative: false
+perlocution: none
 view: diachronic
 provenance: { type: project, id: <project-id> }
 distance: near

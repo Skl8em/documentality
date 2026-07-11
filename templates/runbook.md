@@ -2,8 +2,7 @@
 title: "Runbook — <task>"
 force: instruct
 verb: walk-through
-formative: false
-diataxis: how-to
+perlocution: none
 view: synchronic
 provenance: { type: function, id: <function-id> }
 distance: near

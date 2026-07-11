@@ -2,7 +2,7 @@
 title: "Commitment / SLA — <object>"
 force: commit
 verb: promise-precisely
-formative: false
+perlocution: none
 view: synchronic
 provenance: { type: function, id: <function-id> }
 distance: far

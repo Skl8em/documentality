@@ -2,7 +2,7 @@
 title: "Contributing to <project>"
 force: mandate
 verb: require
-formative: false
+perlocution: none
 view: synchronic
 provenance: { type: function, id: <function-id> }
 distance: near

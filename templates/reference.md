@@ -2,8 +2,7 @@
 title: "Reference — <subject>"
 force: describe
 verb: specify
-formative: false
-diataxis: reference
+perlocution: none
 view: synchronic
 provenance: { type: function, id: <function-id> }
 distance: far

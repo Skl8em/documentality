@@ -2,7 +2,7 @@
 title: "ADR-<NNN> — <decision title>"
 force: decide
 verb: justify
-formative: false
+perlocution: convince
 view: diachronic
 provenance: { type: project, id: <project-id> }
 distance: near
