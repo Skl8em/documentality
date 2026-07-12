@@ -4,8 +4,8 @@ force: explain
 verb: illuminate
 perlocution: model
 view: synchronic
-provenance: { type: function, id: doc-system }
-audience: [contributor, decider]
+provenance: { type: function, id: writing }
+audience: [user]
 reader: H+M
 status: stable
 written-at: v3
@@ -43,6 +43,8 @@ Store `verb` only for (a) and (b). For (c), set `distance`/`power` instead.
 | `none` | — reader served, not changed | — | describe, account, instruct, recommend, mandate, commit, propose |
 
 The `convince` row folds `prove` and `decide` into the perlocutionary family: a dossier convinces an examiner a claim holds; a decision record convinces a future reader the choice was reasoned. For those two the aim is *instrumental* (the primary point stays evidential/declarative); for orient/explain/teach it is *primary*. Both are real, so both are named.
+
+The **Host forces** column names each perlocution's *typical* home, not a whitelist. Perlocution is an independent coordinate, so **any force may carry any perlocution** — an `account` that means to explain a failure takes `model`, a `describe` written to persuade takes `convince`. Some pairings are natural, others awkward, but we do not commit to a table of which are "possible": that would be a definitiveness the theory's *saturated, not closed* stance forbids. The force implies a *default* perlocution; a divergence is legal and usually says something (see `docs/phases/phase-05-records-governance/ADR-013-open-pairings.md`).
 
 ## The three doors, and why there is no `diataxis` field
 

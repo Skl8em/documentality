@@ -4,8 +4,8 @@ force: orient
 verb: situate
 perlocution: locate
 view: synchronic
-provenance: { type: function, id: doc-system }
-audience: [contributor, decider]
+provenance: { type: function, id: structuring }
+audience: [user]
 reader: H+M
 status: stable
 written-at: v3

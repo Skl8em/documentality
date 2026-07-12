@@ -4,8 +4,8 @@ force: describe
 verb: specify
 perlocution: none
 view: synchronic
-provenance: { type: function, id: doc-system }
-audience: [contributor, decider]
+provenance: { type: function, id: writing }
+audience: [user]
 reader: H+M
 status: stable
 written-at: v3
@@ -38,7 +38,7 @@ Design note: the schema carries only **hard coordinates not derivable from one a
 | `supersedes` / `superseded-by` | O | path/id | Chain frozen records (ADRs). |
 | `retention` | O | `permanent` `until-release` `ephemeral` `legal:<duration>` | Defaults by force in `../structure/defaults.md`. |
 | `pin` | O | submodule ref / SHA | Fixity anchor for a cross-project reference. `../structure/concepts.md`. |
-| `axis` | R* | shelf axis, e.g. `activity` `function` `component` | *Required only on the root orient of a tree* (omitted elsewhere). The order the shelf is browsed by. `../structure/rules.md`. |
+| `axis` | R* | shelf axis, e.g. `scope` `function` `component` | *Required only on the root orient of a tree* (omitted elsewhere). The order the shelf is browsed by. `../structure/rules.md`. |
 | `dominant-community` | R* | a role, e.g. `contributor` | *Required only on the root orient of a tree.* The community the shelf's axis is chosen to serve (see [`../structure/audience.md`](../structure/audience.md)). |
 
 ## Derivable views (generate, do not store)
@@ -48,7 +48,7 @@ Computed from `force`, read by tooling / newcomers: **door** (know / do / govern
 ## Validation rules
 
 - `force`, `perlocution`, `view`, `provenance`, `audience`, `reader`, `status` are **required** on every non-ephemeral document. A file lacking them does not enter the catalogue.
-- `perlocution` is constrained by `force`: `orient`→`locate`, `explain`→`model`, `teach`→`enable`, `prove`/`decide`→`convince`, all others→`none`. (Sanctioned drift: a postmortem under verb `diagnose` may be `force: account` + `perlocution: model`.)
+- `perlocution` is **not** constrained by `force` — it is an independent coordinate, and any pairing is permitted. Each force has a *typical* perlocution (`orient`→`locate`, `explain`→`model`, `teach`→`enable`, `prove`/`decide`→`convince`, others→`none`), but a divergent pairing is legal and often meaningful — an `account` that explains a failure carries `perlocution: model`; a `describe` that means to convince carries `convince`. A validator may *surface* an unusual pairing for review; it never rejects one. (We do not commit to a table of which pairings are possible — that would be a definitiveness the theory's "saturated, not closed" stance forbids.)
 - `provenance.type: project` ⇒ not rewritten after closure; a change is a *new* document via `supersedes`. Consistent with `view: diachronic`.
 - `view: synchronic` with `provenance.type: project` is a suspect pair; allow only knowingly.
 - `status: deprecated` requires a non-null `superseded-by` (or an explicit no-replacement note).

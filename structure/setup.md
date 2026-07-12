@@ -4,8 +4,8 @@ force: instruct
 verb: walk-through
 perlocution: none
 view: synchronic
-provenance: { type: function, id: doc-system }
-audience: [contributor]
+provenance: { type: function, id: structuring }
+audience: [user]
 reader: H+M
 status: stable
 written-at: v3
@@ -31,6 +31,7 @@ Follow this when starting docs for a project, or a docs repo over several projec
      CHANGELOG.md            # account — frozen, append-only (diachronic)
    CONTRIBUTING.md           # mandate — the rules
    ```
+
 3. **Copy the starting genres** from `../write/forces/`: `orient` → `README.md`, `explain` → `docs/architecture.md`.
 4. **Set frontmatter** on each (`../write/frontmatter.md`): `force`, `perlocution`, `view`, `provenance`, `audience`, `reader`, `status`.
 
@@ -47,6 +48,7 @@ Follow this when starting docs for a project, or a docs repo over several projec
    archive/                        # diachronic — closed records, frozen
    catalog/                        # indexes generated from frontmatters (do not hand-edit)
    ```
+
 3. **Add each project as a pinned submodule** under `projects/` — `git submodule add <url>` then commit the pin. The pin is the fixity bond; never replace it with a copy or a moving link.
 4. **Reference, never duplicate:** a function page cites the project's exact state via its submodule pin (`pin:` in frontmatter), it does not copy the content.
 
