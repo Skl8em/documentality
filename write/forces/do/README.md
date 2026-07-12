@@ -4,8 +4,8 @@ force: explain
 verb: illuminate
 perlocution: model
 view: synchronic
-provenance: { type: function, id: doc-system }
-audience: [contributor]
+provenance: { type: function, id: writing }
+audience: [user]
 reader: H+M
 status: stable
 written-at: v3

@@ -4,7 +4,7 @@ force: decide
 verb: justify
 perlocution: convince
 view: diachronic
-provenance: { type: project, id: <project-id> }
+provenance: { type: project, id: <phase-or-project-id> }
 audience: [decider, contributor]
 reader: H+M
 distance: near
@@ -16,22 +16,26 @@ superseded-by: null
 ---
 
 <!--
-TEMPLATE — force `decide` (verb: justify). Stance: ./README.md
-Stake: the REASONING, not the verdict. Write for a reader who does not yet agree.
-Dated-fixed: NEVER edit to reflect a later choice; a superseding decision is a NEW ADR.
+TEMPLATE — force `decide` (three faces: enact / justify / entail). Stance: ./README.md
+- enact: the one-line act belongs in the central register (e.g. docs/ADR.md), not here.
+- justify (this record, backward): motivate from context + options. Write for a reader who
+  does not yet agree. Fail = record the verdict, discard the reasoning.
+- entail (this record, forward): unfold what the decision changes/commits/requires. Write it
+  as defeasible (the future does not accumulate). Fail = leave implications implicit.
+Dated-fixed: NEVER edit to reflect a later choice; a superseding decision is a NEW record.
 -->
 
 ## Status
 
 <proposed | accepted | superseded by ADR-YYY> — Date: YYYY-MM-DD
 
-## Context and forces in play
+## Context and forces in play *(justify — backward)*
 
-<The situation and the constraints that bear on it. The tensions to arbitrate.>
+<The situation, the constraints, the tensions to arbitrate.>
 
 ## Options considered
 
-<Options GENUINELY considered, treated fairly. Without them this is an assertion, not a justification.>
+<The options GENUINELY considered, treated fairly. Without them this is an assertion, not a justification.>
 
 - **Option A:** … — consequences: …
 - **Option B:** … — consequences: …
@@ -40,6 +44,7 @@ Dated-fixed: NEVER edit to reflect a later choice; a superseding decision is a N
 
 <The choice, in one line. Then: why this one rather than the others.>
 
-## Consequences accepted
+## Entail — what follows *(forward)*
 
-<What this choice implies, including the UNWELCOME consequences you accept.>
+<What the decision changes, commits us to, and requires going forward. Name the downstream
+`mandate`/`commit`/`instruct` it spawns, or the `propose` it reopens. Write as projection, not proof.>

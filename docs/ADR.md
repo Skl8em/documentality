@@ -31,5 +31,6 @@ Append-only: a row is never edited. A superseding decision is a new row and a ne
 | [010](phases/phase-04-disentanglement/ADR-010-product-vs-docs.md) | Disentangle product (users) from `docs/` (contributors) | 04-disentanglement | 2026-07-11 | accepted |
 | [011](phases/phase-05-records-governance/ADR-011-entail-face.md) | `decide` gains a forward `entail` face (act / justify / entail) | 05-records-governance | 2026-07-12 | accepted |
 | [012](phases/phase-05-records-governance/ADR-012-decisions-by-phase.md) | Group decision records by phase; `steering` function; this register | 05-records-governance | 2026-07-12 | accepted |
+| [013](phases/phase-05-records-governance/ADR-013-open-pairings.md) | force × perlocution pairings are open defaults, not a constraint | 05-records-governance | 2026-07-12 | accepted |
 
 To add a decision: append a row here, and write its full record (context + `justify` + `entail`) in the current phase folder.

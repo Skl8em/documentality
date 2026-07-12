@@ -16,3 +16,4 @@ Fixed how the system records its *own* construction. Decision records were being
 
 - [ADR-011 — `decide` gains an `entail` face](ADR-011-entail-face.md)
 - [ADR-012 — group decisions by phase; `steering`; the register](ADR-012-decisions-by-phase.md)
+- [ADR-013 — force × perlocution pairings are open, not constrained](ADR-013-open-pairings.md)
