@@ -85,7 +85,7 @@ To **know** is to make words answer to the world. These stances represent what i
 
 ## II. Doing — the directive and commissive register (world-to-word)
 
-To **do** is to ask the world to be made to match the words. These stances create obligation — on the reader, on the writer, or on both — and their shared temptation is vagueness, because precise obligation is uncomfortable to write.
+To **do** is to ask the world to be made to match the words. These stances create obligation — on the reader, on the writer, or on both — and their shared temptation is vagueness, because precise obligation is uncomfortable to write. Between the stance that only shows the way (*instruct*) and the one that binds (*mandate*) lies a third, advisory one — **recommend**: it urges a preferred way *without* obligation, *should* rather than *must*, as a style guide or a coding guideline does. The parent treats it as a worked example of how the repertoire extends; it is named here so the register reads whole.
 
 ### Instruct
 
@@ -133,11 +133,11 @@ To **do** is to ask the world to be made to match the words. These stances creat
 
 To **govern** is to institute a fact by the authority of the record: the act changes reality by being issued. In the organizational world these are the decisions, sign-offs, and resolutions — the acts that the archival system must later keep, and the same *govern* that names the archive's half of *The Documentary System*: what is governed here is what is kept there. It is a marked register, self-guaranteeing, and — for now — thinly populated.
 
-### Decide *(suasive: justify)*
+### Decide *(suasive: justify + entail)*
 
-- **Generative verb:** *justify.*
-- **At stake:** the reasoning, not the verdict. The decision itself is a single line; the entire value of the document is the record of *why*, because that is what a future reader — including the author — will need when the context has been forgotten and the decision is questioned.
-- **Move structure:** state the context and the forces in play → lay out the options that were genuinely considered → record the decision → record the consequences accepted, including the ones that are unwelcome. The reasoning is written to be read by someone who does not yet agree.
+- **Generative verbs:** *justify* and *entail.* A decision has two faces. **Justify** records why it was right against the alternatives — its backward face, written to be read by someone who does not yet agree. **Entail** unrolls what it now commits — the consequences, constraints, and downstream obligations it sets in motion — its forward face, which reaches into the genre system and engenders the mandates and tasks that follow. A record that justifies but does not entail leaves the reader knowing *why* but not *what now*.
+- **At stake:** the reasoning and what follows from it, not the verdict. The decision itself is a single line; the value of the document is the record of *why* (so a future reader — including the author — can reopen it once the context is forgotten) and of *what it now commits* (so they can trace what depends on it).
+- **Move structure:** state the context and the forces in play → lay out the options that were genuinely considered → record the decision → **entail** its consequences: unroll what it now requires and forecloses, including the unwelcome, and the downstream acts it engenders.
 - **Failure mode:** recording the verdict and discarding the reasoning — the decision log that says *what* was chosen and is therefore useless the moment anyone asks *why*. A decision record without its rejected options is an assertion, not a justification.
 - **Special property:** a decision is *dated-fixed* by nature. It is the record of a moment of choice and must not be edited to reflect a later one; a superseding decision is a new record. To rewrite it is to erase the organization's memory of how it once reasoned. (This is the diachronic pole of the state–change seam that *The Documentary System* develops.)
 - **Genres:** architecture decision record, committee minutes, sign-off, formal approval, resolution.
