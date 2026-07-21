@@ -20,4 +20,5 @@ The system was built in **phases**, each a bounded effort that closed. A phase i
 | [02 — theory](phase-02-theory/README.md) | perlocution, recommend, drop diataxis, verb | ADR-002…005 |
 | [03 — reorganization](phase-03-reorganization/README.md) | fractal tree, doors, axis declaration, teach, audience | ADR-006…009 |
 | [04 — disentanglement](phase-04-disentanglement/README.md) | product vs docs, scope axis, provenance by function | ADR-010 |
-| [05 — records & governance](phase-05-records-governance/README.md) | decisions by phase, steering, the `entail` face | ADR-011, ADR-012 |
+| [05 — records & governance](phase-05-records-governance/README.md) | decisions by phase, steering, the `entail` face, open pairings | ADR-011…013 |
+| [06 — refoundation & front-end](phase-06-refoundation/README.md) *(current)* | Ferraris refoundation; perlocution floor & cells; the front-end laid flat; source-vs-generated shelf; Phase-I scope | ADR-014…021 |
