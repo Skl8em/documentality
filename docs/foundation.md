@@ -10,28 +10,34 @@ audience: [contributor]
 reader: H+M
 status: draft
 phase: 06-refoundation
-note: "New (Ferraris-grounded) vocabulary; the frontmatter schema is reconciled in Phase 08–09."
+note: "New (Ferraris-grounded) vocabulary; the frontmatter schema is reconciled in Phase 09."
 ---
 
 This is the project laid flat: the front-end we skipped when we started, now written down so it structures the rest instead of living in a chat.
 It is the *structuring tutorial applied to ourselves* — its sections are that tutorial's steps.
 It rests on the refounded theory (the three revised essays: `The Inscribed Act`, `A Rhetoric of Organizational Genres`, `The Documentary System`, grounded on Ferraris's documentality — *object = inscribed act*).
 Where a claim below is a committed choice, it is marked **[decided]** and will be recorded as an ADR.
+**Scope: this foundation is Phase-I only.**
 
 ## 1. Intention — what we are building
 
-Two horizons.
+Two horizons, but we work on the first.
 
-- **Phase I — an operational system.** Guidance, templates, and a metadata schema that let someone *structure* and *write* a project's documentation according to the inscribed-act theory, legible to humans and to a machine.
-- **Phase II — a computational model.** The same system made machine-operational: AI instructions, hooks, validation and generation driven by the frontmatter.
-  The frontmatter therefore stops being a mere catalogue convenience and becomes **the machine interface** of the system. **[decided]**
+- **Phase I — an operational system.**
+  Guidance, templates, and a metadata schema that let someone *structure* and *write* a project's documentation according to the inscribed-act theory, legible to humans and to a machine.
+- **Phase II — a computational model** *(named, not yet planned)*.
+  Later, the system made machine-operational: AI instructions, hooks, validation and generation driven by the frontmatter.
+  We **restrict current work to Phase I** and design Phase II only once Phase I is complete — because Phase II brings a **new discourse community** (the AI's technical baggage) with its own functions, governance, and maintenance, so the whole front-end (this foundation, the structuring tutorial) will be **re-run** for it.
+  What Phase I commits is only that the frontmatter stay clean, complete, and machine-readable, so it *can* become that interface — not yet that it is one.
+  **[decided: Phase I keeps the catalogue machine-ready; Phase II is deferred and re-founded]**
 
 ## 2. Communities and audiences
 
 For *this* project the audience roles nearly collapse.
 `user` (documents their own project) and `contributor` (writes in this repo) are **one discourse community** — same code, same language; `decider` is us.
 A small project means a tight community.
-So the role split has little to arbitrate here. Two axes carry the real variation:
+So the role split has little to arbitrate here.
+Two axes carry the real variation:
 
 - **Distance — beginner vs initiated.**
   What actually differs between readers is familiarity with the *theory*: how much background, vocabulary, and concept must be spelled out.
@@ -39,10 +45,12 @@ So the role split has little to arbitrate here. Two axes carry the real variatio
   A beginner-facing document (a tutorial, an orient) explicates the concepts; an initiated-facing one (the rules, the schema) presumes them.
   **[decided]**
 - **Human vs machine — orthogonal.**
-   The machine is not a role.
-   It can occupy the *function* of `user` or `contributor` (it reads and it writes) but never `decider` (it does not set conventions).
-   "Being a machine" is a separate dimension — operationally a `reader: H|M` flag; in the theory, the recipient relation pushed to its limit (maximum distance + a quiet power).
-   **[decided]**
+  The machine is not a role.
+  It can occupy the *function* of `user` or `contributor` (it reads and it writes) but never `decider` (it does not set conventions).
+  "Being a machine" is a separate dimension — operationally a `reader: H|M` flag; in the theory, the recipient relation pushed to its limit (maximum distance + a quiet power).
+  **[decided]**
+
+*Phase II will add a genuinely new discourse community — the AI's technical baggage — with its own functions and governance; that is a Phase-II front-end, not this one.*
 
 ## 3. Functions — two faces
 
@@ -75,10 +83,11 @@ So: **[decided]**
 - **The source folder tree is the contributor/producer's shelf** — organized by our ways of working (provenance).
   One place per item.
 - **The user's reading surface is generated** from the catalogue, ordered by functions served.
-  It may re-order or break the source structure freely, because it is *derived*, not authoritative. Several surfaces are affordable.
-- **The catalogue (frontmatter) is the single pivot**: it generates the reader surfaces *and* it is the interface the Phase-II machine operates.
+  It may re-order or break the source structure freely, because it is *derived*, not authoritative.
+  Several surfaces are affordable.
+- **The catalogue (frontmatter) is the single pivot**: it generates the reader surfaces *and* (in Phase II) is the interface the machine will operate.
   The shelf insight and the computational intention are the same bet.
-- Because here contributor = user, the source shelf doubles as an acceptable reading surface *for now* — so surface generation is deferred to Phase II — but we stop contorting the folder tree to be the user's ideal browse order.
+- Because here contributor = user, the source shelf doubles as an acceptable reading surface *for now* — so surface generation is deferred — but we stop contorting the folder tree to be the user's ideal browse order.
 
 Consequence for our own tree: the earlier "scope axis (write/structure), dominant = user" (ADR-010) described a *generated user surface*, not the source.
 The **source** is organized for the **contributor** (producer); `write`/`structure` become the order of a generated view.
@@ -96,7 +105,9 @@ Each becomes an ADR in `phase-06`, several superseding older ones:
 - **Audience model for this project**: roles collapse; `distance` (beginner/initiated) is the live axis; human/machine orthogonal (supersedes ADR-006 for this project).
 - **Shelf**: source = producer shelf, reader surface = generated; catalogue is the pivot (refines ADR-010's scope/user axis).
 - **Restart strategy**: front-end first, principles acted now, physical reorg in Phase 08.
+- **Scope Phase I; defer and re-found Phase II.**
 
 ## 8. Where this leads
 
-The plan and named phases are in [`roadmap.md`](roadmap.md). This foundation is the reference the rest is built against; when it changes, the change is recorded, not silently overwritten.
+The plan and named phases are in [`roadmap.md`](roadmap.md).
+This foundation is the reference the rest is built against; when it changes, the change is recorded, not silently overwritten.
