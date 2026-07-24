@@ -9,14 +9,14 @@ distance: initiated
 audience: [contributor]
 reader: H+M
 status: draft
-phase: 06-refoundation
+phase: 07-structuring-tutorial
 note: "New (Ferraris-grounded) vocabulary; the frontmatter schema is reconciled in Phase 09."
 ---
 
 This is the project laid flat: the front-end we skipped when we started, now written down so it structures the rest instead of living in a chat.
-It is the *structuring tutorial applied to ourselves* — its sections are that tutorial's steps.
+It is the *structuring tutorial applied to ourselves* — its sections follow that tutorial's steps, in order.
 It rests on the refounded theory (the three revised essays: `The Inscribed Act`, `A Rhetoric of Organizational Genres`, `The Documentary System`, grounded on Ferraris's documentality — *object = inscribed act*).
-Where a claim below is a committed choice, it is marked **[decided]** and will be recorded as an ADR.
+Where a claim below is a committed choice, it is marked **[decided]** and is recorded as an ADR.
 **Scope: this foundation is Phase-I only.**
 
 ## 1. Intention — what we are building
@@ -27,44 +27,57 @@ Two horizons, but we work on the first.
   Guidance, templates, and a metadata schema that let someone *structure* and *write* a project's documentation according to the inscribed-act theory, legible to humans and to a machine.
 - **Phase II — a computational model** *(named, not yet planned)*.
   Later, the system made machine-operational: AI instructions, hooks, validation and generation driven by the frontmatter.
-  We **restrict current work to Phase I** and design Phase II only once Phase I is complete — because Phase II brings a **new discourse community** (the AI's technical baggage) with its own functions, governance, and maintenance, so the whole front-end (this foundation, the structuring tutorial) will be **re-run** for it.
+  We **restrict current work to Phase I** and design Phase II only once Phase I is complete — because Phase II adds a new function that mobilizes a **new body of knowledge** (LLM and agent tooling), and so a **new discourse community** with its own functions, governance, and maintenance, for which the whole front-end will be **re-run**.
   What Phase I commits is only that the frontmatter stay clean, complete, and machine-readable, so it *can* become that interface — not yet that it is one.
   **[decided: Phase I keeps the catalogue machine-ready; Phase II is deferred and re-founded]**
 
-## 2. Communities and audiences
+## 2. Functions — what the project touches
 
-For *this* project the audience roles nearly collapse.
-`user` (documents their own project) and `contributor` (writes in this repo) are **one discourse community** — same code, same language; `decider` is us.
-A small project means a tight community.
-So the role split has little to arbitrate here.
+Functions come first, because who reads and what they must be told is *derived* from them, not the reverse.
+
+Two faces of "function" matter, and they are not the same.
+
+- **What the project touches, and the knowledge it mobilizes.**
+  This project touches the *documentation theory* (philosophy of language, archival science, information architecture), the *practice of writing* documents (the forces and their moves), the *practice of structuring* a corpus (topology, provenance, life cycle), and light *tooling* (Markdown, git).
+  The knowledge these mobilize is essentially one: the inscribed-act theory, plus ordinary Markdown and git.
+  That near-single domain is *why* our communities collapse below — a derived fact, not an assumption.
+- **The producer's ways of working** (which order the source by provenance): maintaining the theory/foundation, authoring the writing guidance, authoring the structuring guidance, onboarding, and steering.
+
+The refoundation is explicit that both mirror "function," but not the same one: the reader's surface mirrors the *functions served* to whoever meets the project; the source mirrors the *producer's ways of working* (Conway = respect des fonds), the stable activities rather than any org chart.
+
+## 3. Communities and audiences — derived from the functions
+
+Because our functions sit in essentially one domain, the audiences nearly collapse.
+`user` (documents their own project) and `contributor` (writes in this repo) are **one discourse community** — the same code, the same language — and `decider` is us.
+The role split therefore has little to arbitrate here; that is a *result* of §2, not a starting assumption.
 Two axes carry the real variation:
 
-- **Distance — beginner vs initiated.**
-  What actually differs between readers is familiarity with the *theory*: how much background, vocabulary, and concept must be spelled out.
-  This is the theory's `distance` coordinate (shared code), not a role.
-  A beginner-facing document (a tutorial, an orient) explicates the concepts; an initiated-facing one (the rules, the schema) presumes them.
+- **Distance — per community, here novice vs initiated in the theory.**
+  In general `distance` is per discourse community: a reader can be initiated in one aspect's field and a novice in another, and a project may reasonably address the initiated of a domain rather than teach it from scratch.
+  Our project has essentially one field — the theory — so distance reduces to *how much of the theory a reader already holds*.
+  A beginner-facing document (the tutorials, an orient) spells the concepts out; an initiated-facing one (the rules, the schema) presumes them.
   **[decided]**
 - **Human vs machine — orthogonal.**
   The machine is not a role.
   It can occupy the *function* of `user` or `contributor` (it reads and it writes) but never `decider` (it does not set conventions).
-  "Being a machine" is a separate dimension — operationally a `reader: H|M` flag; in the theory, the recipient relation pushed to its limit (maximum distance + a quiet power).
+  "Being a machine" is a separate dimension — operationally a `reader: H|M` flag; in the theory, the recipient relation pushed to its limit (maximum distance and a quiet power).
   **[decided]**
 
-*Phase II will add a genuinely new discourse community — the AI's technical baggage — with its own functions and governance; that is a Phase-II front-end, not this one.*
+## 4. Provenance — and why there is no function-versus-provenance tension
 
-## 3. Functions — two faces
+A **function is one of the two types of provenance**, so "by function" and "by provenance" are not rival axes; the source is shelved by provenance, full stop.
 
-- **Functions served to the reader** (the *communication* face): *write a document* and *structure a corpus* — the two things a user does.
-  These order the reader's surface.
-- **The producer's ways of working** (the *archival* face): how we build and maintain the system — the foundation we depend on, the product we author, the governance we keep.
-  These order provenance, and therefore the source.
+- **Function** — a permanent responsibility (maintaining the theory, the writing guidance, the structuring guidance, onboarding, steering).
+  It does not end.
+- **Project** — a bounded effort (a construction phase).
+  It closes.
 
-The refoundation is explicit that both mirror "function," but not the same one: the reader's surface mirrors *functions served*; the archive/source mirrors the *producer's ways of working* (Conway = respect des fonds), stable functions rather than the org chart.
+The relation to `view` is real but asymmetric.
+`synchronic ⇒ function`: only a permanent responsibility is kept current, so a maintained state always belongs to a function.
+`diachronic ⇏ project`: a frozen record belongs to *whatever produced it* — a bounded project, **or** a function's own stream of frozen changes (our `CHANGELOG` is `diachronic` and `provenance: steering`, a function).
 
-## 4. Provenance
-
-- **Functions** (permanent responsibilities, synchronic, maintained): the theory/foundation, the writing guidance, the structuring guidance, onboarding, steering.
-- **Projects / phases** (bounded, diachronic, frozen): each construction effort, including this refoundation (`phase-06`). Records belong to their phase.
+The groupings are **mutable**: functions and provenance alike are refined or coarsened as understanding matures.
+We keep the provenance log coarse with three **eras** — *naive sketch* (phases 01–05), *refoundation* (06–09), *phase II* (later) — each nesting its micro-phases, because a coarse map reads better than twenty microscopic records.
 
 ## 5. Scale
 
@@ -74,38 +87,37 @@ We are past the degree-zero single README but nowhere near needing deep sub-bran
 The rule (System §4) is to **deepen only as complexity compels** — add a scale when a team, a function, or a process multiplies — and not before.
 We resist the failure of "setting up documentation properly" three scales too high.
 
-## 6. Shelf — source vs. generated surface (the key architectural decision)
+## 6. Shelf — source vs. generated surface
 
 Before computing, the folder tree *was* the reader's shelf; the two could not be separated.
 They can now, and the theory says so: the **shelf** gives each item one place; the **catalogue** (the frontmatter) exists to *generate* readable surfaces.
 So: **[decided]**
 
-- **The source folder tree is the contributor/producer's shelf** — organized by our ways of working (provenance).
+- **The source folder tree is the contributor/producer's shelf** — organized by provenance (§4).
   One place per item.
-- **The user's reading surface is generated** from the catalogue, ordered by functions served.
+- **The user's reading surface is generated** from the catalogue, ordered by the functions served.
   It may re-order or break the source structure freely, because it is *derived*, not authoritative.
   Several surfaces are affordable.
 - **The catalogue (frontmatter) is the single pivot**: it generates the reader surfaces *and* (in Phase II) is the interface the machine will operate.
-  The shelf insight and the computational intention are the same bet.
-- Because here contributor = user, the source shelf doubles as an acceptable reading surface *for now* — so surface generation is deferred — but we stop contorting the folder tree to be the user's ideal browse order.
+- The one place a tension could arise is source (provenance) versus surface (functions served); it is dissolved by generation, since we hand-maintain only the source and derive the surface — never a second tree by hand.
+- Because here contributor = user, the source shelf doubles as an acceptable reading surface *for now*, so surface generation is deferred — but we stop contorting the folder tree to please a reader who is not here yet.
 
-Consequence for our own tree: the earlier "scope axis (write/structure), dominant = user" (ADR-010) described a *generated user surface*, not the source.
+Consequence for our own tree: the earlier "scope axis (write/structure), dominant = user" (ADR-010) described a *generated surface*, not the source.
 The **source** is organized for the **contributor** (producer); `write`/`structure` become the order of a generated view.
-Per approach, we **act this principle now and move files in Phase 08**, keeping the current tree meanwhile.
+Per approach (a), we **act this principle now and move files in Phase 08**, keeping the current tree meanwhile.
 **[decided]**
 
-## 7. Founding decisions to record
+## 7. Founding decisions on record
 
-Each becomes an ADR in `phase-06`, several superseding older ones:
+Recorded as ADRs, several superseding or refining older ones:
 
-- Adopt the **Ferraris-grounded refoundation** of the theory (supersedes the v1–v3 theory basis).
-- **Perlocution has no zero**: a constitutive floor + an intention (formative / suasive / affective); forces are **recognized cells** (direction-of-fit × intention), not primitives (supersedes ADR-002's `formative` boolean and reframes ADR-013's open pairings as a *consequence*, not a relaxed rule).
-- **know / do / govern** is a gloss over the three active direction-of-fit families; `govern` is marked, not a third primitive.
-- **recommend** and **entail** are worked examples of the extension method, not core categories.
-- **Audience model for this project**: roles collapse; `distance` (beginner/initiated) is the live axis; human/machine orthogonal (supersedes ADR-006 for this project).
-- **Shelf**: source = producer shelf, reader surface = generated; catalogue is the pivot (refines ADR-010's scope/user axis).
-- **Restart strategy**: front-end first, principles acted now, physical reorg in Phase 08.
-- **Scope Phase I; defer and re-found Phase II.**
+- Adopt the **Ferraris-grounded refoundation** of the theory (ADR-014; supersedes the v1–v3 basis).
+- **Perlocution has no zero**: a constitutive floor + an intention (formative / suasive / affective); forces are **recognized cells**, not primitives (ADR-015; supersedes ADR-002).
+- **know / do / govern** is a gloss; `recommend` and `entail` are extension examples (ADR-016).
+- **Audience derived from functions**: functions first, communities and per-community `distance` derived; human/machine orthogonal (ADR-017, ADR-022).
+- **Shelf**: source = producer shelf by provenance, reader surface = generated; a function *is* a provenance; `synchronic ⇒ function` (ADR-018, refines ADR-010; ADR-022).
+- **Groupings are mutable**; three eras over the micro-phases (ADR-022).
+- **Restart strategy (a)**; **scope Phase I; defer and re-found Phase II** (ADR-019, ADR-020).
 
 ## 8. Where this leads
 

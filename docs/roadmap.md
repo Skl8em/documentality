@@ -19,9 +19,9 @@ Phases 01–05 are past and recorded in [`phases/`](phases/README.md); this road
 
 | Phase | Aim | Outputs |
 |---|---|---|
-| **06 — Refoundation & front-end** *(current)* | Absorb the Ferraris-grounded theory; lay the foundation flat; name the plan; record the founding decisions. | `foundation.md`, this roadmap, phase-06 ADRs |
-| **07 — Structuring tutorial, authored & applied** | Write the generic *structuring* teach (the step list of `foundation.md`) and finish applying it to ourselves. | `structuring` tutorial; any missing founding maps |
-| **08 — Refactor product & source to the refounded vocabulary** | Perlocution = floor + intention; forces = recognized cells; know/do/govern as register gloss; recommend/entail as extensions; machine as recipient-at-limit. Move files so the **source = producer shelf** (the reorg deferred from approach (a)); migrate the nine `_legacy/` forces; retire `_legacy/`. | refactored `write/` + `structure/`; producer-organized tree |
+| **06 — Refoundation & front-end** *(done)* | Absorb the Ferraris-grounded theory; lay the foundation flat; name the plan; record the founding decisions. | `foundation.md`, this roadmap, phase-06 ADRs (014–021) |
+| **07 — Structuring tutorial & front-end correction** *(current)* | Write the generic *structuring* teach functions-first; correct the front-end it exposed (functions-first, distance per community, eras). | `structure/tutorial.md`; reconciled `foundation.md`; ADR-022 |
+| **08 — Refactor product & source to the refounded vocabulary** *(planned)* | Perlocution = floor + intention; forces = recognized cells; know/do/govern as register gloss; recommend/entail as extensions; machine as recipient-at-limit. Move files so the **source = producer shelf** (the reorg deferred from approach (a)); migrate the nine `_legacy/` forces; retire `_legacy/`. | refactored `write/` + `structure/`; producer-organized tree |
 | **09 — Reconcile governance & the frontmatter schema** | Reconcile the schema (fields, allowed values, validation) to the refounded model; realign `docs/` records. Keep the catalogue clean and machine-ready — this *prepares* Phase II without committing it. | schema spec; validation rules |
 | **10 — Design of Phase II** | Phase I complete: **re-run the structuring front-end** for the incoming AI discourse community — its communities, functions, governance, maintenance — and produce the Phase II plan. Design, not execution. | a Phase-II `foundation` + `roadmap` |
 

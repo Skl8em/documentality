@@ -40,5 +40,6 @@ Append-only: a row is never edited. A superseding decision is a new row and a ne
 | [019](phases/phase-06-refoundation/ADR-019-restart.md) | Restart strategy: front-end first, principles now, reorg in Phase 08 | 06-refoundation | 2026-07-21 | accepted |
 | [020](phases/phase-06-refoundation/ADR-020-scope-phase-i.md) | Scope Phase I; defer and re-found Phase II | 06-refoundation | 2026-07-21 | accepted |
 | [021](phases/phase-06-refoundation/ADR-021-line-breaks.md) | Semantic line breaks (one sentence per line) in Markdown source | 06-refoundation | 2026-07-21 | accepted |
+| [022](phases/phase-07-structuring-tutorial/ADR-022-functions-first.md) | Front-end correction: functions first, distance per community, mutable groupings & eras | 07-structuring-tutorial | 2026-07-21 | accepted |
 
 To add a decision: append a row here, and write its full record (context + `justify` + `entail`) in the current phase folder.
