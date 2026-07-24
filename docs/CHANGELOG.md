@@ -15,6 +15,24 @@ valid-for: v3
 
 History of the documentation system itself. Append-only; each entry is dated-fixed. Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](phases/README.md) folder.
 
+## [v4.0-alpha.1] — front-end correction (Phase 07)
+
+- **Changed:** the front-end is derived **functions-first** — a project's functions are laid flat, and its communities and their `distance` are derived from them, not assumed. (ADR-022; refines ADR-017)
+- **Changed:** `distance` is **per discourse community** (per domain), not a single beginner/initiated axis.
+- **Clarified:** a function *is* a provenance type — no function-vs-provenance tension; `synchronic ⇒ function`, `diachronic ⇒ its producer` (a project or a function's change-stream).
+- **Added:** groupings are mutable; the phase log is grouped into three **eras** (naive sketch 01–05, refoundation 06–09, phase II later).
+- **Changed:** the structuring tutorial (`structure/tutorial.md`) rewritten functions-first, now reaching placement; `foundation.md` reconciled.
+
+## [v4.0-alpha] — refoundation & front-end (Phase 06)
+
+- **Changed:** the theory is refounded on Ferraris's documentality; the three revised essays are the new basis (supersedes the v1–v3 basis). (ADR-014)
+- **Changed:** perlocution has no zero — a constitutive floor plus an intention (formative/suasive/affective); forces are recognized cells, not primitives. (ADR-015; supersedes ADR-002)
+- **Changed:** know/do/govern reframed as a register gloss; recommend & entail as extension-method examples. (ADR-016)
+- **Changed:** audience for this project — roles collapse, `distance` (beginner/initiated) is the live axis, human/machine orthogonal. (ADR-017; supersedes ADR-006 for this project)
+- **Decided:** source folder = producer's shelf; the reader surface is generated from the catalogue; the catalogue is the single pivot. (ADR-018; refines ADR-010)
+- **Added:** the front-end laid flat — `foundation.md` and `roadmap.md` — and the restart strategy, Phase-I scope, and semantic line breaks. (ADR-019, ADR-020, ADR-021)
+- **Note:** this is a refoundation in progress; the product refactors to the new vocabulary in Phase 08, the schema in Phase 09.
+
 ## [v3.2] — records & governance
 
 - **Changed:** decision records regrouped **by phase** (`docs/phases/`) instead of a flat `decisions/` pile — provenance filing, not force filing. (ADR-012)

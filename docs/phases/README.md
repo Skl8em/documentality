@@ -1,18 +1,27 @@
 ---
-title: "Construction phases"
+title: "Construction phases, grouped into eras"
 force: orient
-verb: situate
-perlocution: locate
+register: know
+intention: locate
 view: synchronic
 provenance: { type: function, id: steering }
+distance: initiated
 audience: [contributor, decider]
 reader: H+M
 status: stable
-written-at: v3
-valid-for: v3
 ---
 
-The system was built in **phases**, each a bounded effort that closed. A phase is a `project` (frozen provenance), and it holds the records it produced — its decisions (with their `justify` and `entail`), and any proposals or accounts — **together**, because they are traces of one activity. To understand *why the system is shaped as it is*, read a phase end to end; do not reassemble scattered decisions. The one-line act of each decision is in the register, [`../ADR.md`](../ADR.md).
+The system was built in **phases**, each a bounded effort that closed, holding the records it produced — its decisions (with their `justify` and `entail`), and any proposals or accounts — together, because they are traces of one activity.
+To understand *why the system is shaped as it is*, read a phase end to end; do not reassemble scattered decisions.
+The one-line act of each decision is in the register, [`../ADR.md`](../ADR.md).
+
+Phases are grouped into three coarse **eras**, because a coarse map reads far better than twenty microscopic records (ADR-022).
+The era is the orient of the record; the micro-phases are the detail beneath it.
+Physical era-folders wait for Phase 08; for now the eras are this map.
+
+## Era 1 — Naive sketch *(closed)*
+
+The first version, built before the theory was refounded and before the front-end was ever laid flat.
 
 | Phase | What it settled | Records |
 |---|---|---|
@@ -21,4 +30,19 @@ The system was built in **phases**, each a bounded effort that closed. A phase i
 | [03 — reorganization](phase-03-reorganization/README.md) | fractal tree, doors, axis declaration, teach, audience | ADR-006…009 |
 | [04 — disentanglement](phase-04-disentanglement/README.md) | product vs docs, scope axis, provenance by function | ADR-010 |
 | [05 — records & governance](phase-05-records-governance/README.md) | decisions by phase, steering, the `entail` face, open pairings | ADR-011…013 |
-| [06 — refoundation & front-end](phase-06-refoundation/README.md) *(current)* | Ferraris refoundation; perlocution floor & cells; the front-end laid flat; source-vs-generated shelf; Phase-I scope | ADR-014…021 |
+
+## Era 2 — Refoundation *(current)*
+
+Regrounding the theory on Ferraris and, at last, laying the front-end flat.
+
+| Phase | What it settled | Records |
+|---|---|---|
+| [06 — refoundation & front-end](phase-06-refoundation/README.md) *(done)* | Ferraris refoundation; perlocution floor & cells; the front-end; source-vs-generated shelf; Phase-I scope | ADR-014…021 |
+| [07 — structuring tutorial & front-end correction](phase-07-structuring-tutorial/README.md) *(current)* | functions-first; distance per community; mutable groupings & eras | ADR-022 |
+| 08 — refactor product & source *(planned)* | refactor to the refounded vocabulary; move the source to the producer shelf | — |
+| 09 — reconcile schema *(planned)* | the frontmatter schema as the machine-ready catalogue | — |
+
+## Era 3 — Phase II *(later)*
+
+The computational model — designed only once Phase I closes, for the new discourse community it brings.
+Not yet begun (roadmap Phase 10 onward).
