@@ -7,10 +7,13 @@ view: synchronic
 provenance: { type: function, id: structuring }
 audience: [user]
 reader: H+M
-status: stable
+status: deprecated
 written-at: v3
 valid-for: v3
+note: "Pre-refoundation (v3) self-reading. Superseded by phases/phase-07-structuring-tutorial/self-application.md; physical retirement is Phase 08."
 ---
+
+> **Deprecated (v3, pre-refoundation).** Superseded by [`../phases/phase-07-structuring-tutorial/self-application.md`](../phases/phase-07-structuring-tutorial/self-application.md). Kept for the record until Phase 08 retires it; the vocabulary below (perlocution, dominant-community by scope) predates the Ferraris refoundation.
 
 The best proof of the model is that this repository *is* an instance of it. This document reads our own tree as an example, then shows how a generic IT project would instantiate the same shape — so you can see the theory lived, not just described.
 

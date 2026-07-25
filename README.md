@@ -4,9 +4,9 @@ force: orient
 verb: situate
 perlocution: locate
 view: synchronic
-provenance: { type: function, id: onboarding }
-axis: scope            # the product's shelf axis: write/ = one document · structure/ = the whole corpus
-dominant-community: user
+provenance: { type: function, id: steering }
+axis: provenance       # the source is the producer's shelf: one folder per function (theory/ write/ structure/ steering/ imagine/) + phases/
+dominant-community: contributor
 audience: [user, contributor]
 reader: H+M
 status: stable
@@ -16,27 +16,42 @@ valid-for: v3
 
 This repository is a **system for writing, structuring, and keeping project documentation** — a product you read to learn how to document *your own* project. It is written according to its own rules, so its file tree is the first worked example of the theory. Every file declares its **force** in its frontmatter; this page is an `orient`, so its only job is to situate you and route you onward.
 
-**New here?** Start with the guided [`tutorial.md`](tutorial.md) — you'll write your first real document in about ten minutes and meet the pieces in context. Come back here once you know what you need; this page routes by need, not as a course to read in order.
+**New here?** 
+
+You want to read if this approach would make sense to you>
+Go to `structure/*to be defined*`
+You start with your project and want to write the first documentation?
+Go to [writing tutorial`](writing/tutorial.md)
+You wand to sort your new or existing documentation and want to create a structure for it?
+Start with the [Structure Tutorial](structure/tutorial.md).
+Already have a document in mind but don't know where to start?
+Go to ...
+
+Come back here once you know what you need; this page routes by need, not as a course to read in order.
 
 ## The one idea
 
 A document is not a container of information sorted by subject. It is an **act** performed from a definite position — *what* it does (its force) and *toward whom* (its audience, at some distance and power) — and made to live through time. Name the act correctly and the form follows; misname it and no polish recovers the wrong centre of gravity.
 
-## What's in here — the product, and the project's own docs
+## What's in here — one folder per function
 
-Two things live side by side, and keeping them apart is itself the theory working (two sub-trees, two dominant communities):
+The source is the **producer's shelf**: each top-level folder is a standing **function** (a provenance), and the user-facing reading order is *generated* from the frontmatter rather than hand-kept as a folder.
 
-- **The product** — for **you, the user**, documenting your own project:
-  - **[`write/`](write/README.md)** — how to write *one document*: find its force, follow the move structure, apply the readability patterns. Holds the **frontmatter** schema (you fill it while writing) and one folder per force, grouped by the three doors.
-  - **[`structure/`](structure/README.md)** — how to keep *the whole corpus*: topology, provenance, life cycle, export, and the **audience model** ([`structure/audience.md`](structure/audience.md)) both halves reference.
-- **[`docs/`](docs/README.md)** — the documentation of *this repository itself*, for **contributors and deciders** who maintain and extend the system: its architecture, contribution rules, changelog, and the decision records (ADRs) behind every design choice. Different readers, different dominant community — so it is a tree of its own.
+- `theory/` — the inscribed-act theory the product rests on (the three essays + readability patterns).
+- **[`write/`](write/README.md)** — how to write *one document*: its force, move structure, readability patterns, and the **frontmatter** schema; one folder per force, grouped by the three doors.
+- **[`structure/`](structure/README.md)** — how to keep *the whole corpus*: topology, provenance, life cycle, the **audience model** ([`structure/audience.md`](structure/audience.md)), and the structuring tutorial.
+- **[`steering/`](steering/README.md)** — the project's own governance: foundation, roadmap, architecture, contribution rules, changelog, and the decision register (ADRs).
+- **[`imagine/`](imagine/README.md)** — what is only *intended* yet (Phase II), parked so it is neither lost nor mistaken for current work.
+- **[`phases/`](phases/README.md)** — the frozen records of each construction phase (a `project` provenance), grouped by era.
+
+Keeping the *product* (`write/`, `structure/`) legible to a **user** and the project's *own* governance (`steering/`, `phases/`) legible to a **contributor** is the theory working — but both are shelved the same way, by the function that maintains them; the two reading orders are generated, not two hand-kept trees.
 
 ## How this tree is organized
 
-*(This section is the axis-and-dominant-community declaration that `structure/rules.md` requires every tree to carry at its root — you are reading it. It always lives in the root README, so that is where to look for any project. `docs/` is a nested tree and carries its own declaration.)*
+*(This is the axis-and-dominant-community declaration that `structure/rules.md` requires a tree root to carry — you are reading it, and it lives in the root README.)*
 
-- **Axis: by scope.** The product splits into `write/` (everything about producing *one document*) and `structure/` (everything about the *whole corpus*). Inside `write/forces/` the sub-axis is **by door** (know / do / govern-and-record).
-- **Dominant community: `user`** — someone using the system to document their own project. The product's shelf is ordered for them. Contributors and deciders who maintain the system itself are served by `docs/`, whose dominant community is `contributor`.
+- **Axis: by provenance.** The source is shelved by the **function** that produces and maintains each area (`theory`, `writing`, `structuring`, `steering`, `imagine`), plus the bounded `project` records under `phases/`. Inside `write/forces/` the sub-axis is **by door** (know / do / govern-and-record).
+- **Dominant community: `contributor`** — the shelf is ordered for whoever writes and maintains the docs, their first reader. The `user`'s reading order is *generated* from the frontmatter, not carved into this tree.
 
 ## The three doors (how the forces group)
 

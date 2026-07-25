@@ -30,7 +30,7 @@ I kept it in the list because the spec is explicit about it, but flag now that "
 ## Step 2 — Who performs each, and their distance
 
 | Activity | Person (role) | Distance |
-| --- | --- | --- |
+|---|---|---|
 | 1. Use the product | **Documenter** — someone with their own project to document | Novice in the theory's vocabulary and jargon (by design, should not need it); distance in their own project domain is theirs, not the product's concern |
 | 2. Learn on first contact | **Newcomer** — a first-time reader deciding whether this fits, doing the tutorial once | Novice in the theory; novice, or at best casually initiated, in documentation-structuring practice generally. This is literally the role I am occupying right now. |
 | 3. Extend the theory | **Theorist** (= the maintainer, one person, in this project's current state) | Deeply initiated — they wrote the essays |
@@ -46,7 +46,7 @@ That is true today (small project, one maintainer) but it means five different d
 Nothing in the tutorial tells you what to do when the same person is asked to hold five distances at once — I had to invent the "different hat" framing myself to keep the activities from blurring back together.
 
 ## Step 3 — What each person needs, and in what order
-l
+
 | Activity × person | First need | Then | Order rationale |
 |---|---|---|---|
 | Documenter (use) | **Do** — a template to follow for the document they're writing right now | **Know** — the metadata schema, when frontmatter is due | Task-shaped: they came in with a document to produce, not a question about foundations |

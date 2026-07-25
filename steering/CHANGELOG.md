@@ -13,7 +13,27 @@ written-at: v3
 valid-for: v3
 ---
 
-History of the documentation system itself. Append-only; each entry is dated-fixed. Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](phases/README.md) folder.
+History of the documentation system itself. Append-only; each entry is dated-fixed. Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
+
+## [v4.0-alpha.3] — provenance shelf: dissolve `docs/` (Phase 08)
+
+- **Changed:** the source is now shelved **provenance-first** — the generic `docs/` bucket is dissolved into `steering/` (governance) and root `phases/` (frozen records), and `imagine/` is added at root (Phase II, parked). One folder per function: `theory/` `write/` `structure/` `steering/` `imagine/`, plus `phases/`.
+- **Changed:** the root axis declaration moves from `scope` (dominant `user`) to `provenance` (dominant `contributor`); the root `README` provenance is `steering` — `onboarding` is a *served* reading order, not a producer function.
+- **Note:** references updated across the live docs (root `README`, `steering/ARCHITECTURE`, `steering/README`, `CONTRIBUTING`, `write/**` pointers, `foundation`, `roadmap`); frozen ADR records and historical changelog entries are left as-is. The refounded vocabulary in the v3 files and the `_legacy/` migration remain the rest of Phase 08.
+
+## [v4.0-alpha.2] — tutorial rewrite from the blind test (Phase 07)
+
+- **Added:** a blind test — a fresh agent followed the tutorial on this project and on `weft` (external), each with an adversarial review; artifacts kept under `phases/phase-07-structuring-tutorial/blind-test/`. (ADR-023)
+- **Changed:** a **function** is now an activity *of relevance* (importance), not a *recurring* one — admitting one-off-but-central, once-per-person, and defensive activities. (ADR-023)
+- **Added:** the **fractal method** made explicit — coarse-first, ~3–7 per level, group past 7, refine on intolerable gaps, see-your-holes — with an explicit licence to leave the path; the tutorial no longer pretends to be deterministic. (ADR-023)
+- **Changed:** the source tree is organized **for the author** (first reader), not "the user"; the generated reader surface is deferred to a planned frontmatter tutorial. (ADR-023)
+- **Added:** **`imagine`** as a first-class activity, homing intended/future (Phase-II-shaped) work. (ADR-023)
+- **Added:** worked examples via the **conventional repo documents** (README, INSTALL, CONTRIBUTING, LICENSE, ARCHITECTURE, CHANGELOG, ADR) — named, classified, placed — plus two/three valid trees and a fractal folder rule; two entry-states (greenfield / existing-audit). (ADR-023)
+- **Changed:** the neutral blind-test spec (`self-spec.md`) revised to close the state gaps the reviews surfaced, kept neutral on structure. (ADR-023)
+- **Verified:** a second blind test (round 2, `weft`) validated the rewrite — four of five round-1 cold-stops resolved — and drove three folded refinements: entry-state keyed to what is *written* not code; a co-owned document assigned by who authors/maintains it (honoring the Step 3 → 5 promise); and the open-question/deliberation life (a *current* `govern` doc that decants into frozen records, refining current/frozen rather than breaking it). Artifacts under `blind-test/weft-*-round2.md`. (ADR-023)
+- **Added:** `self-application.md` — the rewritten tutorial run on this project itself (dogfood), deriving our functions (`theory`/`writing`/`structuring`/`steering`/`imagine`), the controlled front-matter vocabulary, and our target source tree; supersedes the stale v3 `structure/applied.md`.
+- **Proposed → Phase 08** *(enacted in alpha.3)*: root axis moves from `scope` (dominant `user`) to `provenance` (dominant `contributor`); `onboarding` provenance retired (a served order, not a producer function); add `steering/open-questions.md` (the pending deliberation: schema Decisions 1 & 2).
+- **Closed:** Phase 07 — tutorial delivered and hardened, foundation reconciled, rewrite validated, system dogfooded on itself; records frozen.
 
 ## [v4.0-alpha.1] — front-end correction (Phase 07)
 
