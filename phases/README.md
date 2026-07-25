@@ -13,7 +13,7 @@ status: stable
 
 The system was built in **phases**, each a bounded effort that closed, holding the records it produced — its decisions (with their `justify` and `entail`), and any proposals or accounts — together, because they are traces of one activity.
 To understand *why the system is shaped as it is*, read a phase end to end; do not reassemble scattered decisions.
-The one-line act of each decision is in the register, [`../ADR.md`](../ADR.md).
+The one-line act of each decision is in the register, [`../steering/ADR.md`](../steering/ADR.md).
 
 Phases are grouped into three coarse **eras**, because a coarse map reads far better than twenty microscopic records (ADR-022).
 The era is the orient of the record; the micro-phases are the detail beneath it.

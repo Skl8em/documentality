@@ -17,7 +17,7 @@ superseded-by: null
 
 <!--
 TEMPLATE — force `decide` (three faces: enact / justify / entail). Stance: ./README.md
-- enact: the one-line act belongs in the central register (e.g. docs/ADR.md), not here.
+- enact: the one-line act belongs in the central register (e.g. steering/ADR.md), not here.
 - justify (this record, backward): motivate from context + options. Write for a reader who
   does not yet agree. Fail = record the verdict, discard the reasoning.
 - entail (this record, forward): unfold what the decision changes/commits/requires. Write it

@@ -14,6 +14,8 @@ valid-for: v3
 
 This explains how the repository is laid out and *why* it is shaped this way, so a contributor can change it without breaking its logic. If you only want to *use* the system, read the product (`../write/`, `../structure/`) instead; this is about the repo as a maintained artifact.
 
+> **Note (Phase 07).** The shelf is now **provenance-first**: one folder per function — `theory/`, `write/`, `structure/`, `steering/`, `imagine/` — plus the frozen `phases/`, which **dissolves the earlier `docs/` tree** and the "scope / two dominant communities" framing kept below. The current derivation is [`../phases/phase-07-structuring-tutorial/self-application.md`](../phases/phase-07-structuring-tutorial/self-application.md); the v3 rationale in the rest of this file is retained until the Phase-08 vocabulary refactor.
+
 ## The question this answers
 
 Why is a documentation *system* itself split into `write/`, `structure/`, and `docs/`, with forces nested under three doors — rather than a flat set of guides?
@@ -22,11 +24,11 @@ Why is a documentation *system* itself split into `write/`, `structure/`, and `d
 
 The system's core claim is that a document is an **act** with a **force**, and that naming the force generates the writing. The repo applies that claim to itself, which forces three structural decisions:
 
-1. **Product vs. project-docs (two dominant communities).** The *content* is a product for **users** (people documenting their own projects). The repo's *own* documentation — this folder — is for **contributors**. Two communities cannot share one shelf axis, so they are two trees. See [`ADR-010`](phases/phase-04-disentanglement/ADR-010-product-vs-docs.md).
+1. **Product vs. project-docs (two dominant communities).** The *content* is a product for **users** (people documenting their own projects). The repo's *own* documentation — this folder — is for **contributors**. Two communities cannot share one shelf axis, so they are two trees. See [`ADR-010`](../phases/phase-04-disentanglement/ADR-010-product-vs-docs.md).
 
 2. **Product axis = scope.** The product cuts into `write/` (one document) and `structure/` (the whole corpus). Everything about producing a single artifact — its force, phrasing, and frontmatter — is in `write/`; everything about the collection — topology, provenance, life cycle, audience-as-dominant-community, export — is in `structure/`.
 
-3. **Forces grouped by door.** The twelve forces are not a flat list; they sit in `write/forces/{know,do,govern-and-record}/`, each as a folder with a stance (`README.md`, an `explain`) and a skeleton (`template.md`, an `instruct`). See [`ADR-007`](phases/phase-03-reorganization/ADR-007-fractal-reorg.md).
+3. **Forces grouped by door.** The twelve forces are not a flat list; they sit in `write/forces/{know,do,govern-and-record}/`, each as a folder with a stance (`README.md`, an `explain`) and a skeleton (`template.md`, an `instruct`). See [`ADR-007`](../phases/phase-03-reorganization/ADR-007-fractal-reorg.md).
 
 ## The metadata backbone
 
@@ -36,11 +38,13 @@ Every file carries frontmatter (`../write/frontmatter.md`): `force`, `perlocutio
 
 | Area | provenance |
 | --- | --- |
-| root `README.md`, `tutorial.md` | function `onboarding` |
+| root `README.md` | function `steering` (served: onboarding) |
+| `theory/**` | function `theory` |
 | `write/**` | function `writing` |
 | `structure/**` | function `structuring` |
-| `docs/` governance (`ARCHITECTURE`, `CONTRIBUTING`, `CHANGELOG`, `ADR.md` register) | function `steering` |
-| `docs/phases/<phase>/**` (records) | project `phase-NN` (frozen) |
+| `steering/**` governance (`foundation`, `roadmap`, `ARCHITECTURE`, `CONTRIBUTING`, `CHANGELOG`, `ADR.md` register) | function `steering` |
+| `imagine/**` | function `imagine` (Phase II, parked) |
+| `phases/<phase>/**` (records) | project `phase-NN` (frozen) |
 
 ## The legacy folder
 

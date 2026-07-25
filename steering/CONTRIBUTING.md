@@ -18,13 +18,13 @@ Binding rules for changing this repository (the system itself), not for using it
 
 - You **must** give every new file a valid frontmatter and a single dominant `force` — the system must obey its own [`../write/rules.md`](../write/rules.md). A contribution that violates the product's own rules is rejected.
 
-- You **must** record any **design decision** that changes the theory, the schema, the force repertoire, or the tree shape by appending a row to the register [`ADR.md`](ADR.md) *and* writing the full record (context + `justify` + `entail`) in the **current phase** under [`phases/`](phases/README.md); add a line to [`CHANGELOG.md`](CHANGELOG.md). Consequence: an undocumented design change is reverted — the ADR *is* the decision.
+- You **must** record any **design decision** that changes the theory, the schema, the force repertoire, or the tree shape by appending a row to the register [`ADR.md`](ADR.md) *and* writing the full record (context + `justify` + `entail`) in the **current phase** under [`phases/`](../phases/README.md); add a line to [`CHANGELOG.md`](CHANGELOG.md). Consequence: an undocumented design change is reverted — the ADR *is* the decision.
 
 - You **must not** edit an existing ADR to reflect a later choice. A superseding decision is a **new** ADR that sets `superseded-by`/`supersedes`. ADRs are `view: diachronic`, frozen. Consequence: a rewritten ADR erases the design memory and is reverted.
 
-- You **must** place content by the product's axes: user-facing guidance in `write/`(one document) or `structure/`(the corpus); repo-internal docs in `docs/`. Do not put project-internal docs in the product, or product content in `docs/`.
+- You **must** shelve content by its **provenance** — the function that maintains it: `theory/`, `write/`, `structure/`, the project's governance in `steering/`, intended work in `imagine/`, and frozen records under `phases/`. Do not mix a function's content into another's shelf; the user's reading order across `write/` and `structure/` is a *generated* surface, not a folder to hand-carve.
 
-- You **must** keep `provenance` meaningful: use the maintaining function (`onboarding`/`writing`/`structuring`/`maintenance`) or the owning project, never a blanket id.
+- You **must** keep `provenance` meaningful: use the maintaining function (`theory`/`writing`/`structuring`/`steering`/`imagine`) or the owning project (`phase-NN`), never a blanket id.
 
 - You **may** propose larger changes as an RFC (`propose`) before writing the ADR; for small, obvious fixes an ADR alone suffices.
 
