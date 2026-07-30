@@ -5,7 +5,7 @@ verb: situate
 perlocution: locate
 view: synchronic
 provenance: { type: function, id: steering }
-axis: provenance       # the source is the producer's shelf: one folder per function (theory/ write/ structure/ steering/ imagine/) + phases/
+axis: provenance       # the source is the producer's shelf: one folder per function (theorising/ writing/ structuring/ steering/ imagining/) + phases/
 dominant-community: contributor
 audience: [user, contributor]
 reader: H+M
@@ -19,11 +19,11 @@ This repository is a **system for writing, structuring, and keeping project docu
 **New here?** 
 
 You want to read if this approach would make sense to you>
-Go to `structure/*to be defined*`
+Go to `structuring/*to be defined*`
 You start with your project and want to write the first documentation?
 Go to [writing tutorial`](writing/tutorial.md)
 You wand to sort your new or existing documentation and want to create a structure for it?
-Start with the [Structure Tutorial](structure/tutorial.md).
+Start with the [Structure Tutorial](structuring/tutorial.md).
 Already have a document in mind but don't know where to start?
 Go to ...
 
@@ -37,31 +37,31 @@ A document is not a container of information sorted by subject. It is an **act**
 
 The source is the **producer's shelf**: each top-level folder is a standing **function** (a provenance), and the user-facing reading order is *generated* from the frontmatter rather than hand-kept as a folder.
 
-- `theory/` — the inscribed-act theory the product rests on (the three essays + readability patterns).
-- **[`write/`](write/README.md)** — how to write *one document*: its force, move structure, readability patterns, and the **frontmatter** schema; one folder per force, grouped by the three doors.
-- **[`structure/`](structure/README.md)** — how to keep *the whole corpus*: topology, provenance, life cycle, the **audience model** ([`structure/audience.md`](structure/audience.md)), and the structuring tutorial.
+- `theorising/` — the inscribed-act theory the product rests on (the three essays + readability patterns).
+- **[`writing/`](writing/README.md)** — how to write *one document*: its force, move structure, readability patterns, and the **frontmatter** schema; one folder per force, grouped by the three doors.
+- **[`structuring/`](structuring/README.md)** — how to keep *the whole corpus*: topology, provenance, life cycle, the **audience model** ([`structuring/audience.md`](structuring/audience.md)), and the structuring tutorial.
 - **[`steering/`](steering/README.md)** — the project's own governance: foundation, roadmap, architecture, contribution rules, changelog, and the decision register (ADRs).
-- **[`imagine/`](imagine/README.md)** — what is only *intended* yet (Phase II), parked so it is neither lost nor mistaken for current work.
+- **[`imagining/`](imagining/README.md)** — what is only *intended* yet (Phase II), parked so it is neither lost nor mistaken for current work.
 - **[`phases/`](phases/README.md)** — the frozen records of each construction phase (a `project` provenance), grouped by era.
 
-Keeping the *product* (`write/`, `structure/`) legible to a **user** and the project's *own* governance (`steering/`, `phases/`) legible to a **contributor** is the theory working — but both are shelved the same way, by the function that maintains them; the two reading orders are generated, not two hand-kept trees.
+Keeping the *product* (`writing/`, `structuring/`) legible to a **user** and the project's *own* governance (`steering/`, `phases/`) legible to a **contributor** is the theory working — but both are shelved the same way, by the function that maintains them; the two reading orders are generated, not two hand-kept trees.
 
 ## How this tree is organized
 
-*(This is the axis-and-dominant-community declaration that `structure/rules.md` requires a tree root to carry — you are reading it, and it lives in the root README.)*
+*(This is the axis-and-dominant-community declaration that `structuring/rules.md` requires a tree root to carry — you are reading it, and it lives in the root README.)*
 
-- **Axis: by provenance.** The source is shelved by the **function** that produces and maintains each area (`theory`, `writing`, `structuring`, `steering`, `imagine`), plus the bounded `project` records under `phases/`. Inside `write/forces/` the sub-axis is **by door** (know / do / govern-and-record).
+- **Axis: by provenance.** The source is shelved by the **function** that produces and maintains each area (`theorising`, `writing`, `structuring`, `steering`, `imagining`), plus the bounded `project` records under `phases/`. Inside `writing/forces/` the sub-axis is **by door** (know / do / govern-and-record).
 - **Dominant community: `contributor`** — the shelf is ordered for whoever writes and maintains the docs, their first reader. The `user`'s reading order is *generated* from the frontmatter, not carved into this tree.
 
 ## The three doors (how the forces group)
 
-- **[know](write/forces/know/README.md)** (savoir) — `orient`, `explain`, `describe`. Understand where you are, why, and the facts.
-- **[do](write/forces/do/README.md)** (savoir-faire) — `instruct`, `teach`, `recommend`. Execute, learn, or take advice — a deontic gradient: *here is how* → *you should* → *you must* (that last is `mandate`, next door).
-- **[govern & record](write/forces/govern-and-record/README.md)** — `mandate`, `commit`, `propose`, `decide`, and the evidence/memory forces `prove`, `account`. A project's own acts: rules, promises, deliberation, decisions, proof, history.
+- **[know](writing/forces/know/README.md)** (savoir) — `orient`, `explain`, `describe`. Understand where you are, why, and the facts.
+- **[do](writing/forces/do/README.md)** (savoir-faire) — `instruct`, `teach`, `recommend`. Execute, learn, or take advice — a deontic gradient: *here is how* → *you should* → *you must* (that last is `mandate`, next door).
+- **[govern & record](writing/forces/govern-and-record/README.md)** — `mandate`, `commit`, `propose`, `decide`, and the evidence/memory forces `prove`, `account`. A project's own acts: rules, promises, deliberation, decisions, proof, history.
 
 ## The rule that governs everything else
 
-A corpus serves two incompatible masters: **be found and read now** (communication) and **stand as evidence over time** (archive). No single order serves both. This system keeps them apart — the readable tree on one side, frozen provenance on the other — and stitches them at one point: *the frozen record of a change becomes the current state you maintain*. `structure/concepts.md` develops it.
+A corpus serves two incompatible masters: **be found and read now** (communication) and **stand as evidence over time** (archive). No single order serves both. This system keeps them apart — the readable tree on one side, frozen provenance on the other — and stitches them at one point: *the frozen record of a change becomes the current state you maintain*. `structuring/concepts.md` develops it.
 
 ## Status
 

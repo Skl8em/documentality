@@ -28,8 +28,8 @@ Design note: the schema carries only **hard coordinates not derivable from one a
 | `perlocution` | R | `none` `locate` `model` `enable` `convince` | Which change the act works in the reader, parallel to `force`. `none` = served, not changed. Open, saturated list. |
 | `view` | R | `synchronic` `diachronic` | State kept current vs. frozen change. Seam in `../structure/concepts.md`. |
 | `provenance` | R | `{type, id}` | `type: function` (maintained) or `type: project` (freezes). See `../structure/concepts.md`. |
-| `audience` | R | roles, e.g. `[contributor, decider]` | Generic roles `user` / `contributor` / `decider`, refinable per project. See [`../structure/audience.md`](../structure/audience.md). |
-| `reader` | R | `H` `M` `H+M` | Human / machine / both. Sub-kinds like `M[rag]` only if a project needs them. See [`../structure/audience.md`](../structure/audience.md). |
+| `audience` | R | roles, e.g. `[contributor, decider]` | Generic roles `user` / `contributor` / `decider`, refinable per project. See [`../structure/audience.md`](../structuring/audience.md). |
+| `reader` | R | `H` `M` `H+M` | Human / machine / both. Sub-kinds like `M[rag]` only if a project needs them. See [`../structure/audience.md`](../structuring/audience.md). |
 | `distance` | O | `peer` `near` `far` | Shared code → scaffolding. `patterns.md` recipient section. |
 | `power` | O | `none` `holds` | Sanction → armor. |
 | `status` | R | `draft` `stable` `deprecated` | Life cycle; make staleness explicit. |
@@ -39,7 +39,7 @@ Design note: the schema carries only **hard coordinates not derivable from one a
 | `retention` | O | `permanent` `until-release` `ephemeral` `legal:<duration>` | Defaults by force in `../structure/defaults.md`. |
 | `pin` | O | submodule ref / SHA | Fixity anchor for a cross-project reference. `../structure/concepts.md`. |
 | `axis` | R* | shelf axis, e.g. `scope` `function` `component` | *Required only on the root orient of a tree* (omitted elsewhere). The order the shelf is browsed by. `../structure/rules.md`. |
-| `dominant-community` | R* | a role, e.g. `contributor` | *Required only on the root orient of a tree.* The community the shelf's axis is chosen to serve (see [`../structure/audience.md`](../structure/audience.md)). |
+| `dominant-community` | R* | a role, e.g. `contributor` | *Required only on the root orient of a tree.* The community the shelf's axis is chosen to serve (see [`../structure/audience.md`](../structuring/audience.md)). |
 
 ## Derivable views (generate, do not store)
 

@@ -14,7 +14,7 @@ status: in-progress
 The phase that started the project over, properly.
 
 The v1–v3 theory no longer survived our own critiques, so it was refounded on Ferraris's documentality (*object = inscribed act*).
-And we admitted we had never laid the front-end flat, so we did: intention, communities, functions, provenance, scale, and the shelf principle, captured in [`../../steering/foundation.md`](../../steering/foundation.md) with the plan in [`../../steering/roadmap.md`](../../steering/roadmap.md).
+And we admitted we had never laid the front-end flat, so we did: intention, communities, functions, provenance, scale, and the shelf principle, captured in [`../../../steering/foundation.md`](../../../steering/foundation.md) with the plan in [`../../../steering/roadmap.md`](../../../steering/roadmap.md).
 
 The decisions below record what that refoundation and that front-end settled.
 Several supersede earlier records; the earlier ones stay frozen.

@@ -23,7 +23,7 @@ This folder answers **how to write one document well**. It is split by force, so
 - **Tag the file for the machine** → [`frontmatter.md`](frontmatter.md) *(describe)* — the catalogue schema, including `audience`/`reader`.
 - **Write a specific genre** → pick the force's folder in [`forces/`](forces/README.md): its `README.md` is the stance, its `template.md` a ready skeleton.
 
-> These are **entry points routed by need, not a reading order.** `rules.md` (mandate) is binding even though it sits in the list like the rest: its rules are surfaced in the `template.md` you actually fill and enforced by [`frontmatter.md`](frontmatter.md) validation, so you meet them whether or not you read this list top to bottom. If you are new and don't yet know your need, start with the root [`../tutorial.md`](../tutorial.md).
+> These are **entry points routed by need, not a reading order.** `rules.md` (mandate) is binding even though it sits in the list like the rest: its rules are surfaced in the `template.md` you actually fill and enforced by [`frontmatter.md`](frontmatter.md) validation, so you meet them whether or not you read this list top to bottom. If you are new and don't yet know your need, start with the root [`tutorial.md`](tutorial.md).
 
 ## The one move
 

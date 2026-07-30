@@ -22,7 +22,7 @@ This folder answers **where documents live, how they are organized, how long the
 - **The binding structural rules** → [`rules.md`](rules.md) *(mandate)*
 - **See it lived** — how this repo applies it, and how a generic IT project would → [`applied.md`](applied.md) *(explain)*
 - **Who the docs are for** (the audience model — roles × reader — that both activities reference) → [`audience.md`](audience.md) *(describe)*. It lives here because choosing who the tree serves is a structural decision.
-- The metadata that makes the tree navigable is a `write/` concern (you fill it while writing): [`../write/frontmatter.md`](../write/frontmatter.md).
+- The metadata that makes the tree navigable is a `write/` concern (you fill it while writing): [`../write/frontmatter.md`](../writing/frontmatter.md).
 
 > These are **entry points routed by need, not a reading order.** `rules.md` (mandate) is binding even though it sits in the list like the rest: its rules are surfaced in [`setup.md`](setup.md) and enforced by `../write/frontmatter.md` validation, so you meet them whether or not you read this list top to bottom.
 
