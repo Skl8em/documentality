@@ -103,7 +103,7 @@ So: **[decided]**
 - Because here contributor = user, the source shelf doubles as an acceptable reading surface *for now*, so surface generation is deferred — but we stop contorting the folder tree to please a reader who is not here yet.
 
 Consequence for our own tree: the earlier "scope axis (write/structure), dominant = user" (ADR-010) described a *generated surface*, not the source.
-The **source** is organized for the **contributor** (producer), shelved by provenance — one folder per function (`theory/`, `write/`, `structure/`, `steering/`, `imagine/`) plus the frozen `phases/`.
+The **source** is organized for the **contributor** (producer), shelved by provenance — one folder per function (`theorising/`, `writing/`, `structuring/`, `steering/`, `imagining/`) plus the frozen `phases/`.
 The generic `docs/` bucket is **dissolved** (its governance is `steering/`, its records `phases/`); the root axis is now `provenance` / dominant `contributor`, and `write`/`structure` are the order of a *generated* view.
 This structural move is **done**; the remaining Phase-08 work (refounded vocabulary in the v3 files, migrating the nine `_legacy/` forces) continues.
 **[decided]**

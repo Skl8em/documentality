@@ -27,7 +27,7 @@ Each force is a folder: its `README.md` is the **stance** (verb, stake, move str
 | Force | Verb | Perlocution | Folder |
 |---|---|---|---|
 | instruct | walk-through | none | [do/instruct/](do/instruct/README.md) ✅ |
-| teach | bring-along | enable | do/teach/ ⏳ — live instance: [`../../tutorial.md`](../../tutorial.md) |
+| teach | bring-along | enable | do/teach/ ⏳ — live instance: [`../tutorial.md`](../tutorial.md) |
 | recommend | advise | none | do/recommend/ ⏳ |
 
 Read this door as a deontic gradient: `instruct` (*here is how*) → `recommend` (*you should*) → `mandate` (*you must*, next door).

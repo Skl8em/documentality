@@ -31,7 +31,7 @@ That's your subject for the whole tutorial.
 Almost every first document is an **orient** — it situates a newcomer.
 You don't need to know the theory to write one; just answer four questions.
 
-1. Open [`write/forces/know/orient/template.md`](write/forces/know/orient/template.md) and copy it to `README.md` next to your subject.
+1. Open [`writing/forces/know/orient/template.md`](forces/know/orient/template.md) and copy it to `README.md` next to your subject.
 2. Fill the four blanks: *what is this* (one line), *where you are*, *why it concerns you*, *where to go next*. Resist adding install steps or architecture — an orient hands off, it doesn't hold.
 
 Done?
@@ -53,13 +53,13 @@ reader: H+M
 status: draft
 ```
 
-You just used the catalogue. You don't need to understand every field yet — [`write/frontmatter.md`](write/frontmatter.md) explains them when you're curious.
+You just used the catalogue. You don't need to understand every field yet — [`writing/frontmatter.md`](frontmatter.md) explains them when you're curious.
 
 ## Step 4 — Record one decision (meet a frozen record)
 
 Think of one choice you made about your subject ("I used SQLite, not Postgres, because…"). Write it down as a **decide** document — a different door entirely, and one that *freezes*.
 
-1. Copy [`write/forces/govern-and-record/decide/template.md`](write/forces/govern-and-record/decide/template.md) to `decisions/ADR-001.md`.
+1. Copy [`writing/forces/govern-and-record/decide/template.md`](forces/govern-and-record/decide/template.md) to `decisions/ADR-001.md`.
 2. Fill context → options you considered → the decision → consequences you accept. Write the *why* for someone who disagrees; that reasoning is the whole point.
 
 Notice the difference you just felt: the orient was maintained and reader-facing; the ADR is dated, frozen, and written for the future. That contrast — maintained *state* vs frozen *record* — is the spine of the whole system.
@@ -70,9 +70,9 @@ In ten minutes you have: a maintained `orient` (the **know** door) and a frozen 
 
 ## Where to go now
 
-- The *why* behind what you just did → [`write/concepts.md`](write/concepts.md).
-- Writing a different kind of document → find its force via [`write/choosing.md`](write/choosing.md), then its folder in [`write/forces/`](write/forces/README.md).
-- Where these files should actually live, and for how long → [`structure/README.md`](structure/README.md).
-- Who you're writing for → [`structure/audience.md`](structure/audience.md).
+- The *why* behind what you just did → [`writing/concepts.md`](concepts.md).
+- Writing a different kind of document → find its force via [`writing/choosing.md`](choosing.md), then its folder in [`writing/forces/`](forces/README.md).
+- Where these files should actually live, and for how long → [`structuring/README.md`](../structuring/README.md).
+- Who you're writing for → [`structuring/audience.md`](../structuring/audience.md).
 
-You are no longer new. From here, [the root `README.md`](README.md) routes by need — use it as a menu, not a course.
+You are no longer new. From here, [the root `README.md`](../README.md) routes by need — use it as a menu, not a course.

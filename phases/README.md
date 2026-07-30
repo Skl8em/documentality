@@ -25,11 +25,11 @@ The first version, built before the theory was refounded and before the front-en
 
 | Phase | What it settled | Records |
 |---|---|---|
-| [01 — foundation](phase-01-foundation/README.md) | the inscribed-act reframe | ADR-001 |
-| [02 — theory](phase-02-theory/README.md) | perlocution, recommend, drop diataxis, verb | ADR-002…005 |
-| [03 — reorganization](phase-03-reorganization/README.md) | fractal tree, doors, axis declaration, teach, audience | ADR-006…009 |
-| [04 — disentanglement](phase-04-disentanglement/README.md) | product vs docs, scope axis, provenance by function | ADR-010 |
-| [05 — records & governance](phase-05-records-governance/README.md) | decisions by phase, steering, the `entail` face, open pairings | ADR-011…013 |
+| [01 — foundation](naive-sketch/phase-01-foundation/README.md) | the inscribed-act reframe | ADR-001 |
+| [02 — theory](naive-sketch/phase-02-theory/README.md) | perlocution, recommend, drop diataxis, verb | ADR-002…005 |
+| [03 — reorganization](naive-sketch/phase-03-reorganization/README.md) | fractal tree, doors, axis declaration, teach, audience | ADR-006…009 |
+| [04 — disentanglement](naive-sketch/phase-04-disentanglement/README.md) | product vs docs, scope axis, provenance by function | ADR-010 |
+| [05 — records & governance](naive-sketch/phase-05-records-governance/README.md) | decisions by phase, steering, the `entail` face, open pairings | ADR-011…013 |
 
 ## Era 2 — Refoundation *(current)*
 
@@ -37,8 +37,8 @@ Regrounding the theory on Ferraris and, at last, laying the front-end flat.
 
 | Phase | What it settled | Records |
 |---|---|---|
-| [06 — refoundation & front-end](phase-06-refoundation/README.md) *(done)* | Ferraris refoundation; perlocution floor & cells; the front-end; source-vs-generated shelf; Phase-I scope | ADR-014…021 |
-| [07 — structuring tutorial & front-end correction](phase-07-structuring-tutorial/README.md) *(current)* | functions-first; distance per community; mutable groupings & eras | ADR-022 |
+| [06 — refoundation & front-end](refoundation/phase-06-refoundation/README.md) *(done)* | Ferraris refoundation; perlocution floor & cells; the front-end; source-vs-generated shelf; Phase-I scope | ADR-014…021 |
+| [07 — structuring tutorial & front-end correction](refoundation/phase-07-structuring-tutorial/README.md) *(current)* | functions-first; distance per community; mutable groupings & eras | ADR-022 |
 | 08 — refactor product & source *(planned)* | refactor to the refounded vocabulary; move the source to the producer shelf | — |
 | 09 — reconcile schema *(planned)* | the frontmatter schema as the machine-ready catalogue | — |
 
