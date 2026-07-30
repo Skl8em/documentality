@@ -1,7 +1,7 @@
 ---
 title: "Refounded frontmatter schema — draft for confirmation"
 force: describe
-intention: none
+intention: state
 view: synchronic
 provenance: { type: project, id: phase-07-structuring-tutorial }
 distance: initiated
@@ -22,10 +22,11 @@ The guiding rule is unchanged: store only **hard coordinates that are not deriva
 |---|---|---|---|
 | `title` | R | free text | Human title. |
 | `force` | R | the recognized cell — `orient` `explain` `describe` `prove` `account` `instruct` `teach` `recommend` `mandate` `commit` `propose` `decide` (composite with `+`) | The illocutionary act, as a reified cell of direction-of-fit × intention. Open, saturated. |
-| `intention` | R | `none` `formative` `suasive` `affective` | The perlocutionary aim **above the floor**. `none` = served (floor only), never "reader untouched". ⚑ **Decision 1.** |
+| `intention` | R | `state` `formative` `suasive` `affective` | The perlocutionary aim **above the floor**. `state` = the floor is established, no aim above it (served, never "reader untouched"). ⚑ **Decision 1.** (ADR-026) |
 | `verb` | O | generative verb | Soft summary of the tuple; stored only when it diverges (e.g. `decide`→`justify`/`entail`, `account`→`diagnose`). |
 | `view` | R | `synchronic` `diachronic` | Maintained state vs frozen change. |
 | `provenance` | R | `{type: function\|project, id}` | The producing/maintaining activity. `synchronic ⇒ function`; `diachronic ⇒ its producer` (a project, or a function's change-stream). |
+| `concerns` | O | one or more activity ids (or `all`) | The activity/activities a document *governs or bears on* — a **relation**, distinct from `provenance` (who produced it). One ⇒ vertical (locally ownable); several ⇒ transversal. Lets the per-activity view be *generated*, not moved (ADR-025). |
 | `audience` | R | roles, e.g. `[contributor, decider]` | Generic roles `user`/`contributor`/`decider`, derived from the functions (ADR-022), project-refinable. |
 | `reader` | R | `H` `M` `H+M` | Human / machine / both — orthogonal to role. |
 | `distance` | O | `initiated` `novice` (per the doc's community) | How much of *that community's* code the reader shares; per-domain, not global (ADR-022). |
@@ -37,6 +38,7 @@ The guiding rule is unchanged: store only **hard coordinates that are not deriva
 | `pin` | O | submodule ref / SHA | Fixity anchor for a cross-project reference. |
 | `axis` | R* | e.g. `provenance` `function` `scope` | The tree-root shelf axis. |
 | `dominant-community` | R* | a role | Whom the shelf serves. |
+| `governance-axis` | R* | `central` `local` | Whether decisions are governed by one central register + phase records, or owned locally by each activity (transversals escalate). Default `central` (ADR-025). |
 
 ## Generated, never stored
 
@@ -52,7 +54,7 @@ Computed from `force` (and `intention`), read by tooling and newcomers:
 
 **Decision 1 — how to encode intention + floor.**
 The floor is universal, so it is *not* stored; what varies is the aim above it.
-*Proposed:* store `intention ∈ {none, formative, suasive, affective}` — coarse enough to route, and honest that the finer flavour (formative→map/model/competence, suasive→convince) is usually derivable from the force and stored only when it diverges.
+*Proposed:* store `intention ∈ {state, formative, suasive, affective}` (`state` = the floor only, per ADR-026) — coarse enough to route, and honest that the finer flavour (formative→map/model/competence, suasive→convince) is usually derivable from the force and stored only when it diverges.
 *Alternative:* store the fine flavour always (`locate|model|enable|convince|…`), more precise but more to maintain and closer to the old per-force typology we moved away from.
 
 **Decision 2 — is `register` stored or derived?**

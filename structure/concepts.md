@@ -29,6 +29,14 @@ Ask *which documents belong together*. Not "those about the same subject" — **
 
 A change touching three functions is not filed three times: its provenance is the *project* that produced it; its bearing on the functions is a *relation*, not a location.
 
+## Govern, and where it lives
+
+Governing is not a third place; it is a *face* every activity carries. A govern-document is placed by the **domain it governs**, not by its register: a rule binding the user's writing is product content (in the `writing` function); the same force binding contribution to the project is the project's governance. `steering` is simply the activity whose domain is the project itself, so it holds its own know/do/govern.
+
+A decision and the rule it installs are two documents, joined at the state/change seam below: the decision freezes with the effort that made it; the rule stays current with the activity it binds; the rule cites the decision.
+
+Whether a decision that concerns only one activity is filed centrally or with that activity is the **transversal-vs-vertical** fork — irreducible, and fractal (a sub-project takes its governance with it). Declare a **governance axis** at the root — `central` or `local` — the way you declare the shelf axis, and record which activities a decision `concerns`. That bearing is a relation, not a location: the per-activity view is *generated* from `concerns`, never carved by moving frozen records.
+
 ## The topology carries the distinction
 
 The two contexts you work in are the material projection of the two systems:

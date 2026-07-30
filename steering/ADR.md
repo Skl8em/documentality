@@ -42,5 +42,8 @@ Append-only: a row is never edited. A superseding decision is a new row and a ne
 | [021](../phases/phase-06-refoundation/ADR-021-line-breaks.md) | Semantic line breaks (one sentence per line) in Markdown source | 06-refoundation | 2026-07-21 | accepted |
 | [022](../phases/phase-07-structuring-tutorial/ADR-022-functions-first.md) | Front-end correction: functions first, distance per community, mutable groupings & eras | 07-structuring-tutorial | 2026-07-21 | accepted |
 | [023](../phases/phase-07-structuring-tutorial/ADR-023-tutorial-rewrite.md) | Tutorial rewrite: relevance not recurrence, `imagine`, organize-for-author, fractal explicit, conventional docs as examples | 07-structuring-tutorial | 2026-07-24 | accepted |
+| [024](../phases/phase-08-refactor/ADR-024-producer-shelf.md) | Producer shelf: dissolve `docs/`, provenance at root (`steering/` `imagine/` `phases/`) | 08-refactor | 2026-07-25 | accepted |
+| [025](../phases/phase-08-refactor/ADR-025-governance-axis.md) | Govern by domain governed; transversal/vertical tension irreducible; `concerns` coordinate; generate-don't-move | 08-refactor | 2026-07-25 | accepted |
+| [026](../phases/phase-08-refactor/ADR-026-floor-value-state.md) | The perlocution/intention floor value is `state`, not `none` | 08-refactor | 2026-07-25 | accepted |
 
 To add a decision: append a row here, and write its full record (context + `justify` + `entail`) in the current phase folder.
