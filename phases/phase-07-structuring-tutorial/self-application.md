@@ -118,7 +118,7 @@ Read off the exercise; this is the controlled vocabulary our fields may take (en
 |---|---|
 | `force` | `orient` `explain` `describe` `prove` `account` `instruct` `teach` `recommend` `mandate` `commit` `propose` `decide` (composite with `+`) |
 | `register` *(derived from `force`)* | `know` `do` `govern` |
-| `intention` | `none` `formative` `suasive` `affective` |
+| `intention` | `state` `formative` `suasive` `affective` *(`state` = the floor only, ADR-026)* |
 | `verb` *(optional, only when it diverges)* | e.g. `justify` `entail` (for `decide`), `diagnose` (for `account`), `illuminate` (for `explain`) |
 | `view` | `synchronic` `diachronic` |
 | `provenance.type` | `function` `project` |
@@ -185,7 +185,7 @@ What the move did, and what remains:
 The round-2 finding says a deliberation is a **current `govern` document that decants into frozen records**.
 We have exactly one, and it should become `steering/open-questions.md`:
 
-- **⚑ Decision 1 — encode `intention` coarse (`none|formative|suasive|affective`) or fine (`locate|model|enable|convince|…`).** Proposed: coarse. Open.
+- **⚑ Decision 1 — encode `intention` coarse (`state|formative|suasive|affective`, ADR-026) or fine (`locate|model|enable|convince|…`).** Proposed: coarse. Open.
 - **⚑ Decision 2 — `register` stored or derived from `force`.** Proposed: derived. Open.
 - the retire-`_legacy` / migrate-nine-forces debt (roadmap), open until Phase 08 closes it.
 

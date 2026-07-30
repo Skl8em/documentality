@@ -15,10 +15,13 @@ valid-for: v3
 
 History of the documentation system itself. Append-only; each entry is dated-fixed. Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
 
-## [v4.0-alpha.3] — provenance shelf: dissolve `docs/` (Phase 08)
+## [v4.0-alpha.3] — provenance shelf & the govern model (Phase 08)
 
-- **Changed:** the source is now shelved **provenance-first** — the generic `docs/` bucket is dissolved into `steering/` (governance) and root `phases/` (frozen records), and `imagine/` is added at root (Phase II, parked). One folder per function: `theory/` `write/` `structure/` `steering/` `imagine/`, plus `phases/`.
-- **Changed:** the root axis declaration moves from `scope` (dominant `user`) to `provenance` (dominant `contributor`); the root `README` provenance is `steering` — `onboarding` is a *served* reading order, not a producer function.
+- **Changed:** the source is now shelved **provenance-first** — the generic `docs/` bucket is dissolved into `steering/` (governance) and root `phases/` (frozen records), and `imagine/` is added at root (Phase II, parked). One folder per function: `theory/` `write/` `structure/` `steering/` `imagine/`, plus `phases/`. (ADR-024)
+- **Changed:** the root axis declaration moves from `scope` (dominant `user`) to `provenance` (dominant `contributor`); the root `README` provenance is `steering` — `onboarding` is a *served* reading order, not a producer function. (ADR-024)
+- **Clarified:** a `govern` document is classed by the **domain it governs**, not by register; `steering` is the activity whose domain is the project itself (so it carries its own know/do/govern); a *decision* (frozen) and the *rule* it installs (current) are two documents joined at the state/change seam. (ADR-025)
+- **Added:** the **transversal/vertical** governance tension named as irreducible, with a root **governance-axis** declaration (central vs local), a subsidiarity/VSM procedure, and a `concerns` coordinate (the activities a document governs, distinct from its `provenance`); per-activity views are **generated, not moved**. (ADR-025)
+- **Renamed:** the perlocution/intention **floor value `none` → `state`** — the floor is not absence; the act establishes a state in the reader and shadows the unsaid. The coarse set is now `{state, formative, suasive, affective}`. Canonical vocabulary updated; the twelve v3 `perlocution: none` frontmatters convert with the vocabulary pass. (ADR-026; refines ADR-015)
 - **Note:** references updated across the live docs (root `README`, `steering/ARCHITECTURE`, `steering/README`, `CONTRIBUTING`, `write/**` pointers, `foundation`, `roadmap`); frozen ADR records and historical changelog entries are left as-is. The refounded vocabulary in the v3 files and the `_legacy/` migration remain the rest of Phase 08.
 
 ## [v4.0-alpha.2] — tutorial rewrite from the blind test (Phase 07)
