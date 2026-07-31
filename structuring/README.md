@@ -12,7 +12,7 @@ written-at: v3
 valid-for: v3
 ---
 
-This folder answers **where documents live, how they are organized, how long they are kept, and how they are exported**. Like `write/`, it is split by force so each concern is its own file.
+This folder answers **where documents live, how they are organized, how long they are kept, and how they are exported**. Like `writing/`, it is split by force so each concern is its own file.
 
 ## Route by what you need
 
@@ -22,9 +22,9 @@ This folder answers **where documents live, how they are organized, how long the
 - **The binding structural rules** → [`rules.md`](rules.md) *(mandate)*
 - **See it lived** — how this repo applies it, and how a generic IT project would → [`applied.md`](applied.md) *(explain)*
 - **Who the docs are for** (the audience model — roles × reader — that both activities reference) → [`audience.md`](audience.md) *(describe)*. It lives here because choosing who the tree serves is a structural decision.
-- The metadata that makes the tree navigable is a `write/` concern (you fill it while writing): [`../write/frontmatter.md`](../writing/frontmatter.md).
+- The metadata that makes the tree navigable is a `writing/` concern (you fill it while writing): [`../writing/frontmatter.md`](../writing/frontmatter.md).
 
-> These are **entry points routed by need, not a reading order.** `rules.md` (mandate) is binding even though it sits in the list like the rest: its rules are surfaced in [`setup.md`](setup.md) and enforced by `../write/frontmatter.md` validation, so you meet them whether or not you read this list top to bottom.
+> These are **entry points routed by need, not a reading order.** `rules.md` (mandate) is binding even though it sits in the list like the rest: its rules are surfaced in [`setup.md`](setup.md) and enforced by `../writing/frontmatter.md` validation, so you meet them whether or not you read this list top to bottom.
 
 ## The one distinction
 

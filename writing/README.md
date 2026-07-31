@@ -16,7 +16,7 @@ This folder answers **how to write one document well**. It is split by force, so
 
 ## Route by what you need
 
-- **Understand the model** (force, perlocution, verb, the three doors) → [`concepts.md`](concepts.md) *(explain)*
+- **Understand the model** (force, intention, verb, the three doors) → [`concepts.md`](concepts.md) *(explain)*
 - **Find the force of the document in front of you** → [`choosing.md`](choosing.md) *(instruct)* — five questions.
 - **Make the prose readable to humans and LLMs** → [`patterns.md`](patterns.md) *(recommend)*
 - **The binding rules you must not break** → [`rules.md`](rules.md) *(mandate)*

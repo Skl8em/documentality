@@ -16,6 +16,6 @@ The **know** door holds the word-to-world forces: they make words answer to the 
 
 - **[orient](orient/README.md)** — situate the reader in a whole (`locate`). Where am I, why does this concern me, where next.
 - **explain** — build the reader's model of *why* (`model`). *(pending)*
-- **describe** — state the facts exhaustively, neutrally (`none`). *(pending)*
+- **describe** — state the facts exhaustively, neutrally (`state`). *(pending)*
 
 The dividing question: does the document *change* the reader (orient reshapes their map, explain their model → organize by the reader) or merely *serve* them (describe → organize by the subject)? If a reference starts answering *why*, it has walked through the wrong door.

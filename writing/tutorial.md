@@ -45,7 +45,7 @@ Set five things (the rest are optional):
 
 ```yaml
 force: orient
-perlocution: locate
+intention: locate
 view: synchronic
 provenance: { type: project, id: <your-subject> }
 audience: [user, contributor]

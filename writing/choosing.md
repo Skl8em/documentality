@@ -20,9 +20,9 @@ Run this before writing anything. It takes a minute and it decides the structure
 
 2. **Name the generative verb.** One word for what the document is *for* — often not the force name (a decision is written to *justify*). Hold it in mind; let it order everything. If the verb differs from the force only because of *who* you write toward, do not rename — set `distance`/`power` (step 4).
 
-3. **Read the perlocution.** Is the document meant to *change* the reader (`locate` / `model` / `enable` / `convince`) or merely *serve* them (`none`)? If it changes the reader, organize by the reader's likely state — where they are, what confuses them — not by the subject's structure, and judge success by the reader's change, not by correctness.
+3. **Read the intention.** Is the document meant to *move* the reader above the floor (`locate` / `model` / `enable` / `convince`) or merely *serve* them at it (`state`)? If it moves the reader, organize by the reader's likely state — where they are, what confuses them — not by the subject's structure, and judge success by the reader's change, not by correctness.
 
-4. **Fix the recipient.** Who is the audience (role: user / contributor / decider; see [`../structure/audience.md`](../structuring/audience.md)), and what is the recipient relation? `distance` = how much code they share → sets the scaffolding. `power` = whether they can sanction you → sets the armor. Also set `reader: H | M | H+M`. Pay each cost where owed, nowhere else.
+4. **Fix the recipient.** Who is the audience (role: user / contributor / decider; see [`../structuring/audience.md`](../structuring/audience.md)), and what is the recipient relation? `distance` = how much code they share → sets the scaffolding. `power` = whether they can sanction you → sets the armor. Also set `reader: H | M | H+M`. Pay each cost where owed, nowhere else.
 
 5. **Name the failure mode.** Every force fails by drifting into a neighbour (a reference that starts explaining; a mandate that softens into advice). Read it in the force's `README.md`, name it before you start, and watch for the drift as you write.
 

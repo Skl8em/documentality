@@ -12,7 +12,7 @@ written-at: v3
 valid-for: v3
 ---
 
-`orient` situates the reader in a whole. It is **formative** — its job is to change the reader's cognitive map (`perlocution: locate`), not to inform a task. Use [`template.md`](template.md) to write one.
+`orient` situates the reader in a whole. It is **formative** — its job is to change the reader's cognitive map (`intention: locate`), not to inform a task. Use [`template.md`](template.md) to write one.
 
 - **Generative verb:** *situate.*
 - **Stake:** the reader never loses the thread. Every element answers one of four questions — *what is this, where am I, why does it concern me, where do I go next* — and anything answering none is noise.
