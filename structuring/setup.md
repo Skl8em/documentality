@@ -32,8 +32,8 @@ Follow this when starting docs for a project, or a docs repo over several projec
    CONTRIBUTING.md           # mandate — the rules
    ```
 
-3. **Copy the starting genres** from `../write/forces/`: `orient` → `README.md`, `explain` → `docs/architecture.md`.
-4. **Set frontmatter** on each (`../write/frontmatter.md`): `force`, `perlocution`, `view`, `provenance`, `audience`, `reader`, `status`.
+3. **Copy the starting genres** from `../writing/forces/`: `orient` → `README.md`, `explain` → `docs/architecture.md`.
+4. **Set frontmatter** on each (`../writing/frontmatter.md`): `force`, `intention`, `view`, `provenance`, `audience`, `reader`, `status`.
 
 ## B. A docs repo over several projects
 

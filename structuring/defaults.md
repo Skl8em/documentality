@@ -44,4 +44,4 @@ A corpus that sediments lacks three *independent* things — repair them indepen
 
 ## Cost discipline
 
-Do not pay archival cost everywhere. A document whose life is a sprint deserves neither the armor of a proof nor the scaffolding of a cross-project reference. Match the cost to the horizon and the recipient (`../write/patterns.md`, recipient section).
+Do not pay archival cost everywhere. A document whose life is a sprint deserves neither the armor of a proof nor the scaffolding of a cross-project reference. Match the cost to the horizon and the recipient (`../writing/patterns.md`, recipient section).

@@ -18,7 +18,7 @@ Audience has **two orthogonal axes**. The role says *who, functionally*; the rea
 
 ## Axis 1 — role (generic, project-refinable)
 
-The three roles align with the three doors (`../write/forces/*`), which is why they are a good default lens: each role lives mostly behind one door.
+The three roles align with the three doors (`../writing/forces/*`), which is why they are a good default lens: each role lives mostly behind one door.
 
 | Role | Lives behind | Reads mostly | What they do here |
 | --- | --- | --- | --- |
@@ -36,13 +36,15 @@ Orthogonal to role: is the document optimized for a human reader, a machine read
 | --- | --- | --- |
 | `H` | human only | optimize for scanning, F-pattern, brevity; LLM patterns optional |
 | `M` | machine only | optimize for chunk self-sufficiency, no cross-section anaphora, explicit recaps |
-| `H+M` | both (the common case) | apply both sets of `../write/patterns.md`; when they conflict, the `M>H` items win because a human tolerates redundancy a machine needs |
+| `H+M` | both (the common case) | apply both sets of `../writing/patterns.md`; when they conflict, the `M>H` items win because a human tolerates redundancy a machine needs |
 
 Different agents (a RAG retriever vs. a coding agent vs. a writing agent) are a **sub-categorization of `M`**, introduced only by a project that needs it — e.g. `reader: M[rag]`. Default projects use just `H | M | H+M`.
 
+In the theory, *being a machine* is neither a role nor really a separate kind: it is the **recipient relation pushed to its limit** — maximum `distance` (it shares almost none of our tacit code, so everything must be made explicit) and a quiet, latent `power` (it acts on what we write). That is why the reader kind stays **orthogonal to role**, and why `reader: M` *tightens* the same `distance`/`power` costs the recipient section already governs rather than opening a new register. A machine can occupy the `user` or `contributor` function — it reads and it writes — but never `decider`: it does not set conventions (ADR-017/022).
+
 ## Frontmatter
 
-`audience` holds the **roles** (a list); `reader` holds the **kind** (one flag). Both refine but never contradict `distance`/`power`, which stay the register controls (`../write/patterns.md`, recipient section).
+`audience` holds the **roles** (a list); `reader` holds the **kind** (one flag). Both refine but never contradict `distance`/`power`, which stay the register controls (`../writing/patterns.md`, recipient section).
 
 ```yaml
 audience: [contributor, decider]

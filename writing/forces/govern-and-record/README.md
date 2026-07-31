@@ -16,14 +16,14 @@ This door holds the forces Diátaxis cannot see, because they do not address a *
 
 **Govern** (create obligation):
 
-- **mandate** — *require*: institute a binding norm (`none`). *(pending)*
-- **commit** — *promise precisely*: bind the writer to a future, measurably (`none`). *(pending)*
-- **propose** — *argue*: open a future for deliberation, alternatives treated fairly (`none`). *(pending)*
+- **mandate** — *require*: institute a binding norm (`state`). *(pending)*
+- **commit** — *promise precisely*: bind the writer to a future, measurably (`state`). *(pending)*
+- **propose** — *argue*: open a future for deliberation, alternatives treated fairly (`state`). *(pending)*
 - **[decide](decide/README.md)** — *justify*: institute a choice by record, and convince a future reader it was reasoned (`convince`).
 
 **Record** (fix evidence and memory):
 
 - **prove** — *demonstrate*: show a claim holds, reproducibly, and convince an examiner (`convince`). *(pending)*
-- **account** — *report against*: report what happened against what was expected (`none`). *(pending)*
+- **account** — *report against*: report what happened against what was expected (`state`). *(pending)*
 
-Most of these are **diachronic**: they freeze and are never rewritten (a superseding decision is a *new* record). This is the archival half of the system — see `../../../structure/concepts.md` on the state/change seam and why these documents belong to a *project's* provenance, not a maintained state.
+Most of these are **diachronic**: they freeze and are never rewritten (a superseding decision is a *new* record). This is the archival half of the system — see `../../../structuring/concepts.md` on the state/change seam and why these documents belong to a *project's* provenance, not a maintained state.

@@ -49,7 +49,7 @@ Benefit legend: `H` human · `M` LLM · `H+M` both · `M>H` useful to both, deci
 - **Self-sufficient first docstring paragraph** `H+M` — first sentence = input → output.
 - **Document invariants and failure cases (Design by Contract)** `M>H` — state `Raises` / when `result.ok is False`.
 
-*(The one pattern promoted to a binding rule — strict terminological consistency — lives in [`rules.md`](rules.md). Full academic references in `_legacy/../patterns-ecriture-documentation.md`, web-verified set: Sweller 1988, Cowan 2001, Liu et al. 2024 "Lost in the Middle", Nielsen F-pattern, OASIS DITA 1.3, Procida Diátaxis, PEP 257, Anthropic multishot.)*
+*(The one pattern promoted to a binding rule — strict terminological consistency — lives in [`rules.md`](rules.md). Full academic references in `../theorising/patterns-ecriture-documentation.md`, web-verified set: Sweller 1988, Cowan 2001, Liu et al. 2024 "Lost in the Middle", Nielsen F-pattern, OASIS DITA 1.3, Procida Diátaxis, PEP 257, Anthropic multishot.)*
 
 ## Overriding
 

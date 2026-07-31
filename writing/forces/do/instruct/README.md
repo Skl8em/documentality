@@ -12,7 +12,7 @@ written-at: v3
 valid-for: v3
 ---
 
-`instruct` gets a reader through a settled task, assuming nothing. It is **non-formative** (`perlocution: none`): it serves the doer, it does not aim to change them. It is the neutral first notch of the do-door gradient (*here is how* → *you should* → *you must*). Use [`template.md`](template.md) to write one.
+`instruct` gets a reader through a settled task, assuming nothing. It sits **at the floor** (`intention: state`): it serves the doer, it does not aim to move them. It is the neutral first notch of the do-door gradient (*here is how* → *you should* → *you must*). Use [`template.md`](template.md) to write one.
 
 - **Generative verb:** *walk through.*
 - **Stake:** the reader's success at the task. Every precondition you leave unstated is a trap; every step you skip is a place they fail silently.

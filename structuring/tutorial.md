@@ -169,13 +169,13 @@ Either way, a piece earns its own document only when a real **seam** appears:
 - when a distinct community needs a piece on its own.
 
 None of these come with an exact threshold, and that is deliberate — the judgment is yours.
-For "too big", borrow the working-memory heuristic (roughly three to seven sections before a document stops being holdable) and the surface-craft advice in [`../theory/patterns-ecriture-documentation.md`](../theorising/patterns-ecriture-documentation.md).
+For "too big", borrow the working-memory heuristic (roughly three to seven sections before a document stops being holdable) and the surface-craft advice in [`../theorising/patterns-ecriture-documentation.md`](../theorising/patterns-ecriture-documentation.md).
 When a split you are looking at fails all three tests, prefer merging it back: precedent is not a seam.
 
 Two artifacts deserve to be named here rather than left for you to reinvent.
 
 The place where **decisions that freeze** go is a *decision record* — an ADR (Architecture Decision Record) or an equivalent decision log: one dated, append-only entry per decision, each frozen the moment it is made even though the log as a whole keeps growing.
-If you do not already have the pattern in your fingers, the `decide` stance gives you the format — see [`../write/forces/govern-and-record/decide/README.md`](../writing/forces/govern-and-record/decide/README.md).
+If you do not already have the pattern in your fingers, the `decide` stance gives you the format — see [`../writing/forces/govern-and-record/decide/README.md`](../writing/forces/govern-and-record/decide/README.md).
 For `prep`, the config-format decision is exactly this: one frozen record, not a paragraph you keep editing.
 
 **Generated, ephemeral artifacts** — `prep`'s per-run log, a coverage report, an export — are a *third category*, not authored documentation at all.
@@ -288,7 +288,7 @@ As you understand the project better you will **regroup** — merge activities t
 Every such move is a small refactor, and with practice the structure sediments into something stable.
 Coarse and honest beats fine and overwhelming.
 
-To write any single document well, use the writing on-ramp, [`../write/tutorial.md`](../writing/tutorial.md), and the force templates in [`../write/forces/`](../writing/forces/README.md).
-To expose your source to outside readers in *their* reading order — the generated reader surface, driven by the frontmatter — read the frontmatter guidance in [`../write/frontmatter.md`](../writing/frontmatter.md) (its own guided run is planned).
+To write any single document well, use the writing on-ramp, [`../writing/tutorial.md`](../writing/tutorial.md), and the force templates in [`../writing/forces/`](../writing/forces/README.md).
+To expose your source to outside readers in *their* reading order — the generated reader surface, driven by the frontmatter — read the frontmatter guidance in [`../writing/frontmatter.md`](../writing/frontmatter.md) (its own guided run is planned).
 For the life of frozen records — the diachronic provenances, phases, and eras, what freezes and what closes a bounded effort — the state/change seam is sketched in [`concepts.md`](concepts.md), and a dedicated lifecycle tutorial is planned.
 To go deeper — several projects under one docs repo, or the metadata that lets a machine read your corpus — read [`concepts.md`](concepts.md) and [`setup.md`](setup.md).
