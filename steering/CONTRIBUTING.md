@@ -22,10 +22,6 @@ Binding rules for changing this repository (the system itself), not for using it
 
 - You **must** shelve content by its **provenance** — the function that maintains it: `theorising/`, `writing/`, `structuring/`, the project's governance in `steering/`, intended work in `imagining/`, and frozen records under `phases/`. Do not mix a function's content into another's shelf; the user's reading order across `writing/` and `structuring/` is a *generated* surface, not a folder to hand-carve.
 
-- You **must** keep `provenance` meaningful: use the maintaining function (`theory`/`writing`/`structuring`/`steering`/`imagine`) or the owning project (`phase-NN`), never a blanket id.
+- You **must** keep `provenance` meaningful: use the maintaining function (`theorising`/`writing`/`structuring`/`steering`/`imagining`) or the owning project (`phase-NN`), never a blanket id.
 
 - You **may** propose larger changes as an RFC (`propose`) before writing the ADR; for small, obvious fixes an ADR alone suffices.
-
-## Working with `_legacy/`
-
-`_legacy/` is read-only source for migration. You **may** copy from it into the new tree; you **must not** link the product to it or add new content there.
