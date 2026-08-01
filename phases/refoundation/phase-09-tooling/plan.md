@@ -185,7 +185,7 @@ The two modes never sort against each other (you never list ADRs and phases in o
 ### Decisions to make (options + recommendation)
 
 - **D-a — canonical id location.** Add `id: <ULID>` to frontmatter as the canonical identity; keep a human `slug`. **Recommend: yes** — `id` is the stable machine key; the slug and the display name stay human.
-- **D-b — filenames.** (i) `<ulid>-<slug>.md` (globally unique, time-sortable, but long/ugly); (ii) keep `<slug>.md`, ULID only in frontmatter; (iii) hybrid — records (ADRs, open items) get `id` in frontmatter and keep readable slug filenames, phase folders keep their readable `era/phase-slug` names and gain an `id`. **Recommend: (iii)** — machine identity in frontmatter, readability in the tree; revisit if a flat, sortable record store is ever wanted.
+- **D-b — filenames.** (i) `<ulid>-<slug>.md` (globally unique, time-sortable, but long/ugly); (ii) keep `<slug>.md`, ULID only in frontmatter; (iii) hybrid. **Decided (ADR-028): (ii)** — filenames stay `<slug>.md` with the ULID in frontmatter; `slug_check` enforces filename == slug; if the ULID is ever wanted *in* the name, the form is `<slug>-<ulid>` (slug first), via `migrate_ids.py`, the convention kept open.
 - **D-c — keep a human ordinal?** The ADR register can show a **generated** monotonic index from ULID time-order (derive, don't store), so humans still see "the 27th decision" without a stored count. **Recommend: yes, generated.**
 - **D-d — cross-references.** Keep human relative links for *reading* (they already resolve and pass `linkcheck`), and add `id` as the stable key a generated index maps to a path, for *machine* reference and for surviving future renames. **Recommend: both — links for humans, `id` index for machines.**
 - **D-e — phase ordering.** Store an explicit `order` sort-key in each phase's frontmatter, feed it into the phase ULID's timestamp bits, and space the initial values with gaps for midpoint insertion (the two-minting-modes section above). **Recommend: yes** — the `order` field is the source of truth; ADRs keep chronological ULIDs, phases keep ordinal ones.
@@ -200,16 +200,16 @@ These five are the open forks; they are named here and decided at the start of P
 - `scripts/migrate_ids.py` — the one-off migration. **ADRs:** a ULID whose timestamp is the record's first commit (`git log --follow --diff-filter=A --format=%aI`), so order matches real history. **Phases:** a ULID from a gap-spaced `order` derived from the current intended sequence (…, refactor, tooling, schema, Phase-II-design, …), *not* wall-clock — preserving the deliberate order through the insertion we just made.
   Write `id` (and, for phases, `order`) into frontmatter; rewrite the ADR register and cross-references; emit an `old-id → new-id` map for rollback.
 
-### Migration sequence — deferred (the maintainer's call)
+### Outcome — an open convention, no mass rename (ADR-028)
 
-The on-disk target is `<ulid>-<slug>.md`, but renaming every count-named file/folder rewrites references corpus-wide, so the mass migration is **deferred** until the safe-rename script (T3b) exists (recorded in ADR-028, tracked in the technical-debt register).
-What Phase 09 does now:
+The decision keeps filenames at `<slug>.md` with the ULID in frontmatter, and keeps the naming convention **open** rather than forcing a corpus-wide rename.
+What Phase 09 does:
 
 1. Decide the scheme (ADR-028, D-a…D-e) — **done**.
-2. Add `scripts/ulid.py` (mint, two modes) + `scripts/ulid_check.py` (safe-starter verifier).
-3. **New records are created as `<ulid>-<slug>.md`** with `id`/`slug` frontmatter (this ADR and the technical-debt tracker are the first two).
-4. Leave existing `ADR-NNN`/`phase-NN` records in place; `ulid_check` *notes* them without failing.
-5. When T3b lands, run the migration with it (mint from first-commit time for ADRs, from an `order` key for phases), verified by `linkcheck` + `ulid_check`.
+2. Add `scripts/ulid.py` (mint, two modes), `scripts/ulid_check.py` (id valid & unique), and `scripts/slug_check.py` (filename == slug).
+3. **New records are `<slug>.md`** with `id`/`slug` frontmatter (this ADR and the technical-debt tracker are the first two).
+4. Provide the two naming-direction tools on the safe-rename core (T3b): `scripts/slugify_names.py` (→ `<slug>.md`) and `scripts/migrate_ids.py` (→ `<slug>-<ulid>.md`).
+5. Leave existing `ADR-NNN`/`phase-NN` records in place; adopting `id`/`slug` and normalising their names is an optional, per-record step tracked in the technical-debt register.
 
 ### Verification
 
@@ -232,8 +232,8 @@ What Phase 09 does now:
 | **T0** | Reproducible environment: Nix `devShell` pinning the toolchain + install/usage doc | `flake.nix`, `flake.lock`, `.envrc`, `steering/environment.md` |
 | **T1** | Markdownlint config + `sentence-per-line` custom rule + VSCode wiring; one-off corpus cleanup | `.markdownlint*.jsonc`, `tools/markdownlint/`, `.vscode/` |
 | **T2** | Frontmatter lint harness (safe invariants) + schema-as-data | `scripts/frontmatter_lint.py`, `schema/frontmatter.schema.json` |
-| **T3** | ULID scheme ADR (D-a…D-e) + mint/verify tooling; new records `<ulid>-<slug>`; existing migration **deferred** (tech debt) | `scripts/ulid.py`, `scripts/ulid_check.py`, ADR-028, technical-debt register |
-| **T3b** | Safe-rename refactoring script (rename a file/folder and rewrite all references) — the capacity that unblocks the deferred ULID migration | `scripts/rename_doc.py` |
+| **T3** | ULID scheme ADR (D-a…D-e) + id mint/verify + filename==slug lint; new records `<slug>.md`; convention kept open | `scripts/ulid.py`, `scripts/ulid_check.py`, `scripts/slug_check.py`, ADR-028, technical-debt register |
+| **T3b** | Safe-rename core + both naming-direction tools (rewrite all references on rename) | `scripts/rename_doc.py`, `scripts/slugify_names.py`, `scripts/migrate_ids.py` |
 | **T4** | Integration: aggregator, pre-commit, CI, VSCode tasks | `scripts/check.py`, `.pre-commit-config.yaml`, CI |
 | **T5** | Close-out: mark Phase 09 done; record decisions; hand the harness to Phase 10 | records updated |
 
@@ -241,11 +241,11 @@ What Phase 09 does now:
 
 - CLI and VSCode markdownlint apply one ruleset; the corpus passes it; title-in-frontmatter and semantic-line-breaks are enforced.
 - `frontmatter_lint.py` enforces the safe invariants and warns on the contested ones; the warning catalogue is handed to Phase 10.
-- The ULID scheme is decided (ADR-028); `scripts/ulid.py` mints and `ulid_check.py` verifies; new records are `<ulid>-<slug>`; the existing-record migration is deferred behind the safe-rename script and tracked as tech debt.
+- The ULID scheme is decided (ADR-028); `scripts/ulid.py` mints, `ulid_check.py` verifies ids, `slug_check.py` lints filename == slug; new records are `<slug>.md` with the ULID in frontmatter; the convention is kept open with both naming-direction tools.
 - `scripts/check.py` runs all checks as one gate, in pre-commit and CI.
 
 ## Open questions routed out of this plan
 
-- ✔ The five ULID decisions D-a…D-e — settled in ADR-028 (id in frontmatter; `<ulid>-<slug>` on disk; generated ordinal; human links + id index; explicit `order` for phases); the mass migration is deferred (tech debt), unblocked by T3b.
+- ✔ The five ULID decisions D-a…D-e — settled in ADR-028 (id in frontmatter; `<slug>.md` on disk; generated ordinal; human links + id index; explicit `order` for phases); the naming convention is kept open with tools both ways; legacy records keep count names for now (tech debt).
 - Whether pre-commit is adopted now or left as a documented opt-in.
 - Whether `frontmatter_lint.py` should emit an editor-consumable format (SARIF / VSCode Problems) — nice-to-have, not required for the gate.

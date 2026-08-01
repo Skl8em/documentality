@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
-"""One-time migration (ADR-028): rename count-named records to <ulid>-<slug>.
+"""Migration tool (ADR-028): rename count-named records to <slug>-<ulid>.
+
+This is the ULID-in-filename direction of the open naming convention (slug first,
+per the maintainer's preference). The default convention is `<slug>.md` with the
+ULID in frontmatter (see scripts/slugify_names.py); this tool is kept available for
+when global uniqueness in the filename is wanted. It is not part of the gate.
+
 
 - ADRs (ADR-NNN-slug.md): chronological ULID from the record's first-commit time,
   with the ADR number as a sub-second tiebreak so same-commit ADRs keep their order.
@@ -68,7 +74,7 @@ def migrate_adrs():
         slug = re.sub(r"^ADR-\d+-", "", base[:-3])
         ulid = new_ulid(ts_ms=first_commit_ms(path) + (num % 1000))
         add_frontmatter(path, {"id": ulid, "slug": slug})
-        new = os.path.join(os.path.dirname(path), f"{ulid}-{slug}.md")
+        new = os.path.join(os.path.dirname(path), f"{slug}-{ulid}.md")
         renames.append((path, new, num))
     for old, new, _ in sorted(renames, key=lambda r: r[2]):
         rename_path(old, new)
@@ -88,7 +94,7 @@ def migrate_phases():
         readme = os.path.join(d, "README.md")
         if os.path.exists(readme):
             add_frontmatter(readme, {"id": ulid, "slug": slug, "order": order})
-        new = os.path.join(os.path.dirname(d), f"{ulid}-{slug}")
+        new = os.path.join(os.path.dirname(d), f"{slug}-{ulid}")
         rename_path(d, new)
         count += 1
     return count
