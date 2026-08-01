@@ -15,6 +15,16 @@ History of the documentation system itself.
 Append-only; each entry is dated-fixed.
 Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
 
+## [v4.0-alpha.6] — Phase 09 tooling (enforce the conventions, ready the catalogue)
+
+- **Added:** a reproducible **Nix `devShell`** (`flake.nix`/`flake.lock`) pinning `markdownlint-cli2`, node, python, and git per project — so local and CI run the same bit-for-bit tools; install/usage in `steering/environment.md`.
+- **Added:** a **unified markdownlint** ruleset shared by the CLI and the VSCode extension — title in frontmatter (no body `# H1`), a custom `sentence-per-line` rule enforcing ADR-021, defaults taken over explicitly; the corpus was reflowed to one sentence per line (286 splits + 48 joins, rendering-neutral) to zero violations.
+- **Added:** a **frontmatter-lint** safe starter (`scripts/frontmatter_lint.py` + `schema/frontmatter.schema.json`) — errors on the settled invariants, warns on the contested ones (handed to Phase 10).
+- **Decided:** **ULID + slug identifiers** (ADR-028) — canonical `id: <ULID>` in frontmatter, on-disk target `<ulid>-<slug>.md`, two minting modes (ADRs chronological, phases ordinal via an `order` key), generated display ordinal; `scripts/ulid.py` mints and `scripts/ulid_check.py` verifies.
+New records are ULID-named; the migration of existing count-named records is **deferred** (technical-debt register) behind `scripts/rename_doc.py`, the verified safe-rename tool.
+- **Added:** one **gate** — `scripts/check.py` (markdownlint + frontmatter + ULID + links), always using the *pinned* markdownlint; wired into an opt-in pre-commit hook and a CI workflow.
+- **Added:** `steering/technical-debt` (the deferred-work register) and `steering/environment.md`.
+
 ## [v4.0-alpha.5] — roadmap: insert Phase 09 (tooling), renumber
 
 - **Changed:** the roadmap gains **Phase 09 — Tooling** (unified markdownlint sharing one ruleset between CLI and the VSCode extension; a *safe-starter* frontmatter-lint harness; ULID + slug identifiers replacing the sequential counts, with minting and verification).
