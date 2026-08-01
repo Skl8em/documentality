@@ -20,5 +20,12 @@
   "MD024": { "siblings_only": true },
 
   // Templates use <placeholder> tokens and <!-- guidance --> comments.
-  "MD033": false
+  "MD033": false,
+
+  // Table-column-style (MD060) exists only in newer markdownlint (the VSCode
+  // extension bundles its own, possibly newer, engine than our pinned CLI). We do
+  // not enforce a table style; turning it off keeps the editor quiet and matches
+  // the pinned CLI, which does not have the rule. (Our config + custom rules are
+  // shared with the editor; the engine *version* is pinned only for the CLI.)
+  "MD060": false
 }
