@@ -67,12 +67,10 @@ def rewrite_target(target, old_dir, new_dir, mapping, file_moved):
     return rebuilt + (" " + title if title else "")
 
 
-def main():
-    args = [a for a in sys.argv[1:] if a != "--dry-run"]
-    dry = "--dry-run" in sys.argv
-    if len(args) != 2:
-        raise SystemExit("usage: rename_doc.py [--dry-run] OLD NEW")
-    old, new = os.path.normpath(args[0]), os.path.normpath(args[1])
+def rename_path(old, new, dry=False):
+    """git mv OLD to NEW and rewrite every affected relative link. Returns
+    (changed_files, changed_links). Does NOT run linkcheck (callers do)."""
+    old, new = os.path.normpath(old), os.path.normpath(new)
     if not os.path.exists(old):
         raise SystemExit(f"OLD does not exist: {old}")
     if os.path.exists(new):
@@ -110,13 +108,19 @@ def main():
             if not dry:
                 with open(read_path, "w", encoding="utf-8") as fh:
                     fh.write(out)
+    return changed_files, changed_links
 
+
+def main():
+    args = [a for a in sys.argv[1:] if a != "--dry-run"]
+    dry = "--dry-run" in sys.argv
+    if len(args) != 2:
+        raise SystemExit("usage: rename_doc.py [--dry-run] OLD NEW")
+    old, new = args
+    cf, cl = rename_path(old, new, dry=dry)
     print(f"{'[dry-run] ' if dry else ''}moved {old} -> {new}; "
-          f"rewrote {changed_links} link(s) in {changed_files} file(s)")
-    if not dry:
-        rc = subprocess.call([sys.executable, "scripts/linkcheck.py"])
-        return rc
-    return 0
+          f"rewrote {cl} link(s) in {cf} file(s)")
+    return 0 if dry else subprocess.call([sys.executable, "scripts/linkcheck.py"])
 
 
 if __name__ == "__main__":
