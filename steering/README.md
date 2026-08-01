@@ -22,6 +22,7 @@ This folder is the **`steering` function** — the project governing *itself*, n
 - **How to contribute to the system** (the binding rules for changing it) → [`CONTRIBUTING.md`](CONTRIBUTING.md) *(mandate)*
 - **What changed and when** → [`CHANGELOG.md`](CHANGELOG.md) *(account)*
 - **Every decision, listed** (the register) → [`ADR.md`](ADR.md) *(decide — the act)*
+- **What is still being deliberated** (open questions) → [`open-questions.md`](open-questions.md) *(propose — current, decants to `phases/`)*
 - **Why each choice was made, and what it entails** → [`phases/`](../phases/README.md) — records grouped by the construction phase that produced them, each with its `justify` and `entail`.
 
 ## Why this is separate from the product
