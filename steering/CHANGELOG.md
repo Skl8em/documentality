@@ -13,6 +13,10 @@ retention: permanent
 
 History of the documentation system itself. Append-only; each entry is dated-fixed. Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
 
+## [v4.0-alpha.5] — roadmap: insert Phase 09 (tooling), renumber
+
+- **Changed:** the roadmap gains **Phase 09 — Tooling** (unified markdownlint sharing one ruleset between CLI and the VSCode extension; a *safe-starter* frontmatter-lint harness; ULID + slug identifiers replacing the sequential counts, with minting and verification). The former schema-reconciliation phase becomes **Phase 10**, and design-of-Phase-II becomes **Phase 11**; the *refoundation* era now spans phases 06–10. Tooling is placed *before* the schema so the lint harness makes Phase 10 efficient. A detailed plan lives in [`phases/refoundation/phase-09-tooling/plan.md`](../phases/refoundation/phase-09-tooling/plan.md). Frozen records from earlier phases keep their-time phase numbers; the live plan and governance docs are renumbered.
+
 ## [v4.0-alpha.4] — refounded vocabulary, the twelve forces, and the gerund shelf (Phase 08 complete)
 
 - **Changed:** `perlocution` → `intention` across the product and catalogue — a constitutive floor (`state`) with an optional aim above it (`locate`/`model`/`enable`/`convince`, grouping into `formative`/`suasive`/`affective`); the field, the guidance prose (`writing/concepts.md`, `frontmatter.md`, `choosing.md`, the force stances), and the twelve v3 `perlocution: none` frontmatters all convert (`none` → `state`). (ADR-026; refines ADR-015)
@@ -21,7 +25,7 @@ History of the documentation system itself. Append-only; each entry is dated-fix
 - **Removed:** `_legacy/` (the migration source) and `structuring/applied.md` (the stale v3 self-reading, superseded by `self-application.md`).
 - **Renamed:** function folders and `provenance.id` to the **gerund** form — `theory→theorising`, `write→writing`, `structure→structuring`, `imagine→imagining` (`steering` already conformed); the `theory` nested git repo absorbed via a history-preserving subtree merge. (ADR-027)
 - **Changed:** `phases/` grouped into **physical era folders** (`naive-sketch/`, `refoundation/`); stale `written-at`/`valid-for` v3 markers dropped from the live docs.
-- **Added:** `steering/open-questions.md` — the live deliberation register (⚑ intention coarse-vs-fine, ⚑ register stored-vs-derived → Phase 09) — and `scripts/linkcheck.py`, the phase-close link gate (reports zero broken links).
+- **Added:** `steering/open-questions.md` — the live deliberation register (⚑ intention coarse-vs-fine, ⚑ register stored-vs-derived → Phase 10) — and `scripts/linkcheck.py`, the phase-close link gate (reports zero broken links).
 
 ## [v4.0-alpha.3] — provenance shelf & the govern model (Phase 08)
 

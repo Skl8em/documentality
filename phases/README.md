@@ -40,9 +40,10 @@ Regrounding the theory on Ferraris and, at last, laying the front-end flat.
 | [06 — refoundation & front-end](refoundation/phase-06-refoundation/README.md) *(done)* | Ferraris refoundation; perlocution floor & cells; the front-end; source-vs-generated shelf; Phase-I scope | ADR-014…021 |
 | [07 — structuring tutorial & front-end correction](refoundation/phase-07-structuring-tutorial/README.md) *(done)* | functions-first; distance per community; mutable groupings & eras | ADR-022, ADR-023 |
 | [08 — refactor product & source](refoundation/phase-08-refactor/README.md) *(done)* | refounded vocabulary (intention floor, register gloss); producer shelf; nine forces migrated & `_legacy/` retired; gerund naming; eras made physical | ADR-024…027 |
-| 09 — reconcile schema *(next)* | the frontmatter schema as the machine-ready catalogue | — |
+| [09 — tooling](refoundation/phase-09-tooling/README.md) *(next)* | unified markdownlint (CLI + VSCode); a frontmatter-lint harness (safe invariants); ULID + slug identifiers with minting & verification | — |
+| 10 — reconcile schema *(planned)* | the frontmatter schema as the machine-ready catalogue, on the Phase-09 lint harness | — |
 
 ## Era 3 — Phase II *(later)*
 
 The computational model — designed only once Phase I closes, for the new discourse community it brings.
-Not yet begun (roadmap Phase 10 onward).
+Not yet begun (roadmap Phase 11 onward; its design is Phase 11).

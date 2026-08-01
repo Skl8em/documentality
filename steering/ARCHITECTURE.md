@@ -9,7 +9,7 @@ provenance: { type: function, id: steering }
 audience: [contributor, decider]
 reader: H+M
 status: draft
-note: "Refounded in Phase 08 to the provenance-first shelf and the intention vocabulary; the schema is reconciled in Phase 09."
+note: "Refounded in Phase 08 to the provenance-first shelf and the intention vocabulary; the schema is reconciled in Phase 10 (Phase 09 tooling readies it)."
 ---
 
 This explains how the repository is laid out and *why* it is shaped this way, so a contributor can change it without breaking its logic. If you only want to *use* the system, read the product (`../writing/`, `../structuring/`) instead; this is about the repo as a maintained artifact.
@@ -34,7 +34,7 @@ The twelve forces sit under three **doors** — **know** (`orient`, `explain`, `
 
 ## The metadata backbone
 
-Every file carries frontmatter (`../writing/frontmatter.md`): `force`, `intention`, `view`, `provenance`, `audience`, `reader`, `status` are required. `intention` is the perlocutionary coordinate — a constitutive floor (`state`) with an optional aim above it (`locate`/`model`/`enable`/`convince`, grouping into `formative`/`suasive`/`affective`; ADR-015/026). Derivable facts — **door/register**, direction of fit, diataxis (`force` × `intention`) — are **generated, never stored**. Tree roots additionally carry `axis` and `dominant-community`; governance records may carry `concerns`. This catalogue is what lets a validator, and later a writing AI, operate on the corpus. The full schema reconciliation (coarse-vs-fine `intention`, whether `register` is stored, `distance`/`power` values) is Phase 09.
+Every file carries frontmatter (`../writing/frontmatter.md`): `force`, `intention`, `view`, `provenance`, `audience`, `reader`, `status` are required. `intention` is the perlocutionary coordinate — a constitutive floor (`state`) with an optional aim above it (`locate`/`model`/`enable`/`convince`, grouping into `formative`/`suasive`/`affective`; ADR-015/026). Derivable facts — **door/register**, direction of fit, diataxis (`force` × `intention`) — are **generated, never stored**. Tree roots additionally carry `axis` and `dominant-community`; governance records may carry `concerns`. This catalogue is what lets a validator, and later a writing AI, operate on the corpus. The full schema reconciliation (coarse-vs-fine `intention`, whether `register` is stored, `distance`/`power` values) is Phase 10, on the lint harness Phase 09 stands up.
 
 ## Provenance map (how this repo is owned)
 

@@ -14,7 +14,7 @@ status: draft
 
 This is the project's **current** deliberation register: questions that are open, each carried on the *current* side until it is decided, at which point it **decants** into a frozen `decide` record under `phases/` (the state/change seam — a current `govern` document becoming a frozen one). It is dogfood: the round-2 rule says a deliberation is exactly this, and we have it.
 
-Derived in the Phase-07 self-application ([`self-application.md`](../phases/refoundation/phase-07-structuring-tutorial/self-application.md) §Pending); the schema forks below are routed to Phase 09.
+Derived in the Phase-07 self-application ([`self-application.md`](../phases/refoundation/phase-07-structuring-tutorial/self-application.md) §Pending); the schema forks below are routed to Phase 10, on the lint harness Phase 09 stands up.
 
 ## Open
 
@@ -23,7 +23,7 @@ Derived in the Phase-07 self-application ([`self-application.md`](../phases/refo
 Store `intention` as the **coarse** family `state` · `formative` · `suasive` · `affective` (ADR-026), or as the **fine** value `state` · `locate` · `model` · `enable` · `convince`?
 
 - **Proposed:** coarse.
-- **Status:** open → **Phase 09** (schema reconciliation).
+- **Status:** open → **Phase 10** (schema reconciliation), on the lint harness Phase 09 stands up.
 - **Current practice:** the fine values are used in the frontmatter and guidance for now (e.g. `intention: model`), pending the decision. See [`frontmatter-schema-draft.md`](../phases/refoundation/phase-07-structuring-tutorial/frontmatter-schema-draft.md).
 
 ### ⚑ Decision 2 — store `register`, or derive it from `force`
@@ -31,8 +31,8 @@ Store `intention` as the **coarse** family `state` · `formative` · `suasive` �
 `register` (know / do / govern) is a gloss over `force`. Store it in the frontmatter, or generate it?
 
 - **Proposed:** derive.
-- **Status:** open → **Phase 09**.
-- **Current practice:** steering records carry `register` explicitly; the product v3 files do not. The inconsistency is what Phase 09 resolves.
+- **Status:** open → **Phase 10**.
+- **Current practice:** steering records carry `register` explicitly; the product v3 files do not. The inconsistency is what Phase 10 resolves.
 
 ## Closed
 

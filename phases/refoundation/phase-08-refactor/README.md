@@ -22,7 +22,7 @@ What landed:
 - the **refounded vocabulary** — `perlocution → intention` (floor + aim), forces as recognized cells, know/do/govern as a register gloss, `recommend`/`entail` as extensions, the machine as the recipient relation at its limit — carried across `writing/` and `structuring/`;
 - the **nine forces** migrated from `_legacy/` (all twelve now built), `_legacy/` retired, `structuring/applied.md` retired, `steering/open-questions.md` added, `phases/` grouped physically by era, and the `theory` nested repo absorbed via a history-preserving subtree merge.
 
-Verification: `scripts/linkcheck.py` reports zero broken relative links; no live document carries the v3 `perlocution` field. The two schema forks it surfaced (coarse-vs-fine `intention`, stored-vs-derived `register`) are tracked in [`../../../steering/open-questions.md`](../../../steering/open-questions.md) and routed to Phase 09.
+Verification: `scripts/linkcheck.py` reports zero broken relative links; no live document carries the v3 `perlocution` field. The two schema forks it surfaced (coarse-vs-fine `intention`, stored-vs-derived `register`) are tracked in [`../../../steering/open-questions.md`](../../../steering/open-questions.md) and routed to Phase 10 (on the lint harness Phase 09 stands up).
 
 - [workstreams.md — the nine workstreams A–I (plan and execution)](workstreams.md)
 - [ADR-024 — producer shelf: dissolve `docs/`, provenance at root](ADR-024-producer-shelf.md)
