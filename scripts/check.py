@@ -3,8 +3,9 @@
 
   1. linkcheck        every relative markdown link resolves
   2. frontmatter_lint settled frontmatter invariants (warns on the contested ones)
-  3. ulid_check       ULID-named records valid & unique (legacy noted, not failed)
-  4. markdownlint     one shared ruleset incl. one-sentence-per-line (ADR-021)
+  3. ulid_check       every frontmatter `id` is a valid, unique ULID
+  4. slug_check       filename stem == frontmatter `slug` (ADR-028)
+  5. markdownlint     one shared ruleset incl. one-sentence-per-line (ADR-021)
 
 This is what pre-commit and CI run. Stdlib only. markdownlint-cli2 is a Node tool
 from the devShell; if it is not on PATH this falls back to `nix develop --command`,
@@ -42,6 +43,7 @@ def main():
         ("linkcheck", [PY, "scripts/linkcheck.py"]),
         ("frontmatter", [PY, "scripts/frontmatter_lint.py"]),
         ("ulid", [PY, "scripts/ulid_check.py"]),
+        ("slug", [PY, "scripts/slug_check.py"]),
         ("markdownlint", markdownlint_cmd()),
     ]
     failures = []

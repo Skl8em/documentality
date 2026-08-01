@@ -16,15 +16,15 @@ status: draft
 Known technical debt: things we chose to defer, each with *why* and *how to resolve*.
 This is a **current** register (a debt is removed when it is paid), distinct from [`open-questions`](open-questions.md) (undecided questions) and the roadmap (planned phases).
 
-## ULID migration of existing records
+## Legacy count-named records
 
-**What:** existing records still use sequential-count names — the ADRs (`ADR-001`…`ADR-027`) and the phase folders (`phase-01-foundation`…`phase-09-tooling`) — while new records are `<ulid>-<slug>.md` per the [ULID identifiers decision](../phases/refoundation/phase-09-tooling/01KYYTENT6PXHBZCGVGJ9YN9YX-ulid-identifiers.md).
+**What:** existing records still use sequential-count names — the ADRs (`ADR-001`…`ADR-027`) and the phase folders (`phase-01-foundation`…`phase-09-tooling`) — while new records follow the [ULID identifiers decision](../phases/refoundation/phase-09-tooling/ulid-identifiers.md): a `<slug>.md` filename with a ULID `id` in frontmatter.
 The corpus therefore carries two naming schemes at once.
 
-**Why deferred:** renaming every count-named file and folder rewrites cross-references corpus-wide — a large, link-rotting event.
-We do it only once a trusted **safe-rename refactoring script** exists, so the rename is mechanical and verified, not hand-done.
+**Why left open:** the decision (ADR-028) deliberately keeps the naming convention open, rather than forcing a corpus-wide rename now.
+Adopting `id`/`slug` on the legacy records — and choosing whether their filenames become `<slug>.md` or `<slug>-<ulid>.md` — is a per-record judgement, not a debt that must be paid on a schedule.
 
-**How to resolve:** with `scripts/rename_doc.py` (the safe-rename capacity built later in Phase 09), migrate each legacy record to `<ulid>-<slug>.md`: mint a ULID (ADRs chronological from first-commit time; phases ordinal from an `order` key), write `id`/`slug` into frontmatter, rename, and let the script rewrite all references; `linkcheck` + `ulid_check` gate it.
+**How to resolve (when we choose):** add `id`/`slug` to a record's frontmatter (mint with `scripts/ulid.py` — ADRs chronological, phases ordinal via an `order` key), then normalise its filename with `scripts/slugify_names.py` (→ `<slug>.md`) or `scripts/migrate_ids.py` (→ `<slug>-<ulid>.md`); both rewrite all references via the safe-rename core, gated by `linkcheck` + `slug_check` + `ulid_check`.
 
 ## Linter-grandfathered content
 

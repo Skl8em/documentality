@@ -1,31 +1,25 @@
 #!/usr/bin/env python3
-"""ULID verifier — a SAFE STARTER (ADR-028).
+"""ULID verifier (ADR-028) — frontmatter-based.
 
-Validates the ULID-named records the new scheme introduces, without failing on
-the legacy count-named records whose migration is deferred (see the technical-debt
-doc). For every `<ulid>-<slug>.md` file it checks: the prefix is a valid ULID; the
-frontmatter `id` matches it; the frontmatter `slug` matches the filename slug; and
-ULIDs are unique across the corpus. Reports (but does not fail on) legacy records
-missing an `id`, and phases whose ULID order disagrees with their `order` key.
+The canonical identifier is the frontmatter `id:` (a ULID); it is NOT required in
+the filename (filenames follow the `<slug>.md` convention, checked by slug_check).
+This validates that every declared `id` is a syntactically valid ULID and that ids
+are unique across the corpus. Records without an `id` are permitted (adopting ids
+on the legacy count-named records is optional; the convention is kept open).
 
 Stdlib only.
 
     python3 scripts/ulid_check.py
 """
 import os
-import re
 import subprocess
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from ulid import is_ulid, timestamp_of  # noqa: E402
+from ulid import is_ulid  # noqa: E402
 
 ROOT = subprocess.check_output(["git", "rev-parse", "--show-toplevel"], text=True).strip()
 os.chdir(ROOT)
-
-ULID_NAME = re.compile(r"^([0-9A-HJKMNP-TV-Z]{26})-(.+)\.md$")
-# legacy count-named records whose migration to <ulid>-<slug> is deferred (tech debt)
-LEGACY_NAME = re.compile(r"(ADR-\d+|phase-\d\d)")
 
 
 def frontmatter(path):
@@ -45,37 +39,26 @@ def frontmatter(path):
 
 def main():
     files = subprocess.check_output(["git", "ls-files", "*.md"], text=True).splitlines()
-    errors, notes = [], []
+    errors = []
     seen = {}
-
+    n_ids = 0
     for f in files:
-        base = os.path.basename(f)
-        m = ULID_NAME.match(base)
-        if m:
-            ulid, slug = m.group(1), m.group(2)
-            fm = frontmatter(f)
-            if not is_ulid(ulid):
-                errors.append((f, "filename ULID prefix is not valid Crockford base32"))
-            if fm.get("id") != ulid:
-                errors.append((f, f"frontmatter id ({fm.get('id')!r}) != filename ULID ({ulid})"))
-            if fm.get("slug") and fm.get("slug") != slug:
-                errors.append((f, f"frontmatter slug ({fm.get('slug')!r}) != filename slug ({slug!r})"))
-            if ulid in seen:
-                errors.append((f, f"duplicate ULID (also in {seen[ulid]})"))
-            seen[ulid] = f
-        elif LEGACY_NAME.search(base):
-            if not frontmatter(f).get("id"):
-                notes.append((f, "legacy count-named record without a ULID id (migration deferred)"))
-
-    if notes:
-        print(f"NOTES: {len(notes)} legacy records pending ULID migration (tech debt)")
+        rid = frontmatter(f).get("id")
+        if not rid:
+            continue
+        n_ids += 1
+        if not is_ulid(rid):
+            errors.append((f, f"id {rid!r} is not a valid ULID"))
+        if rid in seen:
+            errors.append((f, f"duplicate id (also in {seen[rid]})"))
+        seen[rid] = f
 
     if errors:
         print(f"ULID ERRORS: {len(errors)}")
         for f, msg in errors:
             print(f"  {f}  {msg}")
         return 1
-    print(f"ULID OK ({len(seen)} ULID-named records valid & unique; {len(notes)} legacy pending).")
+    print(f"ULID OK ({n_ids} records carry a valid, unique id).")
     return 0
 
 
