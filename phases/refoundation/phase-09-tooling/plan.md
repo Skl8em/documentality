@@ -140,7 +140,21 @@ Replace the sequential counts (`ADR-027`, `phase-08`, and any other ordinals use
 ### Why ULID
 
 A count is a bottleneck and a merge-conflict magnet, and it bakes ordering into the name.
-A ULID is unique without coordination, sorts by creation time, and pairs with a slug for human legibility — `01J9Z…K3-gerund-naming` instead of `ADR-027`.
+A ULID is unique without coordination, sorts by its leading timestamp, and pairs with a slug for human legibility — `01J9Z…K3-gerund-naming` instead of `ADR-027`.
+
+### Two minting modes — chronological vs ordinal
+
+Not every count means the same thing, so the ULID's timestamp field is fed differently for each.
+
+- **ADRs are append-only and chronological.** Their order *is* their creation order, so their ULID takes the **real creation timestamp** (the record's first-commit time). Nothing to steer.
+- **Phases carry an *intentional* order we deliberately rearrange.** We just inserted tooling between refactor and schema-reconciliation; a wall-clock ULID would sort tooling *after* both and destroy the sequence. So a phase's ULID takes a **controlled ordinal key** as its timestamp input, not the wall clock.
+
+The mechanism: a ULID sorts lexicographically by its 48-bit timestamp prefix, so we feed that prefix a **sort key we own**.
+Each phase stores an explicit `order` value in its frontmatter, and the ULID's timestamp bits are derived from it.
+To insert a phase between two neighbours, pick an `order` strictly between theirs — refactor `= x`, schema `= y > x`, tooling `= z` with `x < z < y` — and mint from `z`.
+To keep insertion room, space the initial `order` values with gaps (multiples of a large constant) and insert at the midpoint; if a gap is ever exhausted, a one-line `rebalance` re-spreads the keys (rare — phases are few).
+The `order` field is the human-editable source of truth; the ULID is its stable, unique encoding.
+The two modes never sort against each other (you never list ADRs and phases in one ordering), so ADRs keep real times and phases keep synthetic ones without conflict.
 
 ### Decisions to make (options + recommendation)
 
@@ -148,14 +162,15 @@ A ULID is unique without coordination, sorts by creation time, and pairs with a 
 - **D-b — filenames.** (i) `<ulid>-<slug>.md` (globally unique, time-sortable, but long/ugly); (ii) keep `<slug>.md`, ULID only in frontmatter; (iii) hybrid — records (ADRs, open items) get `id` in frontmatter and keep readable slug filenames, phase folders keep their readable `era/phase-slug` names and gain an `id`. **Recommend: (iii)** — machine identity in frontmatter, readability in the tree; revisit if a flat, sortable record store is ever wanted.
 - **D-c — keep a human ordinal?** The ADR register can show a **generated** monotonic index from ULID time-order (derive, don't store), so humans still see "the 27th decision" without a stored count. **Recommend: yes, generated.**
 - **D-d — cross-references.** Keep human relative links for *reading* (they already resolve and pass `linkcheck`), and add `id` as the stable key a generated index maps to a path, for *machine* reference and for surviving future renames. **Recommend: both — links for humans, `id` index for machines.**
+- **D-e — phase ordering.** Store an explicit `order` sort-key in each phase's frontmatter, feed it into the phase ULID's timestamp bits, and space the initial values with gaps for midpoint insertion (the two-minting-modes section above). **Recommend: yes** — the `order` field is the source of truth; ADRs keep chronological ULIDs, phases keep ordinal ones.
 
-These four are the open forks; they are named here and decided at the start of Phase 09 execution (a short ADR).
+These five are the open forks; they are named here and decided at the start of Phase 09 execution (a short ADR).
 
 ### Tooling (Python)
 
-- `scripts/ulid_new.py` — mint a ULID. Implement the spec directly (48-bit millisecond timestamp + 80-bit randomness, Crockford base32, excluding `I L O U`), or pin a tiny vetted dependency; **the timestamp should be the record's real creation time**, so the sort order is meaningful.
-- `scripts/ulid_check.py` — verify: every catalogued record has an `id`; each `id` is a syntactically valid ULID; **uniqueness** across the corpus; the `id` agrees with the filename if D-b picks a ULID-in-filename; and **no orphan count-references** remain (a grep gate for `ADR-\d+`, `phase-\d\d` outside intended historical prose).
-- `scripts/migrate_ids.py` — the one-off migration: assign each existing record a ULID whose **timestamp comes from its first commit** (`git log --follow --diff-filter=A --format=%aI`), so ULID order matches real history; write `id` into frontmatter; rewrite the ADR register and cross-references; emit an `old-id → new-id` map for rollback.
+- `scripts/ulid_new.py` — mint a ULID, with the timestamp field taken from an input so both modes are supported: `--at <iso>` for **chronological** records (ADRs; default = the git first-commit time, else now) or `--order <int>` for a **controlled ordinal** (phases, from their `order` field). Implement the spec directly (48-bit timestamp + 80-bit randomness, Crockford base32, excluding `I L O U`), or pin a tiny vetted dependency.
+- `scripts/ulid_check.py` — verify: every catalogued record has an `id`; each `id` is a syntactically valid ULID; **uniqueness** across the corpus; the `id` agrees with the filename if D-b picks a ULID-in-filename; **no orphan count-references** remain (a grep gate for `ADR-\d+`, `phase-\d\d` outside intended historical prose); and, for phases, that the ULID order **agrees with the declared `order` field** (no drift) and that `order` values are unique.
+- `scripts/migrate_ids.py` — the one-off migration. **ADRs:** a ULID whose timestamp is the record's first commit (`git log --follow --diff-filter=A --format=%aI`), so order matches real history. **Phases:** a ULID from a gap-spaced `order` derived from the current intended sequence (…, refactor, tooling, schema, Phase-II-design, …), *not* wall-clock — preserving the deliberate order through the insertion we just made. Write `id` (and, for phases, `order`) into frontmatter; rewrite the ADR register and cross-references; emit an `old-id → new-id` map for rollback.
 
 ### Migration sequence (reversible)
 
@@ -198,6 +213,6 @@ These four are the open forks; they are named here and decided at the start of P
 
 ## Open questions routed out of this plan
 
-- The four ULID decisions D-a…D-d (settled by a short ADR at the start of execution).
+- The five ULID decisions D-a…D-e (settled by a short ADR at the start of execution), including phase ordering via an explicit `order` key.
 - Whether pre-commit is adopted now or left as a documented opt-in.
 - Whether `frontmatter_lint.py` should emit an editor-consumable format (SARIF / VSCode Problems) — nice-to-have, not required for the gate.
