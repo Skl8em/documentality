@@ -18,7 +18,7 @@ This folder answers **where documents live, how they are organized, how long the
 - **Lay down the tree and topology** for a new project or a docs repo → [`setup.md`](setup.md) *(instruct)*
 - **The recommended defaults** (tree axis, retention) → [`defaults.md`](defaults.md) *(recommend)*
 - **The binding structural rules** → [`rules.md`](rules.md) *(mandate)*
-- **See it lived** — how this repo applies it, and how a generic IT project would → [`applied.md`](applied.md) *(explain)*
+- **See it lived** — this repo's own structuring, run through the tutorial (the dogfood record) → [`self-application.md`](../phases/refoundation/phase-07-structuring-tutorial/self-application.md) *(explain)*
 - **Who the docs are for** (the audience model — roles × reader — that both activities reference) → [`audience.md`](audience.md) *(describe)*. It lives here because choosing who the tree serves is a structural decision.
 - The metadata that makes the tree navigable is a `writing/` concern (you fill it while writing): [`../writing/frontmatter.md`](../writing/frontmatter.md).
 
