@@ -21,7 +21,8 @@ Delete these comments once filled in.
 
 ## The question (the tension the reader holds)
 
-<Name the question or puzzle the reader arrives with. "Why does X, and not Y?">
+<Name the question or puzzle the reader arrives with.
+"Why does X, and not Y?">
 
 ## The model that resolves it
 
@@ -30,8 +31,8 @@ Not steps, not a fact list: the reasoning that lets the reader see why.>
 
 ## Consequences and limits
 
-<What the model implies; where it stops holding. Let the reader extrapolate,
-and mark the cases it does not cover.>
+<What the model implies; where it stops holding.
+Let the reader extrapolate, and mark the cases it does not cover.>
 
 ## See also
 

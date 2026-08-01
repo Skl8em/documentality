@@ -10,11 +10,13 @@ reader: H+M
 status: stable
 ---
 
-Follow this when starting docs for a project, or a docs repo over several projects. The reasoning is in [`concepts.md`](concepts.md); the defaults you'll apply are in [`defaults.md`](defaults.md).
+Follow this when starting docs for a project, or a docs repo over several projects.
+The reasoning is in [`concepts.md`](concepts.md); the defaults you'll apply are in [`defaults.md`](defaults.md).
 
 ## A. Docs living with one project (in-repo)
 
-1. **Choose the tree axis** and write it at the top of `docs/`. Default for code: component / builder's path (`defaults.md`).
+1. **Choose the tree axis** and write it at the top of `docs/`.
+   Default for code: component / builder's path (`defaults.md`).
 2. **Create the shelf** — one place per document:
 
    ```text
@@ -47,13 +49,17 @@ Follow this when starting docs for a project, or a docs repo over several projec
    catalog/                        # indexes generated from frontmatters (do not hand-edit)
    ```
 
-3. **Add each project as a pinned submodule** under `projects/` — `git submodule add <url>` then commit the pin. The pin is the fixity bond; never replace it with a copy or a moving link.
+3. **Add each project as a pinned submodule** under `projects/` — `git submodule add <url>` then commit the pin.
+   The pin is the fixity bond; never replace it with a copy or a moving link.
 4. **Reference, never duplicate:** a function page cites the project's exact state via its submodule pin (`pin:` in frontmatter), it does not copy the content.
 
 ## C. Export (any topology)
 
-The source is Markdown / Quarto. Every target (site, wiki, docx, pptx, pdf) is a derived package. Stay tool-agnostic; the minimal contract is Pandoc: keep standard Markdown so `pandoc source.md -o target.{docx,pptx,pdf,html}` works without a specific generator. **Never edit in the export target** — fix the source and re-export, or the derived state drifts from its authority.
+The source is Markdown / Quarto.
+Every target (site, wiki, docx, pptx, pdf) is a derived package.
+Stay tool-agnostic; the minimal contract is Pandoc: keep standard Markdown so `pandoc source.md -o target.{docx,pptx,pdf,html}` works without a specific generator. **Never edit in the export target** — fix the source and re-export, or the derived state drifts from its authority.
 
 ## Verify
 
-You are done when: every file has one place on the shelf and a valid frontmatter; every cross-project reference is a pinned submodule; the tree's axis is written at its root; and nothing is edited anywhere but the source. Run the checks in [`rules.md`](rules.md).
+You are done when: every file has one place on the shelf and a valid frontmatter; every cross-project reference is a pinned submodule; the tree's axis is written at its root; and nothing is edited anywhere but the source.
+Run the checks in [`rules.md`](rules.md).

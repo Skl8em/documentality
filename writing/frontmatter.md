@@ -10,9 +10,14 @@ reader: H+M
 status: stable
 ---
 
-This reference specifies the **YAML frontmatter** every document carries. It lives in `writing/` because you fill it *while writing*, even though several of its fields (`provenance`, `view`, `pin`) source their meaning from the organization (`../structuring/`). The frontmatter is the *catalogue*: it gives the machine a document's coordinates without a human reading them.
+This reference specifies the **YAML frontmatter** every document carries.
+It lives in `writing/` because you fill it *while writing*, even though several of its fields (`provenance`, `view`, `pin`) source their meaning from the organization (`../structuring/`).
+The frontmatter is the *catalogue*: it gives the machine a document's coordinates without a human reading them.
 
-Design note: the schema carries only **hard coordinates not derivable from one another**. It omits `diataxis` (re-derived by `force` × `intention`, see [`concepts.md`](concepts.md)) and any direction-of-fit field (fixed by `force`). Storing either would encode the same fact twice. (The full schema reconciliation to the refounded model — coarse-vs-fine `intention`, whether `register` is stored, the `concerns` coordinate, `distance`/`power` values — is Phase 09; this file carries the Phase-08 vocabulary only.)
+Design note: the schema carries only **hard coordinates not derivable from one another**.
+It omits `diataxis` (re-derived by `force` × `intention`, see [`concepts.md`](concepts.md)) and any direction-of-fit field (fixed by `force`).
+Storing either would encode the same fact twice.
+(The full schema reconciliation to the refounded model — coarse-vs-fine `intention`, whether `register` is stored, the `concerns` coordinate, `distance`/`power` values — is Phase 09; this file carries the Phase-08 vocabulary only.)
 
 ## Fields
 
@@ -45,13 +50,19 @@ Computed from `force`, read by tooling / newcomers: **door / register** (know / 
 
 ## Validation rules
 
-- `force`, `intention`, `view`, `provenance`, `audience`, `reader`, `status` are **required** on every non-ephemeral document. A file lacking them does not enter the catalogue.
-- `intention` is **not** constrained by `force` — it is an independent coordinate, and any pairing is permitted. Each force has a *typical* intention (`orient`→`locate`, `explain`→`model`, `teach`→`enable`, `prove`/`decide`→`convince`, others→`state`), but a divergent pairing is legal and often meaningful — an `account` that explains a failure carries `intention: model`; a `describe` that means to convince carries `convince`. A validator may *surface* an unusual pairing for review; it never rejects one. (We do not commit to a table of which pairings are possible — that would be a definitiveness the theory's "saturated, not closed" stance forbids.)
-- `provenance.type: project` ⇒ not rewritten after closure; a change is a *new* document via `supersedes`. Consistent with `view: diachronic`.
+- `force`, `intention`, `view`, `provenance`, `audience`, `reader`, `status` are **required** on every non-ephemeral document.
+  A file lacking them does not enter the catalogue.
+- `intention` is **not** constrained by `force` — it is an independent coordinate, and any pairing is permitted.
+  Each force has a *typical* intention (`orient`→`locate`, `explain`→`model`, `teach`→`enable`, `prove`/`decide`→`convince`, others→`state`), but a divergent pairing is legal and often meaningful — an `account` that explains a failure carries `intention: model`; a `describe` that means to convince carries `convince`.
+  A validator may *surface* an unusual pairing for review; it never rejects one.
+  (We do not commit to a table of which pairings are possible — that would be a definitiveness the theory's "saturated, not closed" stance forbids.)
+- `provenance.type: project` ⇒ not rewritten after closure; a change is a *new* document via `supersedes`.
+  Consistent with `view: diachronic`.
 - `view: synchronic` with `provenance.type: project` is a suspect pair; allow only knowingly.
 - `status: deprecated` requires a non-null `superseded-by` (or an explicit no-replacement note).
 - `reader` including `M` ⇒ the document must satisfy the machine rules in [`rules.md`](rules.md) (self-sufficient chunks, no cross-section anaphora).
-- The **root orient document of a tree** (the top `README.md`) must carry `axis` and `dominant-community`; no other document carries them. A validator flags a tree root missing either, or a non-root file that declares them.
+- The **root orient document of a tree** (the top `README.md`) must carry `axis` and `dominant-community`; no other document carries them.
+  A validator flags a tree root missing either, or a non-root file that declares them.
 
 ## Full example
 
@@ -76,4 +87,6 @@ pin: projects/ingestion@a1b2c3d
 
 ## In short
 
-Seven fields required everywhere — `force`, `intention`, `view`, `provenance`, `audience`, `reader`, `status` — plus `title`. They catalogue, validate, and route. `verb` guides writing when it diverges; `distance`/`power` set the register; the life-cycle and `pin` fields track trajectory and fixity. Anything derivable from `force` is generated, never stored.
+Seven fields required everywhere — `force`, `intention`, `view`, `provenance`, `audience`, `reader`, `status` — plus `title`.
+They catalogue, validate, and route. `verb` guides writing when it diverges; `distance`/`power` set the register; the life-cycle and `pin` fields track trajectory and fixity.
+Anything derivable from `force` is generated, never stored.

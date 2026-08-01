@@ -21,17 +21,18 @@ Delete these comments once filled in.
 
 ## Recommendation
 
-<State it plainly, as a *should*. One clear default action.>
+<State it plainly, as a *should*.
+One clear default action.>
 
 ## When it applies (and when it doesn't)
 
-<Fix the scope. Name the cases where this is the right default — and the cases
-where it is not, so the reader can tell.>
+<Fix the scope.
+Name the cases where this is the right default — and the cases where it is not, so the reader can tell.>
 
 ## Why (the tradeoff)
 
-<Briefly: the tradeoff that makes this the better default. Keep it short, lest it
-read as an explanation rather than advice.>
+<Briefly: the tradeoff that makes this the better default.
+Keep it short, lest it read as an explanation rather than advice.>
 
 ## Overriding
 

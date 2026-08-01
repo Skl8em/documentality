@@ -29,7 +29,8 @@ Delete these comments once filled in.
 
 ## Why it concerns you
 
-<The likely reader and their goal. "If you want X, this does Y.">
+<The likely reader and their goal.
+"If you want X, this does Y.">
 
 ## Where to go next (routing)
 

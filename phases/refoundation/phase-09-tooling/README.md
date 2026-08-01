@@ -20,8 +20,10 @@ Three parts (detailed in [`plan.md`](plan.md)):
 2. **Frontmatter linting (a safe starter)** — a validator harness that checks only the *settled* invariants now, as examples; the contested schema questions are left for Phase 10 to fill into the same harness.
 3. **ULID + slug identifiers** — replace the sequential counts (`ADR-NNN`, `phase-NN`, …) with a ULID plus a human slug, with tooling to mint and to verify them.
 
-Everything is wired into one aggregated check (the phase-close gate), a pre-commit hook, and CI. Markdownlint runs on Node (the shared engine with the editor); our own validators stay Python (per [`../../../scripts/`](../../../scripts/) and the project's validation-tooling convention).
+Everything is wired into one aggregated check (the phase-close gate), a pre-commit hook, and CI.
+Markdownlint runs on Node (the shared engine with the editor); our own validators stay Python (per [`../../../scripts/`](../../../scripts/) and the project's validation-tooling convention).
 
 - [plan.md — the detailed plan](plan.md)
 
-Status: **planned** (next after Phase 08). No decisions are frozen yet; the open forks are named in the plan.
+Status: **planned** (next after Phase 08).
+No decisions are frozen yet; the open forks are named in the plan.

@@ -21,8 +21,8 @@ Delete these comments once filled in.
 
 ## Baseline (what was expected)
 
-<The expectation, target, or plan this reports against. Without it there is nothing
-to measure.>
+<The expectation, target, or plan this reports against.
+Without it there is nothing to measure.>
 
 ## What happened
 
