@@ -4,7 +4,7 @@ force: orient
 register: know
 intention: locate
 view: synchronic
-provenance: { type: function, id: imagine }
+provenance: { type: function, id: imagining }
 distance: initiated
 audience: [contributor, decider]
 reader: H+M

@@ -2,14 +2,12 @@
 title: "Write a document — start here"
 force: orient
 verb: situate
-perlocution: locate
+intention: locate
 view: synchronic
 provenance: { type: function, id: writing }
 audience: [user]
 reader: H+M
 status: stable
-written-at: v3
-valid-for: v3
 ---
 
 This folder answers **how to write one document well**. It is split by force, so each concern is a separate file — which is itself the system eating its own dog food: an `explain` for the theory, an `instruct` for the procedure, a `recommend` for the defaults, a `mandate` for the rules, a `describe` for the metadata.

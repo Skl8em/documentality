@@ -2,14 +2,12 @@
 title: "Decide — the stance"
 force: explain
 verb: illuminate
-perlocution: model
+intention: model
 view: synchronic
 provenance: { type: function, id: writing }
 audience: [user]
 reader: H+M
 status: stable
-written-at: v3
-valid-for: v3
 ---
 
 `decide` institutes a choice by record. It is a `convince` force, and — unusually — it has **three faces**, because a decision looks in three directions at once. Use [`template.md`](template.md) to write one.

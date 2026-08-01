@@ -2,14 +2,12 @@
 title: "Orient — the stance"
 force: explain
 verb: illuminate
-perlocution: model
+intention: model
 view: synchronic
 provenance: { type: function, id: writing }
 audience: [user]
 reader: H+M
 status: stable
-written-at: v3
-valid-for: v3
 ---
 
 `orient` situates the reader in a whole. It is **formative** — its job is to change the reader's cognitive map (`intention: locate`), not to inform a task. Use [`template.md`](template.md) to write one.

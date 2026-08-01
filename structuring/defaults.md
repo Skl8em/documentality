@@ -2,14 +2,12 @@
 title: "Recommended structural defaults"
 force: recommend
 verb: advise
-perlocution: none
+intention: state
 view: synchronic
 provenance: { type: function, id: structuring }
 audience: [user]
 reader: H+M
 status: stable
-written-at: v3
-valid-for: v3
 ---
 
 Defaults, not rules — override with reason (the binding minimum is in [`rules.md`](rules.md)). They save you from re-deciding the same things per project.

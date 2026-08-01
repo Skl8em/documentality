@@ -4,12 +4,11 @@ force: propose
 register: govern
 intention: suasive
 view: diachronic
-provenance: { type: function, id: imagine }
+provenance: { type: function, id: imagining }
 distance: initiated
 audience: [contributor, decider]
 reader: H+M
 status: draft
-written-at: {era: refoundation}
 ---
 
 

@@ -2,7 +2,7 @@
 title: "Runbook — <task>"
 force: instruct
 verb: walk-through
-perlocution: none
+intention: state
 view: synchronic
 provenance: { type: function, id: <function-id> }
 audience: [contributor]

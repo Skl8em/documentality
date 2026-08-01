@@ -2,14 +2,12 @@
 title: "Audience — who a document is written toward"
 force: describe
 verb: specify
-perlocution: none
+intention: state
 view: synchronic
 provenance: { type: function, id: structuring }
 audience: [user]
 reader: H+M
 status: stable
-written-at: v3
-valid-for: v3
 ---
 
 Audience is **project-specific in its details but generic in its shape**. Every project, whatever its domain, has the same three functional roles; a project refines them but does not invent a fourth family. This reference fixes the model and the frontmatter fields, then gives two concrete instantiations: this project, and a generic IT project.

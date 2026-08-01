@@ -2,7 +2,7 @@
 title: "Contributing to and maintaining this system — start here"
 force: orient
 verb: situate
-perlocution: locate
+intention: locate
 view: synchronic
 provenance: { type: function, id: steering }
 axis: genre            # internal docs are shelved by genre, not by the product's scope axis
@@ -10,8 +10,6 @@ dominant-community: contributor
 audience: [contributor, decider]
 reader: H+M
 status: stable
-written-at: v3
-valid-for: v3
 ---
 
 This folder is the **`steering` function** — the project governing *itself*, not the product. The product (`../writing/`, `../structuring/`) teaches *users* to document their own projects; this folder is for the **contributors and deciders** who maintain and extend the system: its foundation, roadmap, architecture, contribution rules, changelog, and decision register. The frozen records each decision produces live under `../phases/`.

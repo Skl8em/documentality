@@ -2,7 +2,7 @@
 title: "<Name of the thing>"
 force: orient
 verb: situate
-perlocution: locate
+intention: locate
 view: synchronic
 provenance: { type: project, id: <project-id> }
 audience: [user, contributor]

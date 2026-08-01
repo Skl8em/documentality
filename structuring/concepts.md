@@ -2,14 +2,12 @@
 title: "Two systems, provenance, and the life of a document"
 force: explain
 verb: illuminate
-perlocution: model
+intention: model
 view: synchronic
 provenance: { type: function, id: structuring }
 audience: [user]
 reader: H+M
 status: stable
-written-at: v3
-valid-for: v3
 ---
 
 This document builds the model behind where documents live and how they age, so the rules and defaults elsewhere read as consequences. The binding statements are in [`rules.md`](rules.md); the procedures in [`setup.md`](setup.md).

@@ -2,14 +2,12 @@
 title: "Contributing to the system"
 force: mandate
 verb: require
-perlocution: none
+intention: state
 view: synchronic
 provenance: { type: function, id: steering }
 audience: [contributor]
 reader: H+M
 status: stable
-written-at: v3
-valid-for: v3
 ---
 
 Binding rules for changing this repository (the system itself), not for using it. Rules for documents you write *with* the system are in the product ([`../write/rules.md`](../writing/rules.md), [`../structure/rules.md`](../structuring/rules.md)); this file governs contributions *to* the system.

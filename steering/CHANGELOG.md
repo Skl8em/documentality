@@ -2,15 +2,13 @@
 title: "Changelog of the system"
 force: account
 verb: report-against
-perlocution: none
+intention: state
 view: diachronic
 provenance: { type: function, id: steering }
 audience: [contributor, decider]
 reader: H+M
 status: stable
 retention: permanent
-written-at: v3
-valid-for: v3
 ---
 
 History of the documentation system itself. Append-only; each entry is dated-fixed. Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
