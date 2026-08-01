@@ -26,9 +26,11 @@
             pkgs.markdownlint-cli2 # markdown linter; shares config with the VSCode extension
             pkgs.nodejs # runtime for markdownlint + the custom rule module
             pkgs.python3 # our validators (linkcheck, frontmatter, ULID) — stdlib only
+            pkgs.git # the validators derive the repo root and file list from git
           ];
 
           shellHook = ''
+            export DOCSYS_DEVSHELL=1  # lets scripts/check.py know the pinned tools are on PATH
             echo "documentation-system devShell:"
             echo "  markdownlint-cli2 $(markdownlint-cli2 2>&1 | head -1 | sed 's/^markdownlint-cli2 //')"
             echo "  $(node --version)  |  $(python3 --version)"

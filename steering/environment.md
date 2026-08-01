@@ -39,6 +39,17 @@ python3 scripts/check.py     # the full gate: markdownlint + frontmatter + ULID 
 
 Our own validators under [`../scripts/`](../scripts/) are **stdlib-only Python**, so they also run outside the shell.
 `markdownlint-cli2` is the one tool that needs the shell (it is a Node binary), because its version is part of the contract with our custom rules.
+`check.py` always uses the *pinned* markdownlint — directly when you are in the shell, otherwise via `nix develop` — never a stray global copy.
+
+## Enable the pre-commit hook (optional)
+
+To run the gate automatically before each commit, point git at the committed hooks directory once:
+
+```sh
+git config core.hooksPath .githooks
+```
+
+The [`../.githooks/pre-commit`](../.githooks/pre-commit) hook then runs `scripts/check.py` and blocks a commit that fails the gate.
 
 ## Update the toolchain
 
