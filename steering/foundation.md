@@ -10,7 +10,7 @@ audience: [contributor]
 reader: H+M
 status: draft
 phase: 07-structuring-tutorial
-note: "New (Ferraris-grounded) vocabulary; the frontmatter schema is reconciled in Phase 09."
+note: "New (Ferraris-grounded) vocabulary; the frontmatter schema is reconciled in Phase 10 (Phase 09 tooling readies it)."
 ---
 
 This is the project laid flat: the front-end we skipped when we started, now written down so it structures the rest instead of living in a chat.
@@ -77,7 +77,7 @@ The relation to `view` is real but asymmetric.
 `diachronic ⇏ project`: a frozen record belongs to *whatever produced it* — a bounded project, **or** a function's own stream of frozen changes (our `CHANGELOG` is `diachronic` and `provenance: steering`, a function).
 
 The groupings are **mutable**: functions and provenance alike are refined or coarsened as understanding matures.
-We keep the provenance log coarse with three **eras** — *naive sketch* (phases 01–05), *refoundation* (06–09), *phase II* (later) — each nesting its micro-phases, because a coarse map reads better than twenty microscopic records.
+We keep the provenance log coarse with three **eras** — *naive sketch* (phases 01–05), *refoundation* (06–10), *phase II* (later) — each nesting its micro-phases, because a coarse map reads better than twenty microscopic records.
 
 ## 5. Scale
 
@@ -103,9 +103,9 @@ So: **[decided]**
 - Because here contributor = user, the source shelf doubles as an acceptable reading surface *for now*, so surface generation is deferred — but we stop contorting the folder tree to please a reader who is not here yet.
 
 Consequence for our own tree: the earlier "scope axis (write/structure), dominant = user" (ADR-010) described a *generated surface*, not the source.
-The **source** is organized for the **contributor** (producer), shelved by provenance — one folder per function (`theory/`, `write/`, `structure/`, `steering/`, `imagine/`) plus the frozen `phases/`.
+The **source** is organized for the **contributor** (producer), shelved by provenance — one folder per function (`theorising/`, `writing/`, `structuring/`, `steering/`, `imagining/`) plus the frozen `phases/`.
 The generic `docs/` bucket is **dissolved** (its governance is `steering/`, its records `phases/`); the root axis is now `provenance` / dominant `contributor`, and `write`/`structure` are the order of a *generated* view.
-This structural move is **done**; the remaining Phase-08 work (refounded vocabulary in the v3 files, migrating the nine `_legacy/` forces) continues.
+This structural move is **done**, and Phase 08 has since completed the rest: the refounded vocabulary carried across the product, the nine `_legacy/` forces migrated (all twelve now built), `_legacy/` retired, and the function folders renamed to their gerund ids (ADR-027).
 **[decided]**
 
 ## 7. Founding decisions on record
