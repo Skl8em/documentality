@@ -63,4 +63,4 @@ A corpus serves two incompatible masters: **be found and read now** (communicati
 
 ## Status
 
-**v3.1** — the product (content, for users) is disentangled from `docs/` (the repo's own internals, for contributors); provenance now names the maintaining function (`writing`, `structuring`, `onboarding`, `maintenance`) instead of a blanket id. The frame and one exemplar force per door are built (`orient`, `instruct`, `decide`); the remaining nine forces are being migrated from `_legacy/`.
+**v4.0-alpha (Phase 08 complete)** — the source is the producer's shelf: one **gerund-named** folder per function (`theorising`, `writing`, `structuring`, `steering`, `imagining`) plus the frozen `phases/`, grouped by era. All **twelve forces** are built under `writing/forces/`; the vocabulary is refounded (`intention` floor with an optional aim, know/do/govern as a register gloss); `_legacy/` is retired. Next: **Phase 09** reconciles the frontmatter schema (coarse-vs-fine `intention`, stored-vs-derived `register`), tracked in [`steering/open-questions.md`](steering/open-questions.md).

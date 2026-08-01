@@ -43,5 +43,6 @@ Append-only: a row is never edited. A superseding decision is a new row and a ne
 | [024](../phases/refoundation/phase-08-refactor/ADR-024-producer-shelf.md) | Producer shelf: dissolve `docs/`, provenance at root (`steering/` `imagine/` `phases/`) | 08-refactor | 2026-07-25 | accepted |
 | [025](../phases/refoundation/phase-08-refactor/ADR-025-governance-axis.md) | Govern by domain governed; transversal/vertical tension irreducible; `concerns` coordinate; generate-don't-move | 08-refactor | 2026-07-25 | accepted |
 | [026](../phases/refoundation/phase-08-refactor/ADR-026-floor-value-state.md) | The perlocution/intention floor value is `state`, not `none` | 08-refactor | 2026-07-25 | accepted |
+| [027](../phases/refoundation/phase-08-refactor/ADR-027-gerund-naming.md) | Function folders and provenance ids take the gerund form | 08-refactor | 2026-08-01 | accepted |
 
 To add a decision: append a row here, and write its full record (context + `justify` + `entail`) in the current phase folder.

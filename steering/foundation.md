@@ -105,7 +105,7 @@ So: **[decided]**
 Consequence for our own tree: the earlier "scope axis (write/structure), dominant = user" (ADR-010) described a *generated surface*, not the source.
 The **source** is organized for the **contributor** (producer), shelved by provenance — one folder per function (`theorising/`, `writing/`, `structuring/`, `steering/`, `imagining/`) plus the frozen `phases/`.
 The generic `docs/` bucket is **dissolved** (its governance is `steering/`, its records `phases/`); the root axis is now `provenance` / dominant `contributor`, and `write`/`structure` are the order of a *generated* view.
-This structural move is **done**; the remaining Phase-08 work (refounded vocabulary in the v3 files, migrating the nine `_legacy/` forces) continues.
+This structural move is **done**, and Phase 08 has since completed the rest: the refounded vocabulary carried across the product, the nine `_legacy/` forces migrated (all twelve now built), `_legacy/` retired, and the function folders renamed to their gerund ids (ADR-027).
 **[decided]**
 
 ## 7. Founding decisions on record
