@@ -14,31 +14,31 @@ Each force is a folder: its `README.md` is the **stance** (verb, stake, move str
 
 ## [know](know/README.md) — savoir (convey how things are)
 
-| Force | Verb | Perlocution | Folder |
+| Force | Verb | Intention | Folder |
 |---|---|---|---|
-| orient | situate | locate | [know/orient/](know/orient/README.md) ✅ |
-| explain | illuminate | model | know/explain/ ⏳ |
-| describe | specify | none | know/describe/ ⏳ |
+| orient | situate | locate | [know/orient/](know/orient/README.md) |
+| explain | illuminate | model | [know/explain/](know/explain/README.md) |
+| describe | specify | state | [know/describe/](know/describe/README.md) |
 
 ## [do](do/README.md) — savoir-faire (aim at action)
 
-| Force | Verb | Perlocution | Folder |
+| Force | Verb | Intention | Folder |
 |---|---|---|---|
-| instruct | walk-through | none | [do/instruct/](do/instruct/README.md) ✅ |
-| teach | bring-along | enable | do/teach/ ⏳ — live instance: [`../tutorial.md`](../tutorial.md) |
-| recommend | advise | none | do/recommend/ ⏳ |
+| instruct | walk-through | state | [do/instruct/](do/instruct/README.md) |
+| teach | bring-along | enable | [do/teach/](do/teach/README.md) |
+| recommend | advise | state | [do/recommend/](do/recommend/README.md) |
 
 Read this door as a deontic gradient: `instruct` (*here is how*) → `recommend` (*you should*) → `mandate` (*you must*, next door).
 
 ## [govern & record](govern-and-record/README.md) — regulate and remember
 
-| Force | Verb | Perlocution | Folder |
+| Force | Verb | Intention | Folder |
 |---|---|---|---|
-| mandate | require | none | govern-and-record/mandate/ ⏳ |
-| commit | promise-precisely | none | govern-and-record/commit/ ⏳ |
-| propose | argue | none | govern-and-record/propose/ ⏳ |
-| decide | justify | convince | [govern-and-record/decide/](govern-and-record/decide/README.md) ✅ |
-| prove | demonstrate | convince | govern-and-record/prove/ ⏳ |
-| account | report-against | none | govern-and-record/account/ ⏳ |
+| mandate | require | state | [govern-and-record/mandate/](govern-and-record/mandate/README.md) |
+| commit | promise-precisely | state | [govern-and-record/commit/](govern-and-record/commit/README.md) |
+| propose | argue | state | [govern-and-record/propose/](govern-and-record/propose/README.md) |
+| decide | justify | convince | [govern-and-record/decide/](govern-and-record/decide/README.md) |
+| prove | demonstrate | convince | [govern-and-record/prove/](govern-and-record/prove/README.md) |
+| account | report-against | state | [govern-and-record/account/](govern-and-record/account/README.md) |
 
-✅ = built · ⏳ = pending migration from `_legacy/templates/` (the stance text exists in `_legacy/writing.md §I`).
+All twelve forces are built — each folder holds a stance (`README.md`) and a skeleton (`template.md`).
