@@ -25,10 +25,10 @@ Delete these comments once filled in.
 
 ## <Facts, in a stable predictable order>
 
-<State each fact plainly. Same shape for every entry so the reader navigates by
-structure. Exemplify only where a fact is ambiguous.>
+<State each fact plainly.
+Same shape for every entry so the reader navigates by structure.
+Exemplify only where a fact is ambiguous.>
 
 ## Out of scope
 
-<Mark the bounds: what a reader might expect here but must find elsewhere, with a
-pointer to where.>
+<Mark the bounds: what a reader might expect here but must find elsewhere, with a pointer to where.>

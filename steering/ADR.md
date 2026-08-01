@@ -11,9 +11,12 @@ status: stable
 retention: permanent
 ---
 
-This is the **central register** — the *act* face of deciding: it takes each decision on record, dated, in one line. It does not argue and it does not unfold consequences. The **motivation (`justify`)** and the **implications (`entail`)** of each decision live in its **phase folder** under [`phases/`](../phases/README.md) — because a decision belongs with the effort that produced it (its provenance), not in a pile of all decisions.
+This is the **central register** — the *act* face of deciding: it takes each decision on record, dated, in one line.
+It does not argue and it does not unfold consequences.
+The **motivation (`justify`)** and the **implications (`entail`)** of each decision live in its **phase folder** under [`phases/`](../phases/README.md) — because a decision belongs with the effort that produced it (its provenance), not in a pile of all decisions.
 
-Append-only: a row is never edited. A superseding decision is a new row and a new record that sets `supersedes`.
+Append-only: a row is never edited.
+A superseding decision is a new row and a new record that sets `supersedes`.
 
 | # | Decision | Phase | Date | Status |
 | --- | --- | --- | --- | --- |

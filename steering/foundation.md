@@ -23,8 +23,7 @@ Where a claim below is a committed choice, it is marked **[decided]** and is rec
 
 Two horizons, but we work on the first.
 
-- **Phase I — an operational system.**
-  Guidance, templates, and a metadata schema that let someone *structure* and *write* a project's documentation according to the inscribed-act theory, legible to humans and to a machine.
+- **Phase I — an operational system.** Guidance, templates, and a metadata schema that let someone *structure* and *write* a project's documentation according to the inscribed-act theory, legible to humans and to a machine.
 - **Phase II — a computational model** *(named, not yet planned)*.
   Later, the system made machine-operational: AI instructions, hooks, validation and generation driven by the frontmatter.
   We **restrict current work to Phase I** and design Phase II only once Phase I is complete — because Phase II adds a new function that mobilizes a **new body of knowledge** (LLM and agent tooling), and so a **new discourse community** with its own functions, governance, and maintenance, for which the whole front-end will be **re-run**.
@@ -37,8 +36,7 @@ Functions come first, because who reads and what they must be told is *derived* 
 
 Two faces of "function" matter, and they are not the same.
 
-- **What the project touches, and the knowledge it mobilizes.**
-  This project touches the *documentation theory* (philosophy of language, archival science, information architecture), the *practice of writing* documents (the forces and their moves), the *practice of structuring* a corpus (topology, provenance, life cycle), and light *tooling* (Markdown, git).
+- **What the project touches, and the knowledge it mobilizes.** This project touches the *documentation theory* (philosophy of language, archival science, information architecture), the *practice of writing* documents (the forces and their moves), the *practice of structuring* a corpus (topology, provenance, life cycle), and light *tooling* (Markdown, git).
   The knowledge these mobilize is essentially one: the inscribed-act theory, plus ordinary Markdown and git.
   That near-single domain is *why* our communities collapse below — a derived fact, not an assumption.
 - **The producer's ways of working** (which order the source by provenance): maintaining the theory/foundation, authoring the writing guidance, authoring the structuring guidance, onboarding, and steering.
@@ -52,13 +50,11 @@ Because our functions sit in essentially one domain, the audiences nearly collap
 The role split therefore has little to arbitrate here; that is a *result* of §2, not a starting assumption.
 Two axes carry the real variation:
 
-- **Distance — per community, here novice vs initiated in the theory.**
-  In general `distance` is per discourse community: a reader can be initiated in one aspect's field and a novice in another, and a project may reasonably address the initiated of a domain rather than teach it from scratch.
+- **Distance — per community, here novice vs initiated in the theory.** In general `distance` is per discourse community: a reader can be initiated in one aspect's field and a novice in another, and a project may reasonably address the initiated of a domain rather than teach it from scratch.
   Our project has essentially one field — the theory — so distance reduces to *how much of the theory a reader already holds*.
   A beginner-facing document (the tutorials, an orient) spells the concepts out; an initiated-facing one (the rules, the schema) presumes them.
   **[decided]**
-- **Human vs machine — orthogonal.**
-  The machine is not a role.
+- **Human vs machine — orthogonal.** The machine is not a role.
   It can occupy the *function* of `user` or `contributor` (it reads and it writes) but never `decider` (it does not set conventions).
   "Being a machine" is a separate dimension — operationally a `reader: H|M` flag; in the theory, the recipient relation pushed to its limit (maximum distance and a quiet power).
   **[decided]**

@@ -27,10 +27,12 @@ This is also why the frontmatter validation here is a **safe starter**: it enfor
 ## Guiding principles
 
 - **One ruleset, two surfaces.** The CLI and the VSCode extension must apply *the same* markdownlint configuration and custom rules — never two drifting copies.
-- **Python for our validators, Node only for markdownlint.** Markdownlint is David Anson's engine, shared with the editor extension, so it runs on Node; that is unavoidable and desirable. Everything we write ourselves (frontmatter, ULID, links) stays Python, per the project's validation-tooling convention and the existing [`../../../scripts/linkcheck.py`](../../../scripts/linkcheck.py).
+- **Python for our validators, Node only for markdownlint.** Markdownlint is David Anson's engine, shared with the editor extension, so it runs on Node; that is unavoidable and desirable.
+  Everything we write ourselves (frontmatter, ULID, links) stays Python, per the project's validation-tooling convention and the existing [`../../../scripts/linkcheck.py`](../../../scripts/linkcheck.py).
 - **Reproducible, pinned per project.** External tools are declared and frozen in a Nix `devShell` (Part 0), not installed ad hoc or globally — so local and CI run the same bit-for-bit binaries.
 - **One gate.** Every check is reachable from a single command that runs in pre-commit and in CI, and is the phase-close gate.
-- **Enforce only what is decided.** A linter that flags an open question trains people to ignore it. Contested rules warn; settled rules fail.
+- **Enforce only what is decided.** A linter that flags an open question trains people to ignore it.
+  Contested rules warn; settled rules fail.
 
 ## Part 0 — Reproducible environment (Nix devShell)
 
@@ -39,7 +41,8 @@ A `flake.nix` provides a `devShell` that freezes the exact `markdownlint-cli2`, 
 
 Why per-project rather than home-manager: markdownlint's behaviour depends on the **custom rules we author**, and its rule API shifts across majors, so the binary version is *part of the contract* with those rules.
 A globally-managed linter, bumped by an unrelated environment update, could silently break a rule written months earlier.
-(This is the same call as GDAL/PROJ or the Oracle client — pin when the exact version is part of the behaviour you freeze; a project with only default linting could keep the tool global. Do not generalise past the motivation.)
+(This is the same call as GDAL/PROJ or the Oracle client — pin when the exact version is part of the behaviour you freeze; a project with only default linting could keep the tool global.
+Do not generalise past the motivation.)
 
 Files:
 
@@ -73,12 +76,12 @@ Files to add at the repo root:
 - `.vscode/settings.json` — pin `"markdownlint.configFile"` and `"markdownlint.customRules"` so the editor loads the same rules; optionally disable the editor's bundled defaults in favour of ours.
 - `.vscode/extensions.json` — recommend `DavidAnson.vscode-markdownlint`.
 
-The `markdownlint-cli2` binary comes from the Nix `devShell` (Part 0), pinned via `flake.lock` — no `package.json`/`npm install`. The custom rule is a plain JS module referenced from the config; the editor extension loads the same module via `markdownlint.customRules`.
+The `markdownlint-cli2` binary comes from the Nix `devShell` (Part 0), pinned via `flake.lock` — no `package.json`/`npm install`.
+The custom rule is a plain JS module referenced from the config; the editor extension loads the same module via `markdownlint.customRules`.
 
 ### The two special rules
 
-**Title in frontmatter, no body H1.**
-Built-in rules do most of this by configuration:
+**Title in frontmatter, no body H1.** Built-in rules do most of this by configuration:
 
 - `MD025` (single-title/heading) with `front_matter_title` set to a regex matching the YAML `title:` key — this makes markdownlint treat the frontmatter title *as* the document title, so any `# …` in the body is flagged as a second title.
 - `MD041` (first-line-heading) with the same `front_matter_title` — satisfied by the frontmatter title, so a document is not required to open with `#`.
@@ -86,8 +89,7 @@ Built-in rules do most of this by configuration:
 
 A separate check that the frontmatter *has* a non-empty `title` belongs to Part 2 (the frontmatter linter), not markdownlint.
 
-**Semantic line breaks (ADR-021).**
-There is no built-in rule for this, so we write a custom markdownlint rule, `sentence-per-line`:
+**Semantic line breaks (ADR-021).** There is no built-in rule for this, so we write a custom markdownlint rule, `sentence-per-line`:
 
 - It inspects paragraph text tokens only, skipping headings, code blocks/spans, tables, HTML comments, link/image destinations, and YAML frontmatter.
 - It flags a **hard break inside a sentence** (a line that does not end at a sentence boundary and whose next line continues the sentence) and a **sentence boundary mid-line** (a `.`/`!`/`?` followed by whitespace and more text on the same line).
@@ -96,7 +98,8 @@ There is no built-in rule for this, so we write a custom markdownlint rule, `sen
 
 ### Take over the defaults
 
-Provide an explicit config rather than inheriting silent defaults. Notable overrides:
+Provide an explicit config rather than inheriting silent defaults.
+Notable overrides:
 
 - **`MD013` (line length): off** — semantic line breaks make lines as long as a sentence; a length cap contradicts the house style.
 - **`MD060` / table pipe style:** pick one (compact vs padded) and set it, since the current corpus mixes them (the warnings seen throughout Phase 08).
@@ -120,7 +123,8 @@ It runs the contested fields as **warnings**, so the schema phase can see the cu
 ### Approach
 
 - `scripts/frontmatter_lint.py` — parse YAML frontmatter from each `git ls-files '*.md'`, validate, and report `file:line` diagnostics; derive the repo root from git, like `linkcheck.py`.
-- `schema/frontmatter.schema.yaml` — the rules **as data**, so Phase 10 edits one file, not the validator. Start minimal; grow in Phase 10.
+- `schema/frontmatter.schema.yaml` — the rules **as data**, so Phase 10 edits one file, not the validator.
+  Start minimal; grow in Phase 10.
 - Reuse the existing YAML/link tooling patterns; no new heavy dependency (stdlib + a small YAML parser, or vendor a tiny one).
 
 ### What is safe to enforce now (errors)
@@ -166,8 +170,10 @@ A ULID is unique without coordination, sorts by its leading timestamp, and pairs
 
 Not every count means the same thing, so the ULID's timestamp field is fed differently for each.
 
-- **ADRs are append-only and chronological.** Their order *is* their creation order, so their ULID takes the **real creation timestamp** (the record's first-commit time). Nothing to steer.
-- **Phases carry an *intentional* order we deliberately rearrange.** We just inserted tooling between refactor and schema-reconciliation; a wall-clock ULID would sort tooling *after* both and destroy the sequence. So a phase's ULID takes a **controlled ordinal key** as its timestamp input, not the wall clock.
+- **ADRs are append-only and chronological.** Their order *is* their creation order, so their ULID takes the **real creation timestamp** (the record's first-commit time).
+  Nothing to steer.
+- **Phases carry an *intentional* order we deliberately rearrange.** We just inserted tooling between refactor and schema-reconciliation; a wall-clock ULID would sort tooling *after* both and destroy the sequence.
+  So a phase's ULID takes a **controlled ordinal key** as its timestamp input, not the wall clock.
 
 The mechanism: a ULID sorts lexicographically by its 48-bit timestamp prefix, so we feed that prefix a **sort key we own**.
 Each phase stores an explicit `order` value in its frontmatter, and the ULID's timestamp bits are derived from it.
@@ -188,9 +194,11 @@ These five are the open forks; they are named here and decided at the start of P
 
 ### Tooling (Python)
 
-- `scripts/ulid_new.py` — mint a ULID, with the timestamp field taken from an input so both modes are supported: `--at <iso>` for **chronological** records (ADRs; default = the git first-commit time, else now) or `--order <int>` for a **controlled ordinal** (phases, from their `order` field). Implement the spec directly (48-bit timestamp + 80-bit randomness, Crockford base32, excluding `I L O U`), or pin a tiny vetted dependency.
+- `scripts/ulid_new.py` — mint a ULID, with the timestamp field taken from an input so both modes are supported: `--at <iso>` for **chronological** records (ADRs; default = the git first-commit time, else now) or `--order <int>` for a **controlled ordinal** (phases, from their `order` field).
+  Implement the spec directly (48-bit timestamp + 80-bit randomness, Crockford base32, excluding `I L O U`), or pin a tiny vetted dependency.
 - `scripts/ulid_check.py` — verify: every catalogued record has an `id`; each `id` is a syntactically valid ULID; **uniqueness** across the corpus; the `id` agrees with the filename if D-b picks a ULID-in-filename; **no orphan count-references** remain (a grep gate for `ADR-\d+`, `phase-\d\d` outside intended historical prose); and, for phases, that the ULID order **agrees with the declared `order` field** (no drift) and that `order` values are unique.
-- `scripts/migrate_ids.py` — the one-off migration. **ADRs:** a ULID whose timestamp is the record's first commit (`git log --follow --diff-filter=A --format=%aI`), so order matches real history. **Phases:** a ULID from a gap-spaced `order` derived from the current intended sequence (…, refactor, tooling, schema, Phase-II-design, …), *not* wall-clock — preserving the deliberate order through the insertion we just made. Write `id` (and, for phases, `order`) into frontmatter; rewrite the ADR register and cross-references; emit an `old-id → new-id` map for rollback.
+- `scripts/migrate_ids.py` — the one-off migration. **ADRs:** a ULID whose timestamp is the record's first commit (`git log --follow --diff-filter=A --format=%aI`), so order matches real history. **Phases:** a ULID from a gap-spaced `order` derived from the current intended sequence (…, refactor, tooling, schema, Phase-II-design, …), *not* wall-clock — preserving the deliberate order through the insertion we just made.
+  Write `id` (and, for phases, `order`) into frontmatter; rewrite the ADR register and cross-references; emit an `old-id → new-id` map for rollback.
 
 ### Migration sequence (reversible)
 
@@ -208,7 +216,8 @@ These five are the open forks; they are named here and decided at the start of P
 
 ## Integration & workflow
 
-- **Aggregator** — `scripts/check.py` runs, in order: `markdownlint-cli2`, `frontmatter_lint.py`, `ulid_check.py`, `linkcheck.py`, and exits non-zero if any fails. This *is* the phase-close gate.
+- **Aggregator** — `scripts/check.py` runs, in order: `markdownlint-cli2`, `frontmatter_lint.py`, `ulid_check.py`, `linkcheck.py`, and exits non-zero if any fails.
+  This *is* the phase-close gate.
 - **Pre-commit** — a `.pre-commit-config.yaml` (or a committed git hook) invoking `scripts/check.py`, so violations are caught before they land.
 - **CI** — one job running `scripts/check.py` (only if/when the repo has a remote; the aggregator is the same locally and in CI).
 - **VSCode** — `.vscode/extensions.json` recommends the markdownlint extension; `.vscode/settings.json` pins the shared config and custom-rule path; an optional task runs the Python checks from the editor.

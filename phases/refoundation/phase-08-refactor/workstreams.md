@@ -21,9 +21,11 @@ The *why* of each decision is in the ADRs ([024](ADR-024-producer-shelf.md), [02
 
 Three forks were settled with the maintainer before or during the work:
 
-- **Naming (gerund rule).** Move the folders to their gerund `provenance.id` (not the reverse): `write→writing`, `structure→structuring`, and also `theory→theorising`, `imagine→imagining`. Recorded as [ADR-027](ADR-027-gerund-naming.md).
+- **Naming (gerund rule).** Move the folders to their gerund `provenance.id` (not the reverse): `write→writing`, `structure→structuring`, and also `theory→theorising`, `imagine→imagining`.
+  Recorded as [ADR-027](ADR-027-gerund-naming.md).
 - **`theory/` was a nested git repo.** Absorbed into the main repo by a **history-preserving subtree merge** (`git merge -s ours --allow-unrelated-histories` + `read-tree --prefix=theorising/`), so the essays' five-commit history is kept; the inner `.git` was removed.
-- **Intention conversion depth.** Rename the field `perlocution → intention` and `none → state` only, **keeping** the fine values `locate/model/enable/convince`. The coarse-vs-fine encoding is ⚑ Decision 1, routed to Phase 10.
+- **Intention conversion depth.** Rename the field `perlocution → intention` and `none → state` only, **keeping** the fine values `locate/model/enable/convince`.
+  The coarse-vs-fine encoding is ⚑ Decision 1, routed to Phase 10.
 
 ## Scope boundary (Phase 08 vs the schema phase, now 10)
 

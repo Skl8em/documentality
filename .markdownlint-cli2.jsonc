@@ -6,6 +6,7 @@
   "ignores": [
     "theorising/**", // upstream academic essays, not our authored guidance
     "phases/naive-sketch/**", // pre-refoundation records, predate ADR-021 (grandfathered)
+    "imagining/**", // informal Phase-II parking notes, not prose held to ADR-021
     "**/blind-test/**", // raw agent transcripts, not authored prose
     "**/weft-blindtest-round2/**",
     "**/node_modules/**"

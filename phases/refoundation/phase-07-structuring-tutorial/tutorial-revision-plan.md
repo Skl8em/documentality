@@ -37,7 +37,8 @@ The fixes below are a handful of **structural moves**, not a hundred nits.
 Both readers hit this first and hardest: "use it" as one activity vs three; weft produced 12 activities where another reader would produce 6 or 20, with no way to know which is right or that you are done.
 Everything downstream inherits the grain, so getting it wrong is expensive and invisible until later.
 
-Plan: tie grain to its *purpose*. Split an activity only when the split would change **who does it, what they already know, or what they need** — i.e. when it yields a different audience, distance, or need downstream; merge otherwise.
+Plan: tie grain to its *purpose*.
+Split an activity only when the split would change **who does it, what they already know, or what they need** — i.e. when it yields a different audience, distance, or need downstream; merge otherwise.
 Add that as the explicit stopping test ("if two candidate activities would produce the same person, distance, and need, they are one"), and show one worked merge and one worked split.
 
 ### A2. Step 1 conflates actual and intended activities — **accept**
@@ -45,20 +46,23 @@ Add that as the explicit stopping test ("if two candidate activities would produ
 The "recurring" test excludes anything not yet happening, yet weft is a design-phase spec (nothing has recurred) and our project names a future Phase-II activity.
 Both readers had to guess whether to include, bracket, or drop these.
 
-Plan: introduce a tense/stage distinction. An activity is **actual** (already happening) or **intended** (planned, on the roadmap).
+Plan: introduce a tense/stage distinction.
+An activity is **actual** (already happening) or **intended** (planned, on the roadmap).
 Ask up front what stage the project is at; include intended activities but mark them, because their audiences are *predicted* not observed (revisit later) and their documents get a roadmap home, not "nowhere" (see A7).
 
 ### A3. Step 1 needs permanent-vs-bounded, introduced here not in Step 5 — **accept (sequencing)**
 
 The permanent/bounded distinction that Step 5's current/frozen depends on is only introduced in Step 5, so a by-the-letter first-timer classifies activities in Step 1 without it and must backtrack.
 
-Plan: when listing each activity in Step 1, mark it **permanent** (never ends → its docs stay current) or **bounded** (ends → its records freeze). Step 5 then falls straight out.
+Plan: when listing each activity in Step 1, mark it **permanent** (never ends → its docs stay current) or **bounded** (ends → its records freeze).
+Step 5 then falls straight out.
 
 ### A4. Step 2 has no rule for one person, many hats — **accept**
 
 The modal case for the scratch-file framing — one maintainer performing every activity — is unaddressed; both readers invented a "hat" heuristic to keep activities distinct.
 
-Plan: name the move. The audience of an activity is its **stance** (the knowledge in play and the need at that moment), not a headcount; so a solo maintainer still gets one audience-role *per activity*, and they may collapse to one document later only if their needs coincide.
+Plan: name the move.
+The audience of an activity is its **stance** (the knowledge in play and the need at that moment), not a headcount; so a solo maintainer still gets one audience-role *per activity*, and they may collapse to one document later only if their needs coincide.
 Use the solo case as the worked example, since it is the common one.
 
 ### A5. Step 2's distance axis is thin, and its status (observed vs designed) is unstated — **partial**
@@ -80,7 +84,8 @@ Both readers hit the roadmap case: a future capability names an activity with no
 
 Plan: an **intended** activity (A2) has a provenance too — a *planned/roadmap* one.
 Its material (a design note, a "future work" `propose` record) lives with the steering/roadmap activity until the activity starts, then migrates.
-Intended activities get a home, not "nowhere." (A2 → A7 are one thread.)
+Intended activities get a home, not "nowhere."
+(A2 → A7 are one thread.)
 
 ### A8. Step 4 assumes greenfield; most real projects arrive already split — **accept (top priority)**
 
@@ -117,7 +122,8 @@ Plan: add a short third category — **generated/ephemeral** artifacts (logs, re
 After three steps establishing that a project meets *different* people through *different* activities, the root-placement line collapses them back to "the users" with no method for picking which one anchors root.
 
 Plan: root is the surface for the **dominant / first-contact** community — the audience the project most exists to serve, or who arrives knowing least.
-State the rule; other audiences' surfaces are nested or generated. (This is the `dominant-community` idea we already hold; surface it here.)
+State the rule; other audiences' surfaces are nested or generated.
+(This is the `dominant-community` idea we already hold; surface it here.)
 
 ### A13. No worked example anywhere in the body — **accept (high value)**
 
@@ -137,20 +143,21 @@ A teach without a worked example is under-built for its own force.
 The tutorial *worked*: it produced a coherent structure for our project (`README` + `docs/{theory, writing, structuring, schema, decisions}`) as a consequence of the five steps, not a template dropped on top.
 But the run is worth reading for two distinct yields.
 
-**What it reveals about the tutorial.**
-The self-run reproduced every A-finding above from the inside, and added one honest note we should keep: the derived tree (grouped by producer activity) **does not match our real repo** (phase-indexed, `write/`, `structure/`).
+**What it reveals about the tutorial.** The self-run reproduced every A-finding above from the inside, and added one honest note we should keep: the derived tree (grouped by producer activity) **does not match our real repo** (phase-indexed, `write/`, `structure/`).
 That mismatch is not a failure — it is the tutorial deriving a *reader-facing grouping* while our source is deliberately *producer/phase-organized* (our own source-vs-generated decision, ADR-018).
 But it shows the tutorial does not yet help the user tell "the tree you derive" from "source shelf vs generated surface"; the returning-from-blind reader will read the mismatch as a contradiction.
 Plan consequence: the rewrite should, at Step 5, say explicitly that the tree you derive is a *reader view*, which on a real project may be generated and need not equal the source layout — this connects the tutorial to the source/surface split it currently omits.
 
-**What it reveals about our own project (spec gaps, for our front-end, not the tutorial).**
-Applying the method surfaced real, unmade decisions in our `self-spec` — several genuinely open:
+**What it reveals about our own project (spec gaps, for our front-end, not the tutorial).** Applying the method surfaced real, unmade decisions in our `self-spec` — several genuinely open:
 
 - No **external-contributor** activity or audience, though "extend/contribute" is the checklist's most-missed function; who onboards, and what do they read first?
 - **Phase II** is asserted but has no textual home (A7) — is there a placeholder, or is "nothing yet, deliberately" the answer?
-- The **schema's status** is unstated — is it a stale part or the settled reference the rest must catch up to? (This is exactly our open Decision 1/2 on the frontmatter.)
-- **Phases named but not bounded** — what ends a phase; can a frozen record be reopened, or only superseded? (We have an answer — supersede, never edit — but the spec didn't say it.)
-- **Published vs. notebook** — is the product ever released/versioned, or a continuously-edited repo? This changes what the README is *for*.
+- The **schema's status** is unstated — is it a stale part or the settled reference the rest must catch up to?
+  (This is exactly our open Decision 1/2 on the frontmatter.)
+- **Phases named but not bounded** — what ends a phase; can a frozen record be reopened, or only superseded?
+  (We have an answer — supersede, never edit — but the spec didn't say it.)
+- **Published vs. notebook** — is the product ever released/versioned, or a continuously-edited repo?
+  This changes what the README is *for*.
 - **Small vs. public** tension — "one maintainer, tight readership" vs an academic-register theory meant to be reusable; these pull toward different amounts of structure.
 
 None of these are tutorial bugs; they are our project's own front-end still owing answers — several already on our list, a couple (contributor onboarding, published-vs-notebook) genuinely new.
@@ -159,30 +166,23 @@ None of these are tutorial bugs; they are our project's own front-end still owin
 
 His notes converge with Part A almost everywhere, and on five points they go deeper and override my fixes — for the better, because they trade a pile of local rules for one attitude and a few sharp reframes.
 
-**The biggest correction: relevance, not recurrence.**
-I anchored Step 1 (and A2) on the "recurring" test; he is right that the criterion is wrong.
+**The biggest correction: relevance, not recurrence.** I anchored Step 1 (and A2) on the "recurring" test; he is right that the criterion is wrong.
 What makes an activity a function is **importance** — that it is worth thinking and talking about — and recurrence is only one *sign* of it.
 A one-off scientific analysis is the most important activity of its project; adoption happens once per adopter yet must go well; defensive activities are documented for disasters everyone hopes never happen.
 Adopt his drafted definition ("an activity *of relevance*…") wholesale — it dissolves the future / one-off / defensive problems (A2, part of A7) at the root instead of patching them.
 
-**The unifying move: make the fractal explicit — and stop faking determinism.**
-This is the deepest thing in his notes, and it reframes half of Part A.
-Several of my "accept → add a rule" items (A1 grain, A9 thresholds) were reaching for a determinism the system does not have and should not pretend to.
-Replace them with one attitude: **start coarse, keep 3–7 items per level, group into meta-functions past ~7, refine only when a gap becomes intolerable — and assume you have holes; the point is to *see* them.**
-Present the moving parts as **hierarchies, not flat lists**, so the reader always has a next step, and give an **explicit licence to leave the path** ("no map, only a light").
+**The unifying move: make the fractal explicit — and stop faking determinism.** This is the deepest thing in his notes, and it reframes half of Part A. Several of my "accept → add a rule" items (A1 grain, A9 thresholds) were reaching for a determinism the system does not have and should not pretend to.
+Replace them with one attitude: **start coarse, keep 3–7 items per level, group into meta-functions past ~7, refine only when a gap becomes intolerable — and assume you have holes; the point is to *see* them.** Present the moving parts as **hierarchies, not flat lists**, so the reader always has a next step, and give an **explicit licence to leave the path** ("no map, only a light").
 This single move answers grain, thresholds, non-determinism, and the "I had to invent an unlicensed move" complaint at once — and it is itself fractal (it applies to functions, to folders, even to ADRs).
 
-**Author, not user.**
-His sharpest reframe of A12: the source is organized for **the person writing the document — its first reader** — not for "the user."
+**Author, not user.** His sharpest reframe of A12: the source is organized for **the person writing the document — its first reader** — not for "the user."
 External readers get a *generated distribution* in their own reading logic; the folder tree serves the author.
 This resolves the singular-user problem cleanly, matches our own source-vs-generated decision (ADR-018), and should replace "where its users meet it" throughout Step 5.
 
-**`imagine` as an activity.**
-For design-phase and future work he adds a function I missed: **imagine** — dream what could be done with or extended from what is here.
+**`imagine` as an activity.** For design-phase and future work he adds a function I missed: **imagine** — dream what could be done with or extended from what is here.
 It homes the not-yet-written (A7) as the output of a real present activity (thinking), pulled out of the hat when the work starts — cleaner than my "planned provenance" patch.
 
-**Worked examples via the conventional repo documents.**
-His answer to A10 and A13 at once, and better than mine: because we document a code repo, **name the classics** — README, CONTRIBUTING, LICENSE, ARCHITECTURE, INSTALL, CHANGELOG, ADR — classify each by force, and place each (`./` by convention or installer-speed, or `docs/`, and the `know/do/govern` subfolders once a folder passes ~7).
+**Worked examples via the conventional repo documents.** His answer to A10 and A13 at once, and better than mine: because we document a code repo, **name the classics** — README, CONTRIBUTING, LICENSE, ARCHITECTURE, INSTALL, CHANGELOG, ADR — classify each by force, and place each (`./` by convention or installer-speed, or `docs/`, and the `know/do/govern` subfolders once a folder passes ~7).
 This names the ADR, gives concrete examples throughout, and yields the hand-holding ending he sketched.
 On the final tree, follow his instinct: show **two or three genuinely different valid trees** (or hand the reader the build-rule) rather than one, so the example opens the field instead of anchoring it.
 

@@ -28,7 +28,8 @@ Phases 01–05 are past and recorded in [`phases/`](../phases/README.md); this r
 
 Everything past Phase 11 (generators, hooks, AI operating instructions — the computational model itself) is deliberately left blank: it is the *subject* of Phase 11, planned when we have a better idea, not committed now.
 
-The insertion of Phase 09 (tooling) and the renumbering of the schema and Phase-II-design phases (to 10 and 11) is a recorded plan change — this edit, the [Phase-09 plan](../phases/refoundation/phase-09-tooling/plan.md), and the changelog entry. Frozen records from earlier phases keep their-time phase numbers.
+The insertion of Phase 09 (tooling) and the renumbering of the schema and Phase-II-design phases (to 10 and 11) is a recorded plan change — this edit, the [Phase-09 plan](../phases/refoundation/phase-09-tooling/plan.md), and the changelog entry.
+Frozen records from earlier phases keep their-time phase numbers.
 
 Verification runs *within* each phase, not as a final gate: a phase closes only when its outputs pass their own checks (links, schema validity, self-consistency).
 
