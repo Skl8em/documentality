@@ -24,6 +24,7 @@ What landed:
 
 Verification: `scripts/linkcheck.py` reports zero broken relative links; no live document carries the v3 `perlocution` field. The two schema forks it surfaced (coarse-vs-fine `intention`, stored-vs-derived `register`) are tracked in [`../../../steering/open-questions.md`](../../../steering/open-questions.md) and routed to Phase 09.
 
+- [workstreams.md — the nine workstreams A–I (plan and execution)](workstreams.md)
 - [ADR-024 — producer shelf: dissolve `docs/`, provenance at root](ADR-024-producer-shelf.md)
 - [ADR-025 — govern by domain governed; the transversal/vertical tension and the `concerns` coordinate](ADR-025-governance-axis.md)
 - [ADR-026 — the perlocution/intention floor value is `state`, not `none`](ADR-026-floor-value-state.md)
