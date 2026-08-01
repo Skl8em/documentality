@@ -28,8 +28,27 @@ This is also why the frontmatter validation here is a **safe starter**: it enfor
 
 - **One ruleset, two surfaces.** The CLI and the VSCode extension must apply *the same* markdownlint configuration and custom rules — never two drifting copies.
 - **Python for our validators, Node only for markdownlint.** Markdownlint is David Anson's engine, shared with the editor extension, so it runs on Node; that is unavoidable and desirable. Everything we write ourselves (frontmatter, ULID, links) stays Python, per the project's validation-tooling convention and the existing [`../../../scripts/linkcheck.py`](../../../scripts/linkcheck.py).
+- **Reproducible, pinned per project.** External tools are declared and frozen in a Nix `devShell` (Part 0), not installed ad hoc or globally — so local and CI run the same bit-for-bit binaries.
 - **One gate.** Every check is reachable from a single command that runs in pre-commit and in CI, and is the phase-close gate.
 - **Enforce only what is decided.** A linter that flags an open question trains people to ignore it. Contested rules warn; settled rules fail.
+
+## Part 0 — Reproducible environment (Nix devShell)
+
+The tooling below is pinned **per project**, not installed globally.
+A `flake.nix` provides a `devShell` that freezes the exact `markdownlint-cli2`, Node, and Python via `flake.lock` — the same bit-for-bit binaries locally and in CI.
+
+Why per-project rather than home-manager: markdownlint's behaviour depends on the **custom rules we author**, and its rule API shifts across majors, so the binary version is *part of the contract* with those rules.
+A globally-managed linter, bumped by an unrelated environment update, could silently break a rule written months earlier.
+(This is the same call as GDAL/PROJ or the Oracle client — pin when the exact version is part of the behaviour you freeze; a project with only default linting could keep the tool global. Do not generalise past the motivation.)
+
+Files:
+
+- `flake.nix` — `devShells.default` with `markdownlint-cli2`, `nodejs`, `python3`, portable across the four darwin/linux systems so CI matches local.
+- `flake.lock` — the exact nixpkgs pin (committed).
+- `.envrc` — `use flake` for direnv users (optional; the shell also works via `nix develop`).
+- `steering/environment.md` — the install/usage doc: how to enter the shell, what is pinned, and why.
+
+Our own validators stay **stdlib-only Python**, so they still run outside the shell; the devShell guarantees the *linter* toolchain reproducibly, it is not a hard prerequisite for running the Python checks.
 
 ## Part 1 — Unified markdownlint (CLI == VSCode)
 
@@ -53,7 +72,8 @@ Files to add at the repo root:
 - `tools/markdownlint/sentence-per-line.js` — the custom rule (below).
 - `.vscode/settings.json` — pin `"markdownlint.configFile"` and `"markdownlint.customRules"` so the editor loads the same rules; optionally disable the editor's bundled defaults in favour of ours.
 - `.vscode/extensions.json` — recommend `DavidAnson.vscode-markdownlint`.
-- `package.json` — one devDependency (`markdownlint-cli2`) and a script `"lint:md": "markdownlint-cli2"`.
+
+The `markdownlint-cli2` binary comes from the Nix `devShell` (Part 0), pinned via `flake.lock` — no `package.json`/`npm install`. The custom rule is a plain JS module referenced from the config; the editor extension loads the same module via `markdownlint.customRules`.
 
 ### The two special rules
 
@@ -192,13 +212,14 @@ These five are the open forks; they are named here and decided at the start of P
 - **Pre-commit** — a `.pre-commit-config.yaml` (or a committed git hook) invoking `scripts/check.py`, so violations are caught before they land.
 - **CI** — one job running `scripts/check.py` (only if/when the repo has a remote; the aggregator is the same locally and in CI).
 - **VSCode** — `.vscode/extensions.json` recommends the markdownlint extension; `.vscode/settings.json` pins the shared config and custom-rule path; an optional task runs the Python checks from the editor.
-- **Two runtimes, kept minimal** — one Node devDependency (`markdownlint-cli2`) for the shared lint engine; everything else Python and stdlib-only where possible.
+- **Two runtimes, pinned in one devShell** — `markdownlint-cli2` (Node) for the shared lint engine and `python3` for our validators, both frozen in `flake.nix`/`flake.lock` (Part 0); our scripts stay stdlib-only so they also run outside the shell.
 
 ## Proposed workstreams for Phase 09
 
 | # | Workstream | Output |
 |---|---|---|
-| **T1** | Markdownlint config + `sentence-per-line` custom rule + VSCode wiring; one-off corpus cleanup | `.markdownlint*.jsonc`, `tools/markdownlint/`, `.vscode/`, `package.json` |
+| **T0** | Reproducible environment: Nix `devShell` pinning the toolchain + install/usage doc | `flake.nix`, `flake.lock`, `.envrc`, `steering/environment.md` |
+| **T1** | Markdownlint config + `sentence-per-line` custom rule + VSCode wiring; one-off corpus cleanup | `.markdownlint*.jsonc`, `tools/markdownlint/`, `.vscode/` |
 | **T2** | Frontmatter lint harness (safe invariants) + schema-as-data | `scripts/frontmatter_lint.py`, `schema/frontmatter.schema.yaml` |
 | **T3** | ULID scheme ADR (D-a…D-d) + mint/verify/migrate tooling + migration | `scripts/ulid_*.py`, the migration, an ADR |
 | **T4** | Integration: aggregator, pre-commit, CI, VSCode tasks | `scripts/check.py`, `.pre-commit-config.yaml`, CI |
