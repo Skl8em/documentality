@@ -1,0 +1,13 @@
+{
+  // markdownlint-cli2 wiring. The rule block lives in .markdownlint.jsonc (shared
+  // with the editor); here we add our custom rule and say which files to lint.
+  "customRules": ["./tools/markdownlint/sentence-per-line.js"],
+  "globs": ["**/*.md"],
+  "ignores": [
+    "theorising/**", // upstream academic essays, not our authored guidance
+    "phases/naive-sketch/**", // pre-refoundation records, predate ADR-021 (grandfathered)
+    "**/blind-test/**", // raw agent transcripts, not authored prose
+    "**/weft-blindtest-round2/**",
+    "**/node_modules/**"
+  ]
+}

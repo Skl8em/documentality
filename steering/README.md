@@ -5,8 +5,6 @@ verb: situate
 intention: locate
 view: synchronic
 provenance: { type: function, id: steering }
-axis: genre            # internal docs are shelved by genre, not by the product's scope axis
-dominant-community: contributor
 audience: [contributor, decider]
 reader: H+M
 status: stable
@@ -20,6 +18,7 @@ This folder is the **`steering` function** — the project governing *itself*, n
 
 - **How the repo is laid out and why** → [`ARCHITECTURE.md`](ARCHITECTURE.md) *(explain)*
 - **How to contribute to the system** (the binding rules for changing it) → [`CONTRIBUTING.md`](CONTRIBUTING.md) *(mandate)*
+- **Set up the reproducible dev environment** (the pinned tooling shell) → [`environment.md`](environment.md) *(instruct)*
 - **What changed and when** → [`CHANGELOG.md`](CHANGELOG.md) *(account)*
 - **Every decision, listed** (the register) → [`ADR.md`](ADR.md) *(decide — the act)*
 - **What is still being deliberated** (open questions) → [`open-questions.md`](open-questions.md) *(propose — current, decants to `phases/`)*
