@@ -2,14 +2,12 @@
 title: "Do — the savoir-faire door"
 force: explain
 verb: illuminate
-perlocution: model
+intention: model
 view: synchronic
 provenance: { type: function, id: writing }
 audience: [user]
 reader: H+M
 status: stable
-written-at: v3
-valid-for: v3
 ---
 
 The **do** door holds the world-to-world forces addressed to a reader who will *act*: they aim at the world through the reader's doing. Read the door as a **deontic gradient** — how strongly the document binds the reader:

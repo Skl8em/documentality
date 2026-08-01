@@ -4,12 +4,11 @@ force: propose
 register: govern
 intention: suasive
 view: diachronic
-provenance: { type: function, id: imagine }
+provenance: { type: function, id: imagining }
 distance: initiated
 audience: [contributor, decider]
 reader: H+M
 status: draft
-written-at: {era: refoundation}
 ---
 
 I want a tool where you index testable claims in the documentation to actual test of that claim. That way you can check if the documentation is up-to-date and create single repositories of truth.

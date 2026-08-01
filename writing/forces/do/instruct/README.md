@@ -2,14 +2,12 @@
 title: "Instruct — the stance"
 force: explain
 verb: illuminate
-perlocution: model
+intention: model
 view: synchronic
 provenance: { type: function, id: writing }
 audience: [user]
 reader: H+M
 status: stable
-written-at: v3
-valid-for: v3
 ---
 
 `instruct` gets a reader through a settled task, assuming nothing. It sits **at the floor** (`intention: state`): it serves the doer, it does not aim to move them. It is the neutral first notch of the do-door gradient (*here is how* → *you should* → *you must*). Use [`template.md`](template.md) to write one.

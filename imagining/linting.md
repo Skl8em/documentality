@@ -4,12 +4,11 @@ force: propose
 register: govern
 intention: suasive
 view: diachronic
-provenance: { type: function, id: imagine }
+provenance: { type: function, id: imagining }
 distance: initiated
 audience: [contributor, decider]
 reader: H+M
 status: draft
-written-at: {era: refoundation}
 ---
 
 create rules for markdownlint that address our style of documentation, e.g. all the front matter, 3-7 rule, text length, paragraph number, etc.

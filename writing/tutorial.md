@@ -2,16 +2,14 @@
 title: "Getting started — write your first document with the system"
 force: teach
 verb: bring-along
-perlocution: enable
+intention: enable
 view: synchronic
-provenance: { type: function, id: onboarding }
+provenance: { type: function, id: writing }
 audience: [user]
 reader: H
 distance: far
 power: none
 status: stable
-written-at: v3
-valid-for: v3
 ---
 
 This is a guided first run, not a reference.

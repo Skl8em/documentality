@@ -2,14 +2,12 @@
 title: "Find the force of your document"
 force: instruct
 verb: walk-through
-perlocution: none
+intention: state
 view: synchronic
 provenance: { type: function, id: writing }
 audience: [user]
 reader: H+M
 status: stable
-written-at: v3
-valid-for: v3
 ---
 
 Run this before writing anything. It takes a minute and it decides the structure, tone, and length of what you are about to write. If you skip it, you will write a `describe` where an `orient` was needed and wonder why the page does not work. The concepts behind each step are in [`concepts.md`](concepts.md).

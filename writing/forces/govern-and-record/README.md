@@ -2,14 +2,12 @@
 title: "Govern & record — regulate and remember"
 force: explain
 verb: illuminate
-perlocution: model
+intention: model
 view: synchronic
 provenance: { type: function, id: writing }
 audience: [user]
 reader: H+M
 status: stable
-written-at: v3
-valid-for: v3
 ---
 
 This door holds the forces Diátaxis cannot see, because they do not address a *user of a system* — they regulate relationships between actors, or fix a record for the future. It has two intertwined families:

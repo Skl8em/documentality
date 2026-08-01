@@ -2,14 +2,12 @@
 title: "The twelve forces, by door"
 force: orient
 verb: situate
-perlocution: locate
+intention: locate
 view: synchronic
 provenance: { type: function, id: writing }
 audience: [user]
 reader: H+M
 status: stable
-written-at: v3
-valid-for: v3
 ---
 
 Each force is a folder: its `README.md` is the **stance** (verb, stake, move structure, failure mode) and its `template.md` a ready skeleton. Folders are grouped by the three doors so you navigate by *what you are trying to do*, not by an alphabetical list of twelve. Find your force via [`../choosing.md`](../choosing.md).

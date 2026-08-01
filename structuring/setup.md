@@ -2,14 +2,12 @@
 title: "Lay down the tree and topology"
 force: instruct
 verb: walk-through
-perlocution: none
+intention: state
 view: synchronic
 provenance: { type: function, id: structuring }
 audience: [user]
 reader: H+M
 status: stable
-written-at: v3
-valid-for: v3
 ---
 
 Follow this when starting docs for a project, or a docs repo over several projects. The reasoning is in [`concepts.md`](concepts.md); the defaults you'll apply are in [`defaults.md`](defaults.md).

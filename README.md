@@ -2,7 +2,7 @@
 title: "Project documentation system — start here"
 force: orient
 verb: situate
-perlocution: locate
+intention: locate
 view: synchronic
 provenance: { type: function, id: steering }
 axis: provenance       # the source is the producer's shelf: one folder per function (theorising/ writing/ structuring/ steering/ imagining/) + phases/
@@ -10,8 +10,6 @@ dominant-community: contributor
 audience: [user, contributor]
 reader: H+M
 status: stable
-written-at: v3
-valid-for: v3
 ---
 
 This repository is a **system for writing, structuring, and keeping project documentation** — a product you read to learn how to document *your own* project. It is written according to its own rules, so its file tree is the first worked example of the theory. Every file declares its **force** in its frontmatter; this page is an `orient`, so its only job is to situate you and route you onward.

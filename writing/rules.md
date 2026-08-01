@@ -2,14 +2,12 @@
 title: "Writing rules (binding)"
 force: mandate
 verb: require
-perlocution: none
+intention: state
 view: synchronic
 provenance: { type: function, id: writing }
 audience: [user]
 reader: H+M
 status: stable
-written-at: v3
-valid-for: v3
 ---
 
 These rules are **binding** for documents written in this system. Unlike [`patterns.md`](patterns.md), which you may relax with reason, breaking these breaks the system's guarantees (catalogue validity, chunk retrievability, honest records). They apply to every file except ephemeral working notes.

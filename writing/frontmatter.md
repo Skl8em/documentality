@@ -2,14 +2,12 @@
 title: "Frontmatter schema — the machine-readable catalogue"
 force: describe
 verb: specify
-perlocution: none
+intention: state
 view: synchronic
 provenance: { type: function, id: writing }
 audience: [user]
 reader: H+M
 status: stable
-written-at: v3
-valid-for: v3
 ---
 
 This reference specifies the **YAML frontmatter** every document carries. It lives in `writing/` because you fill it *while writing*, even though several of its fields (`provenance`, `view`, `pin`) source their meaning from the organization (`../structuring/`). The frontmatter is the *catalogue*: it gives the machine a document's coordinates without a human reading them.
@@ -70,8 +68,6 @@ reader: H+M
 distance: near
 power: none
 status: stable
-written-at: v2
-valid-for: v2
 supersedes: decisions/ADR-009.md
 retention: permanent
 pin: projects/ingestion@a1b2c3d

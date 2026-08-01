@@ -2,14 +2,12 @@
 title: "Structure & keep — start here"
 force: orient
 verb: situate
-perlocution: locate
+intention: locate
 view: synchronic
 provenance: { type: function, id: structuring }
 audience: [user]
 reader: H+M
 status: stable
-written-at: v3
-valid-for: v3
 ---
 
 This folder answers **where documents live, how they are organized, how long they are kept, and how they are exported**. Like `writing/`, it is split by force so each concern is its own file.

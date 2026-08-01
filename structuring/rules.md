@@ -2,14 +2,12 @@
 title: "Structural rules (binding)"
 force: mandate
 verb: require
-perlocution: none
+intention: state
 view: synchronic
 provenance: { type: function, id: structuring }
 audience: [user]
 reader: H+M
 status: stable
-written-at: v3
-valid-for: v3
 ---
 
 Binding for any document kept in the system. Breaking one corrupts either navigability or the evidence chain. Defaults you may tune are in [`defaults.md`](defaults.md); the reasoning is in [`concepts.md`](concepts.md).

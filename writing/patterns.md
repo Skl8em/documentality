@@ -2,14 +2,12 @@
 title: "Readability patterns (human + LLM)"
 force: recommend
 verb: advise
-perlocution: none
+intention: state
 view: synchronic
 provenance: { type: function, id: writing }
 audience: [user]
 reader: H+M
 status: stable
-written-at: v3
-valid-for: v3
 ---
 
 These are **recommendations, not rules** (the binding ones are in [`rules.md`](rules.md)). They lower cognitive load whatever the force. They apply most strongly when `reader: H+M`; a pure-`H` document may relax the `M>H` items, a pure-`M` document may relax the human-scan ones. Override any of them knowingly when a document has a good reason.
