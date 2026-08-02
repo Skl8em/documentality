@@ -1,0 +1,6 @@
+{
+  // Point the markdownlint extension at the same config + custom rule the CLI uses,
+  // so the editor and `markdownlint-cli2` apply one ruleset.
+  "markdownlint.configFile": ".markdownlint.jsonc",
+  "markdownlint.customRules": ["./tools/markdownlint/sentence-per-line.js"]
+}

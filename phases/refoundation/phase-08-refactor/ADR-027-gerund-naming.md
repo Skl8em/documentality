@@ -24,7 +24,8 @@ accepted — 2026-08-01
 The roadmap carried a standing mismatch to reconcile: the source folders were `write/` and `structure/`, but their `provenance.id` values were `writing` and `structuring` (ADR-024 deferred the fix to Phase 08).
 Looking across all five functions, the names were inconsistent in *form*: two imperatives (`write`, `structure`), one bare noun (`theory`), one imperative (`imagine`), and one gerund (`steering`).
 
-A `provenance.id` names a **standing activity** — a permanent responsibility that does not end (`foundation.md` §4). The grammatical form that names an ongoing activity is the **gerund** (the *-ing* form): *steering*, *writing*, *structuring* — the doing, not a command (`write`) nor the object of the doing (`theory`).
+A `provenance.id` names a **standing activity** — a permanent responsibility that does not end (`foundation.md` §4).
+The grammatical form that names an ongoing activity is the **gerund** (the *-ing* form): *steering*, *writing*, *structuring* — the doing, not a command (`write`) nor the object of the doing (`theory`).
 So the mismatch was not "which of folder-name or id is right" but that the *form* should be the gerund throughout, and the folder should equal the id (one name per function, since a function *is* a provenance).
 
 ## Decision

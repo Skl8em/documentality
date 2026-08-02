@@ -49,11 +49,9 @@ Bounded producers — the diachronic provenances, which close and freeze:
 
 Two findings this step forces, both refinements of current practice:
 
-- **`onboarding` is not a producer function; it is a *served* order.** [proposed → Phase 08]
-  The front doors (`README`, the two teach on-ramps) are *authored and maintained* by `steering`, `writing`, and `structuring` respectively; "onboarding" is the *reading order* in which a newcomer meets them, which belongs to a generated surface, not to the shelf.
+- **`onboarding` is not a producer function; it is a *served* order.** [proposed → Phase 08] The front doors (`README`, the two teach on-ramps) are *authored and maintained* by `steering`, `writing`, and `structuring` respectively; "onboarding" is the *reading order* in which a newcomer meets them, which belongs to a generated surface, not to the shelf.
   This retires the old `onboarding` provenance id.
-- **`maintenance` stays folded into the owning function.** [decided, per ADR-012]
-  There is no separate "maintenance" provenance; keeping a function's docs current *is* that function.
+- **`maintenance` stays folded into the owning function.** [decided, per ADR-012] There is no separate "maintenance" provenance; keeping a function's docs current *is* that function.
 
 `imagine` band, named and parked (not-yet-enacted): the Phase II material — AI operating instructions, git hooks, validation/generation from the frontmatter.
 It has no document of its own yet, by design; it lives as a line in the roadmap under `imagine`, to be pulled out when Phase I closes.
@@ -94,9 +92,12 @@ Per Step 3 we do not force it; per Step 5 its provenance decides (below).
 
 Audited backward against what is already split, every seam holds:
 
-- **theory vs guidance** — divergent lives (a stabilizing foundation vs living guidance) and a distance seam (initiated theory vs novice-facing product). Real.
-- **writing vs structuring** — one document vs the whole corpus; each is large (≥3 docs), so a size seam. Real.
-- **product vs the project's own governance** — the sharpest seam: `steering/` (current governance) and `phases/` (frozen ADRs) record *this repo's* own construction, which a user of the product never reads. Real, and the paradigm frozen/current case.
+- **theory vs guidance** — divergent lives (a stabilizing foundation vs living guidance) and a distance seam (initiated theory vs novice-facing product).
+  Real.
+- **writing vs structuring** — one document vs the whole corpus; each is large (≥3 docs), so a size seam.
+  Real.
+- **product vs the project's own governance** — the sharpest seam: `steering/` (current governance) and `phases/` (frozen ADRs) record *this repo's* own construction, which a user of the product never reads.
+  Real, and the paradigm frozen/current case.
 - **the schema** — a shared reference that `writing`, `structuring`, and (future) `imagine` all depend on; earns its own place.
 - **generated / ephemeral** — we have essentially none (we are prose); the future generated surface and any validation output are *not* authored documentation and stay out of the shelf.
 
@@ -107,8 +108,7 @@ Named artifacts: our decision record is the **ADR** (`steering/ADR.md` register 
 Source is shelved by **provenance**, organized for the **author** (the producer), with the register split *inside* a function once it earns it.
 Life: standing functions stay **current**; phase projects **freeze**; deliberations are **current and decant into frozen** as they close.
 
-The co-owned document, resolved by the round-2 rule: the **structuring tutorial** is *authored and maintained by* `structuring`, and merely *serves* the onboarding order — so its provenance is `structuring`, and the newcomer's orientation to it is a pointer on the generated surface, not a second home. [decided]
-The same rule places `README` with `steering` (it orients about the whole project), served to onboarding.
+The co-owned document, resolved by the round-2 rule: the **structuring tutorial** is *authored and maintained by* `structuring`, and merely *serves* the onboarding order — so its provenance is `structuring`, and the newcomer's orientation to it is a pointer on the generated surface, not a second home. [decided] The same rule places `README` with `steering` (it orients about the whole project), served to onboarding.
 
 ### Derived front-matter vocabulary — the valid values for us
 
@@ -139,7 +139,7 @@ The single most consequential change the exercise commits: the root axis moves f
 
 The source tree the exercise yields — provenance-first, author-organized — now **enacted**: the generic `docs/` bucket is dissolved, `steering/` and `imagine/` sit at root, and `phases/` is a root provenance.
 
-```
+```text
 README.md                         # orient · steering · current · root (served: onboarding)
 LICENSE                           # NOT WRITTEN — named gap (govern/commit)
 
@@ -185,8 +185,10 @@ What the move did, and what remains:
 The round-2 finding says a deliberation is a **current `govern` document that decants into frozen records**.
 We have exactly one, and it should become `steering/open-questions.md`:
 
-- **⚑ Decision 1 — encode `intention` coarse (`state|formative|suasive|affective`, ADR-026) or fine (`locate|model|enable|convince|…`).** Proposed: coarse. Open.
-- **⚑ Decision 2 — `register` stored or derived from `force`.** Proposed: derived. Open.
+- **⚑ Decision 1 — encode `intention` coarse (`state|formative|suasive|affective`, ADR-026) or fine (`locate|model|enable|convince|…`).** Proposed: coarse.
+  Open.
+- **⚑ Decision 2 — `register` stored or derived from `force`.** Proposed: derived.
+  Open.
 - the retire-`_legacy` / migrate-nine-forces debt (roadmap), open until Phase 08 closes it.
 
 Each closes into a frozen ADR when decided — the open-questions document sitting on the *current* side until then, which is the current/frozen device surviving contact with our own unsettled work.

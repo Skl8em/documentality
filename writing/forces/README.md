@@ -10,7 +10,9 @@ reader: H+M
 status: stable
 ---
 
-Each force is a folder: its `README.md` is the **stance** (verb, stake, move structure, failure mode) and its `template.md` a ready skeleton. Folders are grouped by the three doors so you navigate by *what you are trying to do*, not by an alphabetical list of twelve. Find your force via [`../choosing.md`](../choosing.md).
+Each force is a folder: its `README.md` is the **stance** (verb, stake, move structure, failure mode) and its `template.md` a ready skeleton.
+Folders are grouped by the three doors so you navigate by *what you are trying to do*, not by an alphabetical list of twelve.
+Find your force via [`../choosing.md`](../choosing.md).
 
 ## [know](know/README.md) — savoir (convey how things are)
 

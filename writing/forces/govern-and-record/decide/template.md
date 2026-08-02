@@ -35,16 +35,19 @@ Dated-fixed: NEVER edit to reflect a later choice; a superseding decision is a N
 
 ## Options considered
 
-<The options GENUINELY considered, treated fairly. Without them this is an assertion, not a justification.>
+<The options GENUINELY considered, treated fairly.
+Without them this is an assertion, not a justification.>
 
 - **Option A:** … — consequences: …
 - **Option B:** … — consequences: …
 
 ## Decision
 
-<The choice, in one line. Then: why this one rather than the others.>
+<The choice, in one line.
+Then: why this one rather than the others.>
 
 ## Entail — what follows *(forward)*
 
-<What the decision changes, commits us to, and requires going forward. Name the downstream
-`mandate`/`commit`/`instruct` it spawns, or the `propose` it reopens. Write as projection, not proof.>
+<What the decision changes, commits us to, and requires going forward.
+Name the downstream `mandate`/`commit`/`instruct` it spawns, or the `propose` it reopens.
+Write as projection, not proof.>

@@ -11,9 +11,12 @@ status: stable
 retention: permanent
 ---
 
-This is the **central register** — the *act* face of deciding: it takes each decision on record, dated, in one line. It does not argue and it does not unfold consequences. The **motivation (`justify`)** and the **implications (`entail`)** of each decision live in its **phase folder** under [`phases/`](../phases/README.md) — because a decision belongs with the effort that produced it (its provenance), not in a pile of all decisions.
+This is the **central register** — the *act* face of deciding: it takes each decision on record, dated, in one line.
+It does not argue and it does not unfold consequences.
+The **motivation (`justify`)** and the **implications (`entail`)** of each decision live in its **phase folder** under [`phases/`](../phases/README.md) — because a decision belongs with the effort that produced it (its provenance), not in a pile of all decisions.
 
-Append-only: a row is never edited. A superseding decision is a new row and a new record that sets `supersedes`.
+Append-only: a row is never edited.
+A superseding decision is a new row and a new record that sets `supersedes`.
 
 | # | Decision | Phase | Date | Status |
 | --- | --- | --- | --- | --- |
@@ -44,5 +47,9 @@ Append-only: a row is never edited. A superseding decision is a new row and a ne
 | [025](../phases/refoundation/phase-08-refactor/ADR-025-governance-axis.md) | Govern by domain governed; transversal/vertical tension irreducible; `concerns` coordinate; generate-don't-move | 08-refactor | 2026-07-25 | accepted |
 | [026](../phases/refoundation/phase-08-refactor/ADR-026-floor-value-state.md) | The perlocution/intention floor value is `state`, not `none` | 08-refactor | 2026-07-25 | accepted |
 | [027](../phases/refoundation/phase-08-refactor/ADR-027-gerund-naming.md) | Function folders and provenance ids take the gerund form | 08-refactor | 2026-08-01 | accepted |
+| [028](../phases/refoundation/phase-09-tooling/ulid-identifiers.md) | ULID + slug identifiers: ULID in frontmatter, `<slug>.md` filenames, convention kept open | 09-tooling | 2026-08-01 | accepted |
 
-To add a decision: append a row here, and write its full record (context + `justify` + `entail`) in the current phase folder.
+The ordinal in the `#` column is a **generated display number** (ADR-028): a record's identity is the ULID in its frontmatter (`id`), not a stored count.
+New records keep `<slug>.md` filenames; older rows keep their `ADR-NNN` names for now (the naming convention is open — see the technical-debt tracker).
+
+To add a decision: append a row here, and write its full record (context + `justify` + `entail`) in the current phase folder as `<slug>.md`, with an `id` minted by `scripts/ulid.py`.

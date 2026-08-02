@@ -25,17 +25,18 @@ Delete these comments once filled in.
 
 ## Method
 
-<How the evidence was obtained — reproducibly. A reader who distrusts you must be
-able to repeat it.>
+<How the evidence was obtained — reproducibly.
+A reader who distrusts you must be able to repeat it.>
 
 ## Evidence
 
-<Exhibit it. Results, measurements, traces.>
+<Exhibit it.
+Results, measurements, traces.>
 
 ## Coverage
 
-<Argue that the evidence is *sufficient for* the claim, not merely consistent with
-it. This is where proofs fail.>
+<Argue that the evidence is *sufficient for* the claim, not merely consistent with it.
+This is where proofs fail.>
 
 ## Limits
 
