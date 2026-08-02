@@ -34,8 +34,8 @@ Delete these comments once filled in.
 
 ## Alternatives considered
 
-<Treat each fairly: what it is, why it was not chosen. This is what makes it a
-proposal and not a request.>
+<Treat each fairly: what it is, why it was not chosen.
+This is what makes it a proposal and not a request.>
 
 ## The ask
 

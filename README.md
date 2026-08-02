@@ -12,15 +12,14 @@ reader: H+M
 status: stable
 ---
 
-This repository is a **system for writing, structuring, and keeping project documentation** — a product you read to learn how to document *your own* project. It is written according to its own rules, so its file tree is the first worked example of the theory. Every file declares its **force** in its frontmatter; this page is an `orient`, so its only job is to situate you and route you onward.
+This repository is a **system for writing, structuring, and keeping project documentation** — a product you read to learn how to document *your own* project.
+It is written according to its own rules, so its file tree is the first worked example of the theory.
+Every file declares its **force** in its frontmatter; this page is an `orient`, so its only job is to situate you and route you onward.
 
-**New here?** 
+**New here?**
 
-You want to read if this approach would make sense to you>
-Go to `structuring/*to be defined*`
-You start with your project and want to write the first documentation?
-Go to [writing tutorial`](writing/tutorial.md)
-You wand to sort your new or existing documentation and want to create a structure for it?
+You want to read if this approach would make sense to you> Go to `structuring/*to be defined*` You start with your project and want to write the first documentation?
+Go to [writing tutorial`](writing/tutorial.md) You wand to sort your new or existing documentation and want to create a structure for it?
 Start with the [Structure Tutorial](structuring/tutorial.md).
 Already have a document in mind but don't know where to start?
 Go to ...
@@ -29,7 +28,9 @@ Come back here once you know what you need; this page routes by need, not as a c
 
 ## The one idea
 
-A document is not a container of information sorted by subject. It is an **act** performed from a definite position — *what* it does (its force) and *toward whom* (its audience, at some distance and power) — and made to live through time. Name the act correctly and the form follows; misname it and no polish recovers the wrong centre of gravity.
+A document is not a container of information sorted by subject.
+It is an **act** performed from a definite position — *what* it does (its force) and *toward whom* (its audience, at some distance and power) — and made to live through time.
+Name the act correctly and the form follows; misname it and no polish recovers the wrong centre of gravity.
 
 ## What's in here — one folder per function
 
@@ -48,19 +49,28 @@ Keeping the *product* (`writing/`, `structuring/`) legible to a **user** and the
 
 *(This is the axis-and-dominant-community declaration that `structuring/rules.md` requires a tree root to carry — you are reading it, and it lives in the root README.)*
 
-- **Axis: by provenance.** The source is shelved by the **function** that produces and maintains each area (`theorising`, `writing`, `structuring`, `steering`, `imagining`), plus the bounded `project` records under `phases/`. Inside `writing/forces/` the sub-axis is **by door** (know / do / govern-and-record).
-- **Dominant community: `contributor`** — the shelf is ordered for whoever writes and maintains the docs, their first reader. The `user`'s reading order is *generated* from the frontmatter, not carved into this tree.
+- **Axis: by provenance.** The source is shelved by the **function** that produces and maintains each area (`theorising`, `writing`, `structuring`, `steering`, `imagining`), plus the bounded `project` records under `phases/`.
+  Inside `writing/forces/` the sub-axis is **by door** (know / do / govern-and-record).
+- **Dominant community: `contributor`** — the shelf is ordered for whoever writes and maintains the docs, their first reader.
+  The `user`'s reading order is *generated* from the frontmatter, not carved into this tree.
 
 ## The three doors (how the forces group)
 
-- **[know](writing/forces/know/README.md)** (savoir) — `orient`, `explain`, `describe`. Understand where you are, why, and the facts.
-- **[do](writing/forces/do/README.md)** (savoir-faire) — `instruct`, `teach`, `recommend`. Execute, learn, or take advice — a deontic gradient: *here is how* → *you should* → *you must* (that last is `mandate`, next door).
-- **[govern & record](writing/forces/govern-and-record/README.md)** — `mandate`, `commit`, `propose`, `decide`, and the evidence/memory forces `prove`, `account`. A project's own acts: rules, promises, deliberation, decisions, proof, history.
+- **[know](writing/forces/know/README.md)** (savoir) — `orient`, `explain`, `describe`.
+  Understand where you are, why, and the facts.
+- **[do](writing/forces/do/README.md)** (savoir-faire) — `instruct`, `teach`, `recommend`.
+  Execute, learn, or take advice — a deontic gradient: *here is how* → *you should* → *you must* (that last is `mandate`, next door).
+- **[govern & record](writing/forces/govern-and-record/README.md)** — `mandate`, `commit`, `propose`, `decide`, and the evidence/memory forces `prove`, `account`.
+  A project's own acts: rules, promises, deliberation, decisions, proof, history.
 
 ## The rule that governs everything else
 
-A corpus serves two incompatible masters: **be found and read now** (communication) and **stand as evidence over time** (archive). No single order serves both. This system keeps them apart — the readable tree on one side, frozen provenance on the other — and stitches them at one point: *the frozen record of a change becomes the current state you maintain*. `structuring/concepts.md` develops it.
+A corpus serves two incompatible masters: **be found and read now** (communication) and **stand as evidence over time** (archive).
+No single order serves both.
+This system keeps them apart — the readable tree on one side, frozen provenance on the other — and stitches them at one point: *the frozen record of a change becomes the current state you maintain*. `structuring/concepts.md` develops it.
 
 ## Status
 
-**v4.0-alpha (Phase 08 complete)** — the source is the producer's shelf: one **gerund-named** folder per function (`theorising`, `writing`, `structuring`, `steering`, `imagining`) plus the frozen `phases/`, grouped by era. All **twelve forces** are built under `writing/forces/`; the vocabulary is refounded (`intention` floor with an optional aim, know/do/govern as a register gloss); `_legacy/` is retired. Next: **Phase 09** (tooling) stands up unified markdownlint, a frontmatter-lint harness, and ULID+slug identifiers; **Phase 10** then reconciles the frontmatter schema (coarse-vs-fine `intention`, stored-vs-derived `register`), tracked in [`steering/open-questions.md`](steering/open-questions.md).
+**v4.0-alpha (Phase 08 complete)** — the source is the producer's shelf: one **gerund-named** folder per function (`theorising`, `writing`, `structuring`, `steering`, `imagining`) plus the frozen `phases/`, grouped by era.
+All **twelve forces** are built under `writing/forces/`; the vocabulary is refounded (`intention` floor with an optional aim, know/do/govern as a register gloss); `_legacy/` is retired.
+Next: **Phase 09** (tooling) stands up unified markdownlint, a frontmatter-lint harness, and ULID+slug identifiers; **Phase 10** then reconciles the frontmatter schema (coarse-vs-fine `intention`, stored-vs-derived `register`), tracked in [`steering/open-questions.md`](steering/open-questions.md).

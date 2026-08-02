@@ -1,0 +1,31 @@
+{
+  // Shared rule block for markdownlint, read by BOTH the CLI (markdownlint-cli2)
+  // and the VSCode extension (DavidAnson.vscode-markdownlint) — so the two never drift.
+  // We start from David Anson's defaults, then take them over deliberately.
+  "default": true,
+
+  // House style: semantic line breaks (one sentence per line, ADR-021) make a line
+  // as long as its sentence, so a fixed length cap is the wrong rule here.
+  "MD013": false,
+
+  // The document title lives in the YAML frontmatter, never as a body `# H1`.
+  // MD025/MD041 default `front_matter_title` ("^\\s*title\\s*[:=]") treats the
+  // frontmatter `title:` AS the document title: it satisfies MD041 (a file need not
+  // open with `#`) and makes any body `# ...` a duplicate title under MD025.
+  "MD025": true,
+  "MD041": true,
+
+  // Templates and plans reuse section names ("Verification", "Approach", ...) under
+  // different parents; that is intentional.
+  "MD024": { "siblings_only": true },
+
+  // Templates use <placeholder> tokens and <!-- guidance --> comments.
+  "MD033": false,
+
+  // Table-column-style (MD060) exists only in newer markdownlint (the VSCode
+  // extension bundles its own, possibly newer, engine than our pinned CLI). We do
+  // not enforce a table style; turning it off keeps the editor quiet and matches
+  // the pinned CLI, which does not have the rule. (Our config + custom rules are
+  // shared with the editor; the engine *version* is pinned only for the CLI.)
+  "MD060": false
+}

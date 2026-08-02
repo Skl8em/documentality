@@ -10,7 +10,8 @@ reader: H+M
 status: stable
 ---
 
-This door holds the forces Diátaxis cannot see, because they do not address a *user of a system* — they regulate relationships between actors, or fix a record for the future. It has two intertwined families:
+This door holds the forces Diátaxis cannot see, because they do not address a *user of a system* — they regulate relationships between actors, or fix a record for the future.
+It has two intertwined families:
 
 **Govern** (create obligation):
 
@@ -24,4 +25,5 @@ This door holds the forces Diátaxis cannot see, because they do not address a *
 - **[prove](prove/README.md)** — *demonstrate*: show a claim holds, reproducibly, and convince an examiner (`convince`).
 - **[account](account/README.md)** — *report against*: report what happened against what was expected (`state`).
 
-Most of these are **diachronic**: they freeze and are never rewritten (a superseding decision is a *new* record). This is the archival half of the system — see `../../../structuring/concepts.md` on the state/change seam and why these documents belong to a *project's* provenance, not a maintained state.
+Most of these are **diachronic**: they freeze and are never rewritten (a superseding decision is a *new* record).
+This is the archival half of the system — see `../../../structuring/concepts.md` on the state/change seam and why these documents belong to a *project's* provenance, not a maintained state.

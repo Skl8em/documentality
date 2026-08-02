@@ -1,0 +1,13 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "docs: run the gate",
+      "detail": "markdownlint + frontmatter + ULID + link checks (scripts/check.py)",
+      "type": "shell",
+      "command": "python3 scripts/check.py",
+      "group": "test",
+      "problemMatcher": []
+    }
+  ]
+}

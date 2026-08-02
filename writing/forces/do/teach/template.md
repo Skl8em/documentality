@@ -25,7 +25,8 @@ Delete these comments once filled in.
 
 ## Before you start
 
-<The smallest possible setup. Keep it to what guarantees success — no detours.>
+<The smallest possible setup.
+Keep it to what guarantees success — no detours.>
 
 ## Step 1 — <a first real, rewarding action>
 
@@ -33,9 +34,9 @@ Delete these comments once filled in.
 
 ## Step 2 … — <graduate the difficulty in small increments>
 
-<Each step adds one thing, reliably. Never introduce two new ideas at once.>
+<Each step adds one thing, reliably.
+Never introduce two new ideas at once.>
 
 ## What you learned
 
-<Name what they can now do, and point beyond — the next tutorial, the how-tos,
-the reference — without turning this into a menu.>
+<Name what they can now do, and point beyond — the next tutorial, the how-tos, the reference — without turning this into a menu.>

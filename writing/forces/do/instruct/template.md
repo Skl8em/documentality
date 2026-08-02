@@ -24,7 +24,9 @@ Fail if you explain instead of tell (that's `explain`).
 
 ## Preconditions
 
-- <Everything that must be true before starting. Access, versions, state. Assume nothing.>
+- <Everything that must be true before starting.
+  Access, versions, state.
+  Assume nothing.>
 
 ## Steps
 

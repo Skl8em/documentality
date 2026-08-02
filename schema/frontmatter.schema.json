@@ -1,0 +1,30 @@
+{
+  "//": "Phase 09 SAFE-STARTER frontmatter schema. Single edit surface for the validator (scripts/frontmatter_lint.py). Only settled invariants are errors; the contested fields (the two open ⚑) are warnings until Phase 10 fills them in. See phases/refoundation/phase-09-tooling/plan.md §Part 2.",
+
+  "required": ["title", "force", "intention", "view", "provenance", "audience", "reader", "status"],
+
+  "error_enums": {
+    "view": ["synchronic", "diachronic"],
+    "reader": ["H", "M", "H+M"],
+    "force": ["orient", "explain", "describe", "instruct", "teach", "recommend", "mandate", "commit", "propose", "decide", "prove", "account"],
+    "provenance_type": ["function", "project"]
+  },
+
+  "audience_base_roles": ["user", "contributor", "decider"],
+
+  "root_only_fields": ["axis", "dominant-community"],
+
+  "warn_enums": {
+    "intention": ["state", "formative", "suasive", "affective", "locate", "model", "enable", "convince"],
+    "register": ["know", "do", "govern"],
+    "distance": ["initiated", "novice", "peer", "near", "far"],
+    "power": ["none", "low", "holds"],
+    "status": ["draft", "stable", "deprecated", "accepted", "done", "in-progress", "planned"]
+  },
+
+  "deferred_to_phase_10": [
+    "intention coarse-vs-fine (⚑ Decision 1): both value sets accepted for now",
+    "register stored-vs-derived (⚑ Decision 2): neither required nor forbidden",
+    "distance/power allowed values; concerns shape; force×intention typical pairings"
+  ]
+}

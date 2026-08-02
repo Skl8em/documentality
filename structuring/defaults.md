@@ -10,12 +10,15 @@ reader: H+M
 status: stable
 ---
 
-Defaults, not rules — override with reason (the binding minimum is in [`rules.md`](rules.md)). They save you from re-deciding the same things per project.
+Defaults, not rules — override with reason (the binding minimum is in [`rules.md`](rules.md)).
+They save you from re-deciding the same things per project.
 
 ## Tree axis
 
-- **Cross-project docs repo** → organize by **business function**. The dominant readers cross projects and think in the business's language, not the implementation's.
-- **In-repo docs of a code project** → organize by **component / builder's path**. The dominant readers are builders.
+- **Cross-project docs repo** → organize by **business function**.
+  The dominant readers cross projects and think in the business's language, not the implementation's.
+- **In-repo docs of a code project** → organize by **component / builder's path**.
+  The dominant readers are builders.
 - **Mixed teams** → pick the *dominant* community and serve it well rather than serving everyone weakly; note the choice at the tree root.
 
 ## Retention by force
@@ -42,4 +45,6 @@ A corpus that sediments lacks three *independent* things — repair them indepen
 
 ## Cost discipline
 
-Do not pay archival cost everywhere. A document whose life is a sprint deserves neither the armor of a proof nor the scaffolding of a cross-project reference. Match the cost to the horizon and the recipient (`../writing/patterns.md`, recipient section).
+Do not pay archival cost everywhere.
+A document whose life is a sprint deserves neither the armor of a proof nor the scaffolding of a cross-project reference.
+Match the cost to the horizon and the recipient (`../writing/patterns.md`, recipient section).

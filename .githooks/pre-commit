@@ -1,0 +1,5 @@
+#!/bin/sh
+# Documentation gate — runs markdownlint + frontmatter + ULID + slug + link checks.
+# Opt in once with:  git config core.hooksPath .githooks
+# check.py uses the pinned markdownlint (via the devShell or `nix develop`).
+exec python3 "$(git rev-parse --show-toplevel)/scripts/check.py"

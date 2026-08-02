@@ -52,13 +52,11 @@ Computed from `force` (and `intention`), read by tooling and newcomers:
 
 ## The two decisions ⚑
 
-**Decision 1 — how to encode intention + floor.**
-The floor is universal, so it is *not* stored; what varies is the aim above it.
+**Decision 1 — how to encode intention + floor.** The floor is universal, so it is *not* stored; what varies is the aim above it.
 *Proposed:* store `intention ∈ {state, formative, suasive, affective}` (`state` = the floor only, per ADR-026) — coarse enough to route, and honest that the finer flavour (formative→map/model/competence, suasive→convince) is usually derivable from the force and stored only when it diverges.
 *Alternative:* store the fine flavour always (`locate|model|enable|convince|…`), more precise but more to maintain and closer to the old per-force typology we moved away from.
 
-**Decision 2 — is `register` stored or derived?**
-*Proposed:* **derived** from `force` (each force has a fixed direction of fit → register), like `diataxis` — storing it would double-encode what the force already fixes.
+**Decision 2 — is `register` stored or derived?** *Proposed:* **derived** from `force` (each force has a fixed direction of fit → register), like `diataxis` — storing it would double-encode what the force already fixes.
 *Alternative:* store it as a convenience for navigation/filtering, accepting the redundancy.
 
 ## Validation rules (unchanged in spirit)

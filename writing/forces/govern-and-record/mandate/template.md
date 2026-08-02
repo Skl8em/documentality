@@ -21,15 +21,18 @@ Delete these comments once filled in.
 
 ## Rule
 
-<State it plainly, as a *must*. No hedging.>
+<State it plainly, as a *must*.
+No hedging.>
 
 ## Scope
 
-<Who it binds, when, and where. Name the boundary exactly.>
+<Who it binds, when, and where.
+Name the boundary exactly.>
 
 ## Rationale
 
-<Briefly — one or two lines. Enough to justify, not so much it reads as optional.>
+<Briefly — one or two lines.
+Enough to justify, not so much it reads as optional.>
 
 ## Non-compliance
 
