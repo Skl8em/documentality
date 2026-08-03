@@ -33,3 +33,20 @@ Adopting `id`/`slug` on the legacy records — and choosing whether their filena
 **Why:** they predate the current conventions or are not authored prose; forcing them into compliance would be churn without value.
 
 **How to resolve:** bring a file into the catalogue (frontmatter + one-sentence-per-line) and remove it from the ignore lists when it stops being historical/informal — case by case, not in bulk.
+
+## Reorg leftovers (untracked on-disk zombies)
+
+**What:** the Phase-08 renames left three **untracked** directories on disk — `theory/` (a full copy of the `theorising/` essays), `write/` (an empty `forces/` shell), and a top-level `phases/phase-07-structuring-tutorial/` (a `.DS_Store`-only husk).
+Git already relocated the tracked content (`theorising/`, `writing/`, `phases/refoundation/phase-07-…`), so a fresh clone is clean; these persist only in this working tree because a `.DS_Store` blocked their deletion in the sandbox.
+
+**Why it matters:** low severity (not committed), but they duplicate canonical content on disk and mislead anyone browsing the folder — and the gate is blind to them, which is the real lesson.
+
+**How to resolve:** `git clean -fd` (or delete by hand) once the `.DS_Store` files can be removed; then teach the gate to notice on-disk cruft — `scripts/check.py` validates `git ls-files` only, so **untracked duplicates and stray directories pass silently**. A cheap `git status --porcelain` assertion (fail on unexpected untracked paths) would have caught this.
+
+## Duplicated round-2 blind-test transcripts
+
+**What:** the round-2 `weft` transcripts are **committed twice** — `phases/refoundation/phase-07-structuring-tutorial/blind-test/weft-{response,review}-round2.md` and `…/weft-blindtest-round2/weft-{response,review}.md`.
+
+**Why:** an artifact of copying the transcripts into the phase folder from two directions.
+
+**How to resolve:** keep the `blind-test/` copies (they sit with round 1 coherently), delete the `weft-blindtest-round2/` directory, and re-run `linkcheck`.

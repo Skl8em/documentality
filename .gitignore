@@ -1,0 +1,11 @@
+# macOS metadata (the source of the "zombie" undeletable dirs)
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Nix build outputs / direnv cache
+result
+result-*
+.direnv/

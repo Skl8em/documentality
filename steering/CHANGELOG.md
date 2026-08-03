@@ -15,6 +15,12 @@ History of the documentation system itself.
 Append-only; each entry is dated-fixed.
 Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
 
+## [v4.0-alpha.7] — hosting: Codeberg canonical + GitHub mirror
+
+- **Decided:** the canonical repository is **Codeberg** (non-profit, EU, Forgejo), **mirrored to GitHub** for visibility; contributions land on the canonical, CI on the canonical or the mirror. Rationale: visibility (GitHub) + freedom/sovereignty (FSF/GNU rate GitHub `F`; SFC's *Give Up GitHub* recommends Codeberg/Forgejo; GNU Guix moved to Codeberg). ([decision](../phases/refoundation/phase-10-schema/hosting-codeberg-github-mirror.md); register #029)
+- **Added:** a root `.gitignore` (`.DS_Store`, `__pycache__`, Nix outputs) — closes the untracked "zombie directory" gap; `git clean -fd` retires them.
+- **Note:** the technical setup (Codeberg repo, remotes, push-mirror, CI port) is executed with Claude Code, per the ways-of-working division.
+
 ## [v4.0-alpha.6] — Phase 09 tooling (enforce the conventions, ready the catalogue)
 
 - **Added:** a reproducible **Nix `devShell`** (`flake.nix`/`flake.lock`) pinning `markdownlint-cli2`, node, python, and git per project — so local and CI run the same bit-for-bit tools; install/usage in `steering/environment.md`.

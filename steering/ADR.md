@@ -48,6 +48,7 @@ A superseding decision is a new row and a new record that sets `supersedes`.
 | [026](../phases/refoundation/phase-08-refactor/ADR-026-floor-value-state.md) | The perlocution/intention floor value is `state`, not `none` | 08-refactor | 2026-07-25 | accepted |
 | [027](../phases/refoundation/phase-08-refactor/ADR-027-gerund-naming.md) | Function folders and provenance ids take the gerund form | 08-refactor | 2026-08-01 | accepted |
 | [028](../phases/refoundation/phase-09-tooling/ulid-identifiers.md) | ULID + slug identifiers: ULID in frontmatter, `<slug>.md` filenames, convention kept open | 09-tooling | 2026-08-01 | accepted |
+| [029](../phases/refoundation/phase-10-schema/hosting-codeberg-github-mirror.md) | Hosting: canonical on Codeberg, mirrored to GitHub | 10-schema | 2026-08-03 | accepted |
 
 The ordinal in the `#` column is a **generated display number** (ADR-028): a record's identity is the ULID in its frontmatter (`id`), not a stored count.
 New records keep `<slug>.md` filenames; older rows keep their `ADR-NNN` names for now (the naming convention is open — see the technical-debt tracker).
