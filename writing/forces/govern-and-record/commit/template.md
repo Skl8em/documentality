@@ -5,6 +5,7 @@ verb: promise-precisely
 intention: state
 view: synchronic
 provenance: { type: function, id: <project-id> }
+constitutive: no
 audience: [decider, contributor]
 reader: H+M
 distance: near

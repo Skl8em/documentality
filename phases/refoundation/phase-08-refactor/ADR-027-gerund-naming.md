@@ -1,10 +1,10 @@
 ---
 title: "ADR-027 — Function folders and provenance ids take the gerund form"
 force: decide
-register: govern
 intention: suasive
 view: diachronic
 provenance: { type: project, id: phase-08-refactor }
+constitutive: yes
 concerns: [theorising, writing, structuring, steering, imagining]
 distance: initiated
 audience: [contributor, decider]
@@ -13,6 +13,7 @@ status: accepted
 retention: permanent
 supersedes: null
 superseded-by: null
+hash: sha256:b696fcf66f57194bcdfd05207472a0bbc11acd6c79de4b7925dfc1825d07db06
 ---
 
 ## Status

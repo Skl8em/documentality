@@ -2,9 +2,10 @@
 title: "The twelve forces, by door"
 force: orient
 verb: situate
-intention: locate
+intention: formative
 view: synchronic
 provenance: { type: function, id: writing }
+constitutive: no
 audience: [user]
 reader: H+M
 status: stable

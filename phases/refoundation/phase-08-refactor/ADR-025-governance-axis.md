@@ -1,10 +1,10 @@
 ---
 title: "ADR-025 — Govern by domain governed; the transversal/vertical tension and the `concerns` coordinate"
 force: decide
-register: govern
 intention: suasive
 view: diachronic
 provenance: { type: project, id: phase-08-refactor }
+constitutive: yes
 concerns: [steering, structuring]
 distance: initiated
 audience: [contributor, decider]
@@ -13,6 +13,7 @@ status: accepted
 retention: permanent
 supersedes: null
 superseded-by: null
+hash: sha256:063e2c6653566b4cd1338d50fb95a0e17b5d47c00548aa86bdb4264ee6b5b3fe
 ---
 
 ## Status

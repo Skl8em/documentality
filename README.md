@@ -2,9 +2,10 @@
 title: "Project documentation system — start here"
 force: orient
 verb: situate
-intention: locate
+intention: formative
 view: synchronic
 provenance: { type: function, id: steering }
+constitutive: no
 axis: provenance       # the source is the producer's shelf: one folder per function (theorising/ writing/ structuring/ steering/ imagining/) + phases/
 dominant-community: contributor
 audience: [user, contributor]
@@ -37,6 +38,7 @@ Name the act correctly and the form follows; misname it and no polish recovers t
 The source is the **producer's shelf**: each top-level folder is a standing **function** (a provenance), and the user-facing reading order is *generated* from the frontmatter rather than hand-kept as a folder.
 
 - `theorising/` — the inscribed-act theory the product rests on (the three essays + readability patterns).
+- **[`operationalizing/`](operationalizing/README.md)** — the **operational apports**: the coordinates we chose to reify so the theory becomes workable and checkable (`view`, `constitutive`, `register`), and why we carved each one that way.
 - **[`writing/`](writing/README.md)** — how to write *one document*: its force, move structure, readability patterns, and the **frontmatter** schema; one folder per force, grouped by the three doors.
 - **[`structuring/`](structuring/README.md)** — how to keep *the whole corpus*: topology, provenance, life cycle, the **audience model** ([`structuring/audience.md`](structuring/audience.md)), and the structuring tutorial.
 - **[`steering/`](steering/README.md)** — the project's own governance: foundation, roadmap, architecture, contribution rules, changelog, and the decision register (ADRs).
@@ -49,7 +51,7 @@ Keeping the *product* (`writing/`, `structuring/`) legible to a **user** and the
 
 *(This is the axis-and-dominant-community declaration that `structuring/rules.md` requires a tree root to carry — you are reading it, and it lives in the root README.)*
 
-- **Axis: by provenance.** The source is shelved by the **function** that produces and maintains each area (`theorising`, `writing`, `structuring`, `steering`, `imagining`), plus the bounded `project` records under `phases/`.
+- **Axis: by provenance.** The source is shelved by the **function** that produces and maintains each area (`theorising`, `operationalizing`, `writing`, `structuring`, `steering`, `imagining`), plus the bounded `project` records under `phases/`.
   Inside `writing/forces/` the sub-axis is **by door** (know / do / govern-and-record).
 - **Dominant community: `contributor`** — the shelf is ordered for whoever writes and maintains the docs, their first reader.
   The `user`'s reading order is *generated* from the frontmatter, not carved into this tree.
@@ -71,6 +73,8 @@ This system keeps them apart — the readable tree on one side, frozen provenanc
 
 ## Status
 
-**v4.0-alpha (Phase 08 complete)** — the source is the producer's shelf: one **gerund-named** folder per function (`theorising`, `writing`, `structuring`, `steering`, `imagining`) plus the frozen `phases/`, grouped by era.
-All **twelve forces** are built under `writing/forces/`; the vocabulary is refounded (`intention` floor with an optional aim, know/do/govern as a register gloss); `_legacy/` is retired.
-Next: **Phase 09** (tooling) stands up unified markdownlint, a frontmatter-lint harness, and ULID+slug identifiers; **Phase 10** then reconciles the frontmatter schema (coarse-vs-fine `intention`, stored-vs-derived `register`), tracked in [`steering/open-questions.md`](steering/open-questions.md).
+**v4.0-alpha (Phase 10 complete)** — the source is the producer's shelf: one **gerund-named** folder per function (`theorising`, `operationalizing`, `writing`, `structuring`, `steering`, `imagining`) plus the frozen `phases/`, grouped by era.
+All **twelve forces** are built under `writing/forces/`.
+The **schema is reconciled** to the refounded model and enforced: `intention` is the coarse family, `register` is derived (`constitutive ? govern : direction-of-fit(force)`) and never stored, the new `constitutive` mark is required, and frozen records carry a `hash:` fixity seal.
+One gate — `python3 scripts/check.py` — runs the worktree, link, frontmatter, ULID, slug, fixity, and markdownlint checks.
+Next: **Phase 11** designs Phase II, re-running the structuring front-end for the incoming AI discourse community ([`steering/roadmap.md`](steering/roadmap.md)).

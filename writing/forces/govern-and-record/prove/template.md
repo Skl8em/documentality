@@ -2,9 +2,10 @@
 title: "Evidence that <the claim>"
 force: prove
 verb: demonstrate
-intention: convince
+intention: suasive
 view: diachronic
 provenance: { type: project, id: <project-id> }
+constitutive: no
 audience: [decider]
 reader: H
 distance: far

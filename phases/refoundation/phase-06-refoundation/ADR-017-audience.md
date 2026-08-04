@@ -1,10 +1,10 @@
 ---
 title: "ADR-017 — Audience: roles collapse, distance is the live axis, human/machine orthogonal"
 force: decide
-register: govern
 intention: suasive
 view: diachronic
 provenance: { type: project, id: phase-06-refoundation }
+constitutive: yes
 distance: initiated
 audience: [contributor, decider]
 reader: H+M
@@ -12,6 +12,7 @@ status: accepted
 retention: permanent
 supersedes: ADR-006-audience-model
 superseded-by: null
+hash: sha256:fec2743f8139a1dc0a60e759989b8db8b0878785b4bce02516b7ae7bd2f22b6a
 ---
 
 ## Status

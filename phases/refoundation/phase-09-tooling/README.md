@@ -1,14 +1,15 @@
 ---
 title: "Phase 09 — Tooling: enforce the conventions, ready the catalogue"
 force: orient
-register: know
-intention: locate
+intention: formative
 view: diachronic
 provenance: { type: project, id: phase-09-tooling }
+constitutive: no
 distance: initiated
 audience: [contributor, decider]
 reader: H+M
 status: done
+hash: sha256:5a2cd78053ef898cf71f3de311dc061db2cfb993748a705b68bcc8d2a7e4fd52
 ---
 
 Phase I's tooling phase: stand up the machinery that **enforces the conventions we have already decided** and makes the schema work of Phase 10 efficient and meaningful.

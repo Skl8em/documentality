@@ -1,10 +1,10 @@
 ---
 title: "Structuring tutorial — review of the blind test, and a rewrite plan"
 force: propose
-register: govern
 intention: suasive
 view: synchronic
 provenance: { type: project, id: phase-07-structuring-tutorial }
+constitutive: no
 distance: initiated
 audience: [contributor, decider]
 reader: H+M

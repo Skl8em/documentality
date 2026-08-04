@@ -2,10 +2,10 @@
 title: "Phase 10 — Reconcile governance & the frontmatter schema — detailed plan"
 force: propose
 verb: argue
-register: govern
 intention: suasive
 view: synchronic
 provenance: { type: project, id: phase-10-schema }
+constitutive: no
 concerns: [steering, writing, structuring, theorising, imagining]
 audience: [contributor, decider]
 reader: H+M
@@ -54,7 +54,7 @@ Demotion mechanics: move ADR-019's content to a roadmap "plan changes" note (or 
 |---|---|---|
 | **T1** | **Schema encoding.** In `schema/frontmatter.schema.json`: `intention` → coarse enum; add `constitutive: {yes, no}` (required, no implicit default — the conscious choice); encode the `force → {know, do}` direction-of-fit table; declare `register` **derived, not stored**; add optional `hash`. | updated schema |
 | **T2** | **Corpus sweep.** `intention` fine → coarse everywhere; **remove stored `register`**; add `constitutive` to every catalogued doc (a real per-document judgement — `yes` for the constitutive-force records, `no` for the rest). A script drives it; gated by `frontmatter_lint` + `linkcheck`. | rewritten frontmatters |
-| **T3** | **Register/constitutive re-founding ADR.** Write it: register derived (`constitutive ? govern : direction`), `constitutive` a conscious stored `yes|no`, force × power deferred, three doors kept & re-founded. Supersedes the register part of ADR-016; refines/supersedes that of ADR-025. | new ADR |
+| **T3** | **Register/constitutive re-founding ADR.** Write it: register derived (`constitutive ? govern : direction`), `constitutive` a conscious stored `yes\|no`, force × power deferred, three doors kept & re-founded. Supersedes the register part of ADR-016; refines/supersedes that of ADR-025. | new ADR |
 | **T4** | **Content-hash fixity.** `scripts/hash_seal.py` (sha256 over canonical frontmatter-minus-`hash` + body, written on freeze), `scripts/hash_check.py` (verify), schema `hash` field, wired into `scripts/check.py`. | hash tooling + ADR |
 | **T5** | **ADR tiering & register cleanup.** Relax `CONTRIBUTING`'s trigger to "any decision that creates a standing obligation → ADR"; write the tiering ADR; demote ADR-019 per the review. | CONTRIBUTING, ADR, roadmap |
 | **T6** | **Promote the linter & close.** Turn the now-settled fields (`intention` coarse, no stored `register`, `constitutive` present) from warnings into errors in `frontmatter_lint.py`; close ⚑ 1 & 2 in `open-questions.md` (decant to the ADRs); realign `steering/` + `phases/` frontmatters; regenerate the register ordinal; fix the stale roadmap `phase:` field; dedupe the round-2 blind-test; note the zombie `git clean` for the working tree. | green gate, closed questions |

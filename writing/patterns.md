@@ -5,6 +5,7 @@ verb: advise
 intention: state
 view: synchronic
 provenance: { type: function, id: writing }
+constitutive: no
 audience: [user]
 reader: H+M
 status: stable

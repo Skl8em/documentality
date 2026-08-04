@@ -2,9 +2,10 @@
 title: "Structure & keep — start here"
 force: orient
 verb: situate
-intention: locate
+intention: formative
 view: synchronic
 provenance: { type: function, id: structuring }
+constitutive: no
 audience: [user]
 reader: H+M
 status: stable

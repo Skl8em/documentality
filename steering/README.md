@@ -2,9 +2,10 @@
 title: "Contributing to and maintaining this system — start here"
 force: orient
 verb: situate
-intention: locate
+intention: formative
 view: synchronic
 provenance: { type: function, id: steering }
+constitutive: no
 audience: [contributor, decider]
 reader: H+M
 status: stable

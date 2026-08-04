@@ -3,10 +3,10 @@ title: "Decision — ULID + slug identifiers (ULID in frontmatter, `<slug>.md` f
 id: 01KYYTENT6PXHBZCGVGJ9YN9YX
 slug: ulid-identifiers
 force: decide
-register: govern
 intention: suasive
 view: diachronic
 provenance: { type: project, id: phase-09-tooling }
+constitutive: yes
 concerns: [steering, writing, structuring, theorising, imagining]
 distance: initiated
 audience: [contributor, decider]
@@ -15,6 +15,7 @@ status: accepted
 retention: permanent
 supersedes: null
 superseded-by: null
+hash: sha256:70f33ded451f193c33673e7cf1c71896708d77e011ee0259eee8cce85881919b
 ---
 
 ## Status

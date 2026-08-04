@@ -1,10 +1,10 @@
 ---
 title: "Foundation — what this project is, for whom, and how it is shelved"
 force: explain
-register: know
-intention: model
+intention: formative
 view: synchronic
 provenance: { type: function, id: steering }
+constitutive: no
 distance: initiated
 audience: [contributor]
 reader: H+M
@@ -99,7 +99,8 @@ So: **[decided]**
 - Because here contributor = user, the source shelf doubles as an acceptable reading surface *for now*, so surface generation is deferred — but we stop contorting the folder tree to please a reader who is not here yet.
 
 Consequence for our own tree: the earlier "scope axis (write/structure), dominant = user" (ADR-010) described a *generated surface*, not the source.
-The **source** is organized for the **contributor** (producer), shelved by provenance — one folder per function (`theorising/`, `writing/`, `structuring/`, `steering/`, `imagining/`) plus the frozen `phases/`.
+The **source** is organized for the **contributor** (producer), shelved by provenance — one folder per function (`theorising/`, `operationalizing/`, `writing/`, `structuring/`, `steering/`, `imagining/`) plus the frozen `phases/`.
+`operationalizing/` was added later, in Phase 10 (ADR-033): between the theory and the guidance sits the layer that decides *which handles we carve onto the theory* — `view`, `constitutive`, `register`, `hash` — and why we carve them that way.
 The generic `docs/` bucket is **dissolved** (its governance is `steering/`, its records `phases/`); the root axis is now `provenance` / dominant `contributor`, and `write`/`structure` are the order of a *generated* view.
 This structural move is **done**, and Phase 08 has since completed the rest: the refounded vocabulary carried across the product, the nine `_legacy/` forces migrated (all twelve now built), `_legacy/` retired, and the function folders renamed to their gerund ids (ADR-027).
 **[decided]**

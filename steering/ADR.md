@@ -2,9 +2,10 @@
 title: "ADR register — every decision, taken on record"
 force: decide
 verb: enact
-intention: convince
+intention: suasive
 view: diachronic
 provenance: { type: function, id: steering }
+constitutive: yes
 audience: [contributor, decider]
 reader: H+M
 status: stable
@@ -38,7 +39,6 @@ A superseding decision is a new row and a new record that sets `supersedes`.
 | [016](../phases/refoundation/phase-06-refoundation/ADR-016-force-space.md) | know/do/govern is a gloss; recommend & entail are extensions | 06-refoundation | 2026-07-21 | accepted |
 | [017](../phases/refoundation/phase-06-refoundation/ADR-017-audience.md) | Audience: roles collapse, distance is the live axis, human/machine orthogonal | 06-refoundation | 2026-07-21 | accepted |
 | [018](../phases/refoundation/phase-06-refoundation/ADR-018-shelf.md) | Source shelf vs generated surface; the catalogue is the pivot | 06-refoundation | 2026-07-21 | accepted |
-| [019](../phases/refoundation/phase-06-refoundation/ADR-019-restart.md) | Restart strategy: front-end first, principles now, reorg in Phase 08 | 06-refoundation | 2026-07-21 | accepted |
 | [020](../phases/refoundation/phase-06-refoundation/ADR-020-scope-phase-i.md) | Scope Phase I; defer and re-found Phase II | 06-refoundation | 2026-07-21 | accepted |
 | [021](../phases/refoundation/phase-06-refoundation/ADR-021-line-breaks.md) | Semantic line breaks (one sentence per line) in Markdown source | 06-refoundation | 2026-07-21 | accepted |
 | [022](../phases/refoundation/phase-07-structuring-tutorial/ADR-022-functions-first.md) | Front-end correction: functions first, distance per community, mutable groupings & eras | 07-structuring-tutorial | 2026-07-21 | accepted |
@@ -49,8 +49,16 @@ A superseding decision is a new row and a new record that sets `supersedes`.
 | [027](../phases/refoundation/phase-08-refactor/ADR-027-gerund-naming.md) | Function folders and provenance ids take the gerund form | 08-refactor | 2026-08-01 | accepted |
 | [028](../phases/refoundation/phase-09-tooling/ulid-identifiers.md) | ULID + slug identifiers: ULID in frontmatter, `<slug>.md` filenames, convention kept open | 09-tooling | 2026-08-01 | accepted |
 | [029](../phases/refoundation/phase-10-schema/hosting-codeberg-github-mirror.md) | Hosting: canonical on Codeberg, mirrored to GitHub | 10-schema | 2026-08-03 | accepted |
+| [030](../phases/refoundation/phase-10-schema/register-derived-constitutive.md) | `register` derived from `constitutive` + direction of fit; `constitutive` stored | 10-schema | 2026-08-03 | accepted |
+| [031](../phases/refoundation/phase-10-schema/content-hash-fixity.md) | Content-hash fixity: an optional `hash:` seals each frozen record | 10-schema | 2026-08-03 | accepted |
+| [032](../phases/refoundation/phase-10-schema/adr-tiering.md) | ADR tiering: a record earns an ADR by installing a standing obligation | 10-schema | 2026-08-03 | accepted |
+| [033](../phases/refoundation/phase-10-schema/operationalizing-function.md) | `operationalizing` is the sixth function, between theory and product | 10-schema | 2026-08-03 | accepted |
 
 The ordinal in the `#` column is a **generated display number** (ADR-028): a record's identity is the ULID in its frontmatter (`id`), not a stored count.
 New records keep `<slug>.md` filenames; older rows keep their `ADR-NNN` names for now (the naming convention is open — see the technical-debt tracker).
+
+**One demotion, in Phase 10.** ADR-019 (restart strategy: front-end first, reorg in Phase 08) left this register under the receivability test (ADR-032): it sequenced a plan, and once executed it obliges nobody.
+Its record stays frozen and unedited at [`phases/refoundation/phase-06-refoundation/ADR-019-restart.md`](../phases/refoundation/phase-06-refoundation/ADR-019-restart.md) — a demoted decision was still taken — and the plan content it carried is held by [`roadmap.md`](roadmap.md).
+The ordinal 019 is retired rather than reused: the numbers are generated display labels, so the gap costs nothing and every existing reference still resolves.
 
 To add a decision: append a row here, and write its full record (context + `justify` + `entail`) in the current phase folder as `<slug>.md`, with an `id` minted by `scripts/ulid.py`.
