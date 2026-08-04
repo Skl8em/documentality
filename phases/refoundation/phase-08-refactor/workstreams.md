@@ -2,16 +2,17 @@
 title: "Phase 08 — workstreams A–I (plan and execution)"
 force: account
 verb: report-against
-register: govern
 intention: state
 view: diachronic
 provenance: { type: project, id: phase-08-refactor }
+constitutive: yes
 concerns: [theorising, writing, structuring, steering, imagining]
 distance: initiated
 audience: [contributor, decider]
 reader: H+M
 status: stable
 retention: permanent
+hash: sha256:302469435fe5bc6556971663407f25960b48999acb2c2d238e8ddb84ef7bc2bd
 ---
 
 The record of *how* Phase 08 was carried out: the nine workstreams the refactor was cut into (A–I), each landed as one commit, reported against the plan.

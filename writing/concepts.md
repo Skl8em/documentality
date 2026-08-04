@@ -2,9 +2,10 @@
 title: "The coordinate system"
 force: explain
 verb: illuminate
-intention: model
+intention: formative
 view: synchronic
 provenance: { type: function, id: writing }
+constitutive: no
 audience: [user]
 reader: H+M
 status: stable
@@ -45,23 +46,25 @@ We name that floor `state` (ADR-026): the act serves, and no aim rises above it.
 Above the floor an **intention** may rise — the act sets out to *move* the reader, and the value names how.
 Like the force repertoire it is an open, saturated list.
 
-| `intention` | What is reshaped | Verb | Host forces |
-|---|---|---|---|
-| `state` | the floor: an uptake is set and the unsaid shadowed; nothing rises above it | — | describe, account, instruct, recommend, mandate, commit, propose |
-| `locate` | the reader's cognitive map (where am I) | situate | orient |
-| `model` | the reader's conceptual model (why) | illuminate | explain |
-| `enable` | the reader's competence (able to act) | bring-along | teach |
-| `convince` | the reader's assent / belief | justify, demonstrate | decide, prove |
+| Aim | What is reshaped | Verb | Host forces | Stored as |
+|---|---|---|---|---|
+| *(the floor)* | an uptake is set and the unsaid shadowed; nothing rises above it | — | describe, account, instruct, recommend, mandate, commit, propose | `state` |
+| locate | the reader's cognitive map (where am I) | situate | orient | `formative` |
+| model | the reader's conceptual model (why) | illuminate | explain | `formative` |
+| enable | the reader's competence (able to act) | bring-along | teach | `formative` |
+| convince | the reader's assent / belief | justify, demonstrate | decide, prove | `suasive` |
+| *(feeling)* | the reader's disposition, mood, allegiance | — | — | `affective` |
 
-The four aims above the floor gather into three coarse families — **formative** (`locate`/`model`/`enable`, forming the reader's map, model, or competence), **suasive** (`convince`, moving assent), and **affective** (moving feeling) — the refounded set `state` · `formative` · `suasive` · `affective` (ADR-015/026).
-Whether the schema stores the coarse family or the fine value is settled in Phase 09; the fine values are used here as current practice.
+The four aims above the floor gather into three coarse families — **formative** (locate/model/enable: forming the reader's map, model, or competence), **suasive** (convince: moving assent), and **affective** (moving feeling) — the refounded set `state` · `formative` · `suasive` · `affective` (ADR-015/026).
+**The coarse family is what the frontmatter stores** (⚑ Decision 1, settled in Phase 10).
+The fine aims stay in this table because they are what you actually reason with when choosing; they are readings of a stored value, not values themselves.
 
-The `convince` row folds `prove` and `decide` into the perlocutionary family: a dossier convinces an examiner a claim holds; a decision record convinces a future reader the choice was reasoned.
+The convince row folds `prove` and `decide` into the perlocutionary family: a dossier convinces an examiner a claim holds; a decision record convinces a future reader the choice was reasoned.
 For those two the aim is *instrumental* (the primary point stays evidential/declarative); for orient/explain/teach it is *primary*.
 Both are real, so both are named.
 
 The **Host forces** column names each intention's *typical* home, not a whitelist.
-Intention is an independent coordinate, so **any force may carry any intention** — an `account` that means to explain a failure takes `model`, a `describe` written to persuade takes `convince`.
+Intention is an independent coordinate, so **any force may carry any intention** — an `account` that means to explain a failure takes `formative`, a `describe` written to persuade takes `suasive`.
 Some pairings are natural, others awkward, but we do not commit to a table of which are "possible": that would be a definitiveness the theory's *saturated, not closed* stance forbids.
 The force implies a *default* intention; a divergence is legal and usually says something (see `phases/naive-sketch/phase-05-records-governance/ADR-013-open-pairings.md`).
 
@@ -81,13 +84,25 @@ Diátaxis sees only this 2×2. The forces this theory *adds* — prove, account,
 - **do** — `instruct`, `teach`, `recommend` (a deontic gradient: *here is how* → *you should* → *you must*, that last being `mandate`).
 - **govern & record** — `mandate`, `commit`, `propose`, `decide`, plus the evidence/memory forces `prove`, `account`.
 
-These three doors — **know / do / govern** — are a **register** gloss over the forces: a reading convenience *derived* from `force`, not the shelf axis (ADR-016).
-The source is shelved by **provenance** (the maintaining function), never by door; the doors order a *generated* reader surface. `writing/forces/` is split along them only because it is itself such a surface.
+These three doors — **know / do / govern** — are the **register**: a reading convenience, *derived* and never stored, and not the shelf axis (ADR-016).
+But the triad is not three directions of fit, and pretending otherwise was the original fault: `know` and `do` exhaust the directions, so `govern` must be something else.
+It is **markedness** — whether the act *posits or fixes a social object* (a norm, an obligation, a decision, an evidentiary record) or merely serves a reader.
+That judgement is stored as `constitutive: yes | no`, and the register falls out of it (ADR-030):
+
+```text
+register = constitutive == yes  ?  govern  :  direction-of-fit(force)
+```
+
+So a `mandate` that binds derives `govern`, while the same force in a document that only illustrates one derives `do`.
+The doors themselves are unchanged — only their foundation is.
+
+The source is shelved by **provenance** (the maintaining function), never by door; the doors order a *generated* reader surface.
+`writing/forces/` is split along them only because it is itself such a surface.
 Each door's `README.md` explains its family; each force's `README.md` is its stance.
 
 ## In short
 
 Hard coordinates (force, direction of fit, intention, distance, power) span a space whose **recognized cells are the forces**; the soft `verb` names the occupied cell and picks the move structure.
-Intention is a floor (`state`) with an optional aim above it, not a boolean.
-The three doors are a register gloss and the newcomer's map.
-Everything derivable from `force` — door, direction of fit, diataxis — is generated, never stored.
+Intention is a floor (`state`) with an optional aim above it, not a boolean; the coarse family is what you store.
+The three doors are the register and the newcomer's map, derived from `constitutive` and direction of fit.
+Everything derivable — register, direction of fit, diataxis — is generated, never stored.

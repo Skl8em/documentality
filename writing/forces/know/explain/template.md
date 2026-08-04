@@ -2,9 +2,10 @@
 title: "<Why <the thing> is as it is>"
 force: explain
 verb: illuminate
-intention: model
+intention: formative
 view: synchronic
 provenance: { type: function, id: <project-id> }
+constitutive: no
 audience: [user, contributor]
 reader: H+M
 distance: far

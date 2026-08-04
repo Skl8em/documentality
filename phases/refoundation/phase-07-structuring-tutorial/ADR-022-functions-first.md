@@ -1,10 +1,10 @@
 ---
 title: "ADR-022 — Front-end correction: functions first, distance per community, mutable groupings & eras"
 force: decide
-register: govern
 intention: suasive
 view: diachronic
 provenance: { type: project, id: phase-07-structuring-tutorial }
+constitutive: yes
 distance: initiated
 audience: [contributor, decider]
 reader: H+M
@@ -12,6 +12,7 @@ status: accepted
 retention: permanent
 supersedes: null
 superseded-by: null
+hash: sha256:3dad4da06b8024e42ad26a3f73e2ba9045b4907b947e2a195f37211d958eb7f3
 ---
 
 ## Status

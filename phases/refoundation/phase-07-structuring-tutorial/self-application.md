@@ -2,10 +2,10 @@
 title: "The tutorial applied to ourselves — our functions, our front-matter values, our tree"
 force: explain
 verb: illuminate
-register: know
-intention: model
+intention: formative
 view: synchronic
 provenance: { type: project, id: phase-07-structuring-tutorial }
+constitutive: no
 distance: initiated
 audience: [contributor, decider]
 reader: H+M

@@ -5,6 +5,7 @@ verb: walk-through
 intention: state
 view: synchronic
 provenance: { type: function, id: agent-instructing }
+constitutive: no
 audience: [user]
 reader: M
 status: draft

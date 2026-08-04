@@ -2,9 +2,10 @@
 title: "ADR-<NNN> — <decision title>"
 force: decide
 verb: justify
-intention: convince
+intention: suasive
 view: diachronic
 provenance: { type: project, id: <phase-or-project-id> }
+constitutive: no
 audience: [decider, contributor]
 reader: H+M
 distance: near

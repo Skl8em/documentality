@@ -5,6 +5,7 @@ verb: walk-through
 intention: state
 view: synchronic
 provenance: { type: function, id: <function-id> }
+constitutive: no
 audience: [contributor]
 reader: H
 distance: near

@@ -2,10 +2,10 @@
 title: "Structure your project's documentation — a guided start"
 force: teach
 verb: bring-along
-register: do
 intention: formative
 view: synchronic
 provenance: { type: function, id: structuring }
+constitutive: no
 distance: far
 audience: [user]
 reader: H

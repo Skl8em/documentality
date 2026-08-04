@@ -1,10 +1,10 @@
 ---
 title: "ADR-023 — Tutorial rewrite: relevance not recurrence, imagine, organize-for-author, fractal explicit, conventional docs as examples"
 force: decide
-register: govern
 intention: suasive
 view: diachronic
 provenance: { type: project, id: phase-07-structuring-tutorial }
+constitutive: yes
 distance: initiated
 audience: [contributor, decider]
 reader: H+M
@@ -12,6 +12,7 @@ status: accepted
 retention: permanent
 supersedes: null
 superseded-by: null
+hash: sha256:e692d427ebb1c9876abfd640d4d1027ea40d062d4fe3fdf930e06c0821ecee52
 ---
 
 ## Status

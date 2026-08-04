@@ -5,6 +5,7 @@ verb: specify
 intention: state
 view: synchronic
 provenance: { type: function, id: <project-id> }
+constitutive: no
 audience: [user, contributor]
 reader: H+M
 distance: far

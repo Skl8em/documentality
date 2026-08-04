@@ -2,9 +2,10 @@
 title: "Two systems, provenance, and the life of a document"
 force: explain
 verb: illuminate
-intention: model
+intention: formative
 view: synchronic
 provenance: { type: function, id: structuring }
+constitutive: no
 audience: [user]
 reader: H+M
 status: stable

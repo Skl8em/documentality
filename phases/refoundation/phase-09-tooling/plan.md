@@ -2,10 +2,10 @@
 title: "Phase 09 tooling — the detailed plan"
 force: propose
 verb: argue
-register: govern
 intention: suasive
 view: synchronic
 provenance: { type: project, id: phase-09-tooling }
+constitutive: no
 concerns: [steering, writing, structuring, theorising, imagining]
 distance: initiated
 audience: [contributor, decider]

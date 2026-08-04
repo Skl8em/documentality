@@ -2,16 +2,17 @@
 title: "Orient — the stance"
 force: explain
 verb: illuminate
-intention: model
+intention: formative
 view: synchronic
 provenance: { type: function, id: writing }
+constitutive: no
 audience: [user]
 reader: H+M
 status: stable
 ---
 
 `orient` situates the reader in a whole.
-It is **formative** — its job is to change the reader's cognitive map (`intention: locate`), not to inform a task.
+It is **formative** — its job is to change the reader's cognitive map — the *locate* aim, stored as `intention: formative`, not to inform a task.
 Use [`template.md`](template.md) to write one.
 
 - **Generative verb:** *situate.*

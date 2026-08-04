@@ -5,6 +5,7 @@ verb: require
 intention: state
 view: synchronic
 provenance: { type: function, id: writing }
+constitutive: yes
 audience: [user]
 reader: H+M
 status: stable

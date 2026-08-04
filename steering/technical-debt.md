@@ -4,10 +4,10 @@ id: 01KYYTENWN3TWF5VC2A8CC1VYP
 slug: technical-debt
 force: describe
 verb: specify
-register: govern
 intention: state
 view: synchronic
 provenance: { type: function, id: steering }
+constitutive: no
 audience: [contributor, decider]
 reader: H+M
 status: draft
@@ -34,19 +34,19 @@ Adopting `id`/`slug` on the legacy records — and choosing whether their filena
 
 **How to resolve:** bring a file into the catalogue (frontmatter + one-sentence-per-line) and remove it from the ignore lists when it stops being historical/informal — case by case, not in bulk.
 
-## Reorg leftovers (untracked on-disk zombies)
+## Unsealed frozen records
 
-**What:** the Phase-08 renames left three **untracked** directories on disk — `theory/` (a full copy of the `theorising/` essays), `write/` (an empty `forces/` shell), and a top-level `phases/phase-07-structuring-tutorial/` (a `.DS_Store`-only husk).
-Git already relocated the tracked content (`theorising/`, `writing/`, `phases/refoundation/phase-07-…`), so a fresh clone is clean; these persist only in this working tree because a `.DS_Store` blocked their deletion in the sandbox.
+**What:** `scripts/hash_check.py --unsealed` lists frozen records that carry no `hash:` fixity seal (ADR-031).
+The naive-sketch era (phases 01–05) is the bulk of it.
 
-**Why it matters:** low severity (not committed), but they duplicate canonical content on disk and mislead anyone browsing the folder — and the gate is blind to them, which is the real lesson.
+**Why left open:** sealing is an act performed *at freeze*, and those records were frozen before the seal existed.
+Back-sealing them fixes their *current* content, not the content they had when they closed — which is an honest thing to do, but it should be a deliberate act rather than a bulk sweep.
 
-**How to resolve:** `git clean -fd` (or delete by hand) once the `.DS_Store` files can be removed; then teach the gate to notice on-disk cruft — `scripts/check.py` validates `git ls-files` only, so **untracked duplicates and stray directories pass silently**. A cheap `git status --porcelain` assertion (fail on unexpected untracked paths) would have caught this.
+**How to resolve:** `python3 scripts/hash_seal.py <path>` per record, or `--frozen` for all unsealed ones at once.
+Note that sealing a record makes any later edit to it fail the gate until it is consciously re-sealed — that is the point, and the cost.
 
-## Duplicated round-2 blind-test transcripts
+## Paid
 
-**What:** the round-2 `weft` transcripts are **committed twice** — `phases/refoundation/phase-07-structuring-tutorial/blind-test/weft-{response,review}-round2.md` and `…/weft-blindtest-round2/weft-{response,review}.md`.
-
-**Why:** an artifact of copying the transcripts into the phase folder from two directions.
-
-**How to resolve:** keep the `blind-test/` copies (they sit with round 1 coherently), delete the `weft-blindtest-round2/` directory, and re-run `linkcheck`.
+- **Reorg leftovers (untracked on-disk zombies)** — the three untracked directories the Phase-08 renames left on disk (`theory/`, `write/`, a top-level `phases/phase-07-structuring-tutorial/` husk) are gone, and the root `.gitignore` stops the `.DS_Store` files that blocked their deletion from coming back.
+  The real lesson is paid too: `scripts/check.py` now asserts `git status --porcelain` is clean of untracked paths, so on-disk cruft can no longer pass a gate that reads only `git ls-files` (Phase 10).
+- **Duplicated round-2 blind-test transcripts** — the `weft-blindtest-round2/` directory was byte-identical to the `blind-test/weft-{response,review}-round2.md` copies and was deleted; the `blind-test/` copies stay, sitting with round 1 (Phase 10).
