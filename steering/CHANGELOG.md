@@ -16,6 +16,17 @@ History of the documentation system itself.
 Append-only; each entry is dated-fixed.
 Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
 
+## [v4.0-alpha.9] — hosting reversed: GitHub canonical
+
+- **Decided:** the canonical repository is **GitHub**, and there is **no mirror** — superseding the Codeberg decision of alpha.7, which was recorded but never enacted (no Codeberg repository was ever created).
+  Ground: Codeberg restricts predominantly AI-generated repositories and this one is substantially AI-assisted, so the sovereignty #029 sought there would have been borrowed tolerance, not sovereignty.
+  The freedom argument is relocated, not withdrawn — it is deferred to a **self-hosted Forgejo instance**, which becomes canonical when it exists.
+  ([decision](../phases/refoundation/phase-10-schema/hosting-github-canonical.md); register #034, supersedes #029)
+- **Added:** host-independence as a **standing obligation** — no GitHub-only automation may move into `scripts/check.py`, so the eventual migration stays a remote change plus a CI port.
+- **Fixed:** the `sentence-per-line` fixture harness matched nothing.
+  Its violation regex expected a severity token between the column and the rule name that markdownlint-cli2 does not emit, so every positive fixture parsed as "no violations" and every negative one passed vacuously — the MD100 rule itself was correct all along (18/18 once the regex was fixed).
+- **Removed:** `.github/instructions/mermaid.instructions.md` — vendor boilerplate that carried no catalogue frontmatter and failed the gate.
+
 ## [v4.0-alpha.8] — Phase 10 schema & governance reconciliation
 
 - **Decided:** **`register` is derived, never stored** — `constitutive ? govern : direction-of-fit(force)` — and a new required, stored **`constitutive: yes|no`** carries the markedness the old know/do/govern triad hid (`govern` was never a third direction of fit).

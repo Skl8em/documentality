@@ -9,7 +9,7 @@ distance: initiated
 audience: [contributor, decider]
 reader: H+M
 status: done
-hash: sha256:592511fe1881879b252c0f6ca3396eb646eff86115021560ffdbcb0a5245c074
+hash: sha256:ada66789e4885e5e6df2abaa35170e62890a3441df9df10f939ce4fcc5f96077
 ---
 
 Phase I's schema phase: reconcile the frontmatter to the refounded model, and enforce it on the Phase-09 lint harness.
@@ -30,7 +30,8 @@ What landed (detailed in [`plan.md`](plan.md)):
 Records:
 
 - [plan.md — the detailed plan](plan.md)
-- [ADR-029 — hosting: Codeberg canonical, GitHub mirror](hosting-codeberg-github-mirror.md)
+- [ADR-029 — hosting: Codeberg canonical, GitHub mirror](hosting-codeberg-github-mirror.md) *(superseded by 034)*
+- [ADR-034 — hosting: GitHub canonical, Codeberg deferred to a self-hosted Forgejo](hosting-github-canonical.md)
 - [ADR-030 — `register` derived, `constitutive` stored](register-derived-constitutive.md)
 - [ADR-031 — content-hash fixity](content-hash-fixity.md)
 - [ADR-032 — ADR tiering](adr-tiering.md)
