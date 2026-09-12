@@ -58,7 +58,8 @@ The reasoning is in [`concepts.md`](concepts.md); the defaults you'll apply are 
 
 The source is Markdown / Quarto.
 Every target (site, wiki, docx, pptx, pdf) is a derived package.
-Stay tool-agnostic; the minimal contract is Pandoc: keep standard Markdown so `pandoc source.md -o target.{docx,pptx,pdf,html}` works without a specific generator. **Never edit in the export target** — fix the source and re-export, or the derived state drifts from its authority.
+Stay tool-agnostic; the minimal contract is Pandoc: keep standard Markdown so `pandoc source.md -o target.{docx,pptx,pdf,html}` works without a specific generator.
+**Never edit in the export target** — fix the source and re-export, or the derived state drifts from its authority.
 
 ## Verify
 

@@ -51,7 +51,8 @@ Keeping the *product* (`writing/`, `structuring/`) legible to a **user** and the
 
 *(This is the axis-and-dominant-community declaration that `structuring/rules.md` requires a tree root to carry — you are reading it, and it lives in the root README.)*
 
-- **Axis: by provenance.** The source is shelved by the **function** that produces and maintains each area (`theorising`, `operationalizing`, `writing`, `structuring`, `steering`, `imagining`), plus the bounded `project` records under `phases/`.
+- **Axis: by provenance.**
+  The source is shelved by the **function** that produces and maintains each area (`theorising`, `operationalizing`, `writing`, `structuring`, `steering`, `imagining`), plus the bounded `project` records under `phases/`.
   Inside `writing/forces/` the sub-axis is **by door** (know / do / govern-and-record).
 - **Dominant community: `contributor`** — the shelf is ordered for whoever writes and maintains the docs, their first reader.
   The `user`'s reading order is *generated* from the frontmatter, not carved into this tree.
