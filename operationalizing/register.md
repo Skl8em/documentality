@@ -12,7 +12,8 @@ status: draft
 
 **The apport.** `register: know | do | govern` — **derived, never stored**.
 
-**What it operationalizes.** A coarse navigational handle over the force.
+**What it operationalizes.**
+A coarse navigational handle over the force.
 Humans and tooling want a three-way grouping — *reference / how-to / decisions* — but the theory offers no such primitive; it offers the force's **direction of fit** and (via `constitutive`) its markedness.
 `register` is the readable name we compute from those.
 

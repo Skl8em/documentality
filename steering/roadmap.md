@@ -33,7 +33,8 @@ Everything past Phase 11 (generators, hooks, AI operating instructions — the c
 
 Changing the plan is a recorded decision, not a silent edit — but a *sequencing* decision obliges nobody once executed, so it is held here and in the changelog rather than in the ADR register (ADR-032).
 
-- **The restart strategy (Phase 06).** Coming out of the refoundation we chose to rebuild **front-end first**: lay the principles down immediately (`foundation.md`, this roadmap) and defer the tree reorganization to Phase 08, rather than reorganize and then discover the principles had moved.
+- **The restart strategy (Phase 06).**
+  Coming out of the refoundation we chose to rebuild **front-end first**: lay the principles down immediately (`foundation.md`, this roadmap) and defer the tree reorganization to Phase 08, rather than reorganize and then discover the principles had moved.
   Originally recorded as ADR-019; demoted to this note in Phase 10, its frozen record kept at [`../phases/refoundation/phase-06-refoundation/ADR-019-restart.md`](../phases/refoundation/phase-06-refoundation/ADR-019-restart.md).
 - **The insertion of Phase 09 (tooling)**, and the renumbering of the schema and Phase-II-design phases to 10 and 11 — recorded by this edit, the [Phase-09 plan](../phases/refoundation/phase-09-tooling/plan.md), and the changelog entry.
   Tooling was placed *before* the schema so the lint harness would make Phase 10 efficient.

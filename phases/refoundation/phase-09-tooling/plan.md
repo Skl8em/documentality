@@ -26,12 +26,17 @@ This is also why the frontmatter validation here is a **safe starter**: it enfor
 
 ## Guiding principles
 
-- **One ruleset, two surfaces.** The CLI and the VSCode extension must apply *the same* markdownlint configuration and custom rules — never two drifting copies.
-- **Python for our validators, Node only for markdownlint.** Markdownlint is David Anson's engine, shared with the editor extension, so it runs on Node; that is unavoidable and desirable.
+- **One ruleset, two surfaces.**
+  The CLI and the VSCode extension must apply *the same* markdownlint configuration and custom rules — never two drifting copies.
+- **Python for our validators, Node only for markdownlint.**
+  Markdownlint is David Anson's engine, shared with the editor extension, so it runs on Node; that is unavoidable and desirable.
   Everything we write ourselves (frontmatter, ULID, links) stays Python, per the project's validation-tooling convention and the existing [`../../../scripts/linkcheck.py`](../../../scripts/linkcheck.py).
-- **Reproducible, pinned per project.** External tools are declared and frozen in a Nix `devShell` (Part 0), not installed ad hoc or globally — so local and CI run the same bit-for-bit binaries.
-- **One gate.** Every check is reachable from a single command that runs in pre-commit and in CI, and is the phase-close gate.
-- **Enforce only what is decided.** A linter that flags an open question trains people to ignore it.
+- **Reproducible, pinned per project.**
+  External tools are declared and frozen in a Nix `devShell` (Part 0), not installed ad hoc or globally — so local and CI run the same bit-for-bit binaries.
+- **One gate.**
+  Every check is reachable from a single command that runs in pre-commit and in CI, and is the phase-close gate.
+- **Enforce only what is decided.**
+  A linter that flags an open question trains people to ignore it.
   Contested rules warn; settled rules fail.
 
 ## Part 0 — Reproducible environment (Nix devShell)
@@ -89,7 +94,8 @@ The custom rule is a plain JS module referenced from the config; the editor exte
 
 A separate check that the frontmatter *has* a non-empty `title` belongs to Part 2 (the frontmatter linter), not markdownlint.
 
-**Semantic line breaks (ADR-021).** There is no built-in rule for this, so we write a custom markdownlint rule, `sentence-per-line`:
+**Semantic line breaks (ADR-021).**
+There is no built-in rule for this, so we write a custom markdownlint rule, `sentence-per-line`:
 
 - It inspects paragraph text tokens only, skipping headings, code blocks/spans, tables, HTML comments, link/image destinations, and YAML frontmatter.
 - It flags a **hard break inside a sentence** (a line that does not end at a sentence boundary and whose next line continues the sentence) and a **sentence boundary mid-line** (a `.`/`!`/`?` followed by whitespace and more text on the same line).
@@ -170,9 +176,11 @@ A ULID is unique without coordination, sorts by its leading timestamp, and pairs
 
 Not every count means the same thing, so the ULID's timestamp field is fed differently for each.
 
-- **ADRs are append-only and chronological.** Their order *is* their creation order, so their ULID takes the **real creation timestamp** (the record's first-commit time).
+- **ADRs are append-only and chronological.**
+  Their order *is* their creation order, so their ULID takes the **real creation timestamp** (the record's first-commit time).
   Nothing to steer.
-- **Phases carry an *intentional* order we deliberately rearrange.** We just inserted tooling between refactor and schema-reconciliation; a wall-clock ULID would sort tooling *after* both and destroy the sequence.
+- **Phases carry an *intentional* order we deliberately rearrange.**
+  We just inserted tooling between refactor and schema-reconciliation; a wall-clock ULID would sort tooling *after* both and destroy the sequence.
   So a phase's ULID takes a **controlled ordinal key** as its timestamp input, not the wall clock.
 
 The mechanism: a ULID sorts lexicographically by its 48-bit timestamp prefix, so we feed that prefix a **sort key we own**.
@@ -184,11 +192,21 @@ The two modes never sort against each other (you never list ADRs and phases in o
 
 ### Decisions to make (options + recommendation)
 
-- **D-a — canonical id location.** Add `id: <ULID>` to frontmatter as the canonical identity; keep a human `slug`. **Recommend: yes** — `id` is the stable machine key; the slug and the display name stay human.
-- **D-b — filenames.** (i) `<ulid>-<slug>.md` (globally unique, time-sortable, but long/ugly); (ii) keep `<slug>.md`, ULID only in frontmatter; (iii) hybrid. **Decided (ADR-028): (ii)** — filenames stay `<slug>.md` with the ULID in frontmatter; `slug_check` enforces filename == slug; if the ULID is ever wanted *in* the name, the form is `<slug>-<ulid>` (slug first), via `migrate_ids.py`, the convention kept open.
-- **D-c — keep a human ordinal?** The ADR register can show a **generated** monotonic index from ULID time-order (derive, don't store), so humans still see "the 27th decision" without a stored count. **Recommend: yes, generated.**
-- **D-d — cross-references.** Keep human relative links for *reading* (they already resolve and pass `linkcheck`), and add `id` as the stable key a generated index maps to a path, for *machine* reference and for surviving future renames. **Recommend: both — links for humans, `id` index for machines.**
-- **D-e — phase ordering.** Store an explicit `order` sort-key in each phase's frontmatter, feed it into the phase ULID's timestamp bits, and space the initial values with gaps for midpoint insertion (the two-minting-modes section above). **Recommend: yes** — the `order` field is the source of truth; ADRs keep chronological ULIDs, phases keep ordinal ones.
+- **D-a — canonical id location.**
+  Add `id: <ULID>` to frontmatter as the canonical identity; keep a human `slug`.
+  **Recommend: yes** — `id` is the stable machine key; the slug and the display name stay human.
+- **D-b — filenames.**
+  (i) `<ulid>-<slug>.md` (globally unique, time-sortable, but long/ugly); (ii) keep `<slug>.md`, ULID only in frontmatter; (iii) hybrid.
+  **Decided (ADR-028): (ii)** — filenames stay `<slug>.md` with the ULID in frontmatter; `slug_check` enforces filename == slug; if the ULID is ever wanted *in* the name, the form is `<slug>-<ulid>` (slug first), via `migrate_ids.py`, the convention kept open.
+- **D-c — keep a human ordinal?**
+  The ADR register can show a **generated** monotonic index from ULID time-order (derive, don't store), so humans still see "the 27th decision" without a stored count.
+  **Recommend: yes, generated.**
+- **D-d — cross-references.**
+  Keep human relative links for *reading* (they already resolve and pass `linkcheck`), and add `id` as the stable key a generated index maps to a path, for *machine* reference and for surviving future renames.
+  **Recommend: both — links for humans, `id` index for machines.**
+- **D-e — phase ordering.**
+  Store an explicit `order` sort-key in each phase's frontmatter, feed it into the phase ULID's timestamp bits, and space the initial values with gaps for midpoint insertion (the two-minting-modes section above).
+  **Recommend: yes** — the `order` field is the source of truth; ADRs keep chronological ULIDs, phases keep ordinal ones.
 
 These five are the open forks; they are named here and decided at the start of Phase 09 execution (a short ADR).
 
@@ -197,7 +215,9 @@ These five are the open forks; they are named here and decided at the start of P
 - `scripts/ulid_new.py` — mint a ULID, with the timestamp field taken from an input so both modes are supported: `--at <iso>` for **chronological** records (ADRs; default = the git first-commit time, else now) or `--order <int>` for a **controlled ordinal** (phases, from their `order` field).
   Implement the spec directly (48-bit timestamp + 80-bit randomness, Crockford base32, excluding `I L O U`), or pin a tiny vetted dependency.
 - `scripts/ulid_check.py` — verify: every catalogued record has an `id`; each `id` is a syntactically valid ULID; **uniqueness** across the corpus; the `id` agrees with the filename if D-b picks a ULID-in-filename; **no orphan count-references** remain (a grep gate for `ADR-\d+`, `phase-\d\d` outside intended historical prose); and, for phases, that the ULID order **agrees with the declared `order` field** (no drift) and that `order` values are unique.
-- `scripts/migrate_ids.py` — the one-off migration. **ADRs:** a ULID whose timestamp is the record's first commit (`git log --follow --diff-filter=A --format=%aI`), so order matches real history. **Phases:** a ULID from a gap-spaced `order` derived from the current intended sequence (…, refactor, tooling, schema, Phase-II-design, …), *not* wall-clock — preserving the deliberate order through the insertion we just made.
+- `scripts/migrate_ids.py` — the one-off migration.
+  **ADRs:** a ULID whose timestamp is the record's first commit (`git log --follow --diff-filter=A --format=%aI`), so order matches real history.
+  **Phases:** a ULID from a gap-spaced `order` derived from the current intended sequence (…, refactor, tooling, schema, Phase-II-design, …), *not* wall-clock — preserving the deliberate order through the insertion we just made.
   Write `id` (and, for phases, `order`) into frontmatter; rewrite the ADR register and cross-references; emit an `old-id → new-id` map for rollback.
 
 ### Outcome — an open convention, no mass rename (ADR-028)

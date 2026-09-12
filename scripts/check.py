@@ -8,7 +8,8 @@
   4. ulid_check       every frontmatter `id` is a valid, unique ULID
   5. slug_check       filename stem == frontmatter `slug` (ADR-028)
   6. hash_check       every frozen record's fixity seal still matches
-  7. markdownlint     one shared ruleset incl. one-sentence-per-line (ADR-021)
+  7. md100_test       the custom sentence-per-line rule still flags what it must
+  8. markdownlint     one shared ruleset incl. one-sentence-per-line (ADR-021)
 
 This is what pre-commit and CI run. Stdlib only. markdownlint-cli2 is a Node tool
 from the devShell; if it is not on PATH this falls back to `nix develop --command`,
@@ -67,6 +68,10 @@ def main():
         ("ulid", [PY, "scripts/ulid_check.py"]),
         ("slug", [PY, "scripts/slug_check.py"]),
         ("hash", [PY, "scripts/hash_check.py"]),
+        # The rule is a heuristic; its fixtures run BEFORE the corpus lint, so a
+        # green corpus can never be read as "the rule works" when it has stopped
+        # flagging anything.
+        ("md100", [PY, "tools/markdownlint/test_sentence_per_line.py"]),
         ("markdownlint", markdownlint_cmd()),
     ]
     failures = []

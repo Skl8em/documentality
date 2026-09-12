@@ -10,8 +10,7 @@ reader: H+M
 status: draft
 ---
 
-**The apport.**
-`constitutive: yes | no`, a conscious choice on each document.
+**The apport.** `constitutive: yes | no`, a conscious choice on each document.
 
 **What it operationalizes.**
 The Ferraris/Searle distinction between an act that **posits or fixes a social object** — a norm, an obligation, a decision, an evidentiary record — and one that merely **serves a reader** (informs or guides).
@@ -23,8 +22,8 @@ The `know/do/govern` triad looked like three directions of fit, but "govern" is 
 Split it out: `constitutive` carries the markedness, and `register` derives cleanly (`constitutive: yes ⇒ govern`; else the force's direction of fit).
 It also makes visible which acts *bind or record* versus which only help.
 
-**A conscious choice, for now.**
-`constitutive` is **not** derived from the force. The Quai d'Orsay's `recommend` constitutes (it moves insurance and liability); a friend's `recommend` does not — the difference is authority, which suggests deriving it from `force × power`.
+**A conscious choice, for now.** `constitutive` is **not** derived from the force.
+The Quai d'Orsay's `recommend` constitutes (it moves insurance and liability); a friend's `recommend` does not — the difference is authority, which suggests deriving it from `force × power`.
 That derivation is **deferred** by decision: for now the author judges and stores `yes|no`, so we learn how it is actually used before automating it.
 
 **Alternatives considered.**
