@@ -16,6 +16,21 @@ History of the documentation system itself.
 Append-only; each entry is dated-fixed.
 Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
 
+## [v4.0-alpha.10] — Phase 11 inserted: tooling hardening
+
+- **Planned:** **Phase 11 — tooling hardening**, inserted before the Phase-II design.
+  Phase 10 reconciled the schema and enforced it, but enforcement stops at the nine required fields and six enums: the vocabulary is open (`note` and `review` sit in the corpus declared nowhere, while `order` and `pin` are declared and unused), the YAML parser is hand-rolled and mis-parses silently instead of failing, and no identifier is checked to point at anything.
+  Hardening is placed first because Phase II generates *from* the frontmatter, and generation inherits every weakness the catalogue carries.
+  A sequencing decision, so it is held here and in the roadmap rather than in the ADR register (ADR-032).
+  ([plan](../phases/refoundation/phase-11-tooling-hardening/plan.md))
+- **Changed:** **unstarted phases are no longer numbered.**
+  Inserting this phase moved a forward reference for the second time (the Phase-09 insertion did it first), so the roadmap now names and orders work it has not begun rather than giving it an ordinal it cannot keep.
+  A phase takes its number when we tackle it — the same move the ADR register already makes, where the ordinal is a generated display label and the identity lives elsewhere (ADR-028).
+  Referring to unstarted work by number is what made both insertions a renumbering sweep; the sweeps were the symptom, the numbering was the cause.
+- **Recorded:** folding the frontmatter validator into markdownlint was considered and **rejected on evidence** — a custom rule receives frontmatter as raw text, no YAML parser is reachable from it, and the VSCode extension loads custom rules in its own Node context, so any external dependency would pass in CI and fail in the editor.
+  Referential integrity is also corpus-level, which markdownlint's per-file model cannot express.
+- **Changed:** stale phase claims corrected, since a misleading comment is worse than none — the root `README` and `phases/README.md` both still announced Phase 10 as *next* and Phase 11 as the Phase-II design, and the roadmap's own `phase:` field still read `08-refactor`.
+
 ## [v4.0-alpha.9] — hosting reversed: GitHub canonical
 
 - **Decided:** the canonical repository is **GitHub**, and there is **no mirror** — superseding the Codeberg decision of alpha.7, which was recorded but never enacted (no Codeberg repository was ever created).
