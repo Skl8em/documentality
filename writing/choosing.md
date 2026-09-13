@@ -5,6 +5,7 @@ verb: walk-through
 intention: state
 view: synchronic
 provenance: { type: function, id: writing }
+constitutive: no
 audience: [user]
 reader: H+M
 status: stable
@@ -25,14 +26,19 @@ The concepts behind each step are in [`concepts.md`](concepts.md).
    Hold it in mind; let it order everything.
    If the verb differs from the force only because of *who* you write toward, do not rename — set `distance`/`power` (step 4).
 
-3. **Read the intention.** Is the document meant to *move* the reader above the floor (`locate` / `model` / `enable` / `convince`) or merely *serve* them at it (`state`)?
+3. **Read the intention.** Is the document meant to *move* the reader above the floor — forming their map, model, or competence (`formative`), moving their assent (`suasive`), moving their feeling (`affective`) — or merely *serve* them at it (`state`)?
    If it moves the reader, organize by the reader's likely state — where they are, what confuses them — not by the subject's structure, and judge success by the reader's change, not by correctness.
 
-4. **Fix the recipient.** Who is the audience (role: user / contributor / decider; see [`../structuring/audience.md`](../structuring/audience.md)), and what is the recipient relation? `distance` = how much code they share → sets the scaffolding. `power` = whether they can sanction you → sets the armor.
+4. **Judge whether the act constitutes.** Does it *posit or fix a social object* — a norm, an obligation, a decision, an evidentiary record — or does it only inform and guide?
+   Set `constitutive: yes | no`.
+   This is a judgement about *your* authority and intent, not about the force: the same `recommend` binds from an authority and merely advises from a peer.
+   It founds the derived register, so getting it wrong misfiles the document for every reader downstream.
+
+5. **Fix the recipient.** Who is the audience (role: user / contributor / decider; see [`../structuring/audience.md`](../structuring/audience.md)), and what is the recipient relation? `distance` = how much code they share → sets the scaffolding. `power` = whether they can sanction you → sets the armor.
    Also set `reader: H | M | H+M`.
    Pay each cost where owed, nowhere else.
 
-5. **Name the failure mode.** Every force fails by drifting into a neighbour (a reference that starts explaining; a mandate that softens into advice).
+6. **Name the failure mode.** Every force fails by drifting into a neighbour (a reference that starts explaining; a mandate that softens into advice).
    Read it in the force's `README.md`, name it before you start, and watch for the drift as you write.
 
 ## Verify

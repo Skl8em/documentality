@@ -1,10 +1,10 @@
 ---
 title: "ADR-024 — Producer shelf: dissolve `docs/`, provenance at root"
 force: decide
-register: govern
 intention: suasive
 view: diachronic
 provenance: { type: project, id: phase-08-refactor }
+constitutive: yes
 concerns: [structuring, steering]
 distance: initiated
 audience: [contributor, decider]
@@ -13,6 +13,7 @@ status: accepted
 retention: permanent
 supersedes: null
 superseded-by: null
+hash: sha256:4e00f27b50c843ce0726fbb2e1ecdbeda3ef43e04eefa4d21fdb986cb74e8324
 ---
 
 ## Status

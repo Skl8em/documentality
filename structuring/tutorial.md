@@ -2,10 +2,10 @@
 title: "Structure your project's documentation — a guided start"
 force: teach
 verb: bring-along
-register: do
 intention: formative
 view: synchronic
 provenance: { type: function, id: structuring }
+constitutive: no
 distance: far
 audience: [user]
 reader: H
@@ -22,17 +22,20 @@ Throughout, we will also carry one small worked example — `prep`, an internal 
 
 Three things to hold before we start, because they change how you should read everything below.
 
-*This is not deterministic, and that is fine.* Two people who run this on the same project will produce different structures, and neither has to be wrong.
+*This is not deterministic, and that is fine.*
+Two people who run this on the same project will produce different structures, and neither has to be wrong.
 We are not handing you a map with your answer on it; we are handing you a light to find your own path.
 Several times you will reach a fork the text does not draw — and when you do, you have our explicit permission to take it, using the same logic one level down.
 The reasoning extends; the examples do not exhaust it.
 
-*You are organizing for the author first — for yourself.* The source tree you build here is organized for the person who *writes and maintains* the documents, who is also their first reader: you.
+*You are organizing for the author first — for yourself.*
+The source tree you build here is organized for the person who *writes and maintains* the documents, who is also their first reader: you.
 It is not, yet, organized for outside readers.
 When and if outside readers arrive, you expose to them a *generated* view that follows their reading order, not your filing order — and that generation is a separate tutorial (see the end).
 So whenever you are unsure "who is this for," answer *the author*, and keep the tree clean for the person holding the pen.
 
-*Assume you will be incomplete, and make the holes visible.* You cannot document everything, and documentation is usually where a project is thinnest.
+*Assume you will be incomplete, and make the holes visible.*
+You cannot document everything, and documentation is usually where a project is thinnest.
 The goal of this run is not a full corpus; it is a structure in which you can *see* what is missing.
 A named gap is a success, not a failure — it is the difference between a hole you chose and a hole you never noticed.
 
@@ -219,7 +222,8 @@ Take the conventional files of a code repository and let provenance and life sor
 - **CHANGELOG** — `govern`, current and append-only; root by convention.
 - **ADR** / decision records — `govern`, each entry frozen; `docs/decisions/` (or `docs/govern/`).
 
-Then let the tree build itself, fractally, one threshold at a time — and keep one principle above the rest: **a function's documents stay together.** Provenance is the primary cut; the `know`/`do`/`govern` register is a split you make *inside* a function, or a temporary coarse cut before any single function is large.
+Then let the tree build itself, fractally, one threshold at a time — and keep one principle above the rest: **a function's documents stay together.**
+Provenance is the primary cut; the `know`/`do`/`govern` register is a split you make *inside* a function, or a temporary coarse cut before any single function is large.
 
 - Pick a name for your documentation folder — `docs/`, `doc/`, `Dokumentation/`; any is fine if it is meaningful to you.
 - Some files still go in `./` by convention or because an installer must find them fast (README, LICENSE, INSTALL).

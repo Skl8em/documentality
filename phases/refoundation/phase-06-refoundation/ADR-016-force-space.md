@@ -1,10 +1,10 @@
 ---
 title: "ADR-016 — know/do/govern is a gloss; recommend & entail are extensions"
 force: decide
-register: govern
 intention: suasive
 view: diachronic
 provenance: { type: project, id: phase-06-refoundation }
+constitutive: yes
 distance: initiated
 audience: [contributor, decider]
 reader: H+M
@@ -12,6 +12,7 @@ status: accepted
 retention: permanent
 supersedes: null
 superseded-by: null
+hash: sha256:e7ac61aac591c1f8a8511d94c63a75259a79f1b54bad3fca20bc325d6b388875
 ---
 
 ## Status

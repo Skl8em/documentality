@@ -1,10 +1,10 @@
 ---
 title: "Phase 06 — Refoundation & front-end"
 force: orient
-register: know
-intention: locate
+intention: formative
 view: diachronic
 provenance: { type: project, id: phase-06-refoundation }
+constitutive: no
 distance: initiated
 audience: [contributor, decider]
 reader: H+M

@@ -1,10 +1,10 @@
 ---
 title: "ADR-019 — Restart strategy: front-end first, principles now, reorg in Phase 08"
 force: decide
-register: govern
 intention: suasive
 view: diachronic
 provenance: { type: project, id: phase-06-refoundation }
+constitutive: yes
 distance: initiated
 audience: [contributor, decider]
 reader: H+M
@@ -12,6 +12,7 @@ status: accepted
 retention: permanent
 supersedes: null
 superseded-by: null
+hash: sha256:cea8ef8184aa6e4c5e7ff85d4bf3cac4720fafd63e89c28256c6c8c998cd4872
 ---
 
 ## Status

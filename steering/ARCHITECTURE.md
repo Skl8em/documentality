@@ -2,10 +2,10 @@
 title: "Architecture of the documentation system"
 force: explain
 verb: illuminate
-register: know
-intention: model
+intention: formative
 view: synchronic
 provenance: { type: function, id: steering }
+constitutive: no
 audience: [contributor, decider]
 reader: H+M
 status: draft

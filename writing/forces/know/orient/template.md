@@ -2,9 +2,10 @@
 title: "<Name of the thing>"
 force: orient
 verb: situate
-intention: locate
+intention: formative
 view: synchronic
 provenance: { type: project, id: <project-id> }
+constitutive: no
 audience: [user, contributor]
 reader: H+M
 distance: far

@@ -5,6 +5,7 @@ verb: report-against
 intention: state
 view: diachronic
 provenance: { type: project, id: <project-id> }
+constitutive: no
 audience: [decider, contributor]
 reader: H+M
 distance: near

@@ -2,9 +2,10 @@
 title: "Decide — the stance"
 force: explain
 verb: illuminate
-intention: model
+intention: formative
 view: synchronic
 provenance: { type: function, id: writing }
+constitutive: no
 audience: [user]
 reader: H+M
 status: stable
@@ -16,14 +17,17 @@ Use [`template.md`](template.md) to write one.
 
 ## The three faces
 
-- **`enact` — the act.** Take the choice on record where it must be noted: "this is decided, on this date."
+- **`enact` — the act.**
+  Take the choice on record where it must be noted: "this is decided, on this date."
   Pure declarative.
   In a large corpus this face can live in a central **register** (a one-line-per-decision index) separate from the reasoning.
-- **`justify` — backward.** Motivate the choice from its settled context: the forces in play, the options genuinely considered, why this one.
+- **`justify` — backward.**
+  Motivate the choice from its settled context: the forces in play, the options genuinely considered, why this one.
   It *integrates the past*.
   Written for a reader who does not yet agree.
   Failure: recording the verdict and discarding the reasoning.
-- **`entail` — forward.** Unfold what the decision *changes, commits, and requires* going forward — the operative consequences (the *dispositif*, to justify's *recitals*).
+- **`entail` — forward.**
+  Unfold what the decision *changes, commits, and requires* going forward — the operative consequences (the *dispositif*, to justify's *recitals*).
   It *differentiates into the future*, and because the future does not accumulate it is a projection, not a proof: write it as defeasible.
   Failure: leaving the implications implicit, so no one knows what the decision requires of them.
 

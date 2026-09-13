@@ -2,16 +2,17 @@
 title: "Phase 08 — workstreams A–I (plan and execution)"
 force: account
 verb: report-against
-register: govern
 intention: state
 view: diachronic
 provenance: { type: project, id: phase-08-refactor }
+constitutive: yes
 concerns: [theorising, writing, structuring, steering, imagining]
 distance: initiated
 audience: [contributor, decider]
 reader: H+M
 status: stable
 retention: permanent
+hash: sha256:eee1c28173942e5d2a2834bb218def6acaeeccd0e406d8091f9be2c9a2ff9663
 ---
 
 The record of *how* Phase 08 was carried out: the nine workstreams the refactor was cut into (A–I), each landed as one commit, reported against the plan.
@@ -21,10 +22,13 @@ The *why* of each decision is in the ADRs ([024](ADR-024-producer-shelf.md), [02
 
 Three forks were settled with the maintainer before or during the work:
 
-- **Naming (gerund rule).** Move the folders to their gerund `provenance.id` (not the reverse): `write→writing`, `structure→structuring`, and also `theory→theorising`, `imagine→imagining`.
+- **Naming (gerund rule).**
+  Move the folders to their gerund `provenance.id` (not the reverse): `write→writing`, `structure→structuring`, and also `theory→theorising`, `imagine→imagining`.
   Recorded as [ADR-027](ADR-027-gerund-naming.md).
-- **`theory/` was a nested git repo.** Absorbed into the main repo by a **history-preserving subtree merge** (`git merge -s ours --allow-unrelated-histories` + `read-tree --prefix=theorising/`), so the essays' five-commit history is kept; the inner `.git` was removed.
-- **Intention conversion depth.** Rename the field `perlocution → intention` and `none → state` only, **keeping** the fine values `locate/model/enable/convince`.
+- **`theory/` was a nested git repo.**
+  Absorbed into the main repo by a **history-preserving subtree merge** (`git merge -s ours --allow-unrelated-histories` + `read-tree --prefix=theorising/`), so the essays' five-commit history is kept; the inner `.git` was removed.
+- **Intention conversion depth.**
+  Rename the field `perlocution → intention` and `none → state` only, **keeping** the fine values `locate/model/enable/convince`.
   The coarse-vs-fine encoding is ⚑ Decision 1, routed to Phase 10.
 
 ## Scope boundary (Phase 08 vs the schema phase, now 10)

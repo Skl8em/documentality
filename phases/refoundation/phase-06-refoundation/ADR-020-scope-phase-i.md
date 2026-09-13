@@ -1,10 +1,10 @@
 ---
 title: "ADR-020 — Scope Phase I; defer and re-found Phase II"
 force: decide
-register: govern
 intention: suasive
 view: diachronic
 provenance: { type: project, id: phase-06-refoundation }
+constitutive: yes
 distance: initiated
 audience: [contributor, decider]
 reader: H+M
@@ -12,6 +12,7 @@ status: accepted
 retention: permanent
 supersedes: null
 superseded-by: null
+hash: sha256:60ba27790a232817dc29762214cc96cacd1d9ed40cb1b3eabc7f4669f1fa57ac
 ---
 
 ## Status

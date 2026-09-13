@@ -1,14 +1,15 @@
 ---
 title: "Phase 08 — Refactor to the refounded vocabulary & the producer shelf"
 force: orient
-register: know
-intention: locate
+intention: formative
 view: diachronic
 provenance: { type: project, id: phase-08-refactor }
+constitutive: no
 distance: initiated
 audience: [contributor, decider]
 reader: H+M
 status: done
+hash: sha256:97264a17767ad4ecde7855387f55250a12b1b27ce8c0ec665835d32aaea92b57
 ---
 
 Phase I's refactor phase: bring the product and the source into the refounded vocabulary, and make the source the producer's shelf.

@@ -1,10 +1,10 @@
 ---
 title: "Construction phases, grouped into eras"
 force: orient
-register: know
-intention: locate
+intention: formative
 view: synchronic
 provenance: { type: function, id: steering }
+constitutive: no
 distance: initiated
 audience: [contributor, decider]
 reader: H+M

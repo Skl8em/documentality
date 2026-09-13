@@ -2,16 +2,17 @@
 title: "Teach — the stance"
 force: explain
 verb: illuminate
-intention: model
+intention: formative
 view: synchronic
 provenance: { type: function, id: writing }
+constitutive: no
 audience: [user]
 reader: H+M
 status: stable
 ---
 
 `teach` brings a learner along until they are able and confident.
-It is **formative** — its job is to grow the reader's competence (`intention: enable`), staged by the learner's experience rather than the subject's coverage.
+It is **formative** — its job is to grow the reader's competence — the *enable* aim, stored as `intention: formative`, staged by the learner's experience rather than the subject's coverage.
 Use [`template.md`](template.md) to write one.
 
 - **Generative verb:** *bring along.*

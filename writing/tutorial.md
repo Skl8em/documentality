@@ -2,9 +2,10 @@
 title: "Getting started — write your first document with the system"
 force: teach
 verb: bring-along
-intention: enable
+intention: formative
 view: synchronic
 provenance: { type: function, id: writing }
+constitutive: no
 audience: [user]
 reader: H
 distance: far
@@ -39,17 +40,21 @@ That is a real, useful document — notice it took minutes because the template 
 ## Step 3 — Tag it so the system can see it
 
 At the top of your `README.md`, the template left a frontmatter block.
-Set five things (the rest are optional):
+Set these (the rest are optional):
 
 ```yaml
 force: orient
-intention: locate
+intention: formative
 view: synchronic
 provenance: { type: project, id: <your-subject> }
+constitutive: no
 audience: [user, contributor]
 reader: H+M
 status: draft
 ```
+
+`constitutive: no` because an orient document *serves* the reader; it does not posit a rule, an obligation, or a decision.
+The one you write in Step 4 will say `yes`.
 
 You just used the catalogue.
 You don't need to understand every field yet — [`writing/frontmatter.md`](frontmatter.md) explains them when you're curious.

@@ -1,10 +1,10 @@
 ---
 title: "Structuring tutorial — review of the blind test, and a rewrite plan"
 force: propose
-register: govern
 intention: suasive
 view: synchronic
 provenance: { type: project, id: phase-07-structuring-tutorial }
+constitutive: no
 distance: initiated
 audience: [contributor, decider]
 reader: H+M
@@ -143,12 +143,14 @@ A teach without a worked example is under-built for its own force.
 The tutorial *worked*: it produced a coherent structure for our project (`README` + `docs/{theory, writing, structuring, schema, decisions}`) as a consequence of the five steps, not a template dropped on top.
 But the run is worth reading for two distinct yields.
 
-**What it reveals about the tutorial.** The self-run reproduced every A-finding above from the inside, and added one honest note we should keep: the derived tree (grouped by producer activity) **does not match our real repo** (phase-indexed, `write/`, `structure/`).
+**What it reveals about the tutorial.**
+The self-run reproduced every A-finding above from the inside, and added one honest note we should keep: the derived tree (grouped by producer activity) **does not match our real repo** (phase-indexed, `write/`, `structure/`).
 That mismatch is not a failure — it is the tutorial deriving a *reader-facing grouping* while our source is deliberately *producer/phase-organized* (our own source-vs-generated decision, ADR-018).
 But it shows the tutorial does not yet help the user tell "the tree you derive" from "source shelf vs generated surface"; the returning-from-blind reader will read the mismatch as a contradiction.
 Plan consequence: the rewrite should, at Step 5, say explicitly that the tree you derive is a *reader view*, which on a real project may be generated and need not equal the source layout — this connects the tutorial to the source/surface split it currently omits.
 
-**What it reveals about our own project (spec gaps, for our front-end, not the tutorial).** Applying the method surfaced real, unmade decisions in our `self-spec` — several genuinely open:
+**What it reveals about our own project (spec gaps, for our front-end, not the tutorial).**
+Applying the method surfaced real, unmade decisions in our `self-spec` — several genuinely open:
 
 - No **external-contributor** activity or audience, though "extend/contribute" is the checklist's most-missed function; who onboards, and what do they read first?
 - **Phase II** is asserted but has no textual home (A7) — is there a placeholder, or is "nothing yet, deliberately" the answer?
@@ -166,23 +168,29 @@ None of these are tutorial bugs; they are our project's own front-end still owin
 
 His notes converge with Part A almost everywhere, and on five points they go deeper and override my fixes — for the better, because they trade a pile of local rules for one attitude and a few sharp reframes.
 
-**The biggest correction: relevance, not recurrence.** I anchored Step 1 (and A2) on the "recurring" test; he is right that the criterion is wrong.
+**The biggest correction: relevance, not recurrence.**
+I anchored Step 1 (and A2) on the "recurring" test; he is right that the criterion is wrong.
 What makes an activity a function is **importance** — that it is worth thinking and talking about — and recurrence is only one *sign* of it.
 A one-off scientific analysis is the most important activity of its project; adoption happens once per adopter yet must go well; defensive activities are documented for disasters everyone hopes never happen.
 Adopt his drafted definition ("an activity *of relevance*…") wholesale — it dissolves the future / one-off / defensive problems (A2, part of A7) at the root instead of patching them.
 
-**The unifying move: make the fractal explicit — and stop faking determinism.** This is the deepest thing in his notes, and it reframes half of Part A. Several of my "accept → add a rule" items (A1 grain, A9 thresholds) were reaching for a determinism the system does not have and should not pretend to.
-Replace them with one attitude: **start coarse, keep 3–7 items per level, group into meta-functions past ~7, refine only when a gap becomes intolerable — and assume you have holes; the point is to *see* them.** Present the moving parts as **hierarchies, not flat lists**, so the reader always has a next step, and give an **explicit licence to leave the path** ("no map, only a light").
+**The unifying move: make the fractal explicit — and stop faking determinism.**
+This is the deepest thing in his notes, and it reframes half of Part A. Several of my "accept → add a rule" items (A1 grain, A9 thresholds) were reaching for a determinism the system does not have and should not pretend to.
+Replace them with one attitude: **start coarse, keep 3–7 items per level, group into meta-functions past ~7, refine only when a gap becomes intolerable — and assume you have holes; the point is to *see* them.**
+Present the moving parts as **hierarchies, not flat lists**, so the reader always has a next step, and give an **explicit licence to leave the path** ("no map, only a light").
 This single move answers grain, thresholds, non-determinism, and the "I had to invent an unlicensed move" complaint at once — and it is itself fractal (it applies to functions, to folders, even to ADRs).
 
-**Author, not user.** His sharpest reframe of A12: the source is organized for **the person writing the document — its first reader** — not for "the user."
+**Author, not user.**
+His sharpest reframe of A12: the source is organized for **the person writing the document — its first reader** — not for "the user."
 External readers get a *generated distribution* in their own reading logic; the folder tree serves the author.
 This resolves the singular-user problem cleanly, matches our own source-vs-generated decision (ADR-018), and should replace "where its users meet it" throughout Step 5.
 
-**`imagine` as an activity.** For design-phase and future work he adds a function I missed: **imagine** — dream what could be done with or extended from what is here.
+**`imagine` as an activity.**
+For design-phase and future work he adds a function I missed: **imagine** — dream what could be done with or extended from what is here.
 It homes the not-yet-written (A7) as the output of a real present activity (thinking), pulled out of the hat when the work starts — cleaner than my "planned provenance" patch.
 
-**Worked examples via the conventional repo documents.** His answer to A10 and A13 at once, and better than mine: because we document a code repo, **name the classics** — README, CONTRIBUTING, LICENSE, ARCHITECTURE, INSTALL, CHANGELOG, ADR — classify each by force, and place each (`./` by convention or installer-speed, or `docs/`, and the `know/do/govern` subfolders once a folder passes ~7).
+**Worked examples via the conventional repo documents.**
+His answer to A10 and A13 at once, and better than mine: because we document a code repo, **name the classics** — README, CONTRIBUTING, LICENSE, ARCHITECTURE, INSTALL, CHANGELOG, ADR — classify each by force, and place each (`./` by convention or installer-speed, or `docs/`, and the `know/do/govern` subfolders once a folder passes ~7).
 This names the ADR, gives concrete examples throughout, and yields the hand-holding ending he sketched.
 On the final tree, follow his instinct: show **two or three genuinely different valid trees** (or hand the reader the build-rule) rather than one, so the example opens the field instead of anchoring it.
 

@@ -5,6 +5,7 @@ verb: advise
 intention: state
 view: synchronic
 provenance: { type: function, id: <project-id> }
+constitutive: no
 audience: [contributor]
 reader: H+M
 distance: near

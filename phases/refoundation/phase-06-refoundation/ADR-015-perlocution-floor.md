@@ -1,10 +1,10 @@
 ---
 title: "ADR-015 — Perlocution has no zero; forces are recognized cells"
 force: decide
-register: govern
 intention: suasive
 view: diachronic
 provenance: { type: project, id: phase-06-refoundation }
+constitutive: yes
 distance: initiated
 audience: [contributor, decider]
 reader: H+M
@@ -12,6 +12,7 @@ status: accepted
 retention: permanent
 supersedes: ADR-002-perlocution-typology
 superseded-by: null
+hash: sha256:bca72cd4f970143b2566833740410f08f8673c1795d0808e20d8584ebea43650
 ---
 
 ## Status

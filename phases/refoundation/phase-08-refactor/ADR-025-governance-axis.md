@@ -1,10 +1,10 @@
 ---
 title: "ADR-025 — Govern by domain governed; the transversal/vertical tension and the `concerns` coordinate"
 force: decide
-register: govern
 intention: suasive
 view: diachronic
 provenance: { type: project, id: phase-08-refactor }
+constitutive: yes
 concerns: [steering, structuring]
 distance: initiated
 audience: [contributor, decider]
@@ -13,6 +13,7 @@ status: accepted
 retention: permanent
 supersedes: null
 superseded-by: null
+hash: sha256:cda45693c8810c48f4d383ef016fb2fb60b60feeeb061932f58035b2abfcddae
 ---
 
 ## Status
@@ -24,15 +25,18 @@ accepted — 2026-07-25
 Two questions kept re-opening: where does a `govern` document live, and does it collide with the `steering` function?
 They collide only in appearance.
 
-**`steering` is not "the govern register."** It is the activity whose *domain is the project itself*, and like any activity it carries all three registers — `foundation` is its `know`, `CONTRIBUTING` its `do`, the ADR register its `govern`.
+**`steering` is not "the govern register."**
+It is the activity whose *domain is the project itself*, and like any activity it carries all three registers — `foundation` is its `know`, `CONTRIBUTING` its `do`, the ADR register its `govern`.
 So a govern-document is placed by **the domain it governs**, not by its register: a `mandate` that binds the *user's* writing is product content (`write/rules.md`, function `writing`); the *same force* binding *contribution to the project* is `steering/CONTRIBUTING.md`.
 Same act, different activity, because a different domain is governed.
 
-**Decision and rule are two documents, joined at the state/change seam.** A *decision* (`decide`, frozen, diachronic) records that the project chose X; the *rule* it installs (`mandate`, current, synchronic) is the living convention.
+**Decision and rule are two documents, joined at the state/change seam.**
+A *decision* (`decide`, frozen, diachronic) records that the project chose X; the *rule* it installs (`mandate`, current, synchronic) is the living convention.
 The decision lives with the governance effort (a phase record, indexed by `steering`); the rule lives with the activity it binds; the rule cites the decision and the decision `entail`s the rule (ADR-011; `concepts.md`, the state/change seam).
 So "a decision about how to write" is not one misfiled document but two well-placed ones.
 
-**The residual tension is real and irreducible.** Whether a decision that governs *only* structuring should sit centrally (one register + phase records) or locally (with `structure/`) is the **transversal-vs-vertical** tension — matrix organisation, cross-cutting concerns, federal-vs-local.
+**The residual tension is real and irreducible.**
+Whether a decision that governs *only* structuring should sit centrally (one register + phase records) or locally (with `structure/`) is the **transversal-vs-vertical** tension — matrix organisation, cross-cutting concerns, federal-vs-local.
 It is fractal: if `structuring` ever becomes a sub-project it takes its own governance with it (Beer's VSM recursion — every level has its own policy function), and inside it the same tension re-appears between its shared and its local decisions.
 It cannot be settled *a priori*; it is a per-project, per-scale judgement.
 

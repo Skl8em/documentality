@@ -5,6 +5,7 @@ verb: report-against
 intention: state
 view: diachronic
 provenance: { type: function, id: steering }
+constitutive: yes
 audience: [contributor, decider]
 reader: H+M
 status: stable
@@ -15,9 +16,47 @@ History of the documentation system itself.
 Append-only; each entry is dated-fixed.
 Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
 
+## [v4.0-alpha.9] — hosting reversed: GitHub canonical
+
+- **Decided:** the canonical repository is **GitHub**, and there is **no mirror** — superseding the Codeberg decision of alpha.7, which was recorded but never enacted (no Codeberg repository was ever created).
+  Ground: Codeberg restricts predominantly AI-generated repositories and this one is substantially AI-assisted, so the sovereignty #029 sought there would have been borrowed tolerance, not sovereignty.
+  The freedom argument is relocated, not withdrawn — it is deferred to a **self-hosted Forgejo instance**, which becomes canonical when it exists.
+  ([decision](../phases/refoundation/phase-10-schema/hosting-github-canonical.md); register #034, supersedes #029)
+- **Added:** host-independence as a **standing obligation** — no GitHub-only automation may move into `scripts/check.py`, so the eventual migration stays a remote change plus a CI port.
+- **Fixed:** the `sentence-per-line` fixture harness matched nothing.
+  Its violation regex expected a severity token between the column and the rule name that markdownlint-cli2 does not emit, so every positive fixture parsed as "no violations" and every negative one passed vacuously — the MD100 rule itself was correct all along (18/18 once the regex was fixed).
+- **Removed:** `.github/instructions/mermaid.instructions.md` — vendor boilerplate that carried no catalogue frontmatter and failed the gate.
+
+## [v4.0-alpha.8] — Phase 10 schema & governance reconciliation
+
+- **Decided:** **`register` is derived, never stored** — `constitutive ? govern : direction-of-fit(force)` — and a new required, stored **`constitutive: yes|no`** carries the markedness the old know/do/govern triad hid (`govern` was never a third direction of fit).
+  Settles ⚑ Decision 2; supersedes the register part of ADR-016, refines that of ADR-025; the three `writing/forces/` doors are unchanged.
+  Deriving `constitutive` from `force × power` stays deferred.
+  (ADR-030)
+- **Changed:** `intention` is stored as the **coarse** family `state` · `formative` · `suasive` · `affective`; the fine aims (locate/model/enable/convince) remain in the guidance as *readings* of a stored value, not as values.
+  Settles ⚑ Decision 1.
+- **Changed:** the corpus swept to match — 89 of 93 catalogued documents rewritten (fine `intention` → coarse, stored `register` removed, `constitutive` judged per document: 21 `yes`, 72 `no`).
+- **Changed:** `schema/frontmatter.schema.json` reconciled and `scripts/frontmatter_lint.py` **promoted** — coarse `intention`, absent `register`, and present `constitutive` are now **errors**, not warnings; the schema also encodes the direction-of-fit table (the linter refuses to load a table that does not partition the twelve forces exactly) and `frontmatter_lint.py --registers` computes the derived value.
+- **Decided:** **content-hash fixity** — an optional `hash: sha256:…` seals each frozen record, with the canonical form defined exactly; `scripts/hash_seal.py` mints (`--frozen`, `--reseal`, `--print`) and `scripts/hash_check.py` verifies.
+  Where `pin` fixes what a document *points at*, `hash` fixes what it *is*.
+  (ADR-031)
+- **Decided:** **ADR tiering** — a decision earns an ADR only by installing a **standing obligation to verify and apply**; a punctual action is a changelog line.
+  `CONTRIBUTING`'s trigger relaxed from a four-subject list to that test; the register reviewed by receivability (27 of 28 kept, three borderlines named).
+  (ADR-032)
+- **Removed:** ADR-019 (restart strategy) from the register — a punctual sequencing decision.
+  Its frozen record stays unedited; the plan content moves to a roadmap "plan changes" note; the generated ordinal absorbs the gap without renumbering.
+- **Decided:** **`operationalizing` is the sixth function**, between theory and product — recording a decision ratified and enacted in alpha.7 but never written to the register; the function set is reconciled in `foundation.md`, `CONTRIBUTING`, and the root `README`.
+  (ADR-033)
+- **Changed:** the product guidance realigned with the schema — `writing/frontmatter.md` (the `constitutive` and `hash` fields, `register` as a derived view, the required set now eight), `writing/concepts.md` (the register re-founding, coarse-vs-fine made explicit), `writing/choosing.md` (a new step 4: judge whether the act constitutes).
+- **Added:** two checks to the gate — fixity, and a `git status --porcelain` assertion, so untracked on-disk cruft can no longer pass a gate that reads only `git ls-files`.
+- **Closed:** two technical debts — the untracked reorg zombies (gone, and the gate now notices) and the duplicated round-2 blind-test transcripts (byte-identical; the `weft-blindtest-round2/` copy deleted).
+- **Closed:** Phase 10 — `steering/open-questions.md` now holds nothing open; the ratified deliberations are decanted into ADR-030–033, and what remains undecided is listed as `still_open` in the schema rather than as a live question.
+
 ## [v4.0-alpha.7] — hosting: Codeberg canonical + GitHub mirror
 
-- **Decided:** the canonical repository is **Codeberg** (non-profit, EU, Forgejo), **mirrored to GitHub** for visibility; contributions land on the canonical, CI on the canonical or the mirror. Rationale: visibility (GitHub) + freedom/sovereignty (FSF/GNU rate GitHub `F`; SFC's *Give Up GitHub* recommends Codeberg/Forgejo; GNU Guix moved to Codeberg). ([decision](../phases/refoundation/phase-10-schema/hosting-codeberg-github-mirror.md); register #029)
+- **Decided:** the canonical repository is **Codeberg** (non-profit, EU, Forgejo), **mirrored to GitHub** for visibility; contributions land on the canonical, CI on the canonical or the mirror.
+  Rationale: visibility (GitHub) + freedom/sovereignty (FSF/GNU rate GitHub `F`; SFC's *Give Up GitHub* recommends Codeberg/Forgejo; GNU Guix moved to Codeberg).
+  ([decision](../phases/refoundation/phase-10-schema/hosting-codeberg-github-mirror.md); register #029)
 - **Added:** a root `.gitignore` (`.DS_Store`, `__pycache__`, Nix outputs) — closes the untracked "zombie directory" gap; `git clean -fd` retires them.
 - **Note:** the technical setup (Codeberg repo, remotes, push-mirror, CI port) is executed with Claude Code, per the ways-of-working division.
 

@@ -2,9 +2,10 @@
 title: "Getting started with <the thing>"
 force: teach
 verb: bring-along
-intention: enable
+intention: formative
 view: synchronic
 provenance: { type: function, id: <project-id> }
+constitutive: no
 audience: [user]
 reader: H
 distance: far

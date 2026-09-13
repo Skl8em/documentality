@@ -1,10 +1,10 @@
 ---
 title: "ADR-018 — Source shelf vs generated surface; the catalogue is the pivot"
 force: decide
-register: govern
 intention: suasive
 view: diachronic
 provenance: { type: project, id: phase-06-refoundation }
+constitutive: yes
 distance: initiated
 audience: [contributor, decider]
 reader: H+M
@@ -12,6 +12,7 @@ status: accepted
 retention: permanent
 supersedes: null
 superseded-by: null
+hash: sha256:fdb771359b24760da4ff773250424d714b3016eb1bf51e1994083fc59817134d
 ---
 
 ## Status

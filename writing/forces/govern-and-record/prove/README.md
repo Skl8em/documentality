@@ -2,16 +2,17 @@
 title: "Prove — the stance"
 force: explain
 verb: illuminate
-intention: model
+intention: formative
 view: synchronic
 provenance: { type: function, id: writing }
+constitutive: no
 audience: [user]
 reader: H+M
 status: stable
 ---
 
 `prove` establishes that a claim holds, reproducibly.
-It is a **`convince`** force (`intention: convince`): its instrumental aim is to bring a reader who does not already trust you to accept the claim as established.
+It is a **suasive** force (`intention: suasive`, the *convince* aim): its instrumental aim is to bring a reader who does not already trust you to accept the claim as established.
 Use [`template.md`](template.md) to write one.
 
 - **Generative verb:** *demonstrate.*

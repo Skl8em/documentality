@@ -1,14 +1,15 @@
 ---
 title: "Phase 07 — Structuring tutorial & front-end correction"
 force: orient
-register: know
-intention: locate
+intention: formative
 view: diachronic
 provenance: { type: project, id: phase-07-structuring-tutorial }
+constitutive: no
 distance: initiated
 audience: [contributor, decider]
 reader: H+M
 status: done
+hash: sha256:cd503daa9b1aa3ef45c5b2effd34c6bc73658c204fa82cedb97e182a77dca9ae
 ---
 
 Authoring the structuring tutorial exposed that the front-end model was wrong at the root.
