@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
 """The documentation gate — run every check, in order, and fail if any fails.
 
-  1. linkcheck        every relative markdown link resolves
-  2. frontmatter_lint settled frontmatter invariants (warns on the contested ones)
-  3. ulid_check       every frontmatter `id` is a valid, unique ULID
-  4. slug_check       filename stem == frontmatter `slug` (ADR-028)
-  5. markdownlint     one shared ruleset incl. one-sentence-per-line (ADR-021)
+  1. worktree         no untracked cruft on disk (the gate reads git, so it must
+                      also notice what git is NOT tracking)
+  2. linkcheck        every relative markdown link resolves
+  3. frontmatter_lint the frontmatter invariants (warns on what is still open)
+  4. ulid_check       every frontmatter `id` is a valid, unique ULID
+  5. slug_check       filename stem == frontmatter `slug` (ADR-028)
+  6. hash_check       every frozen record's fixity seal still matches
+  7. md100_test       the custom sentence-per-line rule still flags what it must
+  8. markdownlint     one shared ruleset incl. one-sentence-per-line (ADR-021)
 
 This is what pre-commit and CI run. Stdlib only. markdownlint-cli2 is a Node tool
 from the devShell; if it is not on PATH this falls back to `nix develop --command`,
@@ -38,17 +42,45 @@ def markdownlint_cmd():
     return None
 
 
+def worktree_clean():
+    """Fail on untracked files. Every other check reads `git ls-files`, so on-disk
+    cruft — a stale copy of a renamed folder, a scratch file — passes them all
+    silently. This is the assertion that would have caught the Phase-08 zombies.
+    Ignored paths (.gitignore) do not count; modified tracked files do not either,
+    since the gate is run precisely to check work in progress."""
+    out = subprocess.check_output(
+        ["git", "status", "--porcelain", "--untracked-files=normal"], text=True)
+    untracked = [ln[3:] for ln in out.splitlines() if ln.startswith("??")]
+    if untracked:
+        print(f"UNTRACKED PATHS: {len(untracked)} — `git add` them, or add them to .gitignore")
+        for p in untracked:
+            print(f"  {p}")
+        return 1
+    print("Worktree OK (nothing untracked).")
+    return 0
+
+
 def main():
     checks = [
+        ("worktree", worktree_clean),
         ("linkcheck", [PY, "scripts/linkcheck.py"]),
         ("frontmatter", [PY, "scripts/frontmatter_lint.py"]),
         ("ulid", [PY, "scripts/ulid_check.py"]),
         ("slug", [PY, "scripts/slug_check.py"]),
+        ("hash", [PY, "scripts/hash_check.py"]),
+        # The rule is a heuristic; its fixtures run BEFORE the corpus lint, so a
+        # green corpus can never be read as "the rule works" when it has stopped
+        # flagging anything.
+        ("md100", [PY, "tools/markdownlint/test_sentence_per_line.py"]),
         ("markdownlint", markdownlint_cmd()),
     ]
     failures = []
     for name, cmd in checks:
         print(f"\n=== {name} ===")
+        if callable(cmd):
+            if cmd() != 0:
+                failures.append(name)
+            continue
         if cmd is None:
             print("FAIL — markdownlint-cli2 unavailable (no PATH entry and no nix). "
                   "Enter the devShell: nix develop")

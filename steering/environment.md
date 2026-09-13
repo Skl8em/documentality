@@ -2,10 +2,10 @@
 title: "Development environment — the reproducible tooling shell"
 force: instruct
 verb: walk-through
-register: do
 intention: state
 view: synchronic
 provenance: { type: function, id: steering }
+constitutive: no
 audience: [contributor]
 reader: H+M
 status: draft

@@ -1,10 +1,10 @@
 ---
 title: "ADR-014 — Adopt the Ferraris-grounded refoundation of the theory"
 force: decide
-register: govern
 intention: suasive
 view: diachronic
 provenance: { type: project, id: phase-06-refoundation }
+constitutive: yes
 distance: initiated
 audience: [contributor, decider]
 reader: H+M
@@ -12,6 +12,7 @@ status: accepted
 retention: permanent
 supersedes: ADR-001-inscribed-act
 superseded-by: null
+hash: sha256:b9da2631a8603dc293a3f87c77b6a86291ca624235462daa292f05db5b810953
 ---
 
 ## Status

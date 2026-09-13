@@ -1,10 +1,10 @@
 ---
 title: "ADR-021 — Semantic line breaks (one sentence per line) in Markdown source"
 force: decide
-register: govern
 intention: suasive
 view: diachronic
 provenance: { type: project, id: phase-06-refoundation }
+constitutive: yes
 distance: initiated
 audience: [contributor, decider]
 reader: H+M
@@ -12,6 +12,7 @@ status: accepted
 retention: permanent
 supersedes: null
 superseded-by: null
+hash: sha256:6b5546202697fee0c84c77fe931dfd56fce5ffdc9303482096be724ae7ae47a6
 ---
 
 ## Status

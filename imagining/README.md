@@ -1,10 +1,10 @@
 ---
 title: "imagine — what is not built yet"
 force: orient
-register: know
-intention: locate
+intention: formative
 view: synchronic
 provenance: { type: function, id: imagining }
+constitutive: no
 distance: initiated
 audience: [contributor, decider]
 reader: H+M

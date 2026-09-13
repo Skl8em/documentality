@@ -1,10 +1,10 @@
 ---
 title: "ADR-026 — The perlocution/intention floor value is `state`, not `none`"
 force: decide
-register: govern
 intention: suasive
 view: diachronic
 provenance: { type: project, id: phase-08-refactor }
+constitutive: yes
 concerns: [theory, writing, structuring, steering]
 distance: initiated
 audience: [contributor, decider]
@@ -13,6 +13,7 @@ status: accepted
 retention: permanent
 supersedes: null
 superseded-by: null
+hash: sha256:f239888f96d386af2ef24b404233288facbba5043ba59d8b3de064f71f860549
 ---
 
 ## Status

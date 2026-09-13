@@ -2,10 +2,10 @@
 title: "The tutorial applied to ourselves — our functions, our front-matter values, our tree"
 force: explain
 verb: illuminate
-register: know
-intention: model
+intention: formative
 view: synchronic
 provenance: { type: project, id: phase-07-structuring-tutorial }
+constitutive: no
 distance: initiated
 audience: [contributor, decider]
 reader: H+M
@@ -49,9 +49,11 @@ Bounded producers — the diachronic provenances, which close and freeze:
 
 Two findings this step forces, both refinements of current practice:
 
-- **`onboarding` is not a producer function; it is a *served* order.** [proposed → Phase 08] The front doors (`README`, the two teach on-ramps) are *authored and maintained* by `steering`, `writing`, and `structuring` respectively; "onboarding" is the *reading order* in which a newcomer meets them, which belongs to a generated surface, not to the shelf.
+- **`onboarding` is not a producer function; it is a *served* order.**
+  [proposed → Phase 08] The front doors (`README`, the two teach on-ramps) are *authored and maintained* by `steering`, `writing`, and `structuring` respectively; "onboarding" is the *reading order* in which a newcomer meets them, which belongs to a generated surface, not to the shelf.
   This retires the old `onboarding` provenance id.
-- **`maintenance` stays folded into the owning function.** [decided, per ADR-012] There is no separate "maintenance" provenance; keeping a function's docs current *is* that function.
+- **`maintenance` stays folded into the owning function.**
+  [decided, per ADR-012] There is no separate "maintenance" provenance; keeping a function's docs current *is* that function.
 
 `imagine` band, named and parked (not-yet-enacted): the Phase II material — AI operating instructions, git hooks, validation/generation from the frontmatter.
 It has no document of its own yet, by design; it lives as a line in the roadmap under `imagine`, to be pulled out when Phase I closes.
@@ -64,7 +66,8 @@ Holes named on purpose (not covered this pass):
 
 ## Step 2 — Communities and distance
 
-Because every producer function sits in essentially **one domain — the inscribed-act theory** — the audiences nearly collapse: `user` (documents their own project) and `contributor` (writes in this repo) are one discourse community sharing one code, and `decider` is us. [decided, ADR-017/022]
+Because every producer function sits in essentially **one domain — the inscribed-act theory** — the audiences nearly collapse: `user` (documents their own project) and `contributor` (writes in this repo) are one discourse community sharing one code, and `decider` is us.
+[decided, ADR-017/022]
 
 Distance, in the habitus sense the tutorial now uses, is the gap between *our* habitus as authors and the intended reader's.
 Here it reduces to **how much of the theory the reader already holds**, in a register that is frankly **academic** (Ferraris, illocution/perlocution) — a deliberate habitus that a beginner-facing document must open up and an initiated-facing one may presume.
@@ -73,7 +76,8 @@ Here it reduces to **how much of the theory the reader already holds**, in a reg
 - **initiated** in the theory — the rules, the schema, the ADRs: concepts presumed.
 
 `reader` is orthogonal: we write `H+M` almost everywhere, because keeping the catalogue machine-legible is Phase I's one commitment toward Phase II.
-The machine can occupy `user`/`contributor` but never `decider`. [decided]
+The machine can occupy `user`/`contributor` but never `decider`.
+[decided]
 
 ## Step 3 — What each needs: know / do / govern
 
@@ -108,7 +112,8 @@ Named artifacts: our decision record is the **ADR** (`steering/ADR.md` register 
 Source is shelved by **provenance**, organized for the **author** (the producer), with the register split *inside* a function once it earns it.
 Life: standing functions stay **current**; phase projects **freeze**; deliberations are **current and decant into frozen** as they close.
 
-The co-owned document, resolved by the round-2 rule: the **structuring tutorial** is *authored and maintained by* `structuring`, and merely *serves* the onboarding order — so its provenance is `structuring`, and the newcomer's orientation to it is a pointer on the generated surface, not a second home. [decided] The same rule places `README` with `steering` (it orients about the whole project), served to onboarding.
+The co-owned document, resolved by the round-2 rule: the **structuring tutorial** is *authored and maintained by* `structuring`, and merely *serves* the onboarding order — so its provenance is `structuring`, and the newcomer's orientation to it is a pointer on the generated surface, not a second home.
+[decided] The same rule places `README` with `steering` (it orients about the whole project), served to onboarding.
 
 ### Derived front-matter vocabulary — the valid values for us
 
@@ -133,7 +138,8 @@ Read off the exercise; this is the controlled vocabulary our fields may take (en
 | `axis` *(tree-root orient only)* | `provenance` *(the source shelf axis — replaces the old `scope`, ADR-018)* |
 | `dominant-community` *(tree-root orient only)* | `contributor` *(the producer shelf serves the contributor; the user surface is generated)* |
 
-The single most consequential change the exercise commits: the root axis moves from **`scope` (dominant `user`)** to **`provenance` (dominant `contributor`)**, because the source is the producer's shelf and the user order is a generated view. [enacted — `docs/` dissolved into `steering/` + `imagine/` + root `phases/`, per ADR-018]
+The single most consequential change the exercise commits: the root axis moves from **`scope` (dominant `user`)** to **`provenance` (dominant `contributor`)**, because the source is the producer's shelf and the user order is a generated view.
+[enacted — `docs/` dissolved into `steering/` + `imagine/` + root `phases/`, per ADR-018]
 
 ### The tree for us
 
@@ -185,9 +191,11 @@ What the move did, and what remains:
 The round-2 finding says a deliberation is a **current `govern` document that decants into frozen records**.
 We have exactly one, and it should become `steering/open-questions.md`:
 
-- **⚑ Decision 1 — encode `intention` coarse (`state|formative|suasive|affective`, ADR-026) or fine (`locate|model|enable|convince|…`).** Proposed: coarse.
+- **⚑ Decision 1 — encode `intention` coarse (`state|formative|suasive|affective`, ADR-026) or fine (`locate|model|enable|convince|…`).**
+  Proposed: coarse.
   Open.
-- **⚑ Decision 2 — `register` stored or derived from `force`.** Proposed: derived.
+- **⚑ Decision 2 — `register` stored or derived from `force`.**
+  Proposed: derived.
   Open.
 - the retire-`_legacy` / migrate-nine-forces debt (roadmap), open until Phase 08 closes it.
 

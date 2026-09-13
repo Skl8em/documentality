@@ -2,9 +2,10 @@
 title: "Two systems, provenance, and the life of a document"
 force: explain
 verb: illuminate
-intention: model
+intention: formative
 view: synchronic
 provenance: { type: function, id: structuring }
+constitutive: no
 audience: [user]
 reader: H+M
 status: stable
@@ -15,8 +16,10 @@ The binding statements are in [`rules.md`](rules.md); the procedures in [`setup.
 
 ## Two systems, never one
 
-Documentation is pulled in two incompatible directions. **Communication**: a hurried, non-expert reader must *find* what they came for.
-Beneficiary: a present reader; horizon: now. **Evidence**: someone must later produce what was decided, when, by whom, on what grounds.
+Documentation is pulled in two incompatible directions.
+**Communication**: a hurried, non-expert reader must *find* what they came for.
+Beneficiary: a present reader; horizon: now.
+**Evidence**: someone must later produce what was decided, when, by whom, on what grounds.
 Beneficiary: a future examiner; horizon: the long term.
 
 These command opposite orders.

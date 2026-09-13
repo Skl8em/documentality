@@ -2,16 +2,17 @@
 title: "Explain — the stance"
 force: explain
 verb: illuminate
-intention: model
+intention: formative
 view: synchronic
 provenance: { type: function, id: writing }
+constitutive: no
 audience: [user]
 reader: H+M
 status: stable
 ---
 
 `explain` builds the reader's understanding of *why* a thing is as it is.
-It is **formative** — its job is to change the reader's conceptual model (`intention: model`), so that they can reason about cases the document never covered.
+It is **formative** — its job is to change the reader's conceptual model — the *model* aim, stored as `intention: formative`, so that they can reason about cases the document never covered.
 Use [`template.md`](template.md) to write one.
 
 - **Generative verb:** *illuminate.*

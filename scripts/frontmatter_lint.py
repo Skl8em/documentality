@@ -1,16 +1,21 @@
 #!/usr/bin/env python3
-"""Frontmatter linter — the Phase-09 SAFE STARTER.
+"""Frontmatter linter.
 
-Validates every tracked Markdown document's YAML frontmatter against the settled
-invariants in schema/frontmatter.schema.json. Settled rules are ERRORS (exit 1);
-contested fields (the two open ⚑, → Phase 10) are WARNINGS. Stdlib only, so it
-runs outside the devShell. See phases/refoundation/phase-09-tooling/plan.md §Part 2.
+Validates every tracked Markdown document's YAML frontmatter against
+schema/frontmatter.schema.json. Settled rules are ERRORS (exit 1); what is still
+genuinely undecided is a WARNING. Stdlib only, so it runs outside the devShell.
+
+Phase 10 promoted the Phase-09 starter's three contested rules to errors:
+`intention` is the coarse set, `register` is derived and must NOT be stored, and
+`constitutive` is required. See phases/refoundation/phase-10-schema/.
 
     python3 scripts/frontmatter_lint.py            # errors only gate
     python3 scripts/frontmatter_lint.py --warnings # also print warnings
+    python3 scripts/frontmatter_lint.py --registers # print the DERIVED register
 """
 import json
 import os
+import re
 import subprocess
 import sys
 
@@ -31,7 +36,30 @@ def ignored(path):
 
 def load_schema():
     with open("schema/frontmatter.schema.json", encoding="utf-8") as fh:
-        return json.load(fh)
+        schema = json.load(fh)
+    # Fail loud if the schema itself is incoherent: the direction-of-fit table must
+    # partition the twelve forces exactly, or `register` cannot be derived.
+    fit = schema["direction_of_fit"]
+    covered = fit["know"] + fit["do"]
+    forces = schema["error_enums"]["force"]
+    if sorted(covered) != sorted(forces):
+        raise SystemExit(
+            "schema error: direction_of_fit must partition `force` exactly — "
+            f"missing {sorted(set(forces) - set(covered))}, "
+            f"unknown {sorted(set(covered) - set(forces))}"
+        )
+    return schema
+
+
+def derive_register(schema, force, constitutive):
+    """register = constitutive ? govern : direction-of-fit(force). Never stored."""
+    if constitutive == "yes":
+        return "govern"
+    head = str(force).split("+")[0].strip()
+    for register, forces in schema["direction_of_fit"].items():
+        if head in forces:
+            return register
+    return "?"
 
 
 def frontmatter_block(path):
@@ -115,10 +143,21 @@ def lint_file(path, schema, errors, warnings):
             errors.append((path, ln("provenance"), f"provenance.type `{prov['type']}` not in {schema['error_enums']['provenance_type']}"))
 
     # Simple error enums.
-    for field in ("view", "reader"):
+    for field in ("view", "reader", "intention", "constitutive"):
         v = val(field)
         if v is not None and v not in schema["error_enums"][field]:
             errors.append((path, ln(field), f"{field} `{v}` not in {schema['error_enums'][field]}"))
+
+    # `register` is DERIVED, never stored (Phase 10: register-derived-constitutive).
+    if "register" in fm:
+        errors.append((path, ln("register"),
+                       "`register` is derived (`constitutive ? govern : direction-of-fit(force)`), "
+                       "never stored — remove the field"))
+
+    # `hash`, when present, is a well-formed fixity seal.
+    h = val("hash")
+    if h is not None and not re.match(schema["hash_pattern"], str(h)):
+        errors.append((path, ln("hash"), f"hash `{h}` does not match {schema['hash_pattern']}"))
 
     # force (allow composite a+b).
     force = val("force")
@@ -147,11 +186,20 @@ def lint_file(path, schema, errors, warnings):
             if field not in fm:
                 errors.append((path, 1, f"root README must carry `{field}`"))
 
-    # Contested fields → warnings.
+    # Undecided fields → warnings (see the schema's `still_open`).
     for field, allowed in schema["warn_enums"].items():
         v = val(field)
         if v is not None and v not in allowed:
-            warnings.append((path, ln(field), f"{field} `{v}` outside the current set {allowed} (→ Phase 10)"))
+            warnings.append((path, ln(field), f"{field} `{v}` outside the current practice {allowed} (still open)"))
+
+
+def print_registers(schema, files):
+    for path in files:
+        block = frontmatter_block(path)
+        fm = parse_frontmatter(block) if block else {}
+        force = fm["force"][0] if "force" in fm else None
+        const = fm["constitutive"][0] if "constitutive" in fm else None
+        print(f"{derive_register(schema, force, const):7} {path}")
 
 
 def main():
@@ -161,12 +209,16 @@ def main():
         f for f in subprocess.check_output(["git", "ls-files", "*.md"], text=True).splitlines()
         if not ignored(f)
     ]
+    if "--registers" in sys.argv:
+        print_registers(schema, files)
+        return 0
+
     errors, warnings = [], []
     for f in files:
         lint_file(f, schema, errors, warnings)
 
     if show_warnings and warnings:
-        print(f"WARNINGS: {len(warnings)} (contested fields, → Phase 10)")
+        print(f"WARNINGS: {len(warnings)} (fields still open — see the schema)")
         for f, line, msg in warnings:
             print(f"  {f}:{line}  {msg}")
         print()

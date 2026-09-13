@@ -1,10 +1,10 @@
 ---
 title: "Generate reading orders"
 force: propose
-register: govern
 intention: suasive
 view: diachronic
 provenance: { type: function, id: imagining }
+constitutive: no
 distance: initiated
 audience: [contributor, decider]
 reader: H+M
