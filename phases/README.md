@@ -41,9 +41,11 @@ Regrounding the theory on Ferraris and, at last, laying the front-end flat.
 | [07 — structuring tutorial & front-end correction](refoundation/phase-07-structuring-tutorial/README.md) *(done)* | functions-first; distance per community; mutable groupings & eras | ADR-022, ADR-023 |
 | [08 — refactor product & source](refoundation/phase-08-refactor/README.md) *(done)* | refounded vocabulary (intention floor, register gloss); producer shelf; nine forces migrated & `_legacy/` retired; gerund naming; eras made physical | ADR-024…027 |
 | [09 — tooling](refoundation/phase-09-tooling/README.md) *(done)* | reproducible Nix devShell; unified markdownlint (CLI + VSCode) + corpus reflow; a frontmatter-lint harness (safe invariants); ULID + slug identifiers, minting/verify tooling, and a safe-rename script; one gate (pre-commit + CI) | ADR-028 |
-| 10 — reconcile schema *(next)* | the frontmatter schema as the machine-ready catalogue, on the Phase-09 lint harness | — |
+| [10 — reconcile schema & governance](refoundation/phase-10-schema/README.md) *(done)* | `register` derived & `constitutive` stored; content-hash fixity; ADR tiering; `operationalizing` recorded as the sixth function; hosting settled on GitHub | ADR-029…034 |
+| 11 — tooling hardening *(next)* | closing the frontmatter vocabulary, real YAML parsing, a referential validator | — |
 
 ## Era 3 — Phase II *(later)*
 
 The computational model — designed only once Phase I closes, for the new discourse community it brings.
-Not yet begun (roadmap Phase 11 onward; its design is Phase 11).
+Not yet begun.
+Its design is thought to become the first phase of that era; it takes a number when we tackle it, not before.
