@@ -9,8 +9,9 @@ constitutive: no
 audience: [contributor, decider]
 reader: H+M
 status: draft
-note: "Refounded in Phase 08 to the provenance-first shelf and the intention vocabulary; the schema is reconciled in Phase 10 (Phase 09 tooling readies it)."
 ---
+
+Refounded in Phase 08 to the provenance-first shelf and the intention vocabulary; the schema is reconciled in Phase 10 (Phase 09 tooling readies it).
 
 This explains how the repository is laid out and *why* it is shaped this way, so a contributor can change it without breaking its logic.
 If you only want to *use* the system, read the product (`../writing/`, `../structuring/`) instead; this is about the repo as a maintained artifact.

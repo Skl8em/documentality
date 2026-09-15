@@ -1,5 +1,5 @@
 {
-  "//": "Phase 10 frontmatter schema. Single edit surface for the validator (scripts/frontmatter_lint.py). The Phase-09 starter's two contested fields are now settled and are ERRORS: `intention` is coarse, `register` is derived (never stored), `constitutive` is required. What is still genuinely undecided stays a warning. See phases/refoundation/phase-10-schema/plan.md and the records in that folder.",
+  "//": "Phase 10 frontmatter schema. Single edit surface for the validator (scripts/frontmatter_lint.py). The Phase-09 starter's two contested fields are now settled and are ERRORS: `intention` is coarse, `register` is derived (never stored), `constitutive` is required. What is still genuinely undecided stays a warning. See phases/refoundation/phase-10-schema/plan.md and the records in that folder. Phase 11 T1 closed the vocabulary: a field is legal only if it is `required`, a key of `optional_fields` (each carrying its own rationale — the schema fails to load if one is missing or empty), or a `root_only_fields` entry. See phases/refoundation/phase-11-tooling-hardening/plan.md.",
 
   "required": ["title", "force", "intention", "constitutive", "view", "provenance", "audience", "reader", "status"],
 
@@ -29,11 +29,17 @@
 
   "optional_fields": {
     "hash": "sha256:<64 lowercase hex> — the fixity seal of a frozen record (scripts/hash_seal.py mints it, scripts/hash_check.py verifies it).",
-    "verb": "generative verb; stored only when it diverges from the tuple.",
-    "id": "ULID (ADR-028); `slug`: the filename stem.",
+    "verb": "generative verb; stored only when it diverges from the tuple (force, intention).",
+    "id": "ULID (ADR-028) — the stable machine identity, independent of the filename.",
+    "slug": "the filename stem — the human-readable identity paired with `id`.",
     "concerns": "the activities a document governs, distinct from its provenance.",
-    "distance": "recipient distance; `power`: the sanction the recipient holds.",
-    "supersedes": "`superseded-by`, `retention`, `pin`, `order`, `phase`."
+    "distance": "recipient distance — how far the reader sits from the act (theorising, essay 2).",
+    "power": "the sanction the recipient holds over the act (theorising, essay 2).",
+    "retention": "the reified retention rule — how long a record is kept live before archival (theorising, essay 3).",
+    "supersedes": "the record(s) this one supersedes — record chaining (theorising, essay 3: supersede-not-edit).",
+    "superseded-by": "the record(s) that supersede this one — the inverse of `supersedes`, kept symmetric.",
+    "phase": "the construction phase this document was written for, or is current as of (steering/roadmap.md, steering/foundation.md) — distinct from `provenance`, which names the activity, not the phase.",
+    "pin": "a submodule commit pin — the VCS fixity bond for a cross-project reference (writing/frontmatter.md; structuring/setup.md). Not yet exercised in this corpus: this repo is a single-project (topology A) instance, never a `projects/`-submodule one — the field is real, designed vocabulary for the methodology, just structurally unreachable here."
   },
 
   "hash_pattern": "^sha256:[0-9a-f]{64}$",
