@@ -9,6 +9,10 @@ Phase 10 promoted the Phase-09 starter's three contested rules to errors:
 `intention` is the coarse set, `register` is derived and must NOT be stored, and
 `constitutive` is required. See phases/refoundation/phase-10-schema/.
 
+Phase 11 T1 closed the vocabulary: any field outside `required` ∪
+`optional_fields` ∪ `root_only_fields` is an error. See
+phases/refoundation/phase-11-tooling-hardening/.
+
     python3 scripts/frontmatter_lint.py            # errors only gate
     python3 scripts/frontmatter_lint.py --warnings # also print warnings
     python3 scripts/frontmatter_lint.py --registers # print the DERIVED register
@@ -48,6 +52,11 @@ def load_schema():
             f"missing {sorted(set(forces) - set(covered))}, "
             f"unknown {sorted(set(covered) - set(forces))}"
         )
+    # Fail loud if an optional field has no rationale: "declared" and "justified"
+    # must be the same act (Phase 11 T1), or the vocabulary is closed in name only.
+    for field, rationale in schema["optional_fields"].items():
+        if not isinstance(rationale, str) or not rationale.strip():
+            raise SystemExit(f"schema error: optional field `{field}` has no rationale string")
     return schema
 
 
@@ -191,6 +200,14 @@ def lint_file(path, schema, errors, warnings):
         v = val(field)
         if v is not None and v not in allowed:
             warnings.append((path, ln(field), f"{field} `{v}` outside the current practice {allowed} (still open)"))
+
+    # Closed vocabulary (Phase 11 T1): a field is legal only if it is required,
+    # declared (with a rationale) in optional_fields, or a root-only field.
+    # `register` already has its own dedicated error above.
+    known = set(schema["required"]) | set(schema["optional_fields"]) | set(schema["root_only_fields"])
+    for field in fm:
+        if field not in known and field != "register":
+            errors.append((path, ln(field), f"`{field}` is not in the closed frontmatter vocabulary — declare it in schema/frontmatter.schema.json with a rationale, or remove it"))
 
 
 def print_registers(schema, files):

@@ -10,7 +10,6 @@ audience: [contributor, decider]
 reader: H+M
 status: draft
 phase: 11-tooling-hardening
-review: 10-schema
 ---
 
 The working plan, revisable.

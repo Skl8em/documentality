@@ -10,8 +10,9 @@ audience: [contributor]
 reader: H+M
 status: draft
 phase: 07-structuring-tutorial
-note: "New (Ferraris-grounded) vocabulary; the frontmatter schema is reconciled in Phase 10 (Phase 09 tooling readies it)."
 ---
+
+New (Ferraris-grounded) vocabulary; the frontmatter schema is reconciled in Phase 10 (Phase 09 tooling readies it).
 
 This is the project laid flat: the front-end we skipped when we started, now written down so it structures the rest instead of living in a chat.
 It is the *structuring tutorial applied to ourselves* — its sections follow that tutorial's steps, in order.

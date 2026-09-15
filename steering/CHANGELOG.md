@@ -16,6 +16,20 @@ History of the documentation system itself.
 Append-only; each entry is dated-fixed.
 Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
 
+## [v4.0-alpha.11] — Phase 11 T1: close the frontmatter vocabulary
+
+- **Changed:** `frontmatter_lint.py` now **rejects any field outside `required` ∪ `optional_fields` ∪ `root_only_fields`**, and `load_schema()` refuses to start if an `optional_fields` entry has no rationale string — "declared" and "justified" are now the same act.
+  `schema/frontmatter.schema.json`'s `optional_fields` is rewritten one key per field (it previously bundled several field names into a single description, e.g. `supersedes` silently covering `superseded-by`, `retention`, `pin`, `order`, and `phase`), each now carrying its own rationale.
+- **Ruled:** the four vocabulary cases the gate could not see, checked against the two documents that actually define the intended vocabulary (`writing/frontmatter.md`'s field table and `operationalizing/README.md`'s coordinate inventory), not against corpus habit alone.
+  `pin` is **declared and justified** — `writing/frontmatter.md` already names it as a real coordinate ("fixity anchor for a cross-project reference"); it is unused only because this repo is a single-project (topology A) instance and never instantiates the `projects/`-submodule topology it fixes a reference into.
+  `phase` (2 documents, `steering/roadmap.md` and `steering/foundation.md`) is **declared and justified** and **added to `writing/frontmatter.md`'s field table**, which had drifted: `git log -p` shows the field is bumped forward as a steering document is reconciled to a later phase, not fixed at creation — a real, machine-checkable coordinate the reference document had simply never recorded.
+  `note` (4 documents) is **dropped**, and reconsidered on stronger grounds than "undeclared": `writing/frontmatter.md` states the frontmatter carries only "hard coordinates not derivable from one another" and exists so "the machine" gets a document's coordinates "without a human reading them" — `note` is free prose nothing reads, present in neither canonical field list.
+  Each of the 4 documents' `note:` value is moved into its own opening prose instead of dropped outright.
+  `review` (1 use, `steering/roadmap.md`) is **dropped**: `git log -S"review:"` traces it to a single silent addition in the Phase-10 sweep commit, with no explanation anywhere and no field-table entry.
+  `order` (0 uses) is dropped for the same absence of any documented rationale.
+  The single `review: 10-schema` line is removed from `steering/roadmap.md`.
+  ([plan](../phases/refoundation/phase-11-tooling-hardening/plan.md))
+
 ## [v4.0-alpha.10] — Phase 11 inserted: tooling hardening
 
 - **Planned:** **Phase 11 — tooling hardening**, inserted before the Phase-II design.

@@ -10,8 +10,10 @@ distance: far
 audience: [user]
 reader: H
 status: draft
-note: "Ferraris-grounded vocabulary; relevance-based functions, fractal method, organized for the author. The frontmatter schema and the generated reader surface are their own (planned) tutorial; this one stops at the source."
 ---
+
+Ferraris-grounded vocabulary; relevance-based functions, fractal method, organized for the author.
+The frontmatter schema and the generated reader surface are their own (planned) tutorial; this one stops at the source.
 
 This is a guided first run, not a reference.
 By the end you will have a documentation structure that came *out of* your project — derived from what your project actually is, not a template dropped on top — and that can grow and be regrouped later without a rebuild.
