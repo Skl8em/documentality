@@ -7,7 +7,8 @@ This validates that every declared `id` is a syntactically valid ULID and that i
 are unique across the corpus. Records without an `id` are permitted (adopting ids
 on the legacy count-named records is optional; the convention is kept open).
 
-Stdlib only.
+Reads frontmatter through scripts/yaml_frontmatter.py, so it needs `pyyaml` — the
+devShell provides it.
 
     python3 scripts/ulid_check.py
 """
@@ -17,24 +18,10 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from ulid import is_ulid  # noqa: E402
+from yaml_frontmatter import FrontmatterError, load, values  # noqa: E402
 
 ROOT = subprocess.check_output(["git", "rev-parse", "--show-toplevel"], text=True).strip()
 os.chdir(ROOT)
-
-
-def frontmatter(path):
-    fm = {}
-    with open(path, encoding="utf-8") as fh:
-        lines = fh.read().split("\n")
-    if not lines or lines[0].strip() != "---":
-        return fm
-    for ln in lines[1:]:
-        if ln.strip() == "---":
-            break
-        if ":" in ln and not ln.startswith((" ", "\t")):
-            k, v = ln.split(":", 1)
-            fm[k.strip()] = v.strip().strip("\"'")
-    return fm
 
 
 def main():
@@ -43,11 +30,15 @@ def main():
     seen = {}
     n_ids = 0
     for f in files:
-        rid = frontmatter(f).get("id")
+        try:
+            rid = values(load(f)).get("id")
+        except FrontmatterError as exc:
+            errors.append((f, f"invalid YAML frontmatter at {exc}"))
+            continue
         if not rid:
             continue
         n_ids += 1
-        if not is_ulid(rid):
+        if not isinstance(rid, str) or not is_ulid(rid):
             errors.append((f, f"id {rid!r} is not a valid ULID"))
         if rid in seen:
             errors.append((f, f"duplicate id (also in {seen[rid]})"))

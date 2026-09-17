@@ -7,7 +7,8 @@ permitted ULID-in-filename form, slug first). Documents without a `slug` are not
 checked — the convention is opt-in. A slug must itself be hyphen-cased (lowercase
 letters, digits, hyphens). Run `scripts/slugify_names.py` to fix filenames.
 
-Stdlib only.
+Reads frontmatter through scripts/yaml_frontmatter.py, so it needs `pyyaml` — the
+devShell provides it.
 
     python3 scripts/slug_check.py
 """
@@ -16,25 +17,13 @@ import re
 import subprocess
 import sys
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from yaml_frontmatter import FrontmatterError, load, values  # noqa: E402
+
 ROOT = subprocess.check_output(["git", "rev-parse", "--show-toplevel"], text=True).strip()
 os.chdir(ROOT)
 
 SLUG_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
-
-
-def frontmatter(path):
-    fm = {}
-    with open(path, encoding="utf-8") as fh:
-        lines = fh.read().split("\n")
-    if not lines or lines[0].strip() != "---":
-        return fm
-    for ln in lines[1:]:
-        if ln.strip() == "---":
-            break
-        if ":" in ln and not ln.startswith((" ", "\t")):
-            k, v = ln.split(":", 1)
-            fm[k.strip()] = v.strip().strip("\"'")
-    return fm
 
 
 def main():
@@ -42,11 +31,18 @@ def main():
     errors = []
     n = 0
     for f in files:
-        fm = frontmatter(f)
+        try:
+            fm = values(load(f))
+        except FrontmatterError as exc:
+            errors.append((f, f"invalid YAML frontmatter at {exc}"))
+            continue
         slug = fm.get("slug")
         if not slug:
             continue
         n += 1
+        if not isinstance(slug, str):
+            errors.append((f, f"slug {slug!r} is not a string"))
+            continue
         stem = os.path.basename(f)[:-3]  # drop ".md"
         if not SLUG_RE.match(slug):
             errors.append((f, f"slug {slug!r} is not hyphen-cased (a-z, 0-9, -)"))

@@ -4,19 +4,23 @@
   1. worktree         no untracked cruft on disk (the gate reads git, so it must
                       also notice what git is NOT tracking)
   2. linkcheck        every relative markdown link resolves
-  3. frontmatter_lint the frontmatter invariants (warns on what is still open)
-  4. ulid_check       every frontmatter `id` is a valid, unique ULID
-  5. slug_check       filename stem == frontmatter `slug` (ADR-028)
-  6. hash_check       every frozen record's fixity seal still matches
-  7. md100_test       the custom sentence-per-line rule still flags what it must
-  8. markdownlint     one shared ruleset incl. one-sentence-per-line (ADR-021)
+  3. frontmatter_test the YAML frontmatter parser still reads what it must
+  4. frontmatter_lint the frontmatter invariants (warns on what is still open)
+  5. ulid_check       every frontmatter `id` is a valid, unique ULID
+  6. slug_check       filename stem == frontmatter `slug` (ADR-028)
+  7. hash_check       every frozen record's fixity seal still matches
+  8. md100_test       the custom sentence-per-line rule still flags what it must
+  9. markdownlint     one shared ruleset incl. one-sentence-per-line (ADR-021)
 
-This is what pre-commit and CI run. Stdlib only. markdownlint-cli2 is a Node tool
-from the devShell; if it is not on PATH this falls back to `nix develop --command`,
-so the gate works both inside and outside the shell.
+This is what pre-commit and CI run. This file itself is stdlib-only, but the
+validators it runs need two things from the devShell: `pyyaml` (the frontmatter
+parser, Phase 11 T2) and markdownlint-cli2 (a Node tool). Without `pyyaml` the
+whole gate re-runs itself under `nix develop --command`; markdownlint-cli2 alone
+falls back the same way. So the gate works both inside and outside the shell.
 
     python3 scripts/check.py
 """
+import importlib.util
 import os
 import shutil
 import subprocess
@@ -25,6 +29,22 @@ import sys
 ROOT = subprocess.check_output(["git", "rev-parse", "--show-toplevel"], text=True).strip()
 os.chdir(ROOT)
 PY = sys.executable
+
+
+def ensure_pyyaml():
+    """Re-enter the gate inside the devShell if this interpreter lacks `pyyaml`.
+    Fails loud when nix is unavailable too — never a silent skip of the YAML checks."""
+    if importlib.util.find_spec("yaml") is not None:
+        if os.environ.get("DOCSYS_DEVSHELL") != "1":
+            print("WARNING: using pyyaml from this interpreter — not the pinned devShell "
+                  "version. Enter `nix develop` for the guaranteed version.")
+        return
+    if os.environ.get("DOCSYS_DEVSHELL") != "1" and shutil.which("nix"):
+        print("pyyaml not importable here — re-running the gate inside the devShell.")
+        sys.stdout.flush()
+        os.execvp("nix", ["nix", "develop", "--command", "python3", "scripts/check.py", *sys.argv[1:]])
+    raise SystemExit("GATE FAILED: pyyaml is not importable and the devShell cannot be entered. "
+                     "Install nix and run: nix develop")
 
 
 def markdownlint_cmd():
@@ -61,9 +81,13 @@ def worktree_clean():
 
 
 def main():
+    ensure_pyyaml()
     checks = [
         ("worktree", worktree_clean),
         ("linkcheck", [PY, "scripts/linkcheck.py"]),
+        # Parser fixtures run BEFORE the corpus checks, for the same reason as md100
+        # below: a green corpus says nothing if the parser has stopped reading it.
+        ("frontmatter-parser", [PY, "scripts/test_frontmatter_lint.py"]),
         ("frontmatter", [PY, "scripts/frontmatter_lint.py"]),
         ("ulid", [PY, "scripts/ulid_check.py"]),
         ("slug", [PY, "scripts/slug_check.py"]),

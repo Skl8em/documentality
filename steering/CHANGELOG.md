@@ -16,6 +16,23 @@ History of the documentation system itself.
 Append-only; each entry is dated-fixed.
 Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
 
+## [v4.0-alpha.12] — Phase 11 T2: parse YAML with YAML
+
+- **Changed:** frontmatter is parsed as **real YAML**, through one shared reader, [`scripts/yaml_frontmatter.py`](../scripts/yaml_frontmatter.py), on `pyyaml` pinned in the devShell (`python3.withPackages`, no new flake input).
+  It replaces three hand-rolled comma-and-colon splitters: the one in `frontmatter_lint.py`, and the one duplicated in `slug_check.py` and `ulid_check.py` (which `slugify_names.py` imported).
+  `hash_seal.is_frozen` reads its three fields through it too; the seal's line-based canonical form is untouched, and every seal still verifies.
+- **Ruled:** two departures from `yaml.safe_load`, each for a failure it would otherwise introduce.
+  Scalars stay strings and only `null` resolves, because YAML 1.1 reads `constitutive: no` as a boolean, an all-digit ULID as an integer and a date as a date — against a schema whose vocabulary is strings.
+  Duplicate keys are errors at any depth, because pyyaml silently keeps the last one.
+- **Added:** [`scripts/test_frontmatter_lint.py`](../scripts/test_frontmatter_lint.py), fixtures on the MD100 harness model, run by the gate before the corpus checks.
+  Nine of its ten lint cases fail against the old parser: five documents it wrongly passed (a field hidden by indentation, a plain scalar folded onto the next line, a duplicate key at the top level and inside an inline map, an unterminated quote), one it failed for the wrong reason, and three valid documents it rejected.
+  The tenth pins the string-typing policy.
+  In the corpus, the only value the old parser misread was the root README's `axis`, which carried its trailing `# comment` inside the value; nothing checked it, so nothing failed.
+- **Changed:** `check.py` re-runs itself under `nix develop` when its interpreter lacks `pyyaml`, and fails loud without nix.
+  The validators that import the parser no longer claim "stdlib only".
+  `ulid.py`, `rename_doc.py` and the MD100 harness still make that claim, and still truthfully, so their comments are kept; the plan's T2 row listed them by mistake and is corrected.
+  ([plan](../phases/refoundation/phase-11-tooling-hardening/plan.md))
+
 ## [v4.0-alpha.11] — Phase 11 T1: close the frontmatter vocabulary
 
 - **Changed:** `frontmatter_lint.py` now **rejects any field outside `required` ∪ `optional_fields` ∪ `root_only_fields`**, and `load_schema()` refuses to start if an `optional_fields` entry has no rationale string — "declared" and "justified" are now the same act.

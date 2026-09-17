@@ -61,7 +61,7 @@ Validation stays in Python.
 | # | Workstream | Output |
 |---|---|---|
 | **T1** | **Close the vocabulary.** `frontmatter_lint.py` errors on any field outside `required` ∪ `optional_fields` ∪ `root_only_fields`. Every optional field carries **its own** rationale string; the schema fails to load if one is missing, so "declared" and "justified" become the same act. Rule the four live cases: justify-and-declare or remove `note` and `review`; justify or drop the unused `order` and `pin`. | closed vocabulary, four rulings |
-| **T2** | **Parse YAML with YAML.** Replace the hand-rolled parser with `pyyaml`, pinned in [`flake.nix`](../../../flake.nix). Fixtures modelled on the MD100 harness, pinning the cases the old parser silently got wrong. Then **reword the eight "stdlib only" comments** that stop being true (`check.py`, `frontmatter_lint.py`, `hash_check.py`, `slug_check.py`, `slugify_names.py`, `ulid.py`, `ulid_check.py`, `rename_doc.py`) plus [`flake.nix`](../../../flake.nix) line 28. | real parser, fixtures, honest comments |
+| **T2** | **Parse YAML with YAML.** Replace the hand-rolled parser with `pyyaml`, pinned in [`flake.nix`](../../../flake.nix). Fixtures modelled on the MD100 harness, pinning the cases the old parser silently got wrong. Then **reword the "stdlib only" comments** that stop being true (`check.py`, `frontmatter_lint.py`, `hash_check.py`, `slug_check.py`, `slugify_names.py`, `ulid_check.py`) plus [`flake.nix`](../../../flake.nix) line 28 — `ulid.py` and `rename_doc.py`, first listed here too, never touch YAML and keep a true claim. | real parser, fixtures, honest comments |
 | **T3** | **YAML source, generated JSON.** Author the rules in YAML where comments carry each field's justification; generate the JSON artifact both runtimes can read dependency-free; the gate regenerates and diffs, failing on drift. Rename off `.schema.json`, which promises a standard the file does not implement. | `frontmatter-rules.yaml` → generated JSON + drift check |
 | **T4** | **Referential integrity.** Extend `ulid_check.py`: every non-null `supersedes`/`superseded-by` resolves to an existing `id`; supersession is symmetric (if A supersedes B, B names A); every register row agrees with the record it points at. | a referential validator |
 
@@ -73,7 +73,7 @@ T2 before T3, because generating a schema is not worth doing on top of a parser 
 - A document carrying an undeclared field **fails** the gate; a schema entry lacking a rationale **fails to load**.
 - The four live vocabulary cases (`note`, `review`, `order`, `pin`) are each ruled on, not left standing.
 - Fixtures exist for the YAML cases the hand-rolled parser mis-parsed, and they fail against the old parser.
-- No comment in the tree still claims "stdlib only" once `pyyaml` is a dependency.
+- No comment in the tree claims "stdlib only" for code that imports `pyyaml`, directly or through a module it imports.
 - A deliberately dangling `supersedes` fails the gate.
 - The generated JSON cannot drift from its YAML source without the gate noticing.
 - `python3 scripts/check.py` is green.
