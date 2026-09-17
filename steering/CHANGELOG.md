@@ -16,6 +16,16 @@ History of the documentation system itself.
 Append-only; each entry is dated-fixed.
 Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
 
+## [v4.0-alpha.14] — Phase 11 T4: referential integrity
+
+- **Added:** `scripts/ulid_check.py` now validates `supersedes`/`superseded-by` corpus-wide, not just `id`.
+  Three checks: every non-null reference resolves to some record's `id` or filename stem (the pre-ULID reference form, e.g. `supersedes: ADR-001-inscribed-act`); supersession is symmetric, matching what `schema/frontmatter-rules.yaml` already documented (`superseded-by` as "the inverse of `supersedes`, kept symmetric") but never enforced; and every row of the central register ([`steering/ADR.md`](ADR.md)) agrees with the `superseded-by` of the record its link points at.
+  A `<...>` placeholder (a force template's SPECIMEN frontmatter) is not a reference and is skipped, the same test `hash_seal.is_frozen` already used for a specimen `provenance.id`.
+- **Fixed:** three real asymmetric references, found by the new check, not suspected: ADR-001, ADR-002 and ADR-006 (`phases/naive-sketch/`) each carried `superseded-by: null` although the register and their superseding record (ADR-014, ADR-015, ADR-017) had already recorded the other direction.
+  Retrofitted `superseded-by` on the three, the same way [`hosting-codeberg-github-mirror.md`](../phases/refoundation/phase-10-schema/hosting-codeberg-github-mirror.md) already had it added when [`hosting-github-canonical.md`](../phases/refoundation/phase-10-schema/hosting-github-canonical.md) superseded it — the pointer is kept live, only the decision's own reasoning is dated-fixed.
+- **Added:** [`scripts/test_ulid_check.py`](../scripts/test_ulid_check.py), fixtures on the same model as `test_frontmatter_lint.py` — a dangling reference, a broken symmetry, a register disagreement, a `<...>` placeholder, a list-valued reference — run by the gate (`ulid-test`) before the corpus check it gates.
+  ([plan](../phases/refoundation/phase-11-tooling-hardening/plan.md))
+
 ## [v4.0-alpha.13] — Phase 11 T3: YAML source, generated JSON
 
 - **Changed:** the schema's source of truth is now [`schema/frontmatter-rules.yaml`](../schema/frontmatter-rules.yaml) — hand-edited, `#` comments allowed, replacing the `"//"` key JSON used as a comment substitute.
