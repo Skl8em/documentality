@@ -9,7 +9,9 @@ that consciously. Canonicalisation is defined in `hash_seal.py`.
 Also reports frozen records that carry no seal (informational, not a failure —
 sealing is optional per the schema).
 
-Stdlib only.
+Imports scripts/hash_seal.py, which reads the frozen-record fields as YAML, so it
+needs `pyyaml` — the devShell provides it. The `hash:` line itself is read as text:
+the seal is defined over lines, not over parsed YAML.
 
     python3 scripts/hash_check.py
     python3 scripts/hash_check.py --unsealed  # also list the unsealed frozen records
