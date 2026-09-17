@@ -4,13 +4,14 @@
   1. worktree         no untracked cruft on disk (the gate reads git, so it must
                       also notice what git is NOT tracking)
   2. linkcheck        every relative markdown link resolves
-  3. frontmatter_test the YAML frontmatter parser still reads what it must
-  4. frontmatter_lint the frontmatter invariants (warns on what is still open)
-  5. ulid_check       every frontmatter `id` is a valid, unique ULID
-  6. slug_check       filename stem == frontmatter `slug` (ADR-028)
-  7. hash_check       every frozen record's fixity seal still matches
-  8. md100_test       the custom sentence-per-line rule still flags what it must
-  9. markdownlint     one shared ruleset incl. one-sentence-per-line (ADR-021)
+  3. schema_drift     schema/frontmatter-rules.json still matches its YAML source
+  4. frontmatter_test the YAML frontmatter parser still reads what it must
+  5. frontmatter_lint the frontmatter invariants (warns on what is still open)
+  6. ulid_check       every frontmatter `id` is a valid, unique ULID
+  7. slug_check       filename stem == frontmatter `slug` (ADR-028)
+  8. hash_check       every frozen record's fixity seal still matches
+  9. md100_test       the custom sentence-per-line rule still flags what it must
+ 10. markdownlint     one shared ruleset incl. one-sentence-per-line (ADR-021)
 
 This is what pre-commit and CI run. This file itself is stdlib-only, but the
 validators it runs need two things from the devShell: `pyyaml` (the frontmatter
@@ -85,6 +86,9 @@ def main():
     checks = [
         ("worktree", worktree_clean),
         ("linkcheck", [PY, "scripts/linkcheck.py"]),
+        # Must pass before anything that loads schema/frontmatter-rules.json: a
+        # stale generated file would otherwise let a schema edit go unenforced.
+        ("schema-drift", [PY, "scripts/generate_schema.py", "--check"]),
         # Parser fixtures run BEFORE the corpus checks, for the same reason as md100
         # below: a green corpus says nothing if the parser has stopped reading it.
         ("frontmatter-parser", [PY, "scripts/test_frontmatter_lint.py"]),

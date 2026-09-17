@@ -2,15 +2,23 @@
 
 Replaces the hand-rolled comma-and-colon splitters, which silently mis-parsed
 anything outside the subset the corpus happened to use. Real YAML, via `pyyaml`
-(pinned in the devShell), with two deliberate departures from `yaml.safe_load`:
+(pinned in the devShell), with two deliberate departures from `yaml.safe_load`,
+both on `StrictLoader` below:
 
   - **Scalars stay strings; only `null`/`~`/empty resolve (to None).** YAML 1.1
     reads `constitutive: no` as False, an all-digit ULID as an int, `2026-09-15`
     as a date. The schema's vocabulary is strings, so implicit typing could only
-    turn a valid value into an invalid one — or a crash.
+    turn a valid value into an invalid one — or a crash. (scripts/generate_schema.py
+    hit this directly: `error_enums.constitutive: [yes, no]` compiled to
+    `[true, false]` under a plain SafeLoader — the same trap, in the schema's own
+    source instead of a document's.)
   - **Duplicate keys are an error**, at any depth. YAML says keys are unique;
     pyyaml keeps the last one silently, so `view: bogus` followed by
     `view: synchronic` would pass.
+
+`StrictLoader` is reusable beyond frontmatter blocks — scripts/generate_schema.py
+loads schema/frontmatter-rules.yaml through it too, since that file's vocabulary
+is just as string-typed and just as hand-edited.
 
 The fences are the same as scripts/hash_seal.py's: a first line `---`, closed by
 the next line that strips to `---`.
@@ -39,7 +47,10 @@ class FrontmatterError(ValueError):
         self.message = message
 
 
-class _Loader(yaml.SafeLoader):
+class StrictLoader(yaml.SafeLoader):
+    """SafeLoader with implicit typing narrowed to null-only, and duplicate keys
+    (at any depth) raising instead of silently keeping the last one."""
+
     def construct_mapping(self, node, deep=False):
         seen = set()
         for key_node, _ in node.value:
@@ -51,7 +62,7 @@ class _Loader(yaml.SafeLoader):
         return super().construct_mapping(node, deep=deep)
 
 
-_Loader.yaml_implicit_resolvers = {
+StrictLoader.yaml_implicit_resolvers = {
     first: [(tag, rx) for tag, rx in resolvers if tag == NULL_TAG]
     for first, resolvers in yaml.SafeLoader.yaml_implicit_resolvers.items()
 }
@@ -68,7 +79,7 @@ def parse(text):
         raise FrontmatterError(1, "unterminated frontmatter block")
     offset = 2  # pyyaml marks are 0-based, and the block starts on file line 2
 
-    loader = _Loader("\n".join(lines[1:end]))
+    loader = StrictLoader("\n".join(lines[1:end]))
     try:
         root = loader.get_single_node()
         if root is None:

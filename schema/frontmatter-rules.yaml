@@ -1,0 +1,110 @@
+# Phase 10 frontmatter schema. Single edit surface for the validator
+# (scripts/frontmatter_lint.py). The Phase-09 starter's two contested fields are
+# now settled and are ERRORS: `intention` is coarse, `register` is derived (never
+# stored), `constitutive` is required. What is still genuinely undecided stays a
+# warning. See phases/refoundation/phase-10-schema/plan.md and the records in
+# that folder.
+#
+# Phase 11 T1 closed the vocabulary: a field is legal only if it is `required`, a
+# key of `optional_fields` (each carrying its own rationale — the schema fails to
+# load if one is missing or empty), or a `root_only_fields` entry.
+#
+# Phase 11 T3 made this file, not the JSON, the source of truth: this is where a
+# field is declared and justified, in one hand-edited place with room for comments
+# like this one. scripts/generate_schema.py compiles it to
+# schema/frontmatter-rules.json — the artifact scripts/frontmatter_lint.py and any
+# other dependency-free reader actually load. Edit this file, then run
+# `python3 scripts/generate_schema.py` and commit both files; `scripts/check.py`
+# fails the gate if they drift apart.
+# See phases/refoundation/phase-11-tooling-hardening/plan.md.
+
+required:
+  - title
+  - force
+  - intention
+  - constitutive
+  - view
+  - provenance
+  - audience
+  - reader
+  - status
+
+error_enums:
+  view: [synchronic, diachronic]
+  reader: [H, M, H+M]
+  force:
+    [orient, explain, describe, instruct, teach, recommend, mandate, commit,
+     propose, decide, prove, account]
+  provenance_type: [function, project]
+  intention: [state, formative, suasive, affective]
+  constitutive: [yes, no]
+
+audience_base_roles: [user, contributor, decider]
+
+# Legal only on the root README (scripts/frontmatter_lint.py enforces both
+# directions: required there, forbidden everywhere else).
+root_only_fields: [axis, dominant-community]
+
+# Computed by the linter, never authored — documented here so the derivation
+# rule lives beside the vocabulary it depends on, not just in code.
+derived_fields:
+  register: "constitutive == yes ? govern : direction_of_fit(force) — derived, never stored. Storing it is an error."
+  diataxis: "force x intention, where the register is know or do."
+  direction-of-fit: "fixed by force — see the table below."
+
+# Must partition `force` exactly; the linter refuses to load the schema otherwise
+# (register cannot be derived from an incomplete or overlapping table).
+direction_of_fit:
+  know: [orient, explain, describe, prove, account]
+  do: [instruct, teach, recommend, mandate, commit, propose, decide]
+
+# Every key here MUST carry a non-empty rationale string as its value — that is
+# the T1 mechanism that makes "declared" and "justified" the same act. One field,
+# one reason, no bundling several fields under one description.
+optional_fields:
+  hash: >-
+    sha256:<64 lowercase hex> — the fixity seal of a frozen record
+    (scripts/hash_seal.py mints it, scripts/hash_check.py verifies it).
+  verb: >-
+    generative verb; stored only when it diverges from the tuple (force,
+    intention).
+  id: ULID (ADR-028) — the stable machine identity, independent of the filename.
+  slug: the filename stem — the human-readable identity paired with `id`.
+  concerns: the activities a document governs, distinct from its provenance.
+  distance: >-
+    recipient distance — how far the reader sits from the act (theorising,
+    essay 2).
+  power: the sanction the recipient holds over the act (theorising, essay 2).
+  retention: >-
+    the reified retention rule — how long a record is kept live before
+    archival (theorising, essay 3).
+  supersedes: >-
+    the record(s) this one supersedes — record chaining (theorising, essay 3:
+    supersede-not-edit).
+  superseded-by: >-
+    the record(s) that supersede this one — the inverse of `supersedes`, kept
+    symmetric.
+  phase: >-
+    the construction phase this document was written for, or is current as of
+    (steering/roadmap.md, steering/foundation.md) — distinct from
+    `provenance`, which names the activity, not the phase.
+  pin: >-
+    a submodule commit pin — the VCS fixity bond for a cross-project reference
+    (writing/frontmatter.md; structuring/setup.md). Not yet exercised in this
+    corpus: this repo is a single-project (topology A) instance, never a
+    `projects/`-submodule one — the field is real, designed vocabulary for the
+    methodology, just structurally unreachable here.
+
+hash_pattern: "^sha256:[0-9a-f]{64}$"
+
+# Current practice, not a ruling — see `still_open` below. WARNING, not ERROR.
+warn_enums:
+  distance: [initiated, novice, peer, near, far]
+  power: [none, low, holds]
+  status: [draft, stable, deprecated, accepted, done, in-progress, planned]
+
+still_open:
+  - "distance/power allowed values — the sets above are the current practice, not a ruling"
+  - "status vocabulary — current documents vs frozen records use different words"
+  - "deriving `constitutive` from force x power — deferred by decision (see register-derived-constitutive.md)"
+  - "the shape of `concerns`"

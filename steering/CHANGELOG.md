@@ -16,6 +16,18 @@ History of the documentation system itself.
 Append-only; each entry is dated-fixed.
 Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
 
+## [v4.0-alpha.13] — Phase 11 T3: YAML source, generated JSON
+
+- **Changed:** the schema's source of truth is now [`schema/frontmatter-rules.yaml`](../schema/frontmatter-rules.yaml) — hand-edited, `#` comments allowed, replacing the `"//"` key JSON used as a comment substitute.
+  [`scripts/generate_schema.py`](../scripts/generate_schema.py) compiles it to `schema/frontmatter-rules.json`, the artifact `frontmatter_lint.py` and any other dependency-free reader actually loads; the two files carry identical data.
+  This retires `schema/frontmatter.schema.json`, whose name claimed a JSON Schema dialect the hand-written validator never implemented.
+- **Added:** a drift check — `scripts/generate_schema.py --check` regenerates the JSON in memory and diffs it against the committed file, failing loud on any mismatch.
+  Wired into `check.py` as `schema-drift`, run before anything that loads the generated file, so a schema edit can never go unenforced because the generated artifact was left stale.
+- **Fixed:** compiling the YAML source with a plain `yaml.safe_load` turned `error_enums.constitutive: [yes, no]` into `[true, false]` — YAML 1.1's implicit bool resolution, the exact failure mode Phase 11 T2 fixed for frontmatter *documents*, reappearing in the schema's own source.
+  `scripts/generate_schema.py` now loads through `yaml_frontmatter.StrictLoader` (renamed from the module-private `_Loader`, now an explicit shared export) — the same string-only, duplicate-key-errors loader `yaml_frontmatter.py` already used, so this class of bug is fixed once, not twice.
+- **Changed:** the two `still_open` cross-references in [`steering/open-questions.md`](open-questions.md) now point at `schema/frontmatter-rules.yaml`.
+  ([plan](../phases/refoundation/phase-11-tooling-hardening/plan.md))
+
 ## [v4.0-alpha.12] — Phase 11 T2: parse YAML with YAML
 
 - **Changed:** frontmatter is parsed as **real YAML**, through one shared reader, [`scripts/yaml_frontmatter.py`](../scripts/yaml_frontmatter.py), on `pyyaml` pinned in the devShell (`python3.withPackages`, no new flake input).
