@@ -7,11 +7,14 @@
   3. schema_drift     schema/frontmatter-rules.json still matches its YAML source
   4. frontmatter_test the YAML frontmatter parser still reads what it must
   5. frontmatter_lint the frontmatter invariants (warns on what is still open)
-  6. ulid_check       every frontmatter `id` is a valid, unique ULID
-  7. slug_check       filename stem == frontmatter `slug` (ADR-028)
-  8. hash_check       every frozen record's fixity seal still matches
-  9. md100_test       the custom sentence-per-line rule still flags what it must
- 10. markdownlint     one shared ruleset incl. one-sentence-per-line (ADR-021)
+  6. ulid_test        the referential-integrity checks still flag what they must
+  7. ulid_check       every frontmatter `id` is a valid, unique ULID, and every
+                      `supersedes`/`superseded-by` resolves, is symmetric, and
+                      agrees with the central register
+  8. slug_check       filename stem == frontmatter `slug` (ADR-028)
+  9. hash_check       every frozen record's fixity seal still matches
+ 10. md100_test       the custom sentence-per-line rule still flags what it must
+ 11. markdownlint     one shared ruleset incl. one-sentence-per-line (ADR-021)
 
 This is what pre-commit and CI run. This file itself is stdlib-only, but the
 validators it runs need two things from the devShell: `pyyaml` (the frontmatter
@@ -93,6 +96,9 @@ def main():
         # below: a green corpus says nothing if the parser has stopped reading it.
         ("frontmatter-parser", [PY, "scripts/test_frontmatter_lint.py"]),
         ("frontmatter", [PY, "scripts/frontmatter_lint.py"]),
+        # Same reasoning as frontmatter-parser above: fixtures for the referential
+        # checks run before the corpus check they gate.
+        ("ulid-test", [PY, "scripts/test_ulid_check.py"]),
         ("ulid", [PY, "scripts/ulid_check.py"]),
         ("slug", [PY, "scripts/slug_check.py"]),
         ("hash", [PY, "scripts/hash_check.py"]),
