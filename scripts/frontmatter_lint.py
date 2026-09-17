@@ -2,7 +2,7 @@
 """Frontmatter linter.
 
 Validates every tracked Markdown document's YAML frontmatter against
-schema/frontmatter.schema.json. Settled rules are ERRORS (exit 1); what is still
+schema/frontmatter-rules.json. Settled rules are ERRORS (exit 1); what is still
 genuinely undecided is a WARNING. Parses real YAML through
 scripts/yaml_frontmatter.py, so it needs `pyyaml` — the devShell provides it.
 
@@ -16,6 +16,11 @@ phases/refoundation/phase-11-tooling-hardening/.
 
 Phase 11 T2 replaced the hand-rolled comma-and-colon parser with that YAML reader;
 its fixtures are scripts/test_frontmatter_lint.py.
+
+Phase 11 T3 moved the schema's source of truth to schema/frontmatter-rules.yaml —
+hand-edited, comments allowed. This file loads the JSON generated from it
+(scripts/generate_schema.py), so reading the schema never itself requires a YAML
+parser. `scripts/check.py` fails the gate if the two have drifted apart.
 
     python3 scripts/frontmatter_lint.py            # errors only gate
     python3 scripts/frontmatter_lint.py --warnings # also print warnings
@@ -46,7 +51,7 @@ def ignored(path):
 
 
 def load_schema():
-    with open("schema/frontmatter.schema.json", encoding="utf-8") as fh:
+    with open("schema/frontmatter-rules.json", encoding="utf-8") as fh:
         schema = json.load(fh)
     # Fail loud if the schema itself is incoherent: the direction-of-fit table must
     # partition the twelve forces exactly, or `register` cannot be derived.
@@ -163,7 +168,7 @@ def lint_file(path, schema, errors, warnings):
     known = set(schema["required"]) | set(schema["optional_fields"]) | set(schema["root_only_fields"])
     for field in fm:
         if field not in known and field != "register":
-            errors.append((path, ln(field), f"`{field}` is not in the closed frontmatter vocabulary — declare it in schema/frontmatter.schema.json with a rationale, or remove it"))
+            errors.append((path, ln(field), f"`{field}` is not in the closed frontmatter vocabulary — declare it in schema/frontmatter-rules.yaml with a rationale, or remove it"))
 
 
 def print_registers(schema, files):
