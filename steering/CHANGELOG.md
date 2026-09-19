@@ -16,6 +16,17 @@ History of the documentation system itself.
 Append-only; each entry is dated-fixed.
 Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
 
+## [v4.0-alpha.15] — Phase 12 inserted: codifying
+
+- **Planned:** **Phase 12 — codifying**, inserted before the Phase-II design.
+  Phase 11 hardened the tooling and explained none of it: `writing/frontmatter.md` never states the vocabulary is now closed, `ARCHITECTURE.md` never mentions Phase 11 at all, `CONTRIBUTING.md` has no word on `scripts/`, and the phase closed with no README, no consolidated changelog entry, and none of the three ADRs its own plan named as owed at close.
+  This is the second time: Phase 10 caught itself mid-close leaving the product describing an old model and fixed it as a named departure ([`phase-10-schema/README.md`](../phases/refoundation/phase-10-schema/README.md)); Phase 11 made a larger change the same way and didn't catch it.
+  A sequencing decision, so it is held here and in the roadmap rather than in the ADR register (ADR-032).
+  ([plan](../phases/refoundation/phase-12-codifying/plan.md))
+- **Named:** **`codifying`**, the seventh function — the "IT tools" link [ADR-033](../phases/refoundation/phase-10-schema/operationalizing-function.md)'s own chain (`theorising → operationalizing → structuring/writing → designing → IT tools`) already named and never gave a shelf.
+  Adopting it — the ADR, the orient, the first fiches — is this phase's T1.
+- **Changed:** Phase 11's roadmap row marked *(open — closure folded into Phase 12)* rather than *(next)*; its account is paid by this phase's T2.
+
 ## [v4.0-alpha.14] — Phase 11 T4: referential integrity
 
 - **Added:** `scripts/ulid_check.py` now validates `supersedes`/`superseded-by` corpus-wide, not just `id`.
