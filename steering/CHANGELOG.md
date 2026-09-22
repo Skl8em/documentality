@@ -16,6 +16,85 @@ History of the documentation system itself.
 Append-only; each entry is dated-fixed.
 Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
 
+## [v4.0-alpha.15] — Phase 12 inserted: codifying
+
+- **Planned:** **Phase 12 — codifying**, inserted before the Phase-II design.
+  Phase 11 hardened the tooling and explained none of it: `writing/frontmatter.md` never states the vocabulary is now closed, `ARCHITECTURE.md` never mentions Phase 11 at all, `CONTRIBUTING.md` has no word on `scripts/`, and the phase closed with no README, no consolidated changelog entry, and none of the three ADRs its own plan named as owed at close.
+  This is the second time: Phase 10 caught itself mid-close leaving the product describing an old model and fixed it as a named departure ([`phase-10-schema/README.md`](../phases/refoundation/phase-10-schema/README.md)); Phase 11 made a larger change the same way and didn't catch it.
+  A sequencing decision, so it is held here and in the roadmap rather than in the ADR register (ADR-032).
+  ([plan](../phases/refoundation/phase-12-codifying/plan.md))
+- **Named:** **`codifying`**, the seventh function — the "IT tools" link [ADR-033](../phases/refoundation/phase-10-schema/operationalizing-function.md)'s own chain (`theorising → operationalizing → structuring/writing → designing → IT tools`) already named and never gave a shelf.
+  Adopting it — the ADR, the orient, the first fiches — is this phase's T1.
+- **Changed:** Phase 11's roadmap row marked *(open — closure folded into Phase 12)* rather than *(next)*; its account is paid by this phase's T2.
+
+## [v4.0-alpha.14] — Phase 11 T4: referential integrity
+
+- **Added:** `scripts/ulid_check.py` now validates `supersedes`/`superseded-by` corpus-wide, not just `id`.
+  Three checks: every non-null reference resolves to some record's `id` or filename stem (the pre-ULID reference form, e.g. `supersedes: ADR-001-inscribed-act`); supersession is symmetric, matching what `schema/frontmatter-rules.yaml` already documented (`superseded-by` as "the inverse of `supersedes`, kept symmetric") but never enforced; and every row of the central register ([`steering/ADR.md`](ADR.md)) agrees with the `superseded-by` of the record its link points at.
+  A `<...>` placeholder (a force template's SPECIMEN frontmatter) is not a reference and is skipped, the same test `hash_seal.is_frozen` already used for a specimen `provenance.id`.
+- **Fixed:** three real asymmetric references, found by the new check, not suspected: ADR-001, ADR-002 and ADR-006 (`phases/naive-sketch/`) each carried `superseded-by: null` although the register and their superseding record (ADR-014, ADR-015, ADR-017) had already recorded the other direction.
+  Retrofitted `superseded-by` on the three, the same way [`hosting-codeberg-github-mirror.md`](../phases/refoundation/phase-10-schema/hosting-codeberg-github-mirror.md) already had it added when [`hosting-github-canonical.md`](../phases/refoundation/phase-10-schema/hosting-github-canonical.md) superseded it — the pointer is kept live, only the decision's own reasoning is dated-fixed.
+- **Added:** [`scripts/test_ulid_check.py`](../scripts/test_ulid_check.py), fixtures on the same model as `test_frontmatter_lint.py` — a dangling reference, a broken symmetry, a register disagreement, a `<...>` placeholder, a list-valued reference — run by the gate (`ulid-test`) before the corpus check it gates.
+  ([plan](../phases/refoundation/phase-11-tooling-hardening/plan.md))
+
+## [v4.0-alpha.13] — Phase 11 T3: YAML source, generated JSON
+
+- **Changed:** the schema's source of truth is now [`schema/frontmatter-rules.yaml`](../schema/frontmatter-rules.yaml) — hand-edited, `#` comments allowed, replacing the `"//"` key JSON used as a comment substitute.
+  [`scripts/generate_schema.py`](../scripts/generate_schema.py) compiles it to `schema/frontmatter-rules.json`, the artifact `frontmatter_lint.py` and any other dependency-free reader actually loads; the two files carry identical data.
+  This retires `schema/frontmatter.schema.json`, whose name claimed a JSON Schema dialect the hand-written validator never implemented.
+- **Added:** a drift check — `scripts/generate_schema.py --check` regenerates the JSON in memory and diffs it against the committed file, failing loud on any mismatch.
+  Wired into `check.py` as `schema-drift`, run before anything that loads the generated file, so a schema edit can never go unenforced because the generated artifact was left stale.
+- **Fixed:** compiling the YAML source with a plain `yaml.safe_load` turned `error_enums.constitutive: [yes, no]` into `[true, false]` — YAML 1.1's implicit bool resolution, the exact failure mode Phase 11 T2 fixed for frontmatter *documents*, reappearing in the schema's own source.
+  `scripts/generate_schema.py` now loads through `yaml_frontmatter.StrictLoader` (renamed from the module-private `_Loader`, now an explicit shared export) — the same string-only, duplicate-key-errors loader `yaml_frontmatter.py` already used, so this class of bug is fixed once, not twice.
+- **Changed:** the two `still_open` cross-references in [`steering/open-questions.md`](open-questions.md) now point at `schema/frontmatter-rules.yaml`.
+  ([plan](../phases/refoundation/phase-11-tooling-hardening/plan.md))
+
+## [v4.0-alpha.12] — Phase 11 T2: parse YAML with YAML
+
+- **Changed:** frontmatter is parsed as **real YAML**, through one shared reader, [`scripts/yaml_frontmatter.py`](../scripts/yaml_frontmatter.py), on `pyyaml` pinned in the devShell (`python3.withPackages`, no new flake input).
+  It replaces three hand-rolled comma-and-colon splitters: the one in `frontmatter_lint.py`, and the one duplicated in `slug_check.py` and `ulid_check.py` (which `slugify_names.py` imported).
+  `hash_seal.is_frozen` reads its three fields through it too; the seal's line-based canonical form is untouched, and every seal still verifies.
+- **Ruled:** two departures from `yaml.safe_load`, each for a failure it would otherwise introduce.
+  Scalars stay strings and only `null` resolves, because YAML 1.1 reads `constitutive: no` as a boolean, an all-digit ULID as an integer and a date as a date — against a schema whose vocabulary is strings.
+  Duplicate keys are errors at any depth, because pyyaml silently keeps the last one.
+- **Added:** [`scripts/test_frontmatter_lint.py`](../scripts/test_frontmatter_lint.py), fixtures on the MD100 harness model, run by the gate before the corpus checks.
+  Nine of its ten lint cases fail against the old parser: five documents it wrongly passed (a field hidden by indentation, a plain scalar folded onto the next line, a duplicate key at the top level and inside an inline map, an unterminated quote), one it failed for the wrong reason, and three valid documents it rejected.
+  The tenth pins the string-typing policy.
+  In the corpus, the only value the old parser misread was the root README's `axis`, which carried its trailing `# comment` inside the value; nothing checked it, so nothing failed.
+- **Changed:** `check.py` re-runs itself under `nix develop` when its interpreter lacks `pyyaml`, and fails loud without nix.
+  The validators that import the parser no longer claim "stdlib only".
+  `ulid.py`, `rename_doc.py` and the MD100 harness still make that claim, and still truthfully, so their comments are kept; the plan's T2 row listed them by mistake and is corrected.
+  ([plan](../phases/refoundation/phase-11-tooling-hardening/plan.md))
+
+## [v4.0-alpha.11] — Phase 11 T1: close the frontmatter vocabulary
+
+- **Changed:** `frontmatter_lint.py` now **rejects any field outside `required` ∪ `optional_fields` ∪ `root_only_fields`**, and `load_schema()` refuses to start if an `optional_fields` entry has no rationale string — "declared" and "justified" are now the same act.
+  `schema/frontmatter.schema.json`'s `optional_fields` is rewritten one key per field (it previously bundled several field names into a single description, e.g. `supersedes` silently covering `superseded-by`, `retention`, `pin`, `order`, and `phase`), each now carrying its own rationale.
+- **Ruled:** the four vocabulary cases the gate could not see, checked against the two documents that actually define the intended vocabulary (`writing/frontmatter.md`'s field table and `operationalizing/README.md`'s coordinate inventory), not against corpus habit alone.
+  `pin` is **declared and justified** — `writing/frontmatter.md` already names it as a real coordinate ("fixity anchor for a cross-project reference"); it is unused only because this repo is a single-project (topology A) instance and never instantiates the `projects/`-submodule topology it fixes a reference into.
+  `phase` (2 documents, `steering/roadmap.md` and `steering/foundation.md`) is **declared and justified** and **added to `writing/frontmatter.md`'s field table**, which had drifted: `git log -p` shows the field is bumped forward as a steering document is reconciled to a later phase, not fixed at creation — a real, machine-checkable coordinate the reference document had simply never recorded.
+  `note` (4 documents) is **dropped**, and reconsidered on stronger grounds than "undeclared": `writing/frontmatter.md` states the frontmatter carries only "hard coordinates not derivable from one another" and exists so "the machine" gets a document's coordinates "without a human reading them" — `note` is free prose nothing reads, present in neither canonical field list.
+  Each of the 4 documents' `note:` value is moved into its own opening prose instead of dropped outright.
+  `review` (1 use, `steering/roadmap.md`) is **dropped**: `git log -S"review:"` traces it to a single silent addition in the Phase-10 sweep commit, with no explanation anywhere and no field-table entry.
+  `order` (0 uses) is dropped for the same absence of any documented rationale.
+  The single `review: 10-schema` line is removed from `steering/roadmap.md`.
+  ([plan](../phases/refoundation/phase-11-tooling-hardening/plan.md))
+
+## [v4.0-alpha.10] — Phase 11 inserted: tooling hardening
+
+- **Planned:** **Phase 11 — tooling hardening**, inserted before the Phase-II design.
+  Phase 10 reconciled the schema and enforced it, but enforcement stops at the nine required fields and six enums: the vocabulary is open (`note` and `review` sit in the corpus declared nowhere, while `order` and `pin` are declared and unused), the YAML parser is hand-rolled and mis-parses silently instead of failing, and no identifier is checked to point at anything.
+  Hardening is placed first because Phase II generates *from* the frontmatter, and generation inherits every weakness the catalogue carries.
+  A sequencing decision, so it is held here and in the roadmap rather than in the ADR register (ADR-032).
+  ([plan](../phases/refoundation/phase-11-tooling-hardening/plan.md))
+- **Changed:** **unstarted phases are no longer numbered.**
+  Inserting this phase moved a forward reference for the second time (the Phase-09 insertion did it first), so the roadmap now names and orders work it has not begun rather than giving it an ordinal it cannot keep.
+  A phase takes its number when we tackle it — the same move the ADR register already makes, where the ordinal is a generated display label and the identity lives elsewhere (ADR-028).
+  Referring to unstarted work by number is what made both insertions a renumbering sweep; the sweeps were the symptom, the numbering was the cause.
+- **Recorded:** folding the frontmatter validator into markdownlint was considered and **rejected on evidence** — a custom rule receives frontmatter as raw text, no YAML parser is reachable from it, and the VSCode extension loads custom rules in its own Node context, so any external dependency would pass in CI and fail in the editor.
+  Referential integrity is also corpus-level, which markdownlint's per-file model cannot express.
+- **Changed:** stale phase claims corrected, since a misleading comment is worse than none — the root `README` and `phases/README.md` both still announced Phase 10 as *next* and Phase 11 as the Phase-II design, and the roadmap's own `phase:` field still read `08-refactor`.
+
 ## [v4.0-alpha.9] — hosting reversed: GitHub canonical
 
 - **Decided:** the canonical repository is **GitHub**, and there is **no mirror** — superseding the Codeberg decision of alpha.7, which was recorded but never enacted (no Codeberg repository was ever created).

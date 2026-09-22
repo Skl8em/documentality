@@ -21,7 +21,9 @@ coordinates*, not the order they happen to be written in.
 
 A record is *frozen* — and so eligible for sealing — when it is a project's
 diachronic record that has closed: `view: diachronic`, `provenance.type: project`,
-and `status` in accepted / done / stable.
+and `status` in accepted / done / stable. Those fields are read as YAML (through
+scripts/yaml_frontmatter.py, so this needs `pyyaml`); the seal itself stays a
+line-based canonical form, above, and does not depend on the parser.
 
     python3 scripts/hash_seal.py --frozen          # seal every unsealed frozen record
     python3 scripts/hash_seal.py path/to/record.md # seal one file
@@ -32,6 +34,9 @@ import hashlib
 import os
 import subprocess
 import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from yaml_frontmatter import load, values  # noqa: E402
 
 ROOT = subprocess.check_output(["git", "rev-parse", "--show-toplevel"], text=True).strip()
 os.chdir(ROOT)
@@ -79,20 +84,18 @@ def field(fm_lines, key):
 
 
 def is_frozen(path):
-    try:
-        fm_lines, _ = split_document(path)
-    except ValueError:
+    fm = values(load(path))  # malformed YAML raises: never silently "not frozen"
+    prov = fm.get("provenance")
+    if not isinstance(prov, dict):
         return False
-    prov = field(fm_lines, "provenance") or ""
-    status = (field(fm_lines, "status") or "").strip("\"'")
     # A force template carries SPECIMEN frontmatter — `id: <phase-or-project-id>` —
     # which otherwise reads as a frozen project record. A placeholder id is not a
     # project, so the document is not a record of one.
-    if "<" in prov:
+    if "<" in str(prov.get("id", "")):
         return False
-    return (field(fm_lines, "view") == "diachronic"
-            and "type: project" in prov
-            and status in FROZEN_STATUSES)
+    return (fm.get("view") == "diachronic"
+            and prov.get("type") == "project"
+            and fm.get("status") in FROZEN_STATUSES)
 
 
 def write_seal(path, reseal):

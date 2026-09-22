@@ -2,12 +2,25 @@
 """Frontmatter linter.
 
 Validates every tracked Markdown document's YAML frontmatter against
-schema/frontmatter.schema.json. Settled rules are ERRORS (exit 1); what is still
-genuinely undecided is a WARNING. Stdlib only, so it runs outside the devShell.
+schema/frontmatter-rules.json. Settled rules are ERRORS (exit 1); what is still
+genuinely undecided is a WARNING. Parses real YAML through
+scripts/yaml_frontmatter.py, so it needs `pyyaml` — the devShell provides it.
 
 Phase 10 promoted the Phase-09 starter's three contested rules to errors:
 `intention` is the coarse set, `register` is derived and must NOT be stored, and
 `constitutive` is required. See phases/refoundation/phase-10-schema/.
+
+Phase 11 T1 closed the vocabulary: any field outside `required` ∪
+`optional_fields` ∪ `root_only_fields` is an error. See
+phases/refoundation/phase-11-tooling-hardening/.
+
+Phase 11 T2 replaced the hand-rolled comma-and-colon parser with that YAML reader;
+its fixtures are scripts/test_frontmatter_lint.py.
+
+Phase 11 T3 moved the schema's source of truth to schema/frontmatter-rules.yaml —
+hand-edited, comments allowed. This file loads the JSON generated from it
+(scripts/generate_schema.py), so reading the schema never itself requires a YAML
+parser. `scripts/check.py` fails the gate if the two have drifted apart.
 
     python3 scripts/frontmatter_lint.py            # errors only gate
     python3 scripts/frontmatter_lint.py --warnings # also print warnings
@@ -18,6 +31,9 @@ import os
 import re
 import subprocess
 import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from yaml_frontmatter import FrontmatterError, load  # noqa: E402
 
 ROOT = subprocess.check_output(["git", "rev-parse", "--show-toplevel"], text=True).strip()
 os.chdir(ROOT)
@@ -35,7 +51,7 @@ def ignored(path):
 
 
 def load_schema():
-    with open("schema/frontmatter.schema.json", encoding="utf-8") as fh:
+    with open("schema/frontmatter-rules.json", encoding="utf-8") as fh:
         schema = json.load(fh)
     # Fail loud if the schema itself is incoherent: the direction-of-fit table must
     # partition the twelve forces exactly, or `register` cannot be derived.
@@ -48,6 +64,11 @@ def load_schema():
             f"missing {sorted(set(forces) - set(covered))}, "
             f"unknown {sorted(set(covered) - set(forces))}"
         )
+    # Fail loud if an optional field has no rationale: "declared" and "justified"
+    # must be the same act (Phase 11 T1), or the vocabulary is closed in name only.
+    for field, rationale in schema["optional_fields"].items():
+        if not isinstance(rationale, str) or not rationale.strip():
+            raise SystemExit(f"schema error: optional field `{field}` has no rationale string")
     return schema
 
 
@@ -62,66 +83,15 @@ def derive_register(schema, force, constitutive):
     return "?"
 
 
-def frontmatter_block(path):
-    """Return (list of (lineno, rawline)) for the YAML frontmatter, or None."""
-    with open(path, encoding="utf-8") as fh:
-        lines = fh.read().split("\n")
-    if not lines or lines[0].strip() != "---":
-        return None
-    out = []
-    for i in range(1, len(lines)):
-        if lines[i].strip() == "---":
-            return out
-        out.append((i + 1, lines[i]))
-    return None  # unterminated
-
-
-def parse_scalar(s):
-    s = s.strip()
-    if len(s) >= 2 and s[0] in "\"'" and s[-1] == s[0]:
-        return s[1:-1]
-    if s in ("", "null", "~"):
-        return None
-    return s
-
-
-def parse_value(s):
-    s = s.strip()
-    if s.startswith("[") and s.endswith("]"):
-        inner = s[1:-1].strip()
-        return [parse_scalar(x) for x in inner.split(",")] if inner else []
-    if s.startswith("{") and s.endswith("}"):
-        inner = s[1:-1].strip()
-        m = {}
-        for part in inner.split(","):
-            if ":" in part:
-                k, v = part.split(":", 1)
-                m[k.strip()] = parse_scalar(v)
-        return m
-    return parse_scalar(s)
-
-
-def parse_frontmatter(block):
-    """Return {key: (value, lineno)} for simple `key: value` lines."""
-    fm = {}
-    for lineno, raw in block:
-        if not raw.strip() or raw.lstrip().startswith("#"):
-            continue
-        if ":" not in raw:
-            continue
-        if raw[0] in " \t":  # nested continuation line — the corpus uses inline maps, so skip
-            continue
-        key, val = raw.split(":", 1)
-        fm[key.strip()] = (parse_value(val), lineno)
-    return fm
-
-
 def lint_file(path, schema, errors, warnings):
-    block = frontmatter_block(path)
-    if block is None:
-        errors.append((path, 1, "no valid YAML frontmatter block"))
+    try:
+        fm = load(path)
+    except FrontmatterError as exc:
+        errors.append((path, exc.line, f"invalid YAML frontmatter — {exc.message}"))
         return
-    fm = parse_frontmatter(block)
+    if fm is None:
+        errors.append((path, 1, "no YAML frontmatter block"))
+        return
 
     def val(key):
         return fm[key][0] if key in fm else None
@@ -192,11 +162,21 @@ def lint_file(path, schema, errors, warnings):
         if v is not None and v not in allowed:
             warnings.append((path, ln(field), f"{field} `{v}` outside the current practice {allowed} (still open)"))
 
+    # Closed vocabulary (Phase 11 T1): a field is legal only if it is required,
+    # declared (with a rationale) in optional_fields, or a root-only field.
+    # `register` already has its own dedicated error above.
+    known = set(schema["required"]) | set(schema["optional_fields"]) | set(schema["root_only_fields"])
+    for field in fm:
+        if field not in known and field != "register":
+            errors.append((path, ln(field), f"`{field}` is not in the closed frontmatter vocabulary — declare it in schema/frontmatter-rules.yaml with a rationale, or remove it"))
+
 
 def print_registers(schema, files):
     for path in files:
-        block = frontmatter_block(path)
-        fm = parse_frontmatter(block) if block else {}
+        try:
+            fm = load(path) or {}
+        except FrontmatterError:
+            fm = {}
         force = fm["force"][0] if "force" in fm else None
         const = fm["constitutive"][0] if "constitutive" in fm else None
         print(f"{derive_register(schema, force, const):7} {path}")

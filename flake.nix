@@ -25,7 +25,9 @@
           packages = [
             pkgs.markdownlint-cli2 # markdown linter; shares config with the VSCode extension
             pkgs.nodejs # runtime for markdownlint + the custom rule module
-            pkgs.python3 # our validators (linkcheck, frontmatter, ULID) — stdlib only
+            # our validators (linkcheck, frontmatter, ULID); pyyaml is the frontmatter
+            # parser (Phase 11 T2), pinned here with the interpreter it runs in
+            (pkgs.python3.withPackages (ps: [ ps.pyyaml ]))
             pkgs.git # the validators derive the repo root and file list from git
           ];
 

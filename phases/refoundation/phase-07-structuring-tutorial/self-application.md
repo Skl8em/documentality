@@ -11,8 +11,10 @@ audience: [contributor, decider]
 reader: H+M
 status: draft
 retention: permanent
-note: "The closing act of Phase 07: the rewritten structuring tutorial run on this project itself, non-blind, to derive our own controlled front-matter vocabulary and our target source tree. Supersedes the stale v3 self-reading in structure/applied.md."
 ---
+
+The closing act of Phase 07: the rewritten structuring tutorial run on this project itself, non-blind, to derive our own controlled front-matter vocabulary and our target source tree.
+Supersedes the stale v3 self-reading in `structure/applied.md`.
 
 This is the structuring tutorial run on the project that produced it — the worked example of its own theory, made actual rather than asserted.
 `foundation.md` already stated our front-end in prose; this document *executes* the five steps and reads two concrete deliverables off the result: the **controlled vocabulary our frontmatter fields may take**, and the **source tree** the exercise yields for us.

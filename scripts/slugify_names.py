@@ -6,7 +6,8 @@ declares a `slug` whose filename stem differs, rename it to `<slug>.md` via the
 safe-rename core (all links rewritten). The inverse tool — filename := `<slug>-<ulid>`
 — is `scripts/migrate_ids.py`; the convention is kept open, tools both ways.
 
-Stdlib only.
+Reads frontmatter through scripts/yaml_frontmatter.py, so it needs `pyyaml` — the
+devShell provides it.
 
     python3 scripts/slugify_names.py            # apply, then run the gate
     python3 scripts/slugify_names.py --dry-run  # show what would change
@@ -18,7 +19,7 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 from rename_doc import rename_path  # noqa: E402
-from slug_check import frontmatter  # noqa: E402
+from yaml_frontmatter import load, values  # noqa: E402
 
 ROOT = subprocess.check_output(["git", "rev-parse", "--show-toplevel"], text=True).strip()
 os.chdir(ROOT)
@@ -29,7 +30,7 @@ def main():
     files = subprocess.check_output(["git", "ls-files", "*.md"], text=True).splitlines()
     renames = []
     for f in files:
-        slug = frontmatter(f).get("slug")
+        slug = values(load(f)).get("slug")
         if not slug:
             continue
         stem = os.path.basename(f)[:-3]
