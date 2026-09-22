@@ -78,4 +78,5 @@ This system keeps them apart — the readable tree on one side, frozen provenanc
 All **twelve forces** are built under `writing/forces/`.
 The **schema is reconciled** to the refounded model and enforced: `intention` is the coarse family, `register` is derived (`constitutive ? govern : direction-of-fit(force)`) and never stored, the new `constitutive` mark is required, and frozen records carry a `hash:` fixity seal.
 One gate — `python3 scripts/check.py` — runs the worktree, link, frontmatter, ULID, slug, fixity, and markdownlint checks.
-Next: **Phase 11** designs Phase II, re-running the structuring front-end for the incoming AI discourse community ([`steering/roadmap.md`](steering/roadmap.md)).
+Next: **Phase 11** hardens the tooling — closing the frontmatter vocabulary, parsing YAML with a real parser, and validating that identifiers point at something.
+Designing Phase II follows once Phase I closes — re-running the structuring front-end for the incoming AI discourse community — and takes its number when we get there ([`steering/roadmap.md`](steering/roadmap.md)).

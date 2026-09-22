@@ -10,7 +10,7 @@ reader: H+M
 status: stable
 retention: permanent
 supersedes: null
-superseded-by: null
+superseded-by: ADR-014-adopt-refoundation
 written-at: v3
 valid-for: v3
 ---

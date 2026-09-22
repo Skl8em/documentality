@@ -18,7 +18,7 @@ Follow this to get the environment; the reasoning is in the Phase-09 [`plan.md`]
 ## Prerequisites
 
 - **Nix** with flakes enabled (`experimental-features = nix-command flakes`).
-- Nothing else: the shell provides `markdownlint-cli2`, `nodejs`, and `python3`.
+- Nothing else: the shell provides `markdownlint-cli2`, `nodejs`, and `python3` with `pyyaml`.
 
 ## Enter the shell
 
@@ -37,9 +37,10 @@ If you use **direnv** (with `nix-direnv`), the committed [`../.envrc`](../.envrc
 python3 scripts/check.py     # the full gate: markdownlint + frontmatter + ULID + links
 ```
 
-Our own validators under [`../scripts/`](../scripts/) are **stdlib-only Python**, so they also run outside the shell.
-`markdownlint-cli2` is the one tool that needs the shell (it is a Node binary), because its version is part of the contract with our custom rules.
-`check.py` always uses the *pinned* markdownlint — directly when you are in the shell, otherwise via `nix develop` — never a stray global copy.
+Our own validators under [`../scripts/`](../scripts/) are Python, and every one that reads frontmatter parses it as real YAML with `pyyaml`, pinned in the shell next to its interpreter.
+`markdownlint-cli2` needs the shell too (it is a Node binary), because its version is part of the contract with our custom rules.
+`check.py` never runs either from a stray global copy: when its interpreter lacks `pyyaml` it re-runs itself under `nix develop`, and it reaches the *pinned* markdownlint the same way.
+Without nix, the gate fails rather than skipping the YAML checks.
 
 ## Enable the pre-commit hook (optional)
 

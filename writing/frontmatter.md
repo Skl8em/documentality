@@ -37,8 +37,9 @@ Storing any of them would encode the same fact twice.
 | `distance` | O | `peer` `near` `far` | Shared code → scaffolding. `patterns.md` recipient section. |
 | `power` | O | `none` `holds` | Sanction → armor. |
 | `status` | R | `draft` `stable` `deprecated` | Life cycle; make staleness explicit. |
-| `written-at` | O | phase, e.g. `mvp` `v3` | Production phase. |
-| `valid-for` | O | phase | Phase the content is valid for; the gap is computable. |
+| `written-at` | O | phase, e.g. `mvp` `v3` | Production phase. Legacy: the pre-refoundation (`v1`–`v3`) versioning scheme, `phases/naive-sketch/` only. |
+| `valid-for` | O | phase | Phase the content is valid for; the gap is computable. Legacy, same scope as `written-at`. |
+| `phase` | O | a phase id, e.g. `11-tooling-hardening` | The construction phase a *steering* document was written for, or is current as of — bumped forward when the document is reconciled to a later phase (`steering/roadmap.md`, `steering/foundation.md`). Distinct from `provenance`, which names the activity that produced the document, not the phase it tracks. |
 | `supersedes` / `superseded-by` | O | path/id | Chain frozen records (ADRs). |
 | `retention` | O | `permanent` `until-release` `ephemeral` `legal:<duration>` | Defaults by force in `../structuring/defaults.md`. |
 | `pin` | O | submodule ref / SHA | Fixity anchor for a cross-project reference. `../structuring/concepts.md`. |
