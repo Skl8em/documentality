@@ -54,6 +54,7 @@ A superseding decision is a new row and a new record that sets `supersedes`.
 | [032](../phases/refoundation/phase-10-schema/adr-tiering.md) | ADR tiering: a record earns an ADR by installing a standing obligation | 10-schema | 2026-08-03 | accepted |
 | [033](../phases/refoundation/phase-10-schema/operationalizing-function.md) | `operationalizing` is the sixth function, between theory and product | 10-schema | 2026-08-03 | accepted |
 | [034](../phases/refoundation/phase-10-schema/hosting-github-canonical.md) | Hosting: GitHub canonical; Codeberg deferred to a self-hosted Forgejo | 10-schema | 2026-09-12 | accepted |
+| [035](../phases/refoundation/phase-12-codifying/codifying-function.md) | `codifying` is the seventh function, the account of the tooling | 12-codifying | 2026-09-23 | accepted |
 
 The ordinal in the `#` column is a **generated display number** (ADR-028): a record's identity is the ULID in its frontmatter (`id`), not a stored count.
 New records keep `<slug>.md` filenames; older rows keep their `ADR-NNN` names for now (the naming convention is open — see the technical-debt tracker).
