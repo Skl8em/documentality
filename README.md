@@ -6,7 +6,7 @@ intention: formative
 view: synchronic
 provenance: { type: function, id: steering }
 constitutive: no
-axis: provenance       # the source is the producer's shelf: one folder per function (theorising/ writing/ structuring/ steering/ imagining/) + phases/
+axis: provenance       # the source is the producer's shelf: one folder per function (theorising/ operationalizing/ writing/ structuring/ codifying/ steering/ imagining/) + phases/
 dominant-community: contributor
 audience: [user, contributor]
 reader: H+M
