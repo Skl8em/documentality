@@ -71,3 +71,12 @@ The single-instance boundary cannot be tested without a second consumer.
 **Why left open:** testing them means extracting the message-building into pure functions first; that is a refactor of three working validators, not a side effect of a message edit.
 
 **How to resolve:** extract, on the model of `ulid_check.check_referential_integrity`, add fixtures, and assert the `fix:` clause in each.
+
+## Referential integrity: cycles and self-supersession pass
+
+**What:** [`ulid_check.py`](../scripts/ulid_check.py) accepts a pair of records that supersede each other, and a record that supersedes itself: each satisfies the resolve and symmetry rules trivially.
+Found while writing [the referential-integrity fiche](../codifying/referential-integrity.md) and confirmed against `check_referential_integrity` with two synthetic records.
+
+**Why left open:** the fiche's job was to state what the check does not establish; closing the hole is a change to the validator, with its own fixtures, outside the adoption of `codifying`.
+
+**How to resolve:** add two fixture cases (a mutual pair, a self-reference) that must fail, then reject a record whose `supersedes` or `superseded-by` names itself and any cycle along the `superseded-by` chain.
