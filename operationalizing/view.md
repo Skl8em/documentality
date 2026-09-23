@@ -29,4 +29,4 @@ A three-value `view` (adding "pending") — rejected: a deliberation is a *curre
 **The work it does.**
 Gates freeze-vs-current; drives the split between the communication surface (current) and the archive (frozen); lets a generator know what may be re-ordered and what must be preserved.
 
-The *check* that `synchronic ⇒ function`, and the freezing discipline, live in the IT tools (the frontmatter linter) — not here.
+The *check* that `synchronic ⇒ function`, and the freezing discipline, live in the IT tools (the frontmatter linter) — not here; [`codifying/`](../codifying/README.md) accounts for them.

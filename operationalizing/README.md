@@ -14,15 +14,16 @@ This shelf holds the **operational apports**: the coordinates and conventions we
 They are not the theory, and they are not the tooling.
 They sit at a distinct layer:
 
-`theorising → operationalizing → structuring / writing → designing → IT tools`
+`theorising → operationalizing → structuring / writing → designing → codifying`
 
 `theorising` says what a document *is* (an inscribed act, with a force, an intention, a recipient at some distance and power).
 `operationalizing` decides *which handles we carve onto that* to make it operable — a `view` flag, a `constitutive` mark, a derived `register` — and *why we carve them this way*.
-`structuring` and `writing` then *use* those handles; `designing` and the `IT tools` (linters, ULID minting, hooks) merely *enforce* them.
+`structuring` and `writing` then *use* those handles; `designing` and `codifying` — the tooling: linters, ULID minting, hooks, the gate — merely *enforce* them.
 
 **Keep this layer conceptual.**
 A fiche here explains what an apport is, what theory-notion it operationalizes (if any), why it was reified this way, the alternatives, and the work it does.
 The *implementation* of that work lives with the IT tools, not here — a fiche points to the tool, it does not become one.
+How that tooling works, and why it is built so, is [`codifying/`](../codifying/README.md)'s.
 
 ## The complete inventory
 
