@@ -37,4 +37,4 @@ Treat `govern` as a third direction of fit — rejected: that was the ill-founde
 **The work it does.**
 Orders the force templates into three doors; groups a function's sub-shelf; gives readers and generators a coarse filter.
 
-The derivation itself is implemented in the IT tools (it is computed, not written) — this fiche states the rule, not the code.
+The derivation itself is implemented in the IT tools (it is computed, not written) — this fiche states the rule, not the code; [`codifying/`](../codifying/README.md) accounts for the code.

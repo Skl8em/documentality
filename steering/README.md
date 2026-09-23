@@ -22,6 +22,7 @@ This folder groups the governance genres — architecture, contribution rules, h
 
 - **How the repo is laid out and why** → [`ARCHITECTURE.md`](ARCHITECTURE.md) *(explain)*
 - **How to contribute to the system** (the binding rules for changing it) → [`CONTRIBUTING.md`](CONTRIBUTING.md) *(mandate)*
+- **How the tooling works, and why it is built that way** → [`../codifying/README.md`](../codifying/README.md) *(orient — the maintainer's shelf)*
 - **Set up the reproducible dev environment** (the pinned tooling shell) → [`environment.md`](environment.md) *(instruct)*
 - **What changed and when** → [`CHANGELOG.md`](CHANGELOG.md) *(account)*
 - **Every decision, listed** (the register) → [`ADR.md`](ADR.md) *(decide — the act)*
