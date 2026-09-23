@@ -16,6 +16,30 @@ History of the documentation system itself.
 Append-only; each entry is dated-fixed.
 Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
 
+## [v4.0-alpha.16] — Phase 12 T1: codifying adopted
+
+- **Decided:** **`codifying` is the seventh function**, the account of the tooling — [ADR-035](../phases/refoundation/phase-12-codifying/codifying-function.md).
+  It takes the last link of [ADR-033](../phases/refoundation/phase-10-schema/operationalizing-function.md)'s chain, "IT tools".
+  The code stays in `scripts/`, `schema/` and `docsys.yaml`; the account is shelved in `codifying/`.
+  The boundary with `operationalizing` is by subject: a coordinate of the corpus is operationalizing, a mechanism that checks, generates or runs is codifying.
+  ADR-033's count is refined, not superseded.
+- **Added:** the [`codifying/`](../codifying/README.md) shelf — an orient and three fiches for the maintainer: [the gate](../codifying/gate.md), [the schema pipeline](../codifying/schema-pipeline.md) and [referential integrity](../codifying/referential-integrity.md).
+  Each states what it does not establish; none has been read cold by anyone but its author.
+- **Ruled:** [the community map](../phases/refoundation/phase-12-codifying/community-map.md) — gate-runner, maintainer and machine, with the adopter named and cut until a second consumer exists.
+  `maintainer` is `contributor`, refined, for a distance judged in the tooling field; it stays the linter's warning rather than a schema enum.
+  `user ≈ contributor` holds for roles and is qualified for distance, in `foundation.md` §3.
+- **Changed:** every repo-specific value in `scripts/` — the linter's out-of-scope prefixes, the schema's paths, the register's path and row shape, the gate's check list — moved to [`docsys.yaml`](../docsys.yaml), read only through `scripts/docsys_config.py`.
+  `check.py` is now only the runner, and `scripts/test_seam.py` is a gate check that fails if an instance value is ever hard-coded back ([the seam](../phases/refoundation/phase-12-codifying/engine-config-seam.md)).
+- **Fixed:** the runner printed each check's header into a buffer while the check wrote straight to the shared descriptor, so piped output — CI, an agent — put every header after every check's output and failures could not be attributed.
+  Found auditing the gate's messages against the machine reader; pinned by `scripts/test_check.py`, which was run red against the unflushed runner first.
+  Two smaller findings from the seam work: sibling scripts were addressed by a repo-relative path, and `ulid_check.py` skipped the register cross-check when the register was not a tracked file.
+- **Changed:** every validator failure line now ends `— fix: <the edit that clears it>`; the fixtures for `frontmatter_lint.py` and `ulid_check.py` fail a message without one ([the audit](../phases/refoundation/phase-12-codifying/error-message-audit.md)).
+- **Changed:** the function set reads seven in `foundation.md`, `CONTRIBUTING.md`, `ARCHITECTURE.md` and the root README.
+  `ARCHITECTURE.md`'s provenance map had never gained `operationalizing` either.
+- **Recorded, not fixed:** cycles and self-supersession pass `ulid_check.py`; three validators build their messages inline and are unfixtured; the frozen-record definition in `hash_seal.py` duplicates the schema's status list; an empty register match passes.
+  All four are in [`technical-debt.md`](technical-debt.md).
+  ([plan](../phases/refoundation/phase-12-codifying/plan.md))
+
 ## [v4.0-alpha.15] — Phase 12 inserted: codifying
 
 - **Planned:** **Phase 12 — codifying**, inserted before the Phase-II design.
