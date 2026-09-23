@@ -24,13 +24,15 @@ import sys
 import yaml
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from docsys_config import load_config  # noqa: E402
 from yaml_frontmatter import StrictLoader  # noqa: E402
 
 ROOT = subprocess.check_output(["git", "rev-parse", "--show-toplevel"], text=True).strip()
 os.chdir(ROOT)
 
-SOURCE = "schema/frontmatter-rules.yaml"
-GENERATED = "schema/frontmatter-rules.json"
+# Where the two live is instance configuration (docsys.yaml `schema:`).
+_LAYOUT = load_config()["schema"]
+SOURCE, GENERATED = _LAYOUT["source"], _LAYOUT["generated"]
 
 
 def compile_source():
@@ -53,7 +55,7 @@ def check():
         committed.splitlines(keepends=True), fresh.splitlines(keepends=True),
         fromfile=GENERATED, tofile=f"{SOURCE} (regenerated)")
     print(f"SCHEMA DRIFT: {GENERATED} does not match {SOURCE}.")
-    print("Run `python3 scripts/generate_schema.py` and commit the result.\n")
+    print(f"Run `python3 {os.path.relpath(__file__, ROOT)}` and commit the result.\n")
     sys.stdout.writelines(diff)
     return 1
 
