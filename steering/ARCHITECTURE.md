@@ -18,7 +18,7 @@ If you only want to *use* the system, read the product (`../writing/`, `../struc
 
 ## The question this answers
 
-Why is the source shelved by **function** — `theorising/`, `writing/`, `structuring/`, `steering/`, `imagining/`, plus a frozen `phases/` — rather than by topic, scope, or a product-vs-docs split?
+Why is the source shelved by **function** — `theorising/`, `operationalizing/`, `writing/`, `structuring/`, `codifying/`, `steering/`, `imagining/`, plus a frozen `phases/` — rather than by topic, scope, or a product-vs-docs split?
 
 ## The model: the repo eats its own theory
 
@@ -59,8 +59,10 @@ The full schema reconciliation (coarse-vs-fine `intention`, whether `register` i
 | --- | --- |
 | root `README.md` | function `steering` (served: onboarding) |
 | `theorising/**` | function `theorising` |
+| `operationalizing/**` | function `operationalizing` |
 | `writing/**` | function `writing` |
 | `structuring/**` | function `structuring` |
+| `codifying/**` (the account), and the code it accounts for: `scripts/**`, `schema/**`, `docsys.yaml`, `tools/**` | function `codifying` |
 | `steering/**` governance (`foundation`, `roadmap`, `ARCHITECTURE`, `CONTRIBUTING`, `CHANGELOG`, `ADR.md` register, `open-questions`) | function `steering` |
 | `imagining/**` | function `imagining` (Phase II, parked) |
 | `phases/<era>/<phase>/**` (records) | project `phase-NN` (frozen, grouped by era) |

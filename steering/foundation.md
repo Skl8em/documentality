@@ -39,10 +39,11 @@ Functions come first, because who reads and what they must be told is *derived* 
 Two faces of "function" matter, and they are not the same.
 
 - **What the project touches, and the knowledge it mobilizes.**
-  This project touches the *documentation theory* (philosophy of language, archival science, information architecture), the *practice of writing* documents (the forces and their moves), the *practice of structuring* a corpus (topology, provenance, life cycle), and light *tooling* (Markdown, git).
-  The knowledge these mobilize is essentially one: the inscribed-act theory, plus ordinary Markdown and git.
-  That near-single domain is *why* our communities collapse below — a derived fact, not an assumption.
-- **The producer's ways of working** (which order the source by provenance): maintaining the theory/foundation, authoring the writing guidance, authoring the structuring guidance, onboarding, and steering.
+  This project touches the *documentation theory* (philosophy of language, archival science, information architecture), the *practice of writing* documents (the forces and their moves), the *practice of structuring* a corpus (topology, provenance, life cycle), and *tooling* — Markdown and git, plus the validators, schema pipeline and gate that enforce the conventions (`codifying`, ADR-035).
+  The knowledge the product mobilizes is essentially one: the inscribed-act theory, plus ordinary Markdown and git.
+  The tooling mobilizes a second field — the engineering of the validators, the schema pipeline and the gate — which only a maintainer needs to hold.
+  That near-single domain is *why* our roles collapse below — a derived fact, not an assumption — and the second field is why §3 qualifies the collapse.
+- **The producer's ways of working** (which order the source by provenance): maintaining the theory/foundation, operationalizing it (ADR-033), authoring the writing guidance, authoring the structuring guidance, accounting for the tooling (`codifying`, ADR-035), onboarding, and steering.
 
 The refoundation is explicit that both mirror "function," but not the same one: the reader's surface mirrors the *functions served* to whoever meets the project; the source mirrors the *producer's ways of working* (Conway = respect des fonds), the stable activities rather than any org chart.
 
@@ -51,11 +52,18 @@ The refoundation is explicit that both mirror "function," but not the same one: 
 Because our functions sit in essentially one domain, the audiences nearly collapse.
 `user` (documents their own project) and `contributor` (writes in this repo) are **one discourse community** — the same code, the same language — and `decider` is us.
 The role split therefore has little to arbitrate here; that is a *result* of §2, not a starting assumption.
+
+`codifying` qualifies this without reversing it.
+The collapse holds for **roles**: nobody here reads the product as a `user` who is not also a `contributor`.
+It was derived for the theory's field alone, so it no longer covers everything the repo mobilizes: the tooling is a second field, and a reader can be initiated in the theory and a novice at the tooling.
+A document whose `distance` is judged in the tooling field says so.
+The project's name for the contributor who is initiated there is `maintainer` — a refinement of `contributor`, not a fourth role and not a schema enumeration ([ADR-035](../phases/refoundation/phase-12-codifying/codifying-function.md); [`audience.md`](../structuring/audience.md)).
+
 Two axes carry the real variation:
 
 - **Distance — per community, here novice vs initiated in the theory.**
   In general `distance` is per discourse community: a reader can be initiated in one aspect's field and a novice in another, and a project may reasonably address the initiated of a domain rather than teach it from scratch.
-  Our project has essentially one field — the theory — so distance reduces to *how much of the theory a reader already holds*.
+  For the product this is essentially one field — the theory — so distance reduces to *how much of the theory a reader already holds*; a maintainer's distance is judged in the tooling field as well.
   A beginner-facing document (the tutorials, an orient) spells the concepts out; an initiated-facing one (the rules, the schema) presumes them.
   **[decided]**
 - **Human vs machine — orthogonal.**
@@ -104,8 +112,9 @@ So: **[decided]**
 - Because here contributor = user, the source shelf doubles as an acceptable reading surface *for now*, so surface generation is deferred — but we stop contorting the folder tree to please a reader who is not here yet.
 
 Consequence for our own tree: the earlier "scope axis (write/structure), dominant = user" (ADR-010) described a *generated surface*, not the source.
-The **source** is organized for the **contributor** (producer), shelved by provenance — one folder per function (`theorising/`, `operationalizing/`, `writing/`, `structuring/`, `steering/`, `imagining/`) plus the frozen `phases/`.
+The **source** is organized for the **contributor** (producer), shelved by provenance — one folder per function (`theorising/`, `operationalizing/`, `writing/`, `structuring/`, `codifying/`, `steering/`, `imagining/`) plus the frozen `phases/`.
 `operationalizing/` was added later, in Phase 10 (ADR-033): between the theory and the guidance sits the layer that decides *which handles we carve onto the theory* — `view`, `constitutive`, `register`, `hash` — and why we carve them that way.
+`codifying/` was added later still, in Phase 12 (ADR-035): the last link of that chain, the account of the tooling that enforces those handles and of why it is built as it is.
 The generic `docs/` bucket is **dissolved** (its governance is `steering/`, its records `phases/`); the root axis is now `provenance` / dominant `contributor`, and `write`/`structure` are the order of a *generated* view.
 This structural move is **done**, and Phase 08 has since completed the rest: the refounded vocabulary carried across the product, the nine `_legacy/` forces migrated (all twelve now built), `_legacy/` retired, and the function folders renamed to their gerund ids (ADR-027).
 **[decided]**
