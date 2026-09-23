@@ -54,9 +54,10 @@ def main():
     if broken:
         print(f"FIXITY ERRORS: {len(broken)} seal(s) broken")
         for f, declared, actual in broken:
-            print(f"  {f}\n    declared {declared}\n    actual   {actual}")
-        print("\nA frozen record changed. Revert it, or re-freeze deliberately:"
-              "\n  python3 scripts/hash_seal.py --reseal <path>")
+            print(f"  {f}  frozen record changed since it was sealed"
+                  f"\n    declared {declared}\n    actual   {actual}"
+                  f"\n    fix: revert the change, or re-freeze deliberately with "
+                  f"`python3 scripts/hash_seal.py --reseal {f}`")
         return 1
     print(f"Fixity OK ({sealed} sealed record(s) verified; {len(unsealed)} frozen but unsealed).")
     return 0

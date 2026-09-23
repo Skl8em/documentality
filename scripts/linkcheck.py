@@ -43,7 +43,7 @@ def main():
     if broken:
         print(f"BROKEN LINKS: {len(broken)}")
         for f, lineno, target in broken:
-            print(f"  {f}:{lineno}  ->  {target}")
+            print(f"  {f}:{lineno}  ->  {target}  — no such file — fix: point the link at an existing path, or remove it")
         return 1
     print("All relative markdown links resolve. OK.")
     return 0

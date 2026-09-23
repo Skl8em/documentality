@@ -88,17 +88,17 @@ def resolve(check):
     return pinned_tool_cmd(check["tool"])
 
 
-def main():
-    ensure_pyyaml()
-    from docsys_config import ConfigError, load_config  # after ensure_pyyaml: needs it
-    try:
-        checks = [(c["name"], resolve(c), c.get("tool")) for c in load_config()["checks"]]
-    except ConfigError as exc:
-        print(f"GATE FAILED: {exc}")
-        return 1
+def run_checks(checks):
+    """Run each (name, cmd, tool) in order and report. A failing check does not stop
+    the ones after it: the gate is the conjunction of every check, and a reader
+    needs every failure from one run.
+
+    stdout is flushed before each check runs: a child writes straight to the shared
+    file descriptor, so when stdout is a pipe (CI, an agent) an unflushed header
+    would surface after the check's own output and misattribute it."""
     failures = []
     for name, cmd, tool in checks:
-        print(f"\n=== {name} ===")
+        print(f"\n=== {name} ===", flush=True)
         if callable(cmd):
             if cmd() != 0:
                 failures.append(name)
@@ -117,6 +117,17 @@ def main():
         return 1
     print("GATE PASSED: all checks green.")
     return 0
+
+
+def main():
+    ensure_pyyaml()
+    from docsys_config import ConfigError, load_config  # after ensure_pyyaml: needs it
+    try:
+        checks = [(c["name"], resolve(c), c.get("tool")) for c in load_config()["checks"]]
+    except ConfigError as exc:
+        print(f"GATE FAILED: {exc}")
+        return 1
+    return run_checks(checks)
 
 
 if __name__ == "__main__":
