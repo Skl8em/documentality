@@ -60,7 +60,7 @@ One project-local sub-role, used across the three fiches T1(c) is about to write
 
 What was actually missing was not schema coverage — the warning already fires correctly on `maintainer` today — it was that nobody had ever *written down* that `maintainer` is this project's deliberate refinement of `contributor`, so the warning read as noise instead of as an intended, examined value.
 That gap closes here: `maintainer` = `contributor`, refined, for anything whose distance is judged in the tooling-engineering field rather than the theory field.
-T1(c)'s three fiches carry `audience: [contributor]` with this document as the pointer that explains what `maintainer` means when it is used; a line goes into `../../../structuring/audience.md`'s own project-example table for this repo, alongside the generic-IT-project row it already carries, so the next reader of that reference finds the ruling instead of re-deriving it.
+T1(c)'s three fiches carry `audience: [contributor]` with this document as the pointer that explains what `maintainer` means when it is used; a paragraph goes into `../../../structuring/audience.md`'s this-project example, beside the generic-IT-project sub-role list that reference already carries, so the next reader of it finds the ruling instead of re-deriving it.
 
 ## Ruling 2 — the `contributor ≈ user` premise, revisited for codifying
 

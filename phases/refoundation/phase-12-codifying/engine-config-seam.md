@@ -105,7 +105,8 @@ Naming them is the point: the seam is honest only if its residue is visible.
 
 ## How the seam is held
 
-`scripts/test_seam.py` is the second entry of the gate (after the worktree check), so a violation fails everything that follows it.
+`scripts/test_seam.py` is the second entry of the gate (after the worktree check), so a violation is reported ahead of the checks that read the configuration.
+It does not stop them: the runner runs every check, so a leaked value fails the gate through this entry alone, while a malformed configuration also fails the checks that load it ([`codifying/gate.md`](../../../codifying/gate.md)).
 It checks three things: the real `docsys.yaml` validates; malformed configurations are refused with a message naming the key and the fix; and no instance value from `docsys.yaml` — a path, a prefix, a script name — appears as a string literal in the engine's code.
 The third check parses each script and skips docstrings, which are prose; the values to look for are read from the config itself, so a new instance value extends the check without anyone remembering to.
 The definition of done's grep for the old constants (`IGNORE_PREFIXES`, `REGISTER_PATH`, `steering/ADR.md`, …) comes back empty over `scripts/*.py`.
