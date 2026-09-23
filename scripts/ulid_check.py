@@ -92,7 +92,7 @@ def check_referential_integrity(records):
             for ref in normalize_refs(rec.get(field)):
                 target = index.get(ref)
                 if target is None:
-                    errors.append((path, f"`{field}: {ref}` does not resolve to any record's `id` or filename"))
+                    errors.append((path, f"`{field}: {ref}` does not resolve to any record's `id` or filename — fix: correct the reference to an existing record's `id` or filename stem, or set the field to null"))
                 else:
                     targets.append(target)
             resolved[(path, field)] = targets
@@ -103,7 +103,7 @@ def check_referential_integrity(records):
             for target in resolved[(path, field)]:
                 back = resolved.get((target, inverse), [])
                 if path not in back:
-                    errors.append((path, f"`{field}` names {target}, but its `{inverse}` does not name this record back"))
+                    errors.append((path, f"`{field}` names {target}, but its `{inverse}` does not name this record back — fix: set `{inverse}` in {target} to this record's `id` or filename stem, or remove the `{field}` here"))
     return errors
 
 
@@ -146,9 +146,9 @@ def check_register(records, register_text, register):
         if m:
             expected = ordinal_to_path.get(m.group(1))
             if expected is None or expected not in actual_targets:
-                errors.append((path, f"register row {ordinal} says {status!r}, but this record's `superseded-by` does not name it"))
+                errors.append((path, f"register row {ordinal} says {status!r}, but this record's `superseded-by` does not name it — fix: set `superseded-by` here to the superseding record, or correct the row in {register['path']}"))
         elif actual_targets:
-            errors.append((path, f"register row {ordinal} says {status!r} (no supersession), but this record's `superseded-by` is set"))
+            errors.append((path, f"register row {ordinal} says {status!r} (no supersession), but this record's `superseded-by` is set — fix: mark the row superseded in {register['path']}, or clear `superseded-by` here"))
     return errors
 
 
@@ -158,7 +158,7 @@ def check_register_file(records, register):
     otherwise switch the whole cross-check off without a word."""
     if register["path"] not in records:
         return [(register["path"], f"`register.path` in docsys.yaml names `{register['path']}`, "
-                                   "which is not a tracked Markdown file — fix the path")]
+                                   "which is not a tracked Markdown file — fix: correct `register.path`")]
     with open(register["path"], encoding="utf-8") as fh:
         return check_register(records, fh.read(), register)
 
@@ -174,7 +174,7 @@ def main():
         try:
             fm = values(load(f))
         except FrontmatterError as exc:
-            errors.append((f, f"invalid YAML frontmatter at {exc}"))
+            errors.append((f, f"invalid YAML frontmatter at {exc} — fix: correct the YAML at that line"))
             continue
         rid = fm.get("id")
         records[f] = fm
@@ -182,9 +182,9 @@ def main():
             continue
         n_ids += 1
         if not isinstance(rid, str) or not is_ulid(rid):
-            errors.append((f, f"id {rid!r} is not a valid ULID"))
+            errors.append((f, f"id {rid!r} is not a valid ULID — fix: mint one with `python3 scripts/ulid.py`"))
         if rid in seen:
-            errors.append((f, f"duplicate id (also in {seen[rid]})"))
+            errors.append((f, f"duplicate id (also in {seen[rid]}) — fix: give one of the two records a fresh `id` from `python3 scripts/ulid.py`"))
         seen[rid] = f
 
     errors.extend(check_referential_integrity(records))

@@ -54,6 +54,10 @@ checks:
   # The engine/config seam holds: a malformed docsys.yaml or an instance value
   # hard-coded in scripts/ would otherwise go unnoticed.
   - {name: seam, python: scripts/test_seam.py}
+  # The runner itself: a gate whose output cannot be attributed to the check that
+  # produced it is unreadable to the machine that runs it through a pipe. Fixtures
+  # run before the checks whose output they make legible.
+  - {name: runner, python: scripts/test_check.py}
   # Every relative markdown link resolves.
   - {name: linkcheck, python: scripts/linkcheck.py}
   # Must pass before anything that loads schema/frontmatter-rules.json: a stale

@@ -60,19 +60,34 @@ REF_CASES = [
 ]
 
 
+# Every error names the edit that clears it, after this marker: the gate's reader is
+# often a machine with no other context (Phase 12 T1(c)).
+FIX_MARKER = "fix:"
+
+
+def verdict(got, expected):
+    """None when `got` is exactly the expected (path, fragment) pairs and each message
+    carries a fix clause; else why not."""
+    ok = len(got) == len(expected) and all(
+        path == e_path and fragment in msg
+        for (path, msg), (e_path, fragment) in zip(sorted(got), sorted(expected))
+    )
+    if not ok:
+        return f"expected {expected}, got {got}"
+    unfixable = [msg for _, msg in got if FIX_MARKER not in msg]
+    return f"message(s) without a `{FIX_MARKER}` clause: {unfixable}" if unfixable else None
+
+
 def run_ref_cases():
     failures = 0
     for name, records, expected in REF_CASES:
         got = [(path, msg) for path, msg in ulid_check.check_referential_integrity(records)]
-        ok = len(got) == len(expected) and all(
-            path == e_path and fragment in msg
-            for (path, msg), (e_path, fragment) in zip(sorted(got), sorted(expected))
-        )
-        if ok:
+        why = verdict(got, expected)
+        if why is None:
             print(f"ok    {name}")
         else:
             failures += 1
-            print(f"FAIL  {name}: expected {expected}, got {got}")
+            print(f"FAIL  {name}: {why}")
     return failures
 
 
@@ -157,15 +172,12 @@ def run_register_cases():
     cases = [(n, REGISTER, REGISTER_CFG, r, e) for n, r, e in REGISTER_CASES] + OTHER_SHAPE_CASES
     for name, text, cfg, records, expected in cases:
         got = ulid_check.check_register(records, text, cfg)
-        ok = len(got) == len(expected) and all(
-            path == e_path and fragment in msg
-            for (path, msg), (e_path, fragment) in zip(sorted(got), sorted(expected))
-        )
-        if ok:
+        why = verdict(got, expected)
+        if why is None:
             print(f"ok    {name}")
         else:
             failures += 1
-            print(f"FAIL  {name}: expected {expected}, got {got}")
+            print(f"FAIL  {name}: {why}")
     return failures
 
 

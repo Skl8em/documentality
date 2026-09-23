@@ -34,24 +34,24 @@ def main():
         try:
             fm = values(load(f))
         except FrontmatterError as exc:
-            errors.append((f, f"invalid YAML frontmatter at {exc}"))
+            errors.append((f, f"invalid YAML frontmatter at {exc} — fix: correct the YAML at that line"))
             continue
         slug = fm.get("slug")
         if not slug:
             continue
         n += 1
         if not isinstance(slug, str):
-            errors.append((f, f"slug {slug!r} is not a string"))
+            errors.append((f, f"slug {slug!r} is not a string — fix: write it as a plain hyphen-cased word, e.g. `slug: my-record`"))
             continue
         stem = os.path.basename(f)[:-3]  # drop ".md"
         if not SLUG_RE.match(slug):
-            errors.append((f, f"slug {slug!r} is not hyphen-cased (a-z, 0-9, -)"))
+            errors.append((f, f"slug {slug!r} is not hyphen-cased (a-z, 0-9, -) — fix: rewrite it in lowercase words joined by hyphens"))
         allowed = {slug}
         if fm.get("id"):
             allowed.add(f"{slug}-{fm['id']}")
         if stem not in allowed:
             want = slug + (f" (or {slug}-<id>)" if fm.get("id") else "")
-            errors.append((f, f"filename stem {stem!r} != slug {want}"))
+            errors.append((f, f"filename stem {stem!r} != slug {want} — fix: rename the file (`python3 scripts/rename_doc.py` rewrites the links to it), or change `slug`"))
 
     if errors:
         print(f"SLUG ERRORS: {len(errors)}")

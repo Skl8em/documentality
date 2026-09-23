@@ -47,6 +47,11 @@ def replace(field_line, *new_lines):
     return "\n".join(out) + "\n"
 
 
+# Every error the linter emits names the edit that clears it, after this marker. The
+# gate's reader is often a machine with no other context: a message that says what is
+# wrong and not what to do about it leaves it guessing (Phase 12 T1(c)).
+FIX_MARKER = "fix:"
+
 # (name, frontmatter, [(file line, message fragment)] the linter must report — exactly)
 LINT_CASES = [
     # --- wrongly PASSED by the hand-rolled parser -----------------------------
@@ -115,11 +120,14 @@ def run_lint_cases():
     failures = 0
     for name, text, expected in LINT_CASES:
         got = lint(text)
-        if matches(got, expected):
-            print(f"ok    {name}")
-        else:
+        if not matches(got, expected):
             failures += 1
             print(f"FAIL  {name}: expected {expected}, got {got}")
+        elif unfixable := [m for _, m in got if FIX_MARKER not in m]:
+            failures += 1
+            print(f"FAIL  {name}: message(s) without a `{FIX_MARKER}` clause: {unfixable}")
+        else:
+            print(f"ok    {name}")
     return failures
 
 

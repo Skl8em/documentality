@@ -62,3 +62,12 @@ The empty-register case is a hardening for the gate's next pass.
 The single-instance boundary cannot be tested without a second consumer.
 
 **How to resolve:** declare what "frozen" means in `schema/frontmatter-rules.yaml` and have `hash_seal.py` read it; make `ulid_check.py` fail when the register yields no decision rows; revisit the seam when a second project wants the pipeline, or when it has held unchanged for a full phase.
+
+## Gate messages: three validators unfixtured
+
+**What:** the gate's failure messages now each carry a `— fix:` clause ([Phase 12 T1(c)](../phases/refoundation/phase-12-codifying/error-message-audit.md)), and the two validators with fixtures (`frontmatter_lint.py`, `ulid_check.py`) fail a fixture whose message lacks one.
+`slug_check.py`, `linkcheck.py` and `hash_check.py` build theirs inline in `main()`, so nothing tests them.
+
+**Why left open:** testing them means extracting the message-building into pure functions first; that is a refactor of three working validators, not a side effect of a message edit.
+
+**How to resolve:** extract, on the model of `ulid_check.check_referential_integrity`, add fixtures, and assert the `fix:` clause in each.
