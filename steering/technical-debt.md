@@ -33,6 +33,7 @@ Adopting `id`/`slug` on the legacy records — and choosing whether their filena
 **Why:** they predate the current conventions or are not authored prose; forcing them into compliance would be churn without value.
 
 **How to resolve:** bring a file into the catalogue (frontmatter + one-sentence-per-line) and remove it from the ignore lists when it stops being historical/informal — case by case, not in bulk.
+There are two lists: `frontmatter:` in [`docsys.yaml`](../docsys.yaml) for the linter, and `.markdownlint-cli2.jsonc` for markdownlint, which reads only its own config; nothing checks that they agree.
 
 ## Unsealed frozen records
 
@@ -50,3 +51,14 @@ Note that sealing a record makes any later edit to it fail the gate until it is 
 - **Reorg leftovers (untracked on-disk zombies)** — the three untracked directories the Phase-08 renames left on disk (`theory/`, `write/`, a top-level `phases/phase-07-structuring-tutorial/` husk) are gone, and the root `.gitignore` stops the `.DS_Store` files that blocked their deletion from coming back.
   The real lesson is paid too: `scripts/check.py` now asserts `git status --porcelain` is clean of untracked paths, so on-disk cruft can no longer pass a gate that reads only `git ls-files` (Phase 10).
 - **Duplicated round-2 blind-test transcripts** — the `weft-blindtest-round2/` directory was byte-identical to the `blind-test/weft-{response,review}-round2.md` copies and was deleted; the `blind-test/` copies stay, sitting with round 1 (Phase 10).
+
+## Engine/config seam residue
+
+**What:** [Phase 12 T1(b)](../phases/refoundation/phase-12-codifying/engine-config-seam.md) moved every path, prefix and register format out of `scripts/` into `docsys.yaml`, and named what it left in code.
+Three of those are debts rather than design: the definition of a *frozen* record in `hash_seal.py` duplicates the schema's status vocabulary and can drift from it; a decision register whose configured row shape matches nothing still passes `ulid_check.py` silently; and the seam is drawn from a single instance.
+
+**Why left open:** the frozen-record definition belongs in the schema, and moving it widens the schema's vocabulary — a ruling, not a refactor.
+The empty-register case is a hardening for the gate's next pass.
+The single-instance boundary cannot be tested without a second consumer.
+
+**How to resolve:** declare what "frozen" means in `schema/frontmatter-rules.yaml` and have `hash_seal.py` read it; make `ulid_check.py` fail when the register yields no decision rows; revisit the seam when a second project wants the pipeline, or when it has held unchanged for a full phase.

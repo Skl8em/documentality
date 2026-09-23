@@ -48,7 +48,7 @@ The adopter is not in this table; see §Cut.
 | Community | Needs | Order |
 | --- | --- | --- |
 | gate-runner | **do**, and only `do` — the failing message *is* the interaction; they did not come to learn the engine, they came to unblock a commit | fix, inline, now |
-| maintainer | **know** first (why the gate sequences every check into one property; why the split holds; why referential integrity must be symmetric), **do** second (where `IGNORE_PREFIXES`, `REGISTER_PATH`, the hard-coded check list live, once T1(b) moves them) | know before do — acting blind here can break the corpus, not just fail a lint |
+| maintainer | **know** first (why the gate sequences every check into one property; why the split holds; why referential integrity must be symmetric), **do** second (where `docsys.yaml` holds the out-of-scope list, the register's shape and the check list T1(b) moved out of the scripts, and the residue in [`engine-config-seam.md`](engine-config-seam.md) that still lives in code) | know before do — acting blind here can break the corpus, not just fail a lint |
 | the machine | **do** only, in the strictest sense: no session memory is assumed, so every message must carry the file, the rule, and the fix with nothing left to a prior turn | no order — each message is the whole interaction, self-sufficient or not at all |
 
 ## Ruling 1 — is `maintainer` declared in the schema, or left as the linter's warning?
