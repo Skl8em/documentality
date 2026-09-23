@@ -71,6 +71,11 @@ reader: H+M
 
 A `user` (someone who only ever *reads* a documented project, never authors) is not a primary audience of the meta-system itself — they meet the system only through the projects that adopt it.
 
+One sub-role is in use, for the tooling's account (`codifying/`): **`maintainer`**, a `contributor` whose distance is judged in the tooling-engineering field — `scripts/`, the schema pipeline, the gate — rather than in the theory, and who must be initiated there before changing anything.
+It is deliberately not in the schema's `audience_base_roles`.
+The frontmatter linter warns on a role outside the three, by design, so a project can name its own sub-role without editing the schema, and one project-local sub-role does not clear the bar for promotion: the fractal rule refines only when the coarse version starts to hurt.
+The documents written for it carry `audience: [contributor]` and say in their opening lines that they address the maintainer ([ADR-035](../phases/refoundation/phase-12-codifying/codifying-function.md)).
+
 ## Example — a generic IT project
 
 Here the three roles refine into familiar sub-roles, and the `reader` flag varies per document:
