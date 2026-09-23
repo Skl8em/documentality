@@ -158,9 +158,35 @@ def run_parse_cases():
     return failures
 
 
+# Which documents the linter looks at is configuration (docsys.yaml `frontmatter:`),
+# not code: the fixtures state their own scope, so nothing here is this repo's layout.
+SCOPE = {"ignore_prefixes": ["raw/", "old/v1/"], "ignore_substrings": ["/transcripts/"]}
+
+# (name, path, ignored?)
+SCOPE_CASES = [
+    ("a path under an ignored prefix", "raw/essay.md", True),
+    ("a nested ignored prefix", "old/v1/notes.md", True),
+    ("an ignored substring, at any depth", "docs/run/transcripts/a.md", True),
+    ("a prefix only counts at the start", "docs/raw/essay.md", False),
+    ("an ordinary document", "docs/guide.md", False),
+]
+
+
+def run_scope_cases():
+    failures = 0
+    for name, path, expected in SCOPE_CASES:
+        got = frontmatter_lint.ignored(path, SCOPE)
+        if got == expected:
+            print(f"ok    {name}")
+        else:
+            failures += 1
+            print(f"FAIL  {name}: {path} expected ignored={expected}, got {got}")
+    return failures
+
+
 def main():
-    failures = run_lint_cases() + run_parse_cases()
-    total = len(LINT_CASES) + len(PARSE_CASES)
+    failures = run_lint_cases() + run_parse_cases() + run_scope_cases()
+    total = len(LINT_CASES) + len(PARSE_CASES) + len(SCOPE_CASES)
     print("\n" + "=" * 40)
     if failures:
         print(f"frontmatter parser: {failures}/{total} case(s) failed")

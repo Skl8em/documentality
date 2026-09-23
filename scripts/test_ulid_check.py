@@ -78,11 +78,40 @@ def run_ref_cases():
 
 # --- check_register ----------------------------------------------------------
 
+# The register's shape is configuration (docsys.yaml `register:`), not code: the
+# fixtures state their own, so the engine is tested against a format that is not
+# this repo's — a second shape below proves nothing ADR-specific is baked in.
+REGISTER_CFG = {
+    "path": "register.md",
+    "columns": 5,
+    "ordinal_column": 0,
+    "status_column": 4,
+    "ordinal_pattern": r"^\[(\d+)\]\(([^)]+)\)$",
+    "superseded_pattern": r"superseded by (\d+)",
+}
+
 REGISTER = """\
 | # | Decision | Phase | Date | Status |
 | --- | --- | --- | --- | --- |
 | [001](a.md) | Decision A | p1 | 2026-01-01 | superseded by 002 |
 | [002](b.md) | Decision B | p1 | 2026-01-02 | accepted |
+"""
+
+# A four-column register, status third, a different verb — same records.
+OTHER_REGISTER_CFG = {
+    "path": "log/index.md",
+    "columns": 4,
+    "ordinal_column": 0,
+    "status_column": 3,
+    "ordinal_pattern": r"^\[(\d+)\]\(([^)]+)\)$",
+    "superseded_pattern": r"replaced by (\d+)",
+}
+
+OTHER_REGISTER = """\
+| # | Decision | Date | Status |
+| --- | --- | --- | --- |
+| [1](../a.md) | Decision A | 2026-01-01 | replaced by 2 |
+| [2](../b.md) | Decision B | 2026-01-02 | accepted |
 """
 
 REGISTER_CASES = [
@@ -109,10 +138,25 @@ REGISTER_CASES = [
 ]
 
 
+# (name, register text, register config, records, expected)
+OTHER_SHAPE_CASES = [
+    ("second register shape agrees with the records",
+     OTHER_REGISTER, OTHER_REGISTER_CFG,
+     {"a.md": {"superseded-by": "b"}, "b.md": {"superseded-by": None}},
+     []),
+
+    ("second register shape, record disagrees",
+     OTHER_REGISTER, OTHER_REGISTER_CFG,
+     {"a.md": {"superseded-by": None}, "b.md": {"superseded-by": None}},
+     [("a.md", "does not name it")]),
+]
+
+
 def run_register_cases():
     failures = 0
-    for name, records, expected in REGISTER_CASES:
-        got = ulid_check.check_register(records, REGISTER, "register.md")
+    cases = [(n, REGISTER, REGISTER_CFG, r, e) for n, r, e in REGISTER_CASES] + OTHER_SHAPE_CASES
+    for name, text, cfg, records, expected in cases:
+        got = ulid_check.check_register(records, text, cfg)
         ok = len(got) == len(expected) and all(
             path == e_path and fragment in msg
             for (path, msg), (e_path, fragment) in zip(sorted(got), sorted(expected))
@@ -125,9 +169,22 @@ def run_register_cases():
     return failures
 
 
+def run_register_file_cases():
+    """A configured register that is not a tracked document must fail loud: a typo in
+    docsys.yaml would otherwise silently switch the cross-check off."""
+    failures = 0
+    got = ulid_check.check_register_file({"a.md": {}}, REGISTER_CFG)
+    if len(got) == 1 and "register.path" in got[0][1] and "register.md" in got[0][1]:
+        print("ok    a register path that is not a tracked document is an error")
+    else:
+        failures += 1
+        print(f"FAIL  a register path that is not a tracked document is an error: got {got}")
+    return failures
+
+
 def main():
-    failures = run_ref_cases() + run_register_cases()
-    total = len(REF_CASES) + len(REGISTER_CASES)
+    failures = run_ref_cases() + run_register_cases() + run_register_file_cases()
+    total = len(REF_CASES) + len(REGISTER_CASES) + len(OTHER_SHAPE_CASES) + 1
     print("\n" + "=" * 40)
     if failures:
         print(f"referential integrity: {failures}/{total} case(s) failed")

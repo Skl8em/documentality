@@ -1,0 +1,83 @@
+# Instance configuration: what the engine in scripts/ is pointed at, in THIS repo.
+#
+# scripts/ knows how to lint frontmatter, verify a decision register and run a
+# sequence of checks; it knows nothing of where this repo keeps its schema, which
+# documents are out of scope, what its register looks like, or which checks make
+# up its gate. That is all here, read through scripts/docsys_config.py, and
+# scripts/test_seam.py fails if any of it is ever hard-coded back into the engine.
+#
+# The vocabulary is closed — an unknown section or key is an error. The frontmatter
+# vocabulary itself is a different thing and lives in schema/frontmatter-rules.yaml:
+# that is the methodology's rules, this is one instance's layout.
+# See phases/refoundation/phase-12-codifying/engine-config-seam.md.
+
+# Where the frontmatter schema lives (scripts/generate_schema.py compiles the first
+# into the second; scripts/frontmatter_lint.py loads the second).
+schema:
+  source: schema/frontmatter-rules.yaml
+  generated: schema/frontmatter-rules.json
+
+# Documents outside the authored, refounded catalogue, which the frontmatter linter
+# skips:
+#  - theorising/**            raw upstream essays;
+#  - phases/naive-sketch/**   pre-refoundation frozen records (predate `intention`);
+#  - blind-test transcripts   raw agent outputs, not catalogued documents.
+# A prefix matches at the start of a path; a substring matches anywhere in it.
+# (.markdownlint-cli2.jsonc keeps its own, wider list: markdownlint reads no
+# config but its own.)
+frontmatter:
+  ignore_prefixes: [theorising/, phases/naive-sketch/]
+  ignore_substrings: [/blind-test/, /weft-blindtest]
+
+# The central decision register scripts/ulid_check.py cross-checks against each
+# record's own `superseded-by`. A decision row is a table row with `columns` cells;
+# the `ordinal_column` cell matches `ordinal_pattern` (group 1: the ordinal, group
+# 2: the link to the record), the `status_column` cell is searched for
+# `superseded_pattern` (group 1: the ordinal of the superseding decision).
+register:
+  path: steering/ADR.md
+  columns: 5
+  ordinal_column: 0
+  status_column: 4
+  ordinal_pattern: '^\[(\d+)\]\(([^)]+)\)$'
+  superseded_pattern: 'superseded by (\d+)'
+
+# The gate, in order — `python3 scripts/check.py` runs every entry and fails if any
+# fails. An entry is exactly one of:
+#   python: <script>   run with the gate's interpreter (`args:` optional)
+#   builtin: <name>    a check implemented in scripts/check.py itself
+#   tool: <command>    an external tool, always the PINNED devShell version
+checks:
+  # No untracked cruft on disk: the gate reads git, so it must also notice what git
+  # is NOT tracking.
+  - {name: worktree, builtin: worktree}
+  # The engine/config seam holds: a malformed docsys.yaml or an instance value
+  # hard-coded in scripts/ would otherwise go unnoticed.
+  - {name: seam, python: scripts/test_seam.py}
+  # Every relative markdown link resolves.
+  - {name: linkcheck, python: scripts/linkcheck.py}
+  # Must pass before anything that loads schema/frontmatter-rules.json: a stale
+  # generated file would otherwise let a schema edit go unenforced.
+  - {name: schema-drift, python: scripts/generate_schema.py, args: [--check]}
+  # Parser fixtures run BEFORE the corpus checks, for the same reason as md100
+  # below: a green corpus says nothing if the parser has stopped reading it.
+  - {name: frontmatter-parser, python: scripts/test_frontmatter_lint.py}
+  # The frontmatter invariants (warns on what is still open).
+  - {name: frontmatter, python: scripts/frontmatter_lint.py}
+  # Same reasoning as frontmatter-parser above: fixtures for the referential checks
+  # run before the corpus check they gate.
+  - {name: ulid-test, python: scripts/test_ulid_check.py}
+  # Every frontmatter `id` is a valid, unique ULID; every `supersedes` /
+  # `superseded-by` resolves, is symmetric, and agrees with the register.
+  - {name: ulid, python: scripts/ulid_check.py}
+  # Filename stem == frontmatter `slug` (ADR-028).
+  - {name: slug, python: scripts/slug_check.py}
+  # Every frozen record's fixity seal still matches.
+  - {name: hash, python: scripts/hash_check.py}
+  # The rule is a heuristic; its fixtures run BEFORE the corpus lint, so a green
+  # corpus can never be read as "the rule works" when it has stopped flagging
+  # anything.
+  - {name: md100, python: tools/markdownlint/test_sentence_per_line.py}
+  # One shared ruleset incl. one-sentence-per-line (ADR-021). The pinned version is
+  # part of the contract with the custom rule.
+  - {name: markdownlint, tool: markdownlint-cli2}

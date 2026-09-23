@@ -105,7 +105,7 @@ def main():
     n_phase = migrate_phases()  # then the folders carry the renamed files
     print(f"\nmigrated {n_adr} ADRs and {n_phase} phase folders")
     print("=== running the gate ===")
-    return subprocess.call([sys.executable, "scripts/check.py"])
+    return subprocess.call([sys.executable, os.path.join(HERE, "check.py")])
 
 
 if __name__ == "__main__":

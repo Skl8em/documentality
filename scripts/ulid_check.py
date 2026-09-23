@@ -20,9 +20,11 @@ hardening/plan.md: a typo in ADR-034's `supersedes` was caught only by hand):
   2. Supersession is symmetric (schema/frontmatter-rules.yaml already documents
      `superseded-by` as "the inverse of `supersedes`, kept symmetric"): if A
      supersedes B, B's `superseded-by` must name A back.
-  3. Every row of the central register (steering/ADR.md) agrees with the record
-     its link points at: a "superseded by N" row must match that record's own
-     `superseded-by`, and a plain row must find it unset.
+  3. Every row of the central decision register agrees with the record its link
+     points at: a "superseded by N" row must match that record's own
+     `superseded-by`, and a plain row must find it unset. Which file is the
+     register, and the shape of its rows, is instance configuration — docsys.yaml
+     `register:` — not something this script knows.
 
 A `<...>` placeholder (a force template's SPECIMEN frontmatter, e.g.
 `supersedes: <ADR-XXX or null>`) is not a reference and is skipped, the same test
@@ -39,17 +41,15 @@ import subprocess
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from docsys_config import load_config  # noqa: E402
 from ulid import is_ulid  # noqa: E402
 from yaml_frontmatter import FrontmatterError, load, values  # noqa: E402
 
 ROOT = subprocess.check_output(["git", "rev-parse", "--show-toplevel"], text=True).strip()
 os.chdir(ROOT)
 
-REGISTER_PATH = "steering/ADR.md"
 REF_FIELDS = ("supersedes", "superseded-by")
 INVERSE_FIELD = {"supersedes": "superseded-by", "superseded-by": "supersedes"}
-REGISTER_ROW_RE = re.compile(r"^\[(\d+)\]\(([^)]+)\)$")
-SUPERSEDED_BY_N_RE = re.compile(r"superseded by (\d+)")
 
 
 def stem(path):
@@ -107,31 +107,34 @@ def check_referential_integrity(records):
     return errors
 
 
-def parse_register(text, register_path):
+def parse_register(text, register):
     """Yield (ordinal, path, status) for each decision row of the central
     register — `path` resolved relative to the register file's own directory,
-    the way the markdown link itself resolves."""
-    base = os.path.dirname(register_path)
+    the way the markdown link itself resolves. `register` is docsys.yaml's
+    `register:` section: it says what a decision row looks like."""
+    base = os.path.dirname(register["path"])
+    row_re = re.compile(register["ordinal_pattern"])
     for line in text.splitlines():
         if not line.strip().startswith("|"):
             continue
         cells = [c.strip() for c in line.strip().strip("|").split("|")]
-        if len(cells) != 5:
+        if len(cells) != register["columns"]:
             continue
-        m = REGISTER_ROW_RE.match(cells[0])
+        m = row_re.match(cells[register["ordinal_column"]])
         if not m:
-            continue  # header, separator, or any row that is not `[NNN](link)`
+            continue  # header, separator, or any row that is not a decision row
         ordinal, link = m.groups()
         path = os.path.normpath(os.path.join(base, link))
-        yield ordinal, path, cells[4]
+        yield ordinal, path, cells[register["status_column"]]
 
 
-def check_register(records, register_text, register_path):
+def check_register(records, register_text, register):
     """Cross-check the register's "superseded by N" status text against the
     linked record's own `superseded-by`. A broken link is linkcheck's job, not
     re-reported here."""
     index = build_identity_index(records)
-    rows = list(parse_register(register_text, register_path))
+    superseded_re = re.compile(register["superseded_pattern"])
+    rows = list(parse_register(register_text, register))
     ordinal_to_path = {ordinal: path for ordinal, path, _ in rows}
     errors = []
     for ordinal, path, status in rows:
@@ -139,7 +142,7 @@ def check_register(records, register_text, register_path):
             continue
         actual_targets = {index.get(ref) for ref in normalize_refs(records[path].get("superseded-by"))}
         actual_targets.discard(None)
-        m = SUPERSEDED_BY_N_RE.search(status)
+        m = superseded_re.search(status)
         if m:
             expected = ordinal_to_path.get(m.group(1))
             if expected is None or expected not in actual_targets:
@@ -149,7 +152,19 @@ def check_register(records, register_text, register_path):
     return errors
 
 
+def check_register_file(records, register):
+    """Read the configured register and cross-check it. A register that is not a
+    tracked document is an error, not a skip: a mistyped `register.path` would
+    otherwise switch the whole cross-check off without a word."""
+    if register["path"] not in records:
+        return [(register["path"], f"`register.path` in docsys.yaml names `{register['path']}`, "
+                                   "which is not a tracked Markdown file — fix the path")]
+    with open(register["path"], encoding="utf-8") as fh:
+        return check_register(records, fh.read(), register)
+
+
 def main():
+    register = load_config()["register"]
     files = subprocess.check_output(["git", "ls-files", "*.md"], text=True).splitlines()
     errors = []
     seen = {}
@@ -174,10 +189,7 @@ def main():
 
     errors.extend(check_referential_integrity(records))
 
-    if REGISTER_PATH in records:
-        with open(REGISTER_PATH, encoding="utf-8") as fh:
-            register_text = fh.read()
-        errors.extend(check_register(records, register_text, REGISTER_PATH))
+    errors.extend(check_register_file(records, register))
 
     if errors:
         print(f"ULID ERRORS: {len(errors)}")

@@ -1,0 +1,215 @@
+#!/usr/bin/env python3
+"""Fixture test for the engine/config seam (Phase 12 T1(b)).
+
+The scripts under scripts/ are the engine; docsys.yaml is this repo's instance
+configuration. This test holds the line between them:
+
+  1. the real docsys.yaml loads and validates;
+  2. a malformed config is refused, with a message that names the file, the key
+     and the fix (the gate's machine reader has no other context);
+  3. no instance value from docsys.yaml — a path, a prefix, a script name — appears
+     as a string literal in the engine's code. Docstrings are prose and are exempt;
+     only literals the interpreter can act on count. The values to look for are read
+     FROM the config, so adding an instance value to it extends this check for free.
+
+    python3 scripts/test_seam.py
+"""
+import ast
+import glob
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import docsys_config  # noqa: E402
+
+VALID = {
+    "schema": {"source": "s/rules.yaml", "generated": "s/rules.json"},
+    "frontmatter": {"ignore_prefixes": ["raw/"], "ignore_substrings": ["/tmp/"]},
+    "register": {
+        "path": "log.md", "columns": "5", "ordinal_column": "0", "status_column": "4",
+        "ordinal_pattern": r"^\[(\d+)\]\(([^)]+)\)$", "superseded_pattern": r"superseded by (\d+)",
+    },
+    "checks": [
+        {"name": "tree", "builtin": "worktree"},
+        {"name": "links", "python": "scripts/linkcheck.py"},
+        {"name": "drift", "python": "scripts/generate_schema.py", "args": ["--check"]},
+        {"name": "lint", "tool": "markdownlint-cli2"},
+    ],
+}
+
+
+def broken(mutate):
+    """A deep copy of VALID after `mutate(copy)`."""
+    import copy
+    cfg = copy.deepcopy(VALID)
+    mutate(cfg)
+    return cfg
+
+
+def drop(section, key=None):
+    def go(cfg):
+        if key is None:
+            del cfg[section]
+        else:
+            del cfg[section][key]
+    return go
+
+
+def setter(section, key, value):
+    def go(cfg):
+        cfg[section][key] = value
+    return go
+
+
+def set_check(index, **fields):
+    def go(cfg):
+        cfg["checks"][index] = fields
+    return go
+
+
+# (name, mutation of VALID, fragments the refusal must contain — the key, and a fix)
+REFUSAL_CASES = [
+    ("a missing section", drop("register"), ["register", "missing"]),
+    ("a missing key", drop("schema", "source"), ["schema.source", "missing"]),
+    ("an unknown key", setter("schema", "typo", "x"), ["schema", "typo", "unknown"]),
+    ("an unknown section", lambda c: c.update(extra={}), ["extra", "unknown section"]),
+    ("a non-integer column", setter("register", "columns", "five"),
+     ["register.columns", "integer"]),
+    ("a pattern that does not compile", setter("register", "superseded_pattern", "(unclosed"),
+     ["register.superseded_pattern", "regular expression"]),
+    ("a pattern with the wrong number of groups", setter("register", "superseded_pattern", "superseded by"),
+     ["register.superseded_pattern", "group"]),
+    ("a status column outside the row", setter("register", "status_column", "9"),
+     ["register.status_column", "columns"]),
+    ("an empty check list", lambda c: c.update(checks=[]), ["checks", "at least one"]),
+    ("a check of no known kind", set_check(1, name="links"),
+     ["checks[1]", "exactly one of"]),
+    ("a check of two kinds", set_check(1, name="links", python="a.py", tool="b"),
+     ["checks[1]", "exactly one of"]),
+    ("an unknown builtin", set_check(0, name="tree", builtin="nonsense"),
+     ["checks[0]", "builtin", "nonsense"]),
+    ("a check without a name", set_check(1, python="scripts/linkcheck.py"),
+     ["checks[1]", "name"]),
+    ("a duplicate check name", set_check(1, name="tree", python="scripts/linkcheck.py"),
+     ["checks[1]", "tree", "duplicate"]),
+    ("a check script that does not exist", set_check(1, name="links", python="scripts/nope.py"),
+     ["checks[1]", "scripts/nope.py", "does not exist"]),
+]
+
+
+def run_refusal_cases():
+    failures = 0
+    for name, mutate, fragments in REFUSAL_CASES:
+        try:
+            docsys_config.validate(broken(mutate))
+        except docsys_config.ConfigError as exc:
+            message = str(exc)
+            missing = [f for f in fragments if f not in message]
+            if not missing and message.startswith("docsys.yaml"):
+                print(f"ok    {name}")
+                continue
+            failures += 1
+            print(f"FAIL  {name}: message {message!r} lacks {missing or ['the docsys.yaml prefix']}")
+        else:
+            failures += 1
+            print(f"FAIL  {name}: the config was accepted")
+    return failures
+
+
+def run_valid_case():
+    try:
+        cfg = docsys_config.validate(broken(lambda c: None))
+    except docsys_config.ConfigError as exc:
+        print(f"FAIL  a valid config is accepted: {exc}")
+        return 1
+    ok = cfg["register"]["columns"] == 5 and cfg["register"]["status_column"] == 4
+    if not ok:
+        print("FAIL  a valid config is accepted: integer keys were not converted")
+        return 1
+    print("ok    a valid config is accepted, integer keys converted")
+    return 0
+
+
+def run_real_config_case():
+    try:
+        docsys_config.load_config()
+    except docsys_config.ConfigError as exc:
+        print(f"FAIL  the repo's own docsys.yaml validates: {exc}")
+        return 1
+    print("ok    the repo's own docsys.yaml validates")
+    return 0
+
+
+def run_builtins_case():
+    """docsys_config says which builtins a config may name; check.py implements them.
+    The two lists must not drift, or a valid config would crash the runner."""
+    import check  # the runner; importing it runs nothing
+    if set(check.BUILTINS) != set(docsys_config.BUILTINS):
+        print(f"FAIL  builtins: check.py implements {sorted(check.BUILTINS)}, "
+              f"docsys_config allows {sorted(docsys_config.BUILTINS)}")
+        return 1
+    print("ok    check.py implements exactly the builtins the config may name")
+    return 0
+
+
+def code_literals(path):
+    """Every string literal in a script's code, docstrings excluded."""
+    with open(path, encoding="utf-8") as fh:
+        tree = ast.parse(fh.read(), filename=path)
+    docstrings = set()
+    for node in ast.walk(tree):
+        if isinstance(node, (ast.Module, ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
+            body = node.body
+            if body and isinstance(body[0], ast.Expr) and isinstance(body[0].value, ast.Constant) \
+                    and isinstance(body[0].value.value, str):
+                docstrings.add(id(body[0].value))
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Constant) and isinstance(node.value, str) and id(node) not in docstrings:
+            yield node.value
+
+
+def instance_values(cfg):
+    """The strings in docsys.yaml that name this repo's layout or tools. Patterns are
+    excluded: they describe a format, and are matched as literals too readily."""
+    values = {cfg["schema"]["source"], cfg["schema"]["generated"], cfg["register"]["path"]}
+    values.update(cfg["frontmatter"]["ignore_prefixes"])
+    values.update(cfg["frontmatter"]["ignore_substrings"])
+    for check in cfg["checks"]:
+        if "python" in check:
+            values.add(check["python"])
+    return values
+
+
+def run_leak_case():
+    """The engine must not carry the instance. A test's own literals (this file) are
+    fixtures, not engine, and are skipped."""
+    cfg = docsys_config.load_config()
+    values = instance_values(cfg)
+    here = os.path.abspath(__file__)
+    failures = 0
+    for path in sorted(glob.glob(os.path.join(os.path.dirname(here), "*.py"))):
+        if os.path.abspath(path) == here or os.path.basename(path).startswith("test_"):
+            continue
+        for literal in code_literals(path):
+            leaked = sorted(v for v in values if v and v in literal)
+            if leaked:
+                failures += 1
+                print(f"FAIL  {os.path.relpath(path)} hard-codes {leaked} in {literal!r} — "
+                      "move it to docsys.yaml and read it through scripts/docsys_config.py")
+    if not failures:
+        print("ok    no instance value from docsys.yaml is a literal in the engine")
+    return failures
+
+
+def main():
+    failures = run_valid_case() + run_refusal_cases() + run_real_config_case() + run_builtins_case() + run_leak_case()
+    print("\n" + "=" * 40)
+    if failures:
+        print(f"engine/config seam: {failures} failure(s)")
+        return 1
+    print("engine/config seam: all cases pass")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

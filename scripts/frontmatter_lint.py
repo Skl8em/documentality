@@ -2,7 +2,7 @@
 """Frontmatter linter.
 
 Validates every tracked Markdown document's YAML frontmatter against
-schema/frontmatter-rules.json. Settled rules are ERRORS (exit 1); what is still
+the generated schema (schema/frontmatter-rules.json). Settled rules are ERRORS (exit 1); what is still
 genuinely undecided is a WARNING. Parses real YAML through
 scripts/yaml_frontmatter.py, so it needs `pyyaml` — the devShell provides it.
 
@@ -33,25 +33,22 @@ import subprocess
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from docsys_config import load_config  # noqa: E402
 from yaml_frontmatter import FrontmatterError, load  # noqa: E402
 
 ROOT = subprocess.check_output(["git", "rev-parse", "--show-toplevel"], text=True).strip()
 os.chdir(ROOT)
 
-# Documents outside the authored, refounded catalogue:
-#  - theorising/**            raw upstream essays;
-#  - phases/naive-sketch/**   pre-refoundation frozen records (predate `intention`);
-#  - blind-test transcripts   raw agent outputs, not catalogued documents.
-IGNORE_PREFIXES = ("theorising/", "phases/naive-sketch/")
-IGNORE_SUBSTRINGS = ("/blind-test/", "/weft-blindtest")
-
-
-def ignored(path):
-    return path.startswith(IGNORE_PREFIXES) or any(s in path for s in IGNORE_SUBSTRINGS)
+def ignored(path, scope):
+    """Is `path` outside the authored catalogue? `scope` is docsys.yaml's
+    `frontmatter:` section: prefixes match at the start of a path, substrings
+    anywhere in it."""
+    return path.startswith(tuple(scope["ignore_prefixes"])) or any(
+        s in path for s in scope["ignore_substrings"])
 
 
 def load_schema():
-    with open("schema/frontmatter-rules.json", encoding="utf-8") as fh:
+    with open(load_config()["schema"]["generated"], encoding="utf-8") as fh:
         schema = json.load(fh)
     # Fail loud if the schema itself is incoherent: the direction-of-fit table must
     # partition the twelve forces exactly, or `register` cannot be derived.
@@ -168,7 +165,7 @@ def lint_file(path, schema, errors, warnings):
     known = set(schema["required"]) | set(schema["optional_fields"]) | set(schema["root_only_fields"])
     for field in fm:
         if field not in known and field != "register":
-            errors.append((path, ln(field), f"`{field}` is not in the closed frontmatter vocabulary — declare it in schema/frontmatter-rules.yaml with a rationale, or remove it"))
+            errors.append((path, ln(field), f"`{field}` is not in the closed frontmatter vocabulary — declare it in {load_config()['schema']['source']} with a rationale, or remove it"))
 
 
 def print_registers(schema, files):
@@ -185,9 +182,10 @@ def print_registers(schema, files):
 def main():
     show_warnings = "--warnings" in sys.argv
     schema = load_schema()
+    scope = load_config()["frontmatter"]
     files = [
         f for f in subprocess.check_output(["git", "ls-files", "*.md"], text=True).splitlines()
-        if not ignored(f)
+        if not ignored(f, scope)
     ]
     if "--registers" in sys.argv:
         print_registers(schema, files)
