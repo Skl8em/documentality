@@ -33,6 +33,8 @@ VALID = {
         "since": "0123456789abcdef0123456789abcdef01234567",
         "mechanism": ["engine/"],
         "understanding": ["docs/", "ARCHITECTURE.md"],
+        "exempt": ["engine/test_"],
+        "enforce_on": ["trunk"],
     },
     "checks": [
         {"name": "tree", "builtin": "worktree"},
@@ -92,6 +94,12 @@ REFUSAL_CASES = [
      ["paired_change.mechanism", "at least one"]),
     ("an understanding list of non-strings", setter("paired_change", "understanding", "docs/"),
      ["paired_change.understanding", "list of strings"]),
+    ("an empty enforce_on list", setter("paired_change", "enforce_on", []),
+     ["paired_change.enforce_on", "at least one"]),
+    ("an exempt list of non-strings", setter("paired_change", "exempt", "engine/test_"),
+     ["paired_change.exempt", "list of strings"]),
+    ("a missing paired_change key", drop("paired_change", "enforce_on"),
+     ["paired_change.enforce_on", "missing"]),
     ("a missing paired_change section",
      drop("paired_change"), ["paired_change", "missing"]),
     ("an empty check list", lambda c: c.update(checks=[]), ["checks", "at least one"]),
@@ -197,7 +205,8 @@ def instance_prefixes(cfg):
     """Path prefixes that classify a file. Matched only at the START of a literal: a
     prefix like `scripts/` is also how the engine's own messages point at a sibling
     script (`fix: mint one with scripts/ulid.py`), which is prose, not classification."""
-    return set(cfg["paired_change"]["mechanism"]) | set(cfg["paired_change"]["understanding"])
+    pc = cfg["paired_change"]
+    return set(pc["mechanism"]) | set(pc["understanding"]) | set(pc["exempt"])
 
 
 def run_leak_case():
