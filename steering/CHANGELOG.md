@@ -16,6 +16,13 @@ History of the documentation system itself.
 Append-only; each entry is dated-fixed.
 Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
 
+## [v4.0-alpha.19] — Phase 12 plan: ADR-038 gets a check
+
+- **Planned:** T3 gains a second gate check that enforces [ADR-038](../phases/refoundation/phase-11-tooling-hardening/unstarted-work-unnumbered.md): a tracked document may not name an arabic-numbered phase above the highest one under `phases/`, and a roadmap row may not carry a number for a phase with no folder.
+  ADR-038 recorded that no check enforced it and that the rule held by attention; this is what closes that limit, so it is a changelog line, not a record.
+  The definition of done and the roadmap row grow to match.
+  ([plan](../phases/refoundation/phase-12-codifying/plan.md))
+
 ## [v4.0-alpha.18] — Phase 12 T2: Phase 11's account closed
 
 - **Decided:** the three decisions Phase 11 took and never recorded, now on the register with the phase's provenance — [ADR-036](../phases/refoundation/phase-11-tooling-hardening/closed-frontmatter-vocabulary.md) (the vocabulary is closed and a field earns its place by carrying a reason), [ADR-037](../phases/refoundation/phase-11-tooling-hardening/yaml-source-generated-json.md) (the schema's source is YAML, its JSON generated) and [ADR-038](../phases/refoundation/phase-11-tooling-hardening/unstarted-work-unnumbered.md) (unstarted work is never referred to by number).
