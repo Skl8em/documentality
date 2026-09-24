@@ -55,6 +55,11 @@ A superseding decision is a new row and a new record that sets `supersedes`.
 | [033](../phases/refoundation/phase-10-schema/operationalizing-function.md) | `operationalizing` is the sixth function, between theory and product | 10-schema | 2026-08-03 | accepted |
 | [034](../phases/refoundation/phase-10-schema/hosting-github-canonical.md) | Hosting: GitHub canonical; Codeberg deferred to a self-hosted Forgejo | 10-schema | 2026-09-12 | accepted |
 | [035](../phases/refoundation/phase-12-codifying/codifying-function.md) | `codifying` is the seventh function, the account of the tooling | 12-codifying | 2026-09-23 | accepted |
+| [036](../phases/refoundation/phase-11-tooling-hardening/closed-frontmatter-vocabulary.md) | The frontmatter vocabulary is closed; a field earns its place by carrying a reason | 11-tooling-hardening | 2026-09-24 | accepted |
+| [037](../phases/refoundation/phase-11-tooling-hardening/yaml-source-generated-json.md) | The schema's source is YAML; its JSON is a generated artifact, kept for now | 11-tooling-hardening | 2026-09-24 | accepted |
+| [038](../phases/refoundation/phase-11-tooling-hardening/unstarted-work-unnumbered.md) | Unstarted work is never referred to by number | 11-tooling-hardening | 2026-09-24 | accepted |
+
+Rows 036–038 record decisions Phase 11 took on 2026-09-15, 2026-09-17 and 2026-09-13 and never wrote down; they were written by Phase 12, and the date column is the date they were recorded.
 
 The ordinal in the `#` column is a **generated display number** (ADR-028): a record's identity is the ULID in its frontmatter (`id`), not a stored count.
 New records keep `<slug>.md` filenames; older rows keep their `ADR-NNN` names for now (the naming convention is open — see the technical-debt tracker).
