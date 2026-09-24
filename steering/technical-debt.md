@@ -93,12 +93,17 @@ Found while writing [the referential-integrity fiche](../codifying/referential-i
 
 ## Paired-change: what the rule does not see
 
-**What:** the [paired-change rule](../phases/refoundation/phase-12-codifying/paired-change-rule.md) (ADR-039) has three gaps.
-It checks that a file explaining the tooling was edited, not that the edit is true.
-The pre-commit hook that would stop a violating commit is opt-in (`git config core.hooksPath .githooks`), so on a clone that has not opted in the violation is found by CI after the commit exists; once it is shared, the only remedy is moving `paired_change.since`.
-And a change confined to `docsys.yaml` or `tools/markdownlint/`, which are apparatus, is in neither list.
+**What:** the [paired-change rule](../phases/refoundation/phase-12-codifying/paired-change-rule.md) (ADR-039, refined by [ADR-040](../phases/refoundation/phase-12-codifying/paired-change-where-it-fails.md)) has these gaps, each scheduled in the [Phase 12 plan](../phases/refoundation/phase-12-codifying/plan.md#open-points-and-when-each-is-settled):
 
-**Why left open:** the first is what any co-occurrence rule costs and only a reader can close it; the second is a property of git hooks, which are not versioned into a clone; the third was left out on purpose, because `docsys.yaml` will hold the phase ledger of T6, whose edits nothing on the shelves explains.
+- It checks that a file explaining the tooling was edited, not that the edit is true; a docstring that replaces the description of unchanged behaviour is exempt, and only Python is examined for comment-only edits.
+- The pre-commit hook that would stop a violating commit is opt-in (`git config core.hooksPath .githooks`), and is not enabled in this clone.
+  A violation is then found at the pull request, after the commit exists; once shared, the only remedy is moving `paired_change.since`.
+- On a feature branch a violation is only a warning, so a mechanism commit followed by its account passes there and fails at the pull request, which examines every commit since the anchor.
+  How costly that is on a phase-long branch is unmeasured.
+- A change confined to `docsys.yaml` or `tools/markdownlint/`, which are apparatus, is in neither list.
+- `paired_change.enforce_on` is a list of branch names; if the integration branch is renamed and the list is not, the rule silently becomes a warning.
+- A rename or a behaviour-free refactor still asks for an account; only tests and comment-only edits are exempt.
 
-**How to resolve:** for the third, either split the ledger from the gate's configuration or list `docsys.yaml` with a carve-out for that section; for `tools/markdownlint/`, list it when a change to it first goes unexplained.
-For the second, CI already runs the check; treat a red `paired-change` on a shared branch as a reason to move the anchor with a stated cause in the commit message, not to re-run it.
+**Why left open:** the first is what any co-occurrence rule costs and only a reader can close it; the second is a property of git hooks, which are not versioned into a clone; the third is the price of not blocking work in progress, chosen in ADR-040; the fourth was left out on purpose, because `docsys.yaml` will hold the phase ledger of T6, whose edits nothing on the shelves explains; the last two await evidence.
+
+**How to resolve:** the plan's table names the step for each — the hook is the project owner's call before T4; the merge-time cost is observed on Phase 12's own merge in T5; the `docsys.yaml` gap and `enforce_on` are settled in T6, either by splitting the ledger from the gate's configuration or by listing `docsys.yaml` with a carve-out, and by failing when no listed branch exists; the first is a phase-close re-read by a person.

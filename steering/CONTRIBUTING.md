@@ -36,8 +36,10 @@ Rules for documents you write *with* the system are in the product ([`../write/r
 
 - You **must** pair a change to the tooling with its account: a commit that touches `scripts/` or `schema/` also edits a file that explains it — under `writing/`, `structuring/`, `operationalizing/` or `codifying/`, or `steering/ARCHITECTURE.md` — in the same commit.
   In practice that is the [`codifying/`](../codifying/README.md) fiche for what you touched, or a new one.
-  The gate checks it ([ADR-039](../phases/refoundation/phase-12-codifying/paired-change-rule.md)); it checks that an edit exists, not that it is right, so write the account you would want to have read.
-  Consequence: an unpaired commit fails the gate, and it cannot be repaired by a docs commit afterwards — amend it, or move `paired_change.since` in [`docsys.yaml`](../docsys.yaml) past it, which is a deliberate acceptance that shows in review.
+  The gate checks it ([ADR-039](../phases/refoundation/phase-12-codifying/paired-change-rule.md), [ADR-040](../phases/refoundation/phase-12-codifying/paired-change-where-it-fails.md)); it checks that an edit exists, not that it is right, so write the account you would want to have read.
+  A change to a test file, or to a Python file that alters only comments, docstrings or formatting, has nothing to explain and needs none.
+  Consequence: on `main`, on `develop` and in a pull request an unpaired commit fails the gate; on any other branch it is a warning, so work in progress is not blocked, but it will fail when it lands.
+  It cannot be repaired by a docs commit afterwards — amend or squash it with its account, or move `paired_change.since` in [`docsys.yaml`](../docsys.yaml) past it, which is a deliberate acceptance that shows in review.
 
 - You **must** run the gate before committing: `python3 scripts/check.py`, which enters the devShell itself when Nix is available.
   Opt in to the pre-commit hook once with `git config core.hooksPath .githooks`.

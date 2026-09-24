@@ -16,6 +16,19 @@ History of the documentation system itself.
 Append-only; each entry is dated-fixed.
 Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
 
+## [v4.0-alpha.22] — Phase 12 T3, refined: the rule fails where work lands
+
+- **Decided:** [ADR-040](../phases/refoundation/phase-12-codifying/paired-change-where-it-fails.md), refining ADR-039 (which stands) on the project owner's ruling.
+  The paired-change rule **fails** only on `main`, `develop` and a detached checkout (a pull request's merge commit in CI), and **warns** on any other branch; a test-only or comment-only change needs no account.
+  The unit is still the commit.
+  This moves the cost ADR-039 charged at commit time to merge time, on purpose, and says so.
+- **Changed:** `docsys.yaml`'s `paired_change:` gains `exempt` and `enforce_on`, validated by `docsys_config.py` and covered by the seam test.
+  `paired_change.py` decides comment-only by comparing a Python file's syntax tree before and after, docstrings set aside; fixtures cover it, the branch decision, and one violation on a feature branch, on `main` and on a detached HEAD.
+  `CONTRIBUTING.md`, `ARCHITECTURE.md` and `codifying/gate.md` state the refinement.
+- **Planned:** the open points T3 left are scheduled against tasks in the [plan](../phases/refoundation/phase-12-codifying/plan.md#open-points-and-when-each-is-settled), with a **blocking rule**: a point that blocks a task stops it, the tree goes back to the last state that stands without the point, and the point is reported rather than worked around.
+  Two of them land in T6 (the `docsys.yaml` gap and a stale `enforce_on`), one in T5 (Phase 12's own merge is the first test of commit-level at merge time), one is the project owner's before T4 (the opt-in hook).
+  ([plan](../phases/refoundation/phase-12-codifying/plan.md))
+
 ## [v4.0-alpha.21] — Phase 12 T3: a change to the tooling that explains nothing fails the gate
 
 - **Decided:** [ADR-039](../phases/refoundation/phase-12-codifying/paired-change-rule.md).
