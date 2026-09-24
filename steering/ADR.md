@@ -58,6 +58,7 @@ A superseding decision is a new row and a new record that sets `supersedes`.
 | [036](../phases/refoundation/phase-11-tooling-hardening/closed-frontmatter-vocabulary.md) | The frontmatter vocabulary is closed; a field earns its place by carrying a reason | 11-tooling-hardening | 2026-09-24 | accepted |
 | [037](../phases/refoundation/phase-11-tooling-hardening/yaml-source-generated-json.md) | The schema's source is YAML; its JSON is a generated artifact, kept for now | 11-tooling-hardening | 2026-09-24 | accepted |
 | [038](../phases/refoundation/phase-11-tooling-hardening/unstarted-work-unnumbered.md) | Unstarted work is never referred to by number | 11-tooling-hardening | 2026-09-24 | accepted |
+| [039](../phases/refoundation/phase-12-codifying/paired-change-rule.md) | A change to the tooling that explains nothing fails the gate | 12-codifying | 2026-09-24 | accepted |
 
 Rows 036–038 record decisions Phase 11 took on 2026-09-15, 2026-09-17 and 2026-09-13 and never wrote down; they were written by Phase 12, and the date column is the date they were recorded.
 
