@@ -16,6 +16,16 @@ History of the documentation system itself.
 Append-only; each entry is dated-fixed.
 Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
 
+## [v4.0-alpha.20] — Phase 12 plan: a phase ledger, T6
+
+- **Planned:** **T6**, a phase ledger — the current phase declared once in `docsys.yaml`, with a `phase-state` gate check that verifies the folders, the roadmap and index markers, the root README's status, forward phase numbers and the `phase:` fields against it.
+  The problem it answers: the current phase was implied in a dozen places with nothing tying them together, which is what left Phases 10 and 11 closing with stale ones.
+  It **supersedes** the forward-numbering check alpha.19 planned for T3, which inferred the phase from folders instead of reading it; T3 is back to the paired-change rule alone.
+  ADR-038 is still enforced by the result, so its "no check enforces this" limit closes when T6 lands, and it stays unedited.
+  T5 shrinks to flipping the ledger and fixing what the gate flags; the ledger's own decision earns an ADR when T6 makes it.
+  A sequencing decision, so held here and in the roadmap (ADR-032).
+  ([plan](../phases/refoundation/phase-12-codifying/plan.md))
+
 ## [v4.0-alpha.19] — Phase 12 plan: ADR-038 gets a check
 
 - **Planned:** T3 gains a second gate check that enforces [ADR-038](../phases/refoundation/phase-11-tooling-hardening/unstarted-work-unnumbered.md): a tracked document may not name an arabic-numbered phase above the highest one under `phases/`, and a roadmap row may not carry a number for a phase with no folder.
