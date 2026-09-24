@@ -42,6 +42,19 @@ register:
   ordinal_pattern: '^\[(\d+)\]\(([^)]+)\)$'
   superseded_pattern: 'superseded by (\d+)'
 
+# The paired-change rule (Phase 12 T3, ADR-039): a change to the tooling must touch
+# something a human reads for understanding. The unit is one commit, plus the
+# uncommitted work that will become the next; scripts/paired_change.py examines every
+# non-merge commit in `since`..HEAD (the anchor itself is exempt, and so is everything
+# before it: the rule starts there). Moving `since` forward is how a commit already
+# made is accepted — a visible edit to this file, not a silent exemption.
+# A prefix matches at the start of a path, so `steering/ARCHITECTURE.md` names one file.
+# The rule needs the anchor in the checked-out history: CI must fetch it in full.
+paired_change:
+  since: 092e87bb56b30a7b3d558d1c864a5f57c355f909
+  mechanism: [scripts/, schema/]
+  understanding: [writing/, structuring/, operationalizing/, codifying/, steering/ARCHITECTURE.md]
+
 # The gate, in order — `python3 scripts/check.py` runs every entry and fails if any
 # fails. An entry is exactly one of:
 #   python: <script>   run with the gate's interpreter (`args:` optional)
@@ -78,6 +91,11 @@ checks:
   - {name: slug, python: scripts/slug_check.py}
   # Every frozen record's fixity seal still matches.
   - {name: hash, python: scripts/hash_check.py}
+  # Fixtures first, as above: they run the rule against a throwaway git repository, so
+  # a green result on the real history cannot mean the rule stopped detecting.
+  - {name: paired-change-test, python: scripts/test_paired_change.py}
+  # A change to scripts/ or schema/ is accompanied by a change to what explains it.
+  - {name: paired-change, python: scripts/paired_change.py}
   # The rule is a heuristic; its fixtures run BEFORE the corpus lint, so a green
   # corpus can never be read as "the rule works" when it has stopped flagging
   # anything.
