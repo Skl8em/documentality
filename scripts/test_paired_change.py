@@ -7,12 +7,19 @@ commit, plus the uncommitted work that will become the next one — not the bran
 a phase-long branch nearly always touches some document, so a branch-level rule
 passes on exactly the phase (11) that motivated it.
 
-Two layers, because the rule has two halves:
+The rule fails only where work lands (`main`, `develop`, or a detached checkout such
+as a pull request's merge commit); on any other branch it warns and exits 0. A change
+that has nothing to explain — a test file, or a Python edit whose code is unchanged
+(comments, docstrings, formatting) — is not a change to the mechanism.
 
-  1. `unpaired` is a pure function over (label, changed paths) units — the rule.
+Three layers:
+
+  1. `unpaired` and `comment_only` are pure functions — the rule and its exemption.
   2. `commit_units` / `pending_unit` read git, so they run against a real throwaway
      repository: a synthetic scripts-only commit fails, then passes once a docs file
      joins it; the same for uncommitted work.
+  3. `run` decides enforced-or-advisory from the branch, and is exercised on a
+     feature branch, on `main`, and on a detached HEAD.
 
     python3 scripts/test_paired_change.py
 """
@@ -25,6 +32,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import paired_change  # noqa: E402
 
 MECHANISM = ["scripts/", "schema/"]
+EXEMPT = ["scripts/test_"]
 UNDERSTANDING = ["writing/", "codifying/", "steering/ARCHITECTURE.md"]
 
 # (name, units, labels expected to be reported)
@@ -47,13 +55,20 @@ RULE_CASES = [
      [("c1", ["scripts/a.py"]), ("c2", ["scripts/b.py", "codifying/x.md"]), ("c3", ["schema/s.yaml"])],
      ["c1", "c3"]),
     ("no units, nothing to report", [], []),
+    ("a test-only unit needs no account", [("c1", ["scripts/test_x.py"])], []),
+    ("a test beside real mechanism does not excuse the mechanism",
+     [("c1", ["scripts/test_x.py", "scripts/x.py"])], ["c1"]),
+    ("a comment-only edit (marked trivial by the git layer) needs no account",
+     [("c1", ["scripts/x.py"], {"scripts/x.py"})], []),
+    ("trivial is per file: another script in the unit still needs one",
+     [("c1", ["scripts/x.py", "scripts/y.py"], {"scripts/x.py"})], ["c1"]),
 ]
 
 
 def run_rule_cases():
     failures = 0
     for name, units, expected in RULE_CASES:
-        got = [label for label, _ in paired_change.unpaired(units, MECHANISM, UNDERSTANDING)]
+        got = [o[0] for o in paired_change.unpaired(units, MECHANISM, UNDERSTANDING, EXEMPT)]
         if got == expected:
             print(f"ok    {name}")
         else:
@@ -76,6 +91,51 @@ def run_report_case():
         return 1
     print("ok    the report names the unit, the file, the accepted places and a fix")
     return 0
+
+
+COMMENT_ONLY_CASES = [
+    ("a comment added", "x = 1\n", "x = 1  # why\n", True),
+    ("a comment removed", "# why\nx = 1\n", "x = 1\n", True),
+    ("formatting only", "x = f( 1,2 )\n", "x = f(1, 2)\n", True),
+    ("a docstring rewritten", 'def f():\n    """old"""\n    return 1\n',
+     'def f():\n    """new, longer"""\n    return 1\n', True),
+    ("a docstring added", "def f():\n    return 1\n", 'def f():\n    """doc"""\n    return 1\n', True),
+    ("a code change", "x = 1\n", "x = 2\n", False),
+    ("a string literal changed (not a docstring)", 'def f():\n    return "a"\n',
+     'def f():\n    return "b"\n', False),
+    ("a statement added", "x = 1\n", "x = 1\ny = 2\n", False),
+    ("the new source does not parse", "x = 1\n", "x = (\n", False),
+    ("the old source does not parse", "x = (\n", "x = 1\n", False),
+]
+
+ENFORCED_CASES = [
+    ("main", ["main", "develop"], True),
+    ("develop", ["main", "develop"], True),
+    ("a feature branch", ["main", "develop"], False),
+    ("a branch that merely contains the word", ["main", "develop"], False),
+    ("a detached HEAD (a pull request's merge commit, CI)", ["main", "develop"], True),
+]
+
+
+def run_comment_only_cases():
+    failures = 0
+    for name, old, new, expected in COMMENT_ONLY_CASES:
+        got = paired_change.comment_only(old, new)
+        if got == expected:
+            print(f"ok    {name}: comment_only is {expected}")
+        else:
+            failures += 1
+            print(f"FAIL  {name}: expected comment_only {expected}, got {got}")
+    for name, enforce_on, expected in ENFORCED_CASES:
+        branch = None if name.startswith("a detached") else \
+            {"main": "main", "develop": "develop", "a feature branch": "feature/x"}.get(name, "maintenance")
+        got = paired_change.enforced(branch, enforce_on)
+        if got == expected:
+            print(f"ok    {name}: enforced is {expected}")
+        else:
+            failures += 1
+            print(f"FAIL  {name}: expected enforced {expected}, got {got}")
+    return failures
 
 
 # --- against a real repository -----------------------------------------------
@@ -109,7 +169,7 @@ def offending_labels(cwd, since):
     pending = paired_change.pending_unit(cwd)
     if pending:
         units.append(pending)
-    return [label for label, _ in paired_change.unpaired(units, MECHANISM, UNDERSTANDING)]
+    return [o[0] for o in paired_change.unpaired(units, MECHANISM, UNDERSTANDING, EXEMPT)]
 
 
 def run_git_cases():
@@ -163,6 +223,29 @@ def run_git_cases():
         got = offending_labels(repo, deleted)
         report(len(got) == 1 and "move a script out" in got[0],
                "moving a script out of scripts/ is caught by its old path", str(got))
+
+    with tempfile.TemporaryDirectory() as repo:
+        git(repo, "init", "-q")
+        commit(repo, "base", {"scripts/x.py": "x = 1\n", "scripts/test_x.py": "t = 1\n", "writing/a.md": "a\n"})
+        anchor = git(repo, "rev-parse", "HEAD")
+
+        commit(repo, "comment only", {"scripts/x.py": "x = 1  # explained\n"})
+        report(offending_labels(repo, anchor) == [], "a comment-only commit needs no account")
+        commit(repo, "test only", {"scripts/test_x.py": "t = 2\n"})
+        report(offending_labels(repo, anchor) == [], "a test-only commit needs no account")
+        commit(repo, "real change", {"scripts/x.py": "x = 2  # explained\n"})
+        got = offending_labels(repo, anchor)
+        report(len(got) == 1 and "real change" in got[0],
+               "a code change to the same file still does", str(got))
+        commit(repo, "the account", {"codifying/x.md": "x\n"})
+        anchor = git(repo, "rev-parse", "HEAD")
+
+        write(repo, "scripts/x.py", "x = 2  # and another\n")
+        report(offending_labels(repo, anchor) == [], "uncommitted comment-only work needs no account")
+        write(repo, "scripts/x.py", "x = 3\n")
+        got = offending_labels(repo, anchor)
+        report(len(got) == 1 and "uncommitted" in got[0], "uncommitted code work still does", str(got))
+        git(repo, "checkout", "-q", "--", ".")
 
     with tempfile.TemporaryDirectory() as repo:
         git(repo, "init", "-q")
@@ -223,8 +306,51 @@ def run_git_cases():
     return failures
 
 
+def run_branch_cases():
+    """The same violation is a failure on main and a warning on a feature branch."""
+    failures = 0
+    cfg = {"since": None, "mechanism": MECHANISM, "understanding": UNDERSTANDING,
+           "exempt": EXEMPT, "enforce_on": ["main", "develop"]}
+
+    def report(ok, name, detail=""):
+        nonlocal failures
+        print(f"{'ok   ' if ok else 'FAIL '} {name}{'' if ok else ': ' + detail}")
+        failures += not ok
+
+    with tempfile.TemporaryDirectory() as repo:
+        git(repo, "init", "-q")
+        git(repo, "symbolic-ref", "HEAD", "refs/heads/main")
+        anchor = commit(repo, "base", {"writing/a.md": "a\n"})
+        cfg["since"] = anchor
+
+        code, lines = paired_change.run(cfg, repo)
+        report(code == 0 and "OK" in lines[0], "a clean history passes on main", str(lines))
+
+        git(repo, "checkout", "-q", "-b", "feature/x")
+        commit(repo, "scripts only", {"scripts/x.py": "x\n"})
+        code, lines = paired_change.run(cfg, repo)
+        text = "\n".join(lines)
+        report(code == 0 and "scripts only" in text and "WARNING" in lines[0] and "feature/x" in text
+               and "main" in text,
+               "on a feature branch the violation is a warning that names the branch and where it is enforced",
+               f"code {code}: {text}")
+
+        git(repo, "checkout", "-q", "main")
+        git(repo, "merge", "-q", "--ff-only", "feature/x")
+        code, lines = paired_change.run(cfg, repo)
+        report(code == 1 and "PAIRED CHANGE" in lines[0] and "scripts only" in "\n".join(lines),
+               "the same history fails on main", f"code {code}: {lines}")
+
+        git(repo, "checkout", "-q", "-b", "feature/y")
+        git(repo, "checkout", "-q", "--detach")
+        code, lines = paired_change.run(cfg, repo)
+        report(code == 1, "the same history fails on a detached HEAD (CI on a pull request)", f"code {code}")
+    return failures
+
+
 def main():
-    failures = run_rule_cases() + run_report_case() + run_git_cases()
+    failures = (run_rule_cases() + run_comment_only_cases() + run_report_case()
+                + run_git_cases() + run_branch_cases())
     print("\n" + "=" * 40)
     if failures:
         print(f"paired change: {failures} failure(s)")

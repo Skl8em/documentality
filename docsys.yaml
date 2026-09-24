@@ -42,18 +42,25 @@ register:
   ordinal_pattern: '^\[(\d+)\]\(([^)]+)\)$'
   superseded_pattern: 'superseded by (\d+)'
 
-# The paired-change rule (Phase 12 T3, ADR-039): a change to the tooling must touch
-# something a human reads for understanding. The unit is one commit, plus the
+# The paired-change rule (Phase 12 T3, ADR-039 and ADR-040): a change to the tooling
+# must touch something a human reads for understanding. The unit is one commit, plus the
 # uncommitted work that will become the next; scripts/paired_change.py examines every
 # non-merge commit in `since`..HEAD (the anchor itself is exempt, and so is everything
 # before it: the rule starts there). Moving `since` forward is how a commit already
 # made is accepted — a visible edit to this file, not a silent exemption.
-# A prefix matches at the start of a path, so `steering/ARCHITECTURE.md` names one file.
+#  - mechanism / understanding / exempt are path prefixes, matched at the start of a
+#    path, so `steering/ARCHITECTURE.md` names one file. `exempt` paths, and Python
+#    edits that change only comments, docstrings or formatting, need no account.
+#  - enforce_on: the rule FAILS only on these branches, and on a detached HEAD (a pull
+#    request's merge commit in CI). Anywhere else it warns and exits 0, so work in
+#    progress on a feature branch is not blocked.
 # The rule needs the anchor in the checked-out history: CI must fetch it in full.
 paired_change:
   since: 092e87bb56b30a7b3d558d1c864a5f57c355f909
   mechanism: [scripts/, schema/]
   understanding: [writing/, structuring/, operationalizing/, codifying/, steering/ARCHITECTURE.md]
+  exempt: [scripts/test_]
+  enforce_on: [main, develop]
 
 # The gate, in order — `python3 scripts/check.py` runs every entry and fails if any
 # fails. An entry is exactly one of:

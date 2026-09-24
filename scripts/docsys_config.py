@@ -38,7 +38,7 @@ SECTIONS = {
     "frontmatter": ("ignore_prefixes", "ignore_substrings"),
     "register": ("path", "columns", "ordinal_column", "status_column",
                  "ordinal_pattern", "superseded_pattern"),
-    "paired_change": ("since", "mechanism", "understanding"),
+    "paired_change": ("since", "mechanism", "understanding", "exempt", "enforce_on"),
 }
 CHECK_KINDS = ("python", "builtin", "tool")
 CHECK_KEYS = ("name", "args") + CHECK_KINDS
@@ -88,11 +88,13 @@ def _validate_paired_change(pc):
     if not isinstance(pc["since"], str) or not re.fullmatch(r"[0-9a-f]{7,40}", pc["since"]):
         raise ConfigError(f"`paired_change.since` must be a commit id (7–40 lowercase hex digits), "
                           f"got {pc['since']!r} — write the id of the commit after which the rule applies.")
-    for key in ("mechanism", "understanding"):
+    for key in ("mechanism", "understanding", "exempt", "enforce_on"):
         _string_list(pc[key], f"paired_change.{key}")
+    consequence = {"mechanism": "the rule would never fire", "understanding": "the rule would never pass",
+                   "enforce_on": "the rule would never fail"}
+    for key, why in consequence.items():
         if not pc[key]:
-            raise ConfigError(f"`paired_change.{key}` must list at least one path prefix — "
-                              f"the rule would {'never fire' if key == 'mechanism' else 'never pass'}.")
+            raise ConfigError(f"`paired_change.{key}` must list at least one entry — {why}.")
 
 
 def _validate_check(index, check, seen):
