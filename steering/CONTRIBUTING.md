@@ -34,4 +34,18 @@ Rules for documents you write *with* the system are in the product ([`../write/r
 
 - You **must** keep `provenance` meaningful: use the maintaining function (`theorising`/`operationalizing`/`writing`/`structuring`/`codifying`/`steering`/`imagining`) or the owning project (`phase-NN`), never a blanket id.
 
+- You **must** pair a change to the tooling with its account: a commit that touches `scripts/` or `schema/` also edits a file that explains it — under `writing/`, `structuring/`, `operationalizing/` or `codifying/`, or `steering/ARCHITECTURE.md` — in the same commit.
+  In practice that is the [`codifying/`](../codifying/README.md) fiche for what you touched, or a new one.
+  The gate checks it ([ADR-039](../phases/refoundation/phase-12-codifying/paired-change-rule.md)); it checks that an edit exists, not that it is right, so write the account you would want to have read.
+  Consequence: an unpaired commit fails the gate, and it cannot be repaired by a docs commit afterwards — amend it, or move `paired_change.since` in [`docsys.yaml`](../docsys.yaml) past it, which is a deliberate acceptance that shows in review.
+
+- You **must** run the gate before committing: `python3 scripts/check.py`, which enters the devShell itself when Nix is available.
+  Opt in to the pre-commit hook once with `git config core.hooksPath .githooks`.
+  Consequence: without the hook, a violation is found only by CI, after the commit exists.
+
+- You **must** register a new check in the `checks:` list of [`docsys.yaml`](../docsys.yaml), never in `scripts/check.py`, which only runs what the list names.
+  A check brings its fixtures, written red first and listed *ahead of* it, and every failure message names the file, the rule and a `fix:` clause.
+  Consequence: a check without fixtures can stop detecting and still read green.
+  ([`codifying/gate.md`](../codifying/gate.md) says why the order matters.)
+
 - You **may** propose larger changes as an RFC (`propose`) before writing the ADR; for small, obvious fixes an ADR alone suffices.

@@ -90,3 +90,15 @@ Found while writing [the referential-integrity fiche](../codifying/referential-i
 **Why left open:** the fiche's job was to state what the check does not establish; closing the hole is a change to the validator, with its own fixtures, outside the adoption of `codifying`.
 
 **How to resolve:** add two fixture cases (a mutual pair, a self-reference) that must fail, then reject a record whose `supersedes` or `superseded-by` names itself and any cycle along the `superseded-by` chain.
+
+## Paired-change: what the rule does not see
+
+**What:** the [paired-change rule](../phases/refoundation/phase-12-codifying/paired-change-rule.md) (ADR-039) has three gaps.
+It checks that a file explaining the tooling was edited, not that the edit is true.
+The pre-commit hook that would stop a violating commit is opt-in (`git config core.hooksPath .githooks`), so on a clone that has not opted in the violation is found by CI after the commit exists; once it is shared, the only remedy is moving `paired_change.since`.
+And a change confined to `docsys.yaml` or `tools/markdownlint/`, which are apparatus, is in neither list.
+
+**Why left open:** the first is what any co-occurrence rule costs and only a reader can close it; the second is a property of git hooks, which are not versioned into a clone; the third was left out on purpose, because `docsys.yaml` will hold the phase ledger of T6, whose edits nothing on the shelves explains.
+
+**How to resolve:** for the third, either split the ledger from the gate's configuration or list `docsys.yaml` with a carve-out for that section; for `tools/markdownlint/`, list it when a change to it first goes unexplained.
+For the second, CI already runs the check; treat a red `paired-change` on a shared branch as a reason to move the anchor with a stated cause in the commit message, not to re-run it.

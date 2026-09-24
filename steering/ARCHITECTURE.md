@@ -58,13 +58,15 @@ What is still open is listed in the schema's own `still_open`: the `distance`/`p
 ## The tooling that enforces it
 
 The catalogue is only as good as what checks it, and that apparatus — `scripts/`, `schema/`, `docsys.yaml` and the gate that runs them — is the function `codifying`'s ([ADR-035](../phases/refoundation/phase-12-codifying/codifying-function.md)).
-Read [`../codifying/`](../codifying/README.md) to learn how it is built and why; this section says only what shape of decision Phase 11 left standing.
+Read [`../codifying/`](../codifying/README.md) to learn how it is built and why; this section says only what shape of decision Phases 11 and 12 left standing.
 
 - **The vocabulary is closed** ([ADR-036](../phases/refoundation/phase-11-tooling-hardening/closed-frontmatter-vocabulary.md)): a field is legal only if the schema declares it, and declaring it means giving its reason.
 - **The schema is authored in YAML, and its JSON is generated** ([ADR-037](../phases/refoundation/phase-11-tooling-hardening/yaml-source-generated-json.md)), so the reason for each field can live beside it and no one edits the artifact by hand.
 - **Identifiers must point at something** — every `supersedes` and `superseded-by` resolves, supersession is symmetric, and the register agrees with the records — because a decision register is the project's governance line and a dangling pointer in it would pass a gate that only read fields.
   This was an execution step in Phase 11, not a decision of its own; [`../codifying/referential-integrity.md`](../codifying/referential-integrity.md) explains the check and what it still lets through.
 - **Unstarted work is never referred to by number** ([ADR-038](../phases/refoundation/phase-11-tooling-hardening/unstarted-work-unnumbered.md)), so an inserted phase moves nothing that has not begun.
+- **The tooling does not change unexplained** ([ADR-039](../phases/refoundation/phase-12-codifying/paired-change-rule.md)): a commit that touches `scripts/` or `schema/` must also touch a file that explains them, or the gate fails.
+  It exists because two phases in a row changed the mechanism and left the product describing the old one; see [`../codifying/gate.md`](../codifying/gate.md) for what it does and does not establish.
 
 ## Provenance map (how this repo is owned)
 
