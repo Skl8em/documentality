@@ -81,7 +81,32 @@ A human sees the warning; a machine reader must be told to treat it as material.
 Each check is announced by a `=== name ===` header, flushed before the check runs.
 When the output is a pipe — which is how CI and any agent see it — an unflushed header would arrive after the check's own lines and misattribute them; the runner fixes it and `runner` guards it.
 Each failure line names the file, the rule and, after `fix:`, the edit that clears it.
-The fixtures of `frontmatter_lint.py` and `ulid_check.py` enforce the `fix:` clause; three validators build their messages inline and are not fixture-covered ([the audit](../phases/refoundation/phase-12-codifying/error-message-audit.md) and [technical debt](../steering/technical-debt.md) say which).
+The fixtures of `frontmatter_lint.py`, `ulid_check.py` and `paired_change.py` enforce the `fix:` clause; three validators build their messages inline and are not fixture-covered ([the audit](../phases/refoundation/phase-12-codifying/error-message-audit.md) and [technical debt](../steering/technical-debt.md) say which).
+
+## The rule that keeps this shelf true
+
+`paired-change` (`scripts/paired_change.py`, decided in [ADR-039](../phases/refoundation/phase-12-codifying/paired-change-rule.md)) fails a change to `scripts/` or `schema/` that touches no file under `writing/`, `structuring/`, `operationalizing/` or `codifying/` and not `steering/ARCHITECTURE.md`.
+The three lists — mechanism, understanding, and the anchor — are `paired_change:` in `docsys.yaml`, so the engine names none of them.
+This fiche is one of the files that satisfies it, which is why a change to the gate lands with an edit here.
+
+Three properties are easy to get wrong when touching it.
+
+**The unit is the commit, not the branch.**
+It examines every non-merge commit after `paired_change.since`, and the uncommitted work that will become the next one, each on its own.
+A branch-level rule was tried against Phase 11 first and passes it: the phase touched three explaining documents incidentally, and on a phase-long branch any such edit pairs every script edit.
+So a later docs commit never pairs an earlier scripts commit, and the account goes in the same commit as the change.
+
+**The anchor is the only exemption, and it shows in a diff.**
+Commits before `since` are not examined.
+A violating commit that is already made cannot be repaired by adding docs afterwards; moving `since` past it is the way to accept it, and that is an edit to a tracked file that a reviewer sees.
+An anchor that cannot be resolved (a shallow clone; a commit not in this history) is an error, never a pass, and that is why CI fetches full history.
+
+**It reads git, so it depends on where it runs.**
+Run by hand or from the opt-in hook it sees the working tree; in CI it sees the commits pushed.
+A clone that has not opted into the hook meets the failure only in CI, after the commit exists.
+
+It checks co-occurrence, and a one-word edit to a fiche passes; what it removes is the silent case.
+A change confined to `docsys.yaml` or `tools/markdownlint/` is invisible to it, since neither is in the list.
 
 ## What the gate does not establish
 
@@ -89,7 +114,10 @@ The fixtures of `frontmatter_lint.py` and `ulid_check.py` enforce the `fix:` cla
   It checks structure — frontmatter, links, identifiers, fixity seals, one-sentence-per-line — not whether a document's force is the right one, or its claims true.
 - **That a fix is correct**, only that one is stated.
 - **That the checks cover what matters.**
-  The gate can only be as broad as the list; a whole class of failure with no check is invisible to it, which is the reason `plan.md` gives for T3.
+  The gate can only be as broad as the list; a whole class of failure with no check is invisible to it.
+  The paired-change check below exists because one such class, the tooling changing unexplained, went unseen twice.
+- **That an account of the tooling is true.**
+  `paired-change` establishes that a change to `scripts/` or `schema/` came with an edit to a file that explains it, not that the edit says what the code now does.
 - **Fixity for every frozen record.**
   Frozen records that predate the seal carry none; the gate counts them and does not fail on them (`hash_check.py --unsealed` lists them).
 

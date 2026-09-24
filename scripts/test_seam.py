@@ -29,6 +29,11 @@ VALID = {
         "path": "log.md", "columns": "5", "ordinal_column": "0", "status_column": "4",
         "ordinal_pattern": r"^\[(\d+)\]\(([^)]+)\)$", "superseded_pattern": r"superseded by (\d+)",
     },
+    "paired_change": {
+        "since": "0123456789abcdef0123456789abcdef01234567",
+        "mechanism": ["engine/"],
+        "understanding": ["docs/", "ARCHITECTURE.md"],
+    },
     "checks": [
         {"name": "tree", "builtin": "worktree"},
         {"name": "links", "python": "scripts/linkcheck.py"},
@@ -81,6 +86,14 @@ REFUSAL_CASES = [
      ["register.superseded_pattern", "group"]),
     ("a status column outside the row", setter("register", "status_column", "9"),
      ["register.status_column", "columns"]),
+    ("a since that is not a commit id", setter("paired_change", "since", "main"),
+     ["paired_change.since", "commit"]),
+    ("an empty mechanism list", setter("paired_change", "mechanism", []),
+     ["paired_change.mechanism", "at least one"]),
+    ("an understanding list of non-strings", setter("paired_change", "understanding", "docs/"),
+     ["paired_change.understanding", "list of strings"]),
+    ("a missing paired_change section",
+     drop("paired_change"), ["paired_change", "missing"]),
     ("an empty check list", lambda c: c.update(checks=[]), ["checks", "at least one"]),
     ("a check of no known kind", set_check(1, name="links"),
      ["checks[1]", "exactly one of"]),
@@ -180,18 +193,27 @@ def instance_values(cfg):
     return values
 
 
+def instance_prefixes(cfg):
+    """Path prefixes that classify a file. Matched only at the START of a literal: a
+    prefix like `scripts/` is also how the engine's own messages point at a sibling
+    script (`fix: mint one with scripts/ulid.py`), which is prose, not classification."""
+    return set(cfg["paired_change"]["mechanism"]) | set(cfg["paired_change"]["understanding"])
+
+
 def run_leak_case():
     """The engine must not carry the instance. A test's own literals (this file) are
     fixtures, not engine, and are skipped."""
     cfg = docsys_config.load_config()
     values = instance_values(cfg)
+    prefixes = instance_prefixes(cfg)
     here = os.path.abspath(__file__)
     failures = 0
     for path in sorted(glob.glob(os.path.join(os.path.dirname(here), "*.py"))):
         if os.path.abspath(path) == here or os.path.basename(path).startswith("test_"):
             continue
         for literal in code_literals(path):
-            leaked = sorted(v for v in values if v and v in literal)
+            leaked = sorted({v for v in values if v and v in literal}
+                            | {v for v in prefixes if v and literal.startswith(v)})
             if leaked:
                 failures += 1
                 print(f"FAIL  {os.path.relpath(path)} hard-codes {leaked} in {literal!r} — "
