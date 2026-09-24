@@ -16,6 +16,21 @@ History of the documentation system itself.
 Append-only; each entry is dated-fixed.
 Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
 
+## [v4.0-alpha.18] — Phase 12 T2: Phase 11's account closed
+
+- **Decided:** the three decisions Phase 11 took and never recorded, now on the register with the phase's provenance — [ADR-036](../phases/refoundation/phase-11-tooling-hardening/closed-frontmatter-vocabulary.md) (the vocabulary is closed and a field earns its place by carrying a reason), [ADR-037](../phases/refoundation/phase-11-tooling-hardening/yaml-source-generated-json.md) (the schema's source is YAML, its JSON generated) and [ADR-038](../phases/refoundation/phase-11-tooling-hardening/unstarted-work-unnumbered.md) (unstarted work is never referred to by number).
+  Each was checked against ADR-032 and clears it; ADR-038 is the thinnest, since nothing but attention enforces it.
+  The dates are the day they were recorded; the decisions were taken on 2026-09-15, 2026-09-17 and 2026-09-13.
+- **Ruled:** the generated schema JSON **stays**, in ADR-037.
+  Its only reader is `frontmatter_lint.py`, which already needs `pyyaml`, so it is a capability in reserve; it is kept because Phase II's generators are the reader it is for and are not yet designed, and it lapses if that design closes with no non-Python reader.
+  The strict-loader rule was checked against ADR-032 as a possible fourth record and held inside ADR-037.
+- **Added:** [the Phase 11 README](../phases/refoundation/phase-11-tooling-hardening/README.md), the closing record the phase never had, written afterwards and saying so; it lists what the plan got wrong and left open.
+- **Changed:** `writing/frontmatter.md` states that the vocabulary is closed, that an optional field needs a reason and that `schema/frontmatter-rules.yaml` is the source of truth.
+  Its field table is reconciled to the schema: `id`, `slug` and `concerns` were declared and never listed, the pre-refoundation `written-at` and `valid-for` are named as not in the vocabulary, and the `distance`, `power` and `status` rows say their value sets are current practice and still open.
+- **Changed:** `steering/ARCHITECTURE.md` no longer places schema reconciliation in the future, names Phase 11's four standing decisions and points at `codifying/` for the tooling; `phases/README.md` and the roadmap mark Phase 11 done.
+- **Recorded, not fixed:** the closed-vocabulary rule and the reason requirement are enforced and have no fixtures, so weakening either turns no test red ([`technical-debt.md`](technical-debt.md)).
+  ([plan](../phases/refoundation/phase-12-codifying/plan.md))
+
 ## [v4.0-alpha.17] — Phase 12 plan extended; deployment named
 
 - **Planned:** [Phase 12's plan](../phases/refoundation/phase-12-codifying/plan.md) absorbs the open points T1 handed on, so none lives only in a hand-off message.
