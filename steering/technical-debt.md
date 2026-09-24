@@ -72,6 +72,16 @@ The single-instance boundary cannot be tested without a second consumer.
 
 **How to resolve:** extract, on the model of `ulid_check.check_referential_integrity`, add fixtures, and assert the `fix:` clause in each.
 
+## Closed vocabulary: the rule has no fixture
+
+**What:** `frontmatter_lint.py` rejects any field outside `required` ∪ `optional_fields` ∪ `root_only_fields`, and `load_schema()` refuses an optional field with no rationale ([ADR-036](../phases/refoundation/phase-11-tooling-hardening/closed-frontmatter-vocabulary.md)).
+Both were demonstrated by running them on 2026-09-24, but `scripts/test_frontmatter_lint.py` has no case for either.
+The one fixture that mentions an undeclared field fails on invalid YAML, not on the vocabulary rule.
+
+**Why left open:** found while closing Phase 11's account, whose task was documentation; adding fixtures is a change to the validator's tests, not to that account.
+
+**How to resolve:** add a lint case with an undeclared field that must fail with the `closed frontmatter vocabulary` message and a `fix:` clause, and a schema-load case with an empty rationale that must stop `load_schema()`; run each red against a linter with the rule removed first.
+
 ## Referential integrity: cycles and self-supersession pass
 
 **What:** [`ulid_check.py`](../scripts/ulid_check.py) accepts a pair of records that supersede each other, and a record that supersedes itself: each satisfies the resolve and symmetry rules trivially.

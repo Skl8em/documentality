@@ -44,6 +44,7 @@ A field cannot be declared without being justified, because the two are the same
 ## Why there is still a JSON file
 
 The stated reason, from Phase 11's plan, is that both runtimes can read a dependency-free artifact: Python's `json` module and Node's need no YAML parser, and the plan records that no YAML parser is reachable from a markdownlint custom rule.
+The design intent is an interchange artifact — YAML for the human who edits, JSON for programs — and [ADR-037](../phases/refoundation/phase-11-tooling-hardening/yaml-source-generated-json.md) records it, with the ruling that follows.
 
 **Read that reason sceptically.**
 Only one program reads the JSON today, `frontmatter_lint.py`, and it already requires `pyyaml` to parse every document's frontmatter.
@@ -51,7 +52,8 @@ No Node consumer of the schema exists; the one custom rule, `sentence-per-line.j
 The dependency-free reader is a capability kept in reserve, not one in use.
 The case for a YAML *source* stands on its own; the case for a second, generated file rests on a reader that has not appeared, and is the pipeline's weakest joint.
 [Medium confidence: this reads the repository as it is now.]
-If no non-Python reader turns up, collapsing to one file, loaded through the strict loader below, would remove the drift check and the whole class of failure it guards.
+ADR-037 rules that the JSON **stays for now**, because the reader it is kept for — Phase II's generators — is not yet designed, and because keeping costs one green check.
+It also says when that answer lapses: if the Phase-II design closes with no non-Python reader, or if the drift check fails for any reason other than a forgotten regeneration, collapsing to one file, loaded through the strict loader below, would remove the drift check and the whole class of failure it guards.
 
 ## The trap the pipeline already fell into
 
@@ -79,3 +81,5 @@ One duplication sits outside this pipeline and is named so a maintainer is not s
   What is still open is listed in the schema's own `still_open`.
 - **That a consumer reads the schema through the pipeline.**
   A script that loaded the YAML directly, or hard-coded a value, would not be caught by `schema-drift`.
+- **That the closed vocabulary stays closed.**
+  The linter rejects an undeclared field and refuses a reason-less optional field, and neither rule has a fixture, so weakening either turns no test red ([technical debt](../steering/technical-debt.md)).
