@@ -42,7 +42,7 @@ Regrounding the theory on Ferraris and, at last, laying the front-end flat.
 | [08 — refactor product & source](refoundation/phase-08-refactor/README.md) *(done)* | refounded vocabulary (intention floor, register gloss); producer shelf; nine forces migrated & `_legacy/` retired; gerund naming; eras made physical | ADR-024…027 |
 | [09 — tooling](refoundation/phase-09-tooling/README.md) *(done)* | reproducible Nix devShell; unified markdownlint (CLI + VSCode) + corpus reflow; a frontmatter-lint harness (safe invariants); ULID + slug identifiers, minting/verify tooling, and a safe-rename script; one gate (pre-commit + CI) | ADR-028 |
 | [10 — reconcile schema & governance](refoundation/phase-10-schema/README.md) *(done)* | `register` derived & `constitutive` stored; content-hash fixity; ADR tiering; `operationalizing` recorded as the sixth function; hosting settled on GitHub | ADR-029…034 |
-| 11 — tooling hardening *(next)* | closing the frontmatter vocabulary, real YAML parsing, a referential validator | — |
+| [11 — tooling hardening](refoundation/phase-11-tooling-hardening/README.md) *(done — closed by Phase 12)* | closed frontmatter vocabulary; real YAML parsing; the schema authored in YAML with a generated JSON; referential integrity; unstarted work no longer numbered | ADR-036…038 |
 
 ## Era 3 — Phase II *(later)*
 
