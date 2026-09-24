@@ -16,6 +16,15 @@ History of the documentation system itself.
 Append-only; each entry is dated-fixed.
 Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
 
+## [v4.0-alpha.17] — Phase 12 plan extended; deployment named
+
+- **Planned:** [Phase 12's plan](../phases/refoundation/phase-12-codifying/plan.md) absorbs the open points T1 handed on, so none lives only in a hand-off message.
+  T2 gains the `ARCHITECTURE.md` reconciliation and the question of whether the generated JSON stays; T3 gains the `CONTRIBUTING.md` rule and how to extend the tooling; **T4** pays the four debts T1 recorded; **T5** closes the phase, including the stale root-README status and phases index and a stated changelog convention.
+  The definition of done grows to match.
+- **Named:** a **deployment phase** after Phase 12, unnumbered per the roadmap's own rule: how the current content is exposed and made usable by third parties, with cold readers for the `codifying/` fiches and the product.
+  It takes the adopter community Phase 12's map cut and the extraction triggers the plan named.
+  A sequencing decision, so held here and in the roadmap rather than in the ADR register (ADR-032).
+
 ## [v4.0-alpha.16] — Phase 12 T1: codifying adopted
 
 - **Decided:** **`codifying` is the seventh function**, the account of the tooling — [ADR-035](../phases/refoundation/phase-12-codifying/codifying-function.md).

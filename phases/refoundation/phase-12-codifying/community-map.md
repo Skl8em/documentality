@@ -89,4 +89,4 @@ T1(c) states this explicitly wherever the function set is enumerated, so `founda
 
 Named, not documented: installing and configuring `scripts/`/`schema/` in a second project has no one to write for yet — `plan.md`'s own "Explicitly out of scope" section defers extraction "until a second project wants the pipeline," and T1(b)'s engine/config seam is what would make that adoption cheap when it happens, not this step.
 Writing a fiche for a community that does not exist would fix the split by assumption, exactly what T1(a) exists to avoid.
-The hole is deliberate and stays visible here rather than silently absent from the map; revisit the day a second consumer is real, or park a line under `imagining/` if the intent needs a home before then.
+The hole is deliberate and stays visible here rather than silently absent from the map; revisit the day a second consumer is real — the deployment phase the roadmap names after Phase 12 is where that question is asked — or park a line under `imagining/` if the intent needs a home before then.
