@@ -16,6 +16,21 @@ History of the documentation system itself.
 Append-only; each entry is dated-fixed.
 Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
 
+## [v4.0-alpha.21] — Phase 12 T3: a change to the tooling that explains nothing fails the gate
+
+- **Decided:** [ADR-039](../phases/refoundation/phase-12-codifying/paired-change-rule.md).
+  The unit of the rule is a **commit**, plus the uncommitted work that will become the next, not the branch.
+  The plan said "a diff" and left the unit open; it was settled against the history.
+  A branch-level rule passes Phase 11 — the phase touched `steering/ARCHITECTURE.md`, `writing/frontmatter.md` and `structuring/tutorial.md` incidentally, and on a phase-long branch any such edit pairs every script edit — while a commit-level rule fires on four of the five Phase 11 commits that touched the tooling.
+- **Added:** the `paired-change` gate check (`scripts/paired_change.py`) and its fixtures, which run it against throwaway git repositories: a scripts-only commit fails and passes once a docs file joins it; uncommitted work; deletes and moves out of `scripts/`; merge commits; an unresolvable or shallow-clone anchor is refused, not passed.
+  It is registered in `docsys.yaml` like any validator; `check.py` was not extended, as the plan first said, because it is only the runner.
+  Its `paired_change:` section — the anchor, the mechanism and the explaining paths — is validated by `docsys_config.py` and covered by the seam test, which now also catches a path prefix hard-coded in the engine.
+- **Added:** [`CONTRIBUTING.md`](CONTRIBUTING.md) states the pairing rule, that the gate is run before committing, and where a check is registered and what it must bring.
+  `ARCHITECTURE.md` names the decision; `codifying/gate.md` explains the check; CI fetches full history so the anchor exists.
+- **Recorded, not fixed:** the rule verifies that an account was edited, not that it is right; the pre-commit hook is opt-in, so a violation may first surface in CI; a change confined to `docsys.yaml` or `tools/markdownlint/` is invisible to it ([`technical-debt.md`](technical-debt.md)).
+  The rule starts after the commit before this one, so earlier history is not re-judged.
+  ([plan](../phases/refoundation/phase-12-codifying/plan.md))
+
 ## [v4.0-alpha.20] — Phase 12 plan: a phase ledger, T6
 
 - **Planned:** **T6**, a phase ledger — the current phase declared once in `docsys.yaml`, with a `phase-state` gate check that verifies the folders, the roadmap and index markers, the root README's status, forward phase numbers and the `phase:` fields against it.
