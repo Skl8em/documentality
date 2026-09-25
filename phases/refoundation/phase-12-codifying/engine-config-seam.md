@@ -99,9 +99,10 @@ Naming them is the point: the seam is honest only if its residue is visible.
   `ulid_check.py` ran the register cross-check only `if REGISTER_PATH in records`.
   With the path a constant that guard was inert; with the path in config, a typo would have switched the whole cross-check off without a word.
   It is now an error, with a fixture (`check_register_file`).
-- **A register that yields no rows still passes.**
-  Not introduced here and not fixed: if the configured row shape matches nothing, `parse_register` yields nothing and the check is green.
-  The same silent-fallback shape as the previous point, one level down; a candidate for T3's or a later hardening pass.
+- **A register that yields no rows passed.**
+  Not introduced here and not fixed by this step: if the configured row shape matched nothing, `parse_register` yielded nothing and the check was green.
+  The same silent-fallback shape as the previous point, one level down.
+  Closed in T4: `check_register` now fails when it finds no decision rows, with three fixtures (no rows, wrong column count, an ordinal that does not match the pattern).
 
 ## How the seam is held
 

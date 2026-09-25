@@ -53,17 +53,17 @@ Note that sealing a record makes any later edit to it fail the gate until it is 
 - **Duplicated round-2 blind-test transcripts** — the `weft-blindtest-round2/` directory was byte-identical to the `blind-test/weft-{response,review}-round2.md` copies and was deleted; the `blind-test/` copies stay, sitting with round 1 (Phase 10).
 
 - **Referential integrity: cycles and self-supersession pass** — `ulid_check.py` now rejects a record that names itself in `supersedes` or `superseded-by`, and a loop along `superseded-by`, each with a fixture that was red first; the [referential-integrity fiche](../codifying/referential-integrity.md) states it (Phase 12 T4).
+- **A register whose row shape matches nothing passed** — `ulid_check.check_register` now fails when it finds no decision rows, with fixtures for an empty register, a wrong column count and a non-matching ordinal; the [referential-integrity fiche](../codifying/referential-integrity.md) states it (Phase 12 T4).
 
 ## Engine/config seam residue
 
 **What:** [Phase 12 T1(b)](../phases/refoundation/phase-12-codifying/engine-config-seam.md) moved every path, prefix and register format out of `scripts/` into `docsys.yaml`, and named what it left in code.
-Three of those are debts rather than design: the definition of a *frozen* record in `hash_seal.py` duplicates the schema's status vocabulary and can drift from it; a decision register whose configured row shape matches nothing still passes `ulid_check.py` silently; and the seam is drawn from a single instance.
+Two of those are debts rather than design: the definition of a *frozen* record in `hash_seal.py` duplicates the schema's status vocabulary and can drift from it; and the seam is drawn from a single instance.
 
 **Why left open:** the frozen-record definition belongs in the schema, and moving it widens the schema's vocabulary — a ruling, not a refactor.
-The empty-register case is a hardening for the gate's next pass.
 The single-instance boundary cannot be tested without a second consumer.
 
-**How to resolve:** declare what "frozen" means in `schema/frontmatter-rules.yaml` and have `hash_seal.py` read it; make `ulid_check.py` fail when the register yields no decision rows; revisit the seam when a second project wants the pipeline, or when it has held unchanged for a full phase.
+**How to resolve:** declare what "frozen" means in `schema/frontmatter-rules.yaml` and have `hash_seal.py` read it; revisit the seam when a second project wants the pipeline, or when it has held unchanged for a full phase.
 
 ## Gate messages: three validators unfixtured
 
