@@ -51,9 +51,9 @@ Note that sealing a record makes any later edit to it fail the gate until it is 
 - **Reorg leftovers (untracked on-disk zombies)** — the three untracked directories the Phase-08 renames left on disk (`theory/`, `write/`, a top-level `phases/phase-07-structuring-tutorial/` husk) are gone, and the root `.gitignore` stops the `.DS_Store` files that blocked their deletion from coming back.
   The real lesson is paid too: `scripts/check.py` now asserts `git status --porcelain` is clean of untracked paths, so on-disk cruft can no longer pass a gate that reads only `git ls-files` (Phase 10).
 - **Duplicated round-2 blind-test transcripts** — the `weft-blindtest-round2/` directory was byte-identical to the `blind-test/weft-{response,review}-round2.md` copies and was deleted; the `blind-test/` copies stay, sitting with round 1 (Phase 10).
-
 - **Referential integrity: cycles and self-supersession pass** — `ulid_check.py` now rejects a record that names itself in `supersedes` or `superseded-by`, and a loop along `superseded-by`, each with a fixture that was red first; the [referential-integrity fiche](../codifying/referential-integrity.md) states it (Phase 12 T4).
 - **A register whose row shape matches nothing passed** — `ulid_check.check_register` now fails when it finds no decision rows, with fixtures for an empty register, a wrong column count and a non-matching ordinal; the [referential-integrity fiche](../codifying/referential-integrity.md) states it (Phase 12 T4).
+- **Gate messages: three validators unfixtured** — `slug_check.py`, `linkcheck.py` and `hash_check.py` build their messages in pure functions, with fixtures (`test_slug_check.py`, `test_linkcheck.py`, `test_hash_check.py`, registered in the gate ahead of each check) that fail a message lacking its `fix:` clause, shown by removing the clause from each; the same extraction was needed in `ulid_check.py`'s own `main()` (Phase 12 T4).
 
 ## Engine/config seam residue
 
@@ -65,14 +65,14 @@ The single-instance boundary cannot be tested without a second consumer.
 
 **How to resolve:** declare what "frozen" means in `schema/frontmatter-rules.yaml` and have `hash_seal.py` read it; revisit the seam when a second project wants the pipeline, or when it has held unchanged for a full phase.
 
-## Gate messages: three validators unfixtured
+## Gate messages: two still unfixtured
 
-**What:** the gate's failure messages now each carry a `— fix:` clause ([Phase 12 T1(c)](../phases/refoundation/phase-12-codifying/error-message-audit.md)), and the two validators with fixtures (`frontmatter_lint.py`, `ulid_check.py`) fail a fixture whose message lacks one.
-`slug_check.py`, `linkcheck.py` and `hash_check.py` build theirs inline in `main()`, so nothing tests them.
+**What:** the gate's failure messages each carry a `— fix:` clause, and the validators whose messages are built in pure functions fail a fixture that lacks one.
+Two sources are outside that: the drift message of `generate_schema.py --check` says what to run and to commit but not under the `fix:` marker, and no fixture runs it; and the runner's own messages (`check.py`) are pinned only for order and attribution.
 
-**Why left open:** testing them means extracting the message-building into pure functions first; that is a refactor of three working validators, not a side effect of a message edit.
+**Why left open:** found while paying the three-validator debt; each is small, and neither was in the debt as recorded.
 
-**How to resolve:** extract, on the model of `ulid_check.check_referential_integrity`, add fixtures, and assert the `fix:` clause in each.
+**How to resolve:** extract the drift message into a function with a fixture asserting the marker, as for the validators; decide whether the runner's unavailable-tool and summary messages need the marker or are a different kind of message.
 
 ## Closed vocabulary: the rule has no fixture
 

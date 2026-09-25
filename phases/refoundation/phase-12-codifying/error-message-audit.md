@@ -56,11 +56,12 @@ The test was made to fail on the unflushed runner first, so it is known to detec
 
 ## What is enforced, and what is not
 
-- **Enforced by fixture:** `frontmatter_lint.py` and `ulid_check.py`.
-  Their fixture runners now fail a case whose messages lack the `fix:` clause, so a new message added without one is caught where fixtures exist.
-- **Not enforced:** `slug_check.py`, `linkcheck.py` and `hash_check.py` build their messages inline in `main()`, and no fixture runs them.
-  Their messages meet the standard today because they were edited to; nothing stops a later edit from dropping it.
-  Making them testable means extracting the message-building out of `main()` into pure functions, the shape `ulid_check.py` already has — a refactor, recorded in [`technical-debt.md`](../../../steering/technical-debt.md) rather than done here.
+- **Enforced by fixture:** `frontmatter_lint.py`, `ulid_check.py`, `paired_change.py`, and — since Phase 12 T4 — `slug_check.py`, `linkcheck.py` and `hash_check.py`.
+  Their fixture runners fail a case whose messages lack the `fix:` clause, so a new message added without one is caught.
+  When this audit was written the last three built their messages inline in `main()` and no fixture ran them; T4 extracted the message-building into pure functions, the shape `check_referential_integrity` already had.
+  It found the same inline shape in `ulid_check.py`'s own `main()` (a malformed or duplicate `id`, invalid YAML), which the line above had counted as enforced, and extracted those too.
+- **Not enforced:** the drift message of `generate_schema.py --check`, which says what to run and to commit the result but not under the `fix:` marker, and has no fixture; and the runner's own messages, which are pinned only for order and attribution.
+  Recorded in [`technical-debt.md`](../../../steering/technical-debt.md).
 - **Not checked at all:** whether a fix is *correct*, only that one is stated.
   A stated fix that is wrong is worse than none, and only a reader acting on it would find out.
   The only reads of that kind done here were the fixity, link and schema-drift messages, each produced by a real failure and read back.

@@ -78,6 +78,9 @@ checks:
   # produced it is unreadable to the machine that runs it through a pipe. Fixtures
   # run before the checks whose output they make legible.
   - {name: runner, python: scripts/test_check.py}
+  # Fixtures first, as for every check that has them: the message of a broken link is
+  # the whole interaction for the machine that reads it, and must carry its `fix:`.
+  - {name: linkcheck-test, python: scripts/test_linkcheck.py}
   # Every relative markdown link resolves.
   - {name: linkcheck, python: scripts/linkcheck.py}
   # Must pass before anything that loads schema/frontmatter-rules.json: a stale
@@ -94,8 +97,10 @@ checks:
   # Every frontmatter `id` is a valid, unique ULID; every `supersedes` /
   # `superseded-by` resolves, is symmetric, and agrees with the register.
   - {name: ulid, python: scripts/ulid_check.py}
+  - {name: slug-test, python: scripts/test_slug_check.py}
   # Filename stem == frontmatter `slug` (ADR-028).
   - {name: slug, python: scripts/slug_check.py}
+  - {name: hash-test, python: scripts/test_hash_check.py}
   # Every frozen record's fixity seal still matches.
   - {name: hash, python: scripts/hash_check.py}
   # Fixtures first, as above: they run the rule against a throwaway git repository, so

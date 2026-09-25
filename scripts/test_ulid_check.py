@@ -14,6 +14,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import ulid_check  # noqa: E402
+from yaml_frontmatter import FrontmatterError  # noqa: E402
 
 # --- check_referential_integrity -------------------------------------------
 
@@ -130,6 +131,40 @@ def run_ref_cases():
         else:
             failures += 1
             print(f"FAIL  {name}: {why}")
+    return failures
+
+
+# --- check_ids: the ids themselves, before any reference between them --------------
+
+ULID_A = "01K0000000000000000000000A"
+ULID_B = "01K0000000000000000000000B"
+
+ID_CASES = [
+    ("two distinct valid ids", {"a.md": {"id": ULID_A}, "b.md": {"id": ULID_B}}, []),
+    ("a record without an id is permitted", {"a.md": {}, "b.md": {"id": None}}, []),
+    ("an id that is not a ULID", {"a.md": {"id": "not-a-ulid"}}, [("a.md", "not a valid ULID")]),
+    ("an id that is not a string", {"a.md": {"id": 12}}, [("a.md", "not a valid ULID")]),
+    ("a duplicate id is reported on the second record, naming the first",
+     {"a.md": {"id": ULID_A}, "b.md": {"id": ULID_A}}, [("b.md", "duplicate id (also in a.md)")]),
+]
+
+
+def run_id_cases():
+    failures = 0
+    for name, records, expected in ID_CASES:
+        why = verdict(ulid_check.check_ids(records), expected)
+        if why is None:
+            print(f"ok    {name}")
+        else:
+            failures += 1
+            print(f"FAIL  {name}: {why}")
+    name = "invalid YAML names the line and how to fix it"
+    why = verdict([ulid_check.yaml_error("a.md", FrontmatterError(3, "bad"))], [("a.md", "line 3")])
+    if why is None:
+        print(f"ok    {name}")
+    else:
+        failures += 1
+        print(f"FAIL  {name}: {why}")
     return failures
 
 
@@ -263,9 +298,9 @@ def run_register_file_cases():
 
 
 def main():
-    failures = (run_ref_cases() + run_register_cases() + run_empty_register_cases()
-                + run_register_file_cases())
-    total = (len(REF_CASES) + len(REGISTER_CASES) + len(OTHER_SHAPE_CASES)
+    failures = (run_id_cases() + run_ref_cases() + run_register_cases()
+                + run_empty_register_cases() + run_register_file_cases())
+    total = (len(ID_CASES) + 1 + len(REF_CASES) + len(REGISTER_CASES) + len(OTHER_SHAPE_CASES)
              + len(EMPTY_REGISTER_CASES) + 1)
     print("\n" + "=" * 40)
     if failures:
