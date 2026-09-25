@@ -52,6 +52,8 @@ Note that sealing a record makes any later edit to it fail the gate until it is 
   The real lesson is paid too: `scripts/check.py` now asserts `git status --porcelain` is clean of untracked paths, so on-disk cruft can no longer pass a gate that reads only `git ls-files` (Phase 10).
 - **Duplicated round-2 blind-test transcripts** — the `weft-blindtest-round2/` directory was byte-identical to the `blind-test/weft-{response,review}-round2.md` copies and was deleted; the `blind-test/` copies stay, sitting with round 1 (Phase 10).
 
+- **Referential integrity: cycles and self-supersession pass** — `ulid_check.py` now rejects a record that names itself in `supersedes` or `superseded-by`, and a loop along `superseded-by`, each with a fixture that was red first; the [referential-integrity fiche](../codifying/referential-integrity.md) states it (Phase 12 T4).
+
 ## Engine/config seam residue
 
 **What:** [Phase 12 T1(b)](../phases/refoundation/phase-12-codifying/engine-config-seam.md) moved every path, prefix and register format out of `scripts/` into `docsys.yaml`, and named what it left in code.
@@ -81,15 +83,6 @@ The one fixture that mentions an undeclared field fails on invalid YAML, not on 
 **Why left open:** found while closing Phase 11's account, whose task was documentation; adding fixtures is a change to the validator's tests, not to that account.
 
 **How to resolve:** add a lint case with an undeclared field that must fail with the `closed frontmatter vocabulary` message and a `fix:` clause, and a schema-load case with an empty rationale that must stop `load_schema()`; run each red against a linter with the rule removed first.
-
-## Referential integrity: cycles and self-supersession pass
-
-**What:** [`ulid_check.py`](../scripts/ulid_check.py) accepts a pair of records that supersede each other, and a record that supersedes itself: each satisfies the resolve and symmetry rules trivially.
-Found while writing [the referential-integrity fiche](../codifying/referential-integrity.md) and confirmed against `check_referential_integrity` with two synthetic records.
-
-**Why left open:** the fiche's job was to state what the check does not establish; closing the hole is a change to the validator, with its own fixtures, outside the adoption of `codifying`.
-
-**How to resolve:** add two fixture cases (a mutual pair, a self-reference) that must fail, then reject a record whose `supersedes` or `superseded-by` names itself and any cycle along the `superseded-by` chain.
 
 ## Paired-change: what the rule does not see
 

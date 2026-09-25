@@ -18,7 +18,7 @@ It explains a *mechanism*; what supersession means as a coordinate is [`operatio
 ## What is checked
 
 [`scripts/ulid_check.py`](../scripts/ulid_check.py) does two things: it checks that every `id` is a valid, unique ULID, and — since Phase 11 — it checks the pointers between records.
-Three checks, each catching a way `supersedes` / `superseded-by` can go stale without anything failing:
+Four checks, each catching a way `supersedes` / `superseded-by` can go stale without anything failing:
 
 1. **Every non-null reference resolves.**
    The target is some record's `id`, or its filename stem — the pre-ULID way to name a record, which most of the corpus still uses.
@@ -26,7 +26,13 @@ Three checks, each catching a way `supersedes` / `superseded-by` can go stale wi
    A `<...>` placeholder, as in a force template's specimen frontmatter, is not a reference and is skipped.
 2. **Supersession is symmetric.**
    If A names B in `supersedes`, then B's `superseded-by` names A, and the other way round.
-3. **The register agrees.**
+3. **No record supersedes itself, and no chain loops.**
+   Neither is caught by the two rules above, because they hold trivially: in a pair where A and B each supersede the other, each names the other and is named back, and a record that names itself does so in both directions.
+   A self-reference is reported on the record.
+   A cycle is followed along `superseded-by`, the chain from a record to what replaced it, and is reported once, at the first record of the loop in path order, with the route.
+   A loop leaves no record that still binds, which is the one thing a supersession chain has to end in.
+   It was a hole in Phase 11's check, found while this fiche was first written and closed in Phase 12 T4.
+4. **The register agrees.**
    Each row of the central decision register that says "superseded by N" is checked against that record's own `superseded-by`, and a row that says no such thing against the record having none.
    The register's path and row shape are this repository's instance, read from `register:` in [`docsys.yaml`](../docsys.yaml); the engine knows the *idea* of a register, not this one.
 
@@ -63,14 +69,7 @@ The design rule is that the pointer is kept live and only the decision's own rea
 
 ## What the check does not establish
 
-Both of these were tried against the check's function and pass:
-
-- **A cycle.**
-  A record pair in which A supersedes B and B supersedes A satisfies every rule above — each names the other, and the symmetry holds.
-- **A record that supersedes itself.**
-  Its own pointers name each other trivially.
-
-Nor does it establish that a pointer names the *right* record, only that the record exists and points back.
+It does not establish that a pointer names the *right* record, only that the record exists, points back, and is not part of a loop.
 Whether a register row's *decision text* matches its record is likewise beyond it; it compares status text to the pointer.
 
 One further hole sits at the register: if the configured row shape matches no rows at all, the register check yields nothing and passes.
