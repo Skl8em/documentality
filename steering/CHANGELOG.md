@@ -16,6 +16,21 @@ History of the documentation system itself.
 Append-only; each entry is dated-fixed.
 Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
 
+## [v4.0-alpha.23] — Phase 12 T4: the debts T1 recorded are paid, or kept on purpose
+
+- **Fixed:** `ulid_check.py` rejects a record that names itself in `supersedes` or `superseded-by`, and a cycle along `superseded-by`; and it fails when the register's configured row shape matches no row, where it used to pass for want of anything to compare.
+  Each has fixtures that were red first.
+- **Added:** `slug_check.py`, `linkcheck.py` and `hash_check.py` build their messages in pure functions, with `test_slug_check.py`, `test_linkcheck.py` and `test_hash_check.py` registered in the gate ahead of each check; each fails a message that lacks its `fix:` clause, which was tried by removing the clause from each.
+  `ulid_check.py`'s own `main()` had the same inline shape, so its messages were extracted too.
+- **Decided, not recorded as an ADR:** the frozen-record definition **stays in `hash_seal.py`**, guarded.
+  `FROZEN_STATUSES` and a new `OPEN_STATUSES` classify every word of the schema's `warn_enums.status`, and a fixture fails the gate when they stop matching it.
+  Moving the definition into the schema would rule on the status vocabulary, which the schema's `still_open` list leaves open; it moves when that is ruled.
+  It installs a guard, not a norm about the methodology, so it does not clear ADR-032's test.
+- **Recorded, not fixed:** the drift message of `generate_schema.py --check` and the runner's own messages are still unfixtured ([`technical-debt.md`](technical-debt.md)).
+  The `codifying/` fiches for the gate, referential integrity and the schema pipeline, the audit and the seam record state the new behaviour, and the debt register moves three entries to Paid and narrows a fourth.
+  One commit per fix, code and fiche together, so the paired-change rule found nothing to flag.
+  ([plan](../phases/refoundation/phase-12-codifying/plan.md))
+
 ## [v4.0-alpha.22] — Phase 12 T3, refined: the rule fails where work lands
 
 - **Decided:** [ADR-040](../phases/refoundation/phase-12-codifying/paired-change-where-it-fails.md), refining ADR-039 (which stands) on the project owner's ruling.
