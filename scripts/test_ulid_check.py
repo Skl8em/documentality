@@ -57,6 +57,48 @@ REF_CASES = [
          "b.md": {"id": None, "supersedes": None, "superseded-by": "a"},
      },
      [("a.md", "does not resolve")]),
+
+    # A cycle and a self-reference satisfy the resolve and symmetry rules trivially
+    # (each names the other, and names it back), so they need a rule of their own.
+    ("a mutual pair: A and B each supersede the other",
+     {
+         "a.md": {"id": None, "supersedes": "b", "superseded-by": "b"},
+         "b.md": {"id": None, "supersedes": "a", "superseded-by": "a"},
+     },
+     [("a.md", "supersession cycle")]),
+
+    ("a longer cycle: A -> B -> C -> A",
+     {
+         "a.md": {"id": None, "supersedes": "c", "superseded-by": "b"},
+         "b.md": {"id": None, "supersedes": "a", "superseded-by": "c"},
+         "c.md": {"id": None, "supersedes": "b", "superseded-by": "a"},
+     },
+     [("a.md", "supersession cycle")]),
+
+    ("a record that supersedes itself",
+     {"a.md": {"id": None, "supersedes": "a", "superseded-by": "a"}},
+     [("a.md", "cannot supersede itself"), ("a.md", "cannot supersede itself")]),
+
+    ("self-reference by ULID, in one field only: reported once, not also as asymmetry",
+     {"a.md": {"id": "01K0000000000000000000000",
+               "supersedes": "01K0000000000000000000000", "superseded-by": None}},
+     [("a.md", "cannot supersede itself")]),
+
+    ("a chain that ends is not a cycle: A superseded by B, B by C",
+     {
+         "a.md": {"id": None, "supersedes": None, "superseded-by": "b"},
+         "b.md": {"id": None, "supersedes": "a", "superseded-by": "c"},
+         "c.md": {"id": None, "supersedes": "b", "superseded-by": None},
+     },
+     []),
+
+    ("two records superseded by the same one is not a cycle",
+     {
+         "a.md": {"id": None, "supersedes": None, "superseded-by": "c"},
+         "b.md": {"id": None, "supersedes": None, "superseded-by": "c"},
+         "c.md": {"id": None, "supersedes": ["a", "b"], "superseded-by": None},
+     },
+     []),
 ]
 
 

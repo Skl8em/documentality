@@ -11,7 +11,7 @@ those, a record's own identity, wherever something else needs to name it, is its
 filename stem (the pre-ULID convention already in use, e.g. `supersedes:
 ADR-001-inscribed-act`).
 
-Three referential checks, each catching a way `supersedes`/`superseded-by` can go
+Four referential checks, each catching a way `supersedes`/`superseded-by` can go
 stale silently (the motivation recorded in phases/refoundation/phase-11-tooling-
 hardening/plan.md: a typo in ADR-034's `supersedes` was caught only by hand):
 
@@ -20,7 +20,10 @@ hardening/plan.md: a typo in ADR-034's `supersedes` was caught only by hand):
   2. Supersession is symmetric (schema/frontmatter-rules.yaml already documents
      `superseded-by` as "the inverse of `supersedes`, kept symmetric"): if A
      supersedes B, B's `superseded-by` must name A back.
-  3. Every row of the central decision register agrees with the record its link
+  3. A record does not supersede itself, and `superseded-by` never loops back on
+     itself along a chain (A -> B -> A). Both satisfy checks 1 and 2 trivially, since
+     each record in the loop names the other and is named back.
+  4. Every row of the central decision register agrees with the record its link
      points at: a "superseded by N" row must match that record's own
      `superseded-by`, and a plain row must find it unset. Which file is the
      register, and the shape of its rows, is instance configuration — docsys.yaml
@@ -80,9 +83,34 @@ def build_identity_index(records):
     return {identity_of(path, rec.get("id")): path for path, rec in records.items()}
 
 
+def find_cycles(successors):
+    """successors: {node: [node, ...]}. Returns each cycle once, as a list of nodes
+    starting at its smallest, in the order the edges are followed."""
+    cycles, done = [], set()
+
+    def visit(node, trail):
+        if node in trail:
+            loop = trail[trail.index(node):]
+            start = loop.index(min(loop))
+            loop = loop[start:] + loop[:start]
+            if loop not in cycles:
+                cycles.append(loop)
+            return
+        if node in done:
+            return
+        for nxt in successors.get(node, []):
+            visit(nxt, trail + [node])
+        done.add(node)
+
+    for node in sorted(successors):
+        visit(node, [])
+    return cycles
+
+
 def check_referential_integrity(records):
     """records: {path: {"id":, "supersedes":, "superseded-by":}}.
-    Returns [(path, message)] — dangling references and broken symmetry."""
+    Returns [(path, message)] — dangling references, broken symmetry, a record that
+    supersedes itself, and a cycle along `superseded-by`."""
     index = build_identity_index(records)
     errors = []
     resolved = {}  # (path, field) -> [target_path, ...]
@@ -93,6 +121,10 @@ def check_referential_integrity(records):
                 target = index.get(ref)
                 if target is None:
                     errors.append((path, f"`{field}: {ref}` does not resolve to any record's `id` or filename — fix: correct the reference to an existing record's `id` or filename stem, or set the field to null"))
+                elif target == path:
+                    # Reported here and dropped, so it is neither also an asymmetry
+                    # nor a one-node cycle below.
+                    errors.append((path, f"`{field}: {ref}` names this record itself, and a record cannot supersede itself — fix: name the record it really replaces (or is replaced by), or set the field to null"))
                 else:
                     targets.append(target)
             resolved[(path, field)] = targets
@@ -104,6 +136,11 @@ def check_referential_integrity(records):
                 back = resolved.get((target, inverse), [])
                 if path not in back:
                     errors.append((path, f"`{field}` names {target}, but its `{inverse}` does not name this record back — fix: set `{inverse}` in {target} to this record's `id` or filename stem, or remove the `{field}` here"))
+
+    chain = {path: resolved[(path, "superseded-by")] for path in records}
+    for loop in find_cycles(chain):
+        route = " -> ".join(loop + [loop[0]])
+        errors.append((loop[0], f"`superseded-by` loops back on itself ({route}): a supersession cycle leaves no record that binds — fix: break the loop by clearing the `superseded-by` (and the matching `supersedes`) on the record that is not really replaced"))
     return errors
 
 
