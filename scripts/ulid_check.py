@@ -25,7 +25,8 @@ hardening/plan.md: a typo in ADR-034's `supersedes` was caught only by hand):
      each record in the loop names the other and is named back.
   4. Every row of the central decision register agrees with the record its link
      points at: a "superseded by N" row must match that record's own
-     `superseded-by`, and a plain row must find it unset. Which file is the
+     `superseded-by`, and a plain row must find it unset. A register in which the
+     configured shape finds no rows at all is an error, not a pass. Which file is the
      register, and the shape of its rows, is instance configuration — docsys.yaml
      `register:` — not something this script knows.
 
@@ -172,6 +173,13 @@ def check_register(records, register_text, register):
     index = build_identity_index(records)
     superseded_re = re.compile(register["superseded_pattern"])
     rows = list(parse_register(register_text, register))
+    if not rows:
+        # Nothing to compare is not "nothing wrong": a row shape that matches no row
+        # (a renamed column, a reworded ordinal) would otherwise switch the check off.
+        return [(register["path"], f"`register` in docsys.yaml matches no decision rows in `{register['path']}` "
+                                   f"(rows of {register['columns']} cells whose cell {register['ordinal_column']} "
+                                   f"matches {register['ordinal_pattern']!r}) — fix: correct the `register:` "
+                                   "shape in docsys.yaml to match the register's rows, or the rows to match it")]
     ordinal_to_path = {ordinal: path for ordinal, path, _ in rows}
     errors = []
     for ordinal, path, status in rows:

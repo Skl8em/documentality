@@ -223,6 +223,32 @@ def run_register_cases():
     return failures
 
 
+# A register whose configured row shape matches nothing has nothing to cross-check,
+# and "no discrepancy" is then vacuously true: it must fail, not pass.
+EMPTY_REGISTER_CASES = [
+    ("a register with no decision rows at all",
+     "# Decisions\n\nNothing here yet.\n"),
+    ("a register whose rows have the wrong number of columns for the config",
+     "| # | Decision | Status |\n| --- | --- | --- |\n| [001](a.md) | A | accepted |\n"),
+    ("a register whose ordinal cells do not match the configured pattern",
+     "| # | Decision | Phase | Date | Status |\n| --- | --- | --- | --- | --- |\n"
+     "| 001 | A | p1 | 2026-01-01 | accepted |\n"),
+]
+
+
+def run_empty_register_cases():
+    failures = 0
+    for name, text in EMPTY_REGISTER_CASES:
+        got = ulid_check.check_register({"a.md": {"superseded-by": None}}, text, REGISTER_CFG)
+        why = verdict(got, [("register.md", "no decision rows")])
+        if why is None:
+            print(f"ok    {name}")
+        else:
+            failures += 1
+            print(f"FAIL  {name}: {why}")
+    return failures
+
+
 def run_register_file_cases():
     """A configured register that is not a tracked document must fail loud: a typo in
     docsys.yaml would otherwise silently switch the cross-check off."""
@@ -237,8 +263,10 @@ def run_register_file_cases():
 
 
 def main():
-    failures = run_ref_cases() + run_register_cases() + run_register_file_cases()
-    total = len(REF_CASES) + len(REGISTER_CASES) + len(OTHER_SHAPE_CASES) + 1
+    failures = (run_ref_cases() + run_register_cases() + run_empty_register_cases()
+                + run_register_file_cases())
+    total = (len(REF_CASES) + len(REGISTER_CASES) + len(OTHER_SHAPE_CASES)
+             + len(EMPTY_REGISTER_CASES) + 1)
     print("\n" + "=" * 40)
     if failures:
         print(f"referential integrity: {failures}/{total} case(s) failed")

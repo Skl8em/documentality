@@ -35,6 +35,7 @@ Four checks, each catching a way `supersedes` / `superseded-by` can go stale wit
 4. **The register agrees.**
    Each row of the central decision register that says "superseded by N" is checked against that record's own `superseded-by`, and a row that says no such thing against the record having none.
    The register's path and row shape are this repository's instance, read from `register:` in [`docsys.yaml`](../docsys.yaml); the engine knows the *idea* of a register, not this one.
+   A register in which the configured row shape matches no row at all fails, rather than passing for want of anything to compare: a renamed column or a reworded ordinal would otherwise switch the check off without a word, the same silent fallback the seam work removed for a missing register file.
 
 ## Why a dangling pointer is a hard error, not a warning
 
@@ -71,9 +72,6 @@ The design rule is that the pointer is kept live and only the decision's own rea
 
 It does not establish that a pointer names the *right* record, only that the record exists, points back, and is not part of a loop.
 Whether a register row's *decision text* matches its record is likewise beyond it; it compares status text to the pointer.
-
-One further hole sits at the register: if the configured row shape matches no rows at all, the register check yields nothing and passes.
-It is the same silent-fallback shape the seam work removed for a missing register file, one level down, and is recorded in [technical debt](../steering/technical-debt.md).
 
 ## Where a maintainer touches this
 
