@@ -72,7 +72,11 @@ The linter's *code* encodes that the direction-of-fit table must partition `forc
 Changing the vocabulary is an edit to the YAML; changing what the vocabulary is *allowed to express* is an edit to code.
 The schema-load refusals (a partition that does not cover the forces, an optional field without a reason) exist because those code-level assumptions can be broken from the data side.
 
-One duplication sits outside this pipeline and is named so a maintainer is not surprised by it: `hash_seal.py` defines a *frozen* record by a list of `status` words that repeats `warn_enums.status` in the schema, and the two can drift ([technical debt](../steering/technical-debt.md)).
+One duplication sits outside this pipeline and is named so a maintainer is not surprised by it: `hash_seal.py` decides which `status` words make a record *frozen*, and the schema declares which words exist.
+The definition stays in code, deliberately: the schema lists its status vocabulary among the questions it still leaves open, and a `frozen` declaration in it would rule on part of that question by side effect.
+`hash_seal.py` therefore classifies every status word twice over, `FROZEN_STATUSES` and `OPEN_STATUSES`, and `scripts/test_hash_check.py` fails the gate when the two lists together stop matching `warn_enums.status` — a word added to the schema and classified nowhere, a word the schema dropped, a word in both.
+So a schema edit that adds a status is met at the gate with the edit that clears it, not discovered as a record that silently never gets sealed.
+The definition moves into the schema when the status vocabulary is ruled.
 
 ## What the pipeline does not establish
 

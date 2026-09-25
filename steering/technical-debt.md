@@ -58,12 +58,15 @@ Note that sealing a record makes any later edit to it fail the gate until it is 
 ## Engine/config seam residue
 
 **What:** [Phase 12 T1(b)](../phases/refoundation/phase-12-codifying/engine-config-seam.md) moved every path, prefix and register format out of `scripts/` into `docsys.yaml`, and named what it left in code.
-Two of those are debts rather than design: the definition of a *frozen* record in `hash_seal.py` duplicates the schema's status vocabulary and can drift from it; and the seam is drawn from a single instance.
+Two of those remain debts rather than design.
+The seam is drawn from a single instance.
+And the definition of a *frozen* record lives in `hash_seal.py`, where it duplicates a fact the schema also states (its status vocabulary): **kept there on purpose since T4**, guarded by a fixture in `test_hash_check.py` that fails when the two disagree, not moved.
 
-**Why left open:** the frozen-record definition belongs in the schema, and moving it widens the schema's vocabulary — a ruling, not a refactor.
-The single-instance boundary cannot be tested without a second consumer.
+**Why left open:** the single-instance boundary cannot be tested without a second consumer.
+The frozen definition belongs in the schema in principle, but declaring it there widens the schema's vocabulary and rules on part of what the schema's `still_open` list calls the status vocabulary — a ruling, not a refactor, and not one this debt should take by side effect.
 
-**How to resolve:** declare what "frozen" means in `schema/frontmatter-rules.yaml` and have `hash_seal.py` read it; revisit the seam when a second project wants the pipeline, or when it has held unchanged for a full phase.
+**How to resolve:** revisit the seam when a second project wants the pipeline, or when it has held unchanged for a full phase.
+Move the frozen definition into `schema/frontmatter-rules.yaml`, have `hash_seal.py` read it and retire the guard, when the status vocabulary is ruled.
 
 ## Gate messages: two still unfixtured
 
