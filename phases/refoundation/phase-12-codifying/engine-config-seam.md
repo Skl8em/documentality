@@ -81,6 +81,8 @@ Naming them is the point: the seam is honest only if its residue is visible.
 - **The definition of a frozen record** (`hash_seal.py`): `view: diachronic`, `provenance.type: project`, and `status` in `accepted` / `done` / `stable`.
   That is schema semantics living in code, and its status list duplicates `warn_enums.status` in the schema, so the two can drift.
   The natural home is the schema; moving it widens the schema's vocabulary, which is a ruling to make on purpose, not a side effect of a refactor.
+  Settled in T4 by keeping it in code, with a guard: the schema lists its status vocabulary as an open question, so declaring "frozen" there would rule on part of it by side effect.
+  `hash_seal.py` now classifies every status word (`FROZEN_STATUSES`, `OPEN_STATUSES`), and a fixture in `test_hash_check.py` fails when the two lists stop matching the schema.
 - **The Nix devShell contract**: `DOCSYS_DEVSHELL`, `nix develop --command`, the pinned-tool fallback.
   It is environment, a third kind of thing that is neither engine behaviour nor instance layout.
   A project without Nix would replace `pinned_tool_cmd`, and no config key would express that.

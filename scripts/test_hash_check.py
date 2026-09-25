@@ -6,6 +6,11 @@ not, and asks `scan` for its verdict, so the deliberately broken seal never sits
 the corpus (where it would fail the gate that runs this). The failure message must
 name the file and, after `fix:`, both remedies: revert, or re-freeze deliberately.
 
+It also guards a duplication (Phase 12 T4): `hash_seal.py` decides which `status` words
+make a record *frozen*, and the schema declares which words exist. The two are kept in
+two places on purpose — moving the definition into the schema would rule on the status
+vocabulary, which the schema still lists as open — so this fails when they disagree.
+
 Needs `pyyaml` — run inside the devShell (`nix develop`), as scripts/check.py does.
 
     python3 scripts/test_hash_check.py
@@ -15,6 +20,7 @@ import sys
 import tempfile
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import frontmatter_lint  # noqa: E402
 import hash_check  # noqa: E402
 import hash_seal  # noqa: E402
 
@@ -37,6 +43,48 @@ def write(directory, name, text):
     with open(path, "w", encoding="utf-8") as fh:
         fh.write(text)
     return path
+
+
+def status_drift(frozen, not_frozen, declared):
+    """Why the two definitions disagree, as a list of messages (empty when they
+    agree). `frozen` and `not_frozen` are hash_seal's classification of status words;
+    `declared` is the schema's `warn_enums.status`. Every declared word must be
+    classified exactly once, and no classified word may be undeclared."""
+    both = sorted(set(frozen) & set(not_frozen))
+    unclassified = sorted(set(declared) - set(frozen) - set(not_frozen))
+    undeclared = sorted((set(frozen) | set(not_frozen)) - set(declared))
+    out = []
+    if both:
+        out.append(f"status {both} is in both FROZEN_STATUSES and OPEN_STATUSES in hash_seal.py — "
+                   f"{FIX_MARKER} keep it in the one list that says whether such a record is frozen")
+    if unclassified:
+        out.append(f"the schema declares status {unclassified} that hash_seal.py classifies neither as frozen nor as open — "
+                   f"{FIX_MARKER} add it to FROZEN_STATUSES if a record with that status is closed, else to OPEN_STATUSES")
+    if undeclared:
+        out.append(f"hash_seal.py classifies status {undeclared} that the schema no longer declares — "
+                   f"{FIX_MARKER} remove it from hash_seal.py, or restore it in the schema's warn_enums.status")
+    return out
+
+
+DRIFT_CASES = [
+    ("the two lists agree", ("a", "b"), ("c",), ("a", "b", "c"), []),
+    ("a status added to the schema and classified nowhere", ("a",), ("c",), ("a", "b", "c"), ["classifies neither"]),
+    ("a frozen status the schema dropped", ("a", "b"), ("c",), ("a", "c"), ["no longer declares"]),
+    ("an open status the schema dropped", ("a",), ("c", "d"), ("a", "c"), ["no longer declares"]),
+    ("a status listed as both frozen and open", ("a", "b"), ("b", "c"), ("a", "b", "c"), ["in both"]),
+]
+
+
+def drift_cases():
+    for name, frozen, not_frozen, declared, fragments in DRIFT_CASES:
+        got = status_drift(frozen, not_frozen, declared)
+        ok = (len(got) == len(fragments)
+              and all(f in m and FIX_MARKER in m for m, f in zip(got, fragments)))
+        yield f"drift guard: {name}", ok, got
+
+    schema = frontmatter_lint.load_schema()
+    got = status_drift(hash_seal.FROZEN_STATUSES, hash_seal.OPEN_STATUSES, schema["warn_enums"]["status"])
+    yield "the real hash_seal.py and the real schema agree on every status word", got == [], got
 
 
 def cases(tmp):
@@ -76,7 +124,7 @@ def cases(tmp):
 def main():
     failures = total = 0
     with tempfile.TemporaryDirectory() as tmp:
-        for name, ok, detail in cases(tmp):
+        for name, ok, detail in list(cases(tmp)) + list(drift_cases()):
             total += 1
             print(f"ok    {name}" if ok else f"FAIL  {name}: {detail!r}")
             failures += not ok
