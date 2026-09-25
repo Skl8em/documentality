@@ -81,7 +81,8 @@ A human sees the warning; a machine reader must be told to treat it as material.
 Each check is announced by a `=== name ===` header, flushed before the check runs.
 When the output is a pipe — which is how CI and any agent see it — an unflushed header would arrive after the check's own lines and misattribute them; the runner fixes it and `runner` guards it.
 Each failure line names the file, the rule and, after `fix:`, the edit that clears it.
-The fixtures of `frontmatter_lint.py`, `ulid_check.py` and `paired_change.py` enforce the `fix:` clause; three validators build their messages inline and are not fixture-covered ([the audit](../phases/refoundation/phase-12-codifying/error-message-audit.md) and [technical debt](../steering/technical-debt.md) say which).
+The fixtures of `frontmatter_lint.py`, `ulid_check.py`, `paired_change.py`, `slug_check.py`, `linkcheck.py` and `hash_check.py` enforce the `fix:` clause: each builds its messages in a pure function, so a case can fail a message that lacks one.
+Two are not covered: the drift message of `generate_schema.py --check`, which states its fix (`Run … and commit the result`) but not under the marker and has no fixture, and the runner's own messages; [technical debt](../steering/technical-debt.md) records both.
 
 ## The rule that keeps this shelf true
 

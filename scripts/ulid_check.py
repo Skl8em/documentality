@@ -208,29 +208,40 @@ def check_register_file(records, register):
         return check_register(records, fh.read(), register)
 
 
+def yaml_error(path, exc):
+    return (path, f"invalid YAML frontmatter at {exc} — fix: correct the YAML at that line")
+
+
+def check_ids(records):
+    """records: {path: frontmatter}. Returns [(path, message)] for each `id` that is
+    not a valid ULID, and each `id` already carried by an earlier record. A record
+    without an `id` is permitted."""
+    errors, seen = [], {}
+    for path, fm in records.items():
+        rid = fm.get("id")
+        if not rid:
+            continue
+        if not isinstance(rid, str) or not is_ulid(rid):
+            errors.append((path, f"id {rid!r} is not a valid ULID — fix: mint one with `python3 scripts/ulid.py`"))
+        if rid in seen:
+            errors.append((path, f"duplicate id (also in {seen[rid]}) — fix: give one of the two records a fresh `id` from `python3 scripts/ulid.py`"))
+        seen[rid] = path
+    return errors
+
+
 def main():
     register = load_config()["register"]
     files = subprocess.check_output(["git", "ls-files", "*.md"], text=True).splitlines()
     errors = []
-    seen = {}
-    n_ids = 0
     records = {}
     for f in files:
         try:
-            fm = values(load(f))
+            records[f] = values(load(f))
         except FrontmatterError as exc:
-            errors.append((f, f"invalid YAML frontmatter at {exc} — fix: correct the YAML at that line"))
-            continue
-        rid = fm.get("id")
-        records[f] = fm
-        if not rid:
-            continue
-        n_ids += 1
-        if not isinstance(rid, str) or not is_ulid(rid):
-            errors.append((f, f"id {rid!r} is not a valid ULID — fix: mint one with `python3 scripts/ulid.py`"))
-        if rid in seen:
-            errors.append((f, f"duplicate id (also in {seen[rid]}) — fix: give one of the two records a fresh `id` from `python3 scripts/ulid.py`"))
-        seen[rid] = f
+            errors.append(yaml_error(f, exc))
+
+    n_ids = sum(1 for fm in records.values() if fm.get("id"))
+    errors.extend(check_ids(records))
 
     errors.extend(check_referential_integrity(records))
 

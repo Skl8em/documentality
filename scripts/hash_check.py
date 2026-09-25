@@ -27,8 +27,10 @@ ROOT = subprocess.check_output(["git", "rev-parse", "--show-toplevel"], text=Tru
 os.chdir(ROOT)
 
 
-def main():
-    files = subprocess.check_output(["git", "ls-files", "*.md"], text=True).splitlines()
+def scan(files):
+    """(broken, sealed, unsealed): `broken` is [(path, declared, actual)] for each
+    seal that no longer matches; `sealed` counts the verified-or-broken seals;
+    `unsealed` lists the frozen records that carry none."""
     broken, sealed, unsealed = [], 0, []
     for f in files:
         try:
@@ -44,6 +46,19 @@ def main():
         actual = seal_of(f)
         if declared != actual:
             broken.append((f, declared, actual))
+    return broken, sealed, unsealed
+
+
+def format_broken(path, declared, actual):
+    return (f"{path}  frozen record changed since it was sealed"
+            f"\n    declared {declared}\n    actual   {actual}"
+            f"\n    fix: revert the change, or re-freeze deliberately with "
+            f"`python3 scripts/hash_seal.py --reseal {path}`")
+
+
+def main():
+    files = subprocess.check_output(["git", "ls-files", "*.md"], text=True).splitlines()
+    broken, sealed, unsealed = scan(files)
 
     if "--unsealed" in sys.argv and unsealed:
         print(f"UNSEALED frozen records: {len(unsealed)}")
@@ -54,10 +69,7 @@ def main():
     if broken:
         print(f"FIXITY ERRORS: {len(broken)} seal(s) broken")
         for f, declared, actual in broken:
-            print(f"  {f}  frozen record changed since it was sealed"
-                  f"\n    declared {declared}\n    actual   {actual}"
-                  f"\n    fix: revert the change, or re-freeze deliberately with "
-                  f"`python3 scripts/hash_seal.py --reseal {f}`")
+            print(f"  {format_broken(f, declared, actual)}")
         return 1
     print(f"Fixity OK ({sealed} sealed record(s) verified; {len(unsealed)} frozen but unsealed).")
     return 0
