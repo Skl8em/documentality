@@ -86,6 +86,8 @@ A point that is not blocking never stops work; it is settled at the step named, 
 | 6 | **Two exemptions only** (tests, comment-only Python). A rename or a behaviour-free refactor still asks for an account. | Evidence: add a category when it recurs, not before. | No | Nothing to do. |
 | 7 | **Detached HEAD means enforce**, which is noise on a developer's local look at an old commit. | Accepted in ADR-040; revisit only if it is reported as a cost. | No | Nothing to do. |
 | 8 | **No cold reader has read the new `gate.md` section**, as with every fiche. | The deployment phase, per ADR-035. | No | The limit stands; the section is not described as tested. |
+| 9 | **The frozen-record definition stays in `hash_seal.py`, guarded** (T4 iv), not in the schema. This was T4's judgement on an either/or the plan left open, not a ruling by the project owner. | The project owner may overrule it now; otherwise it stands until the schema's status vocabulary is ruled (`still_open`), when the definition moves into the schema and the guard in `test_hash_check.py` is retired. | No | Nothing to do; the guard holds the two lists together meanwhile. |
+| 10 | **Two gate messages are unfixtured**: the `generate_schema.py --check` drift message (states its fix, not under the `fix:` marker) and the runner's own. | Not scheduled to a task: the audit's standard says each message carries the marker, so they are debt against it ([`technical-debt.md`](../../../steering/technical-debt.md)). T5's close re-read may pay them or keep them with a reason. | No | Recorded; the shelf already says they are not covered (`codifying/gate.md`). |
 
 ## Verification / definition of done
 
