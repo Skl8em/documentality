@@ -34,7 +34,7 @@ Rules for documents you write *with* the system are in the product ([`../write/r
 
 - You **must** keep `provenance` meaningful: use the maintaining function (`theorising`/`operationalizing`/`writing`/`structuring`/`codifying`/`steering`/`imagining`) or the owning project (`phase-NN`), never a blanket id.
 
-- You **must** pair a change to the tooling with its account: a commit that touches `scripts/` or `schema/` also edits a file that explains it — under `writing/`, `structuring/`, `operationalizing/` or `codifying/`, or `steering/ARCHITECTURE.md` — in the same commit.
+- You **must** pair a change to the tooling with its account: a commit that touches `scripts/`, `schema/` or `docsys.yaml` also edits a file that explains it — under `writing/`, `structuring/`, `operationalizing/` or `codifying/`, or `steering/ARCHITECTURE.md` — in the same commit.
   In practice that is the [`codifying/`](../codifying/README.md) fiche for what you touched, or a new one.
   The gate checks it ([ADR-039](../phases/refoundation/phase-12-codifying/paired-change-rule.md), [ADR-040](../phases/refoundation/phase-12-codifying/paired-change-where-it-fails.md)); it checks that an edit exists, not that it is right, so write the account you would want to have read.
   A change to a test file, or to a Python file that alters only comments, docstrings or formatting, has nothing to explain and needs none.

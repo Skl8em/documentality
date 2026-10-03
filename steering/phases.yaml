@@ -1,0 +1,42 @@
+# The phase ledger: where the project is, declared once (Phase 12 T6).
+#
+# The project's state, not the tooling's configuration: it changes at phase
+# boundaries and by a ruling of whoever steers the project, so it is kept here with
+# steering, and docsys.yaml only says where it is (`phases.ledger`). The gate checks
+# its own rules with scripts/phase_ledger.py; every other place that speaks of the
+# current phase — the roadmap, the phases index, the root README, the phase folders,
+# `phase:` fields — is to be checked against it.
+#
+# One entry per phase, in order: every `done`, then the one `current`, then every
+# `planned`. A `done` or `current` phase has a `number`, counting 1, 2, 3…; a
+# `planned` phase has none, because unstarted work is never numbered (ADR-038).
+#   - Starting a phase is one edit: give the first planned entry the next number and
+#     mark it `current`, after marking the previous one `done`.
+#   - Inserting work before a planned phase is adding an unnumbered entry ahead of
+#     it; nothing that names it needs renumbering.
+# `name` and `era` are the folder's: a numbered phase lives in
+# phases/<era>/phase-<NN>-<name>/.
+#
+# Only what is checkable lives here. A phase's aim and outputs are prose in
+# steering/roadmap.md, and a second copy of them would be the drift this file exists
+# to remove.
+#
+# The two planned entries carry assumptions, not rulings: that deployment belongs to
+# Phase I's era (the roadmap says as much and calls it an assumption), and that
+# Phase II's era is spelt `phase-ii`, which becomes its folder's name.
+
+phases:
+  - {number: 1, name: foundation, era: naive-sketch, status: done}
+  - {number: 2, name: theory, era: naive-sketch, status: done}
+  - {number: 3, name: reorganization, era: naive-sketch, status: done}
+  - {number: 4, name: disentanglement, era: naive-sketch, status: done}
+  - {number: 5, name: records-governance, era: naive-sketch, status: done}
+  - {number: 6, name: refoundation, era: refoundation, status: done}
+  - {number: 7, name: structuring-tutorial, era: refoundation, status: done}
+  - {number: 8, name: refactor, era: refoundation, status: done}
+  - {number: 9, name: tooling, era: refoundation, status: done}
+  - {number: 10, name: schema, era: refoundation, status: done}
+  - {number: 11, name: tooling-hardening, era: refoundation, status: done}
+  - {number: 12, name: codifying, era: refoundation, status: current}
+  - {name: deployment, era: refoundation, status: planned}
+  - {name: phase-ii-design, era: phase-ii, status: planned}

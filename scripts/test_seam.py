@@ -36,6 +36,7 @@ VALID = {
         "exempt": ["engine/test_"],
         "enforce_on": ["trunk"],
     },
+    "phases": {"ledger": "state/phases.yaml"},
     "checks": [
         {"name": "tree", "builtin": "worktree"},
         {"name": "links", "python": "scripts/linkcheck.py"},
@@ -102,6 +103,10 @@ REFUSAL_CASES = [
      ["paired_change.enforce_on", "missing"]),
     ("a missing paired_change section",
      drop("paired_change"), ["paired_change", "missing"]),
+    ("a missing phases section", drop("phases"), ["phases", "missing"]),
+    ("a missing phases.ledger", drop("phases", "ledger"), ["phases.ledger", "missing"]),
+    ("a phases.ledger that is not a path", setter("phases", "ledger", ["a.yaml"]),
+     ["phases.ledger", "path"]),
     ("an empty check list", lambda c: c.update(checks=[]), ["checks", "at least one"]),
     ("a check of no known kind", set_check(1, name="links"),
      ["checks[1]", "exactly one of"]),
@@ -192,7 +197,8 @@ def code_literals(path):
 def instance_values(cfg):
     """The strings in docsys.yaml that name this repo's layout or tools. Patterns are
     excluded: they describe a format, and are matched as literals too readily."""
-    values = {cfg["schema"]["source"], cfg["schema"]["generated"], cfg["register"]["path"]}
+    values = {cfg["schema"]["source"], cfg["schema"]["generated"], cfg["register"]["path"],
+              cfg["phases"]["ledger"]}
     values.update(cfg["frontmatter"]["ignore_prefixes"])
     values.update(cfg["frontmatter"]["ignore_substrings"])
     for check in cfg["checks"]:
@@ -204,9 +210,11 @@ def instance_values(cfg):
 def instance_prefixes(cfg):
     """Path prefixes that classify a file. Matched only at the START of a literal: a
     prefix like `scripts/` is also how the engine's own messages point at a sibling
-    script (`fix: mint one with scripts/ulid.py`), which is prose, not classification."""
+    script (`fix: mint one with scripts/ulid.py`), which is prose, not classification.
+    The configuration's own file name is not an instance value even when it is listed
+    as mechanism: it is how the engine finds its instance, the same in every repo."""
     pc = cfg["paired_change"]
-    return set(pc["mechanism"]) | set(pc["understanding"]) | set(pc["exempt"])
+    return (set(pc["mechanism"]) | set(pc["understanding"]) | set(pc["exempt"])) - {docsys_config.CONFIG_PATH}
 
 
 def run_leak_case():

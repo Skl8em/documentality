@@ -86,7 +86,7 @@ Two are not covered: the drift message of `generate_schema.py --check`, which st
 
 ## The rule that keeps this shelf true
 
-`paired-change` (`scripts/paired_change.py`, decided in [ADR-039](../phases/refoundation/phase-12-codifying/paired-change-rule.md) and refined by [ADR-040](../phases/refoundation/phase-12-codifying/paired-change-where-it-fails.md)) fails a change to `scripts/` or `schema/` that touches no file under `writing/`, `structuring/`, `operationalizing/` or `codifying/` and not `steering/ARCHITECTURE.md`.
+`paired-change` (`scripts/paired_change.py`, decided in [ADR-039](../phases/refoundation/phase-12-codifying/paired-change-rule.md) and refined by [ADR-040](../phases/refoundation/phase-12-codifying/paired-change-where-it-fails.md)) fails a change to `scripts/`, `schema/` or `docsys.yaml` that touches no file under `writing/`, `structuring/`, `operationalizing/` or `codifying/` and not `steering/ARCHITECTURE.md`.
 Its lists — mechanism, understanding, what needs no account, the branches it is enforced on, and the anchor — are `paired_change:` in `docsys.yaml`, so the engine names none of them.
 This fiche is one of the files that satisfies it, which is why a change to the gate lands with an edit here.
 
@@ -118,7 +118,10 @@ Run by hand or from the opt-in hook it sees the working tree; in CI it sees the 
 A clone that has not opted into the hook meets the failure only in CI, after the commit exists.
 
 It checks co-occurrence, and a one-word edit to a fiche passes; what it removes is the silent case.
-A change confined to `docsys.yaml` or `tools/markdownlint/` is invisible to it, since neither is in the list.
+`docsys.yaml` is in the mechanism list since Phase 12 T6: it decides what the gate runs and where the rule bites, so a change to it is a change to the tooling.
+That includes moving `since`, which accepts a commit and so needs an account like any other change.
+The phase ledger is kept out of `docsys.yaml` for this reason: it lives in `steering/phases.yaml`, `phases.ledger` points at it, and a phase transition is a ruling the roadmap explains, not a change to the tooling.
+A change confined to `tools/markdownlint/` is still invisible to the rule.
 
 ## What the gate does not establish
 
@@ -129,7 +132,7 @@ A change confined to `docsys.yaml` or `tools/markdownlint/` is invisible to it, 
   The gate can only be as broad as the list; a whole class of failure with no check is invisible to it.
   The paired-change check below exists because one such class, the tooling changing unexplained, went unseen twice.
 - **That an account of the tooling is true.**
-  `paired-change` establishes that a change to `scripts/` or `schema/` came with an edit to a file that explains it, not that the edit says what the code now does.
+  `paired-change` establishes that a change to the mechanism came with an edit to a file that explains it, not that the edit says what the code now does.
 - **Fixity for every frozen record.**
   Frozen records that predate the seal carry none; the gate counts them and does not fail on them (`hash_check.py --unsealed` lists them).
 
