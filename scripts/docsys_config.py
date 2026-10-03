@@ -3,9 +3,9 @@
 scripts/ is the engine: it knows how to lint frontmatter, verify a register, run a
 sequence of checks. docsys.yaml is what the engine is *pointed at* in this repo —
 where the schema lives, which documents are out of scope, what the decision
-register looks like, which checks make up the gate and in what order. Every script
-that needs an instance value reads it here, so nothing repo-specific is a literal
-in the engine (scripts/test_seam.py enforces that).
+register looks like, where the phase ledger is, which checks make up the gate and in
+what order. Every script that needs an instance value reads it here, so nothing
+repo-specific is a literal in the engine (scripts/test_seam.py enforces that).
 
 The vocabulary is closed, like the frontmatter's: an unknown key is an error, not a
 silently ignored typo. Scalars stay strings (scripts/yaml_frontmatter.py's
@@ -39,6 +39,7 @@ SECTIONS = {
     "register": ("path", "columns", "ordinal_column", "status_column",
                  "ordinal_pattern", "superseded_pattern"),
     "paired_change": ("since", "mechanism", "understanding", "exempt", "enforce_on"),
+    "phases": ("ledger",),
 }
 CHECK_KINDS = ("python", "builtin", "tool")
 CHECK_KEYS = ("name", "args") + CHECK_KINDS
@@ -145,6 +146,9 @@ def validate(cfg):
         _string_list(cfg["frontmatter"][key], f"frontmatter.{key}")
     _validate_register(cfg["register"])
     _validate_paired_change(cfg["paired_change"])
+    if not isinstance(cfg["phases"]["ledger"], str) or not cfg["phases"]["ledger"]:
+        raise ConfigError("`phases.ledger` must be a path, relative to the repo root — "
+                          "write it as `ledger: <dir>/<file>.yaml`.")
 
     checks = cfg.get("checks")
     if not isinstance(checks, list) or not checks:
