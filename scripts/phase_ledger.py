@@ -18,7 +18,11 @@ The rules:
   - exactly one phase is `current`;
   - the list is in order: every `done`, then the `current`, then every `planned`;
   - the numbers count 1, 2, 3… in that order, with no gap;
-  - names are unique.
+  - names are unique;
+  - `lagging:`, optional, lists the documents whose `phase:` may stay behind the
+    last closed phase, each with its `path` and a `reason` that is not empty — the
+    exception list a phase close consults (ADR-036's reason-per-field, applied to
+    an exemption).
 
 Where the ledger lives is instance configuration (`phases.ledger` in docsys.yaml);
 the ledger itself is the project's state, kept with steering, not with the gate's
@@ -35,7 +39,8 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from yaml_frontmatter import StrictLoader, yaml  # noqa: E402
 
-TOP_KEYS = ("phases",)
+TOP_KEYS = ("phases", "lagging")
+LAG_KEYS = ("path", "reason")
 ENTRY_KEYS = ("number", "name", "era", "status")
 REQUIRED = ("name", "era", "status")
 STATUSES = ("done", "current", "planned")  # in the order the list must follow
@@ -112,6 +117,33 @@ def order_errors(phases):
     return errors
 
 
+def lagging_errors(lagging):
+    """The `lagging:` list's own errors: its shape, a reason for each, no duplicate."""
+    if not isinstance(lagging, list):
+        return ["`lagging` must be a list of `{path: …, reason: …}` — fix: write each document as a list item"]
+    errors = []
+    seen = set()
+    for index, item in enumerate(lagging):
+        where = f"`lagging[{index}]`"
+        if not isinstance(item, dict):
+            errors.append(f"{where} is not a mapping — fix: write it as `{{path: …, reason: …}}`")
+            continue
+        unknown = sorted(set(item) - set(LAG_KEYS))
+        if unknown:
+            errors.append(f"{where} has unknown key(s) {unknown} — fix: remove them; allowed: {list(LAG_KEYS)}")
+            continue
+        if not isinstance(item.get("path"), str) or not item.get("path"):
+            errors.append(f"{where} has no `path` — fix: name the document, relative to the repo root")
+            continue
+        if not isinstance(item.get("reason"), str) or not item["reason"].strip():
+            errors.append(f"{where} ({item['path']}) has no reason — fix: say why it may lag and when it "
+                          f"will be re-read; an exemption without a reason is not allowed")
+        if item["path"] in seen:
+            errors.append(f"{where} {item['path']!r} is a duplicate — fix: list each document once")
+        seen.add(item["path"])
+    return errors
+
+
 def ledger_errors(data, path):
     """Every rule the ledger breaks, as messages that start with `path` and name the
     fix. Entry errors are reported alone: the order rules read well-formed entries."""
@@ -129,9 +161,10 @@ def ledger_errors(data, path):
     if not isinstance(phases, list) or not phases:
         return at(["`phases` must list at least one phase — fix: list the phases in order, one of them `current`"])
     errors = [m for index, item in enumerate(phases) for m in entry_errors(index, item)]
+    lag = lagging_errors(data["lagging"]) if "lagging" in data else []
     if errors:
-        return at(errors)
-    return at(order_errors(phases))
+        return at(errors + lag)
+    return at(order_errors(phases) + lag)
 
 
 def main():

@@ -71,8 +71,33 @@ paired_change:
 # (ADR-038). Its contents are steering's, not this file's: it changes when a phase
 # starts or closes, by a ruling, not when the tooling changes, and keeping it out of
 # here is what lets this file count as mechanism for the paired-change rule.
+#
+# The rest says where every other place that speaks of the current phase is, and
+# how to read it, for scripts/phase_state.py (Phase 12 T6(b)):
+#  - root / folder: a numbered phase lives in <root>/<era>/<folder>;
+#  - field: the format of a `phase:` frontmatter value;
+#  - markers: the word a table row shows for each ledger status;
+#  - tables: each table that lists phases, and the pattern of its phase rows, with
+#    the named groups `number` (absent on an unnumbered row) and `marker` (optional
+#    in the pattern, so a row missing one is reported rather than skipped);
+#  - status: the file holding the one status line, and the pattern that finds it,
+#    with the group `number`;
+#  - mention: how a document names a phase by number, with the group `number`.
 phases:
   ledger: steering/phases.yaml
+  root: phases
+  folder: 'phase-{number:02d}-{name}'
+  field: '{number:02d}-{name}'
+  markers: {done: done, current: in progress, planned: unnumbered}
+  tables:
+    - path: steering/roadmap.md
+      row: '^\| \*\*(?:(?P<number>\d+) — )?[^*]+\*\*(?: \*\((?P<marker>[^)]*)\)\*)?'
+    - path: phases/README.md
+      row: '^\| \[(?P<number>\d+) — [^\]]+\]\([^)]*\)(?: \*\((?P<marker>[^)]*)\)\*)?'
+  status:
+    path: README.md
+    line: '^\*\*v\S+ \(Phase (?P<number>\d+) (?:in progress|complete)\)\*\*'
+  mention: '\b[Pp]hases?[ -](?P<number>\d+)'
 
 # The gate, in order — `python3 scripts/check.py` runs every entry and fails if any
 # fails. An entry is exactly one of:
@@ -126,6 +151,12 @@ checks:
   # The phase ledger keeps its own rules: one current phase, planned phases
   # unnumbered, numbers in order.
   - {name: phase-ledger, python: scripts/phase_ledger.py}
+  # Fixtures first: each rule shown failing on a synthetic mismatch, and what it must
+  # not flag (a frozen record naming a phase since started, the era name "Phase II").
+  - {name: phase-state-test, python: scripts/test_phase_state.py}
+  # Every place that speaks of the current phase agrees with the ledger. After the
+  # ledger's own check, which it relies on.
+  - {name: phase-state, python: scripts/phase_state.py}
   # The rule is a heuristic; its fixtures run BEFORE the corpus lint, so a green
   # corpus can never be read as "the rule works" when it has stopped flagging
   # anything.

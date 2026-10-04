@@ -40,3 +40,12 @@ phases:
   - {number: 12, name: codifying, era: refoundation, status: current}
   - {name: deployment, era: refoundation, status: planned}
   - {name: phase-ii-design, era: phase-ii, status: planned}
+
+# Documents whose `phase:` may stay behind the last closed phase, each with why. The
+# gate fails an entry once its document has caught up, so the list cannot go stale.
+lagging:
+  - path: steering/foundation.md
+    reason: >-
+      Current as of Phase 07 and not re-read whole since; Phase 12's T5 re-reads it
+      for staleness before raising its `phase:`, which the plan forbids doing on the
+      strength of the sections T1 touched.

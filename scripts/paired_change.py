@@ -40,6 +40,11 @@ class AnchorError(ValueError):
     """`paired_change.since` cannot be used. The message names the key and the fix."""
 
 
+class BranchListError(ValueError):
+    """`paired_change.enforce_on` names no branch that exists. The message names the key
+    and the fix."""
+
+
 def touches(path, prefixes):
     return any(path.startswith(p) for p in prefixes)
 
@@ -179,6 +184,19 @@ def pending_unit(root):
     return (PENDING, paths, _comment_only_paths(root, paths, "HEAD", None)) if paths else None
 
 
+def _check_enforce_on(enforce_on, root):
+    """At least one listed branch exists, locally or on a remote — CI checks out a
+    detached HEAD with remote refs only. A list naming none would make the rule a
+    warning everywhere but a detached checkout, silently: a renamed integration branch."""
+    refs = _git(root, "for-each-ref", "--format=%(refname)", "refs/heads", "refs/remotes").stdout.split()
+    names = {r[len("refs/heads/"):] for r in refs if r.startswith("refs/heads/")}
+    names |= {r.split("/", 3)[3] for r in refs if r.startswith("refs/remotes/") and r.count("/") >= 3}
+    if not names & set(enforce_on):
+        raise BranchListError(f"`paired_change.enforce_on` ({', '.join(enforce_on)}) names no branch of this "
+                              "repository, so the rule would only ever warn, except on a detached checkout — "
+                              "fix: list the integration branch's current name in docsys.yaml.")
+
+
 def current_branch(root):
     """The checked-out branch's name, or None when HEAD is detached."""
     result = _git(root, "symbolic-ref", "--short", "-q", "HEAD", check=False)
@@ -187,6 +205,7 @@ def current_branch(root):
 
 def run(cfg, root):
     """Evaluate the rule for one repository: (exit status, lines to print)."""
+    _check_enforce_on(cfg["enforce_on"], root)
     units = commit_units(cfg["since"], root)
     pending = pending_unit(root)
     if pending:
@@ -211,7 +230,7 @@ def main():
     root = subprocess.check_output(["git", "rev-parse", "--show-toplevel"], text=True).strip()
     try:
         code, lines = run(cfg, root)
-    except AnchorError as exc:
+    except (AnchorError, BranchListError) as exc:
         print(f"PAIRED CHANGE: docsys.yaml: {exc}")
         return 1
     print("\n".join(lines))

@@ -78,6 +78,20 @@ CASES = [
     ("numbers that do not start at 1",
      {"phases": [{"number": "2", "name": "start", "era": "e", "status": "current"}]},
      ["phases[0]", "2", "1"]),
+    ("a document allowed to lag, with its reason",
+     with_(lambda d: d.update(lagging=[{"path": "a.md", "reason": "re-read owed at close"}])), []),
+    ("a lagging list that is not a list", with_(lambda d: d.update(lagging={"path": "a.md"})),
+     ["`lagging`", "list"]),
+    ("a lagging entry without a reason", with_(lambda d: d.update(lagging=[{"path": "a.md"}])),
+     ["lagging[0]", "reason"]),
+    ("a lagging entry with an empty reason",
+     with_(lambda d: d.update(lagging=[{"path": "a.md", "reason": " "}])), ["lagging[0]", "reason"]),
+    ("a lagging entry with an unknown key",
+     with_(lambda d: d.update(lagging=[{"path": "a.md", "reason": "r", "until": "13"}])),
+     ["lagging[0]", "until", "unknown"]),
+    ("a document listed twice as lagging",
+     with_(lambda d: d.update(lagging=[{"path": "a.md", "reason": "r"}, {"path": "a.md", "reason": "s"}])),
+     ["lagging[1]", "a.md", "duplicate"]),
 ]
 
 FIX_MARKER = "fix:"
