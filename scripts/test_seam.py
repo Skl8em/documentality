@@ -36,7 +36,16 @@ VALID = {
         "exempt": ["engine/test_"],
         "enforce_on": ["trunk"],
     },
-    "phases": {"ledger": "state/phases.yaml"},
+    "phases": {
+        "ledger": "state/phases.yaml",
+        "root": "records",
+        "folder": "phase-{number:02d}-{name}",
+        "field": "{number:02d}-{name}",
+        "markers": {"done": "done", "current": "in progress", "planned": "unnumbered"},
+        "tables": [{"path": "plan/roadmap.md", "row": r"^\| (?P<number>\d+)? ?\*\((?P<marker>[^)]*)\)\*"}],
+        "status": {"path": "INDEX.md", "line": r"^\*\*Phase (?P<number>\d+)\*\*"},
+        "mention": r"\bPhase (?P<number>\d+)",
+    },
     "checks": [
         {"name": "tree", "builtin": "worktree"},
         {"name": "links", "python": "scripts/linkcheck.py"},
@@ -107,6 +116,30 @@ REFUSAL_CASES = [
     ("a missing phases.ledger", drop("phases", "ledger"), ["phases.ledger", "missing"]),
     ("a phases.ledger that is not a path", setter("phases", "ledger", ["a.yaml"]),
      ["phases.ledger", "path"]),
+    ("a folder format without the number", setter("phases", "folder", "phase-{name}"),
+     ["phases.folder", "{number"]),
+    ("a field format that does not format", setter("phases", "field", "{number:02d}-{name}-{era}"),
+     ["phases.field", "format"]),
+    ("markers missing a status", setter("phases", "markers", {"done": "done", "current": "now"}),
+     ["phases.markers", "planned"]),
+    ("two statuses with one marker",
+     setter("phases", "markers", {"done": "done", "current": "done", "planned": "later"}),
+     ["phases.markers", "distinct"]),
+    ("no table", setter("phases", "tables", []), ["phases.tables", "at least one"]),
+    ("a table row pattern without a marker group",
+     setter("phases", "tables", [{"path": "r.md", "row": r"^\| (?P<number>\d+)"}]),
+     ["phases.tables[0]", "marker"]),
+    ("a table row pattern that does not compile",
+     setter("phases", "tables", [{"path": "r.md", "row": "(?P<number>"}]),
+     ["phases.tables[0]", "regular expression"]),
+    ("a table entry with an unknown key",
+     setter("phases", "tables", [{"path": "r.md", "row": "x", "header": "y"}]),
+     ["phases.tables[0]", "header", "unknown"]),
+    ("a status pattern without a number group",
+     setter("phases", "status", {"path": "R.md", "line": r"^\*\*Phase \d+"}),
+     ["phases.status", "number"]),
+    ("a mention pattern without a number group", setter("phases", "mention", r"\bPhase \d+"),
+     ["phases.mention", "number"]),
     ("an empty check list", lambda c: c.update(checks=[]), ["checks", "at least one"]),
     ("a check of no known kind", set_check(1, name="links"),
      ["checks[1]", "exactly one of"]),
@@ -199,6 +232,10 @@ def instance_values(cfg):
     excluded: they describe a format, and are matched as literals too readily."""
     values = {cfg["schema"]["source"], cfg["schema"]["generated"], cfg["register"]["path"],
               cfg["phases"]["ledger"]}
+    # The tables are instance paths. The status file is not checked: here it is the
+    # root README.md, which is also the methodology's root document, named in
+    # frontmatter_lint.py on purpose (engine-config-seam.md, "what remains").
+    values.update(table["path"] for table in cfg["phases"]["tables"])
     values.update(cfg["frontmatter"]["ignore_prefixes"])
     values.update(cfg["frontmatter"]["ignore_substrings"])
     for check in cfg["checks"]:
@@ -214,7 +251,10 @@ def instance_prefixes(cfg):
     The configuration's own file name is not an instance value even when it is listed
     as mechanism: it is how the engine finds its instance, the same in every repo."""
     pc = cfg["paired_change"]
-    return (set(pc["mechanism"]) | set(pc["understanding"]) | set(pc["exempt"])) - {docsys_config.CONFIG_PATH}
+    # The phase root is checked as a directory prefix: its bare name is also the word
+    # the ledger and this config use for their own `phases:` key.
+    return ((set(pc["mechanism"]) | set(pc["understanding"]) | set(pc["exempt"]) | {cfg["phases"]["root"] + "/"})
+            - {docsys_config.CONFIG_PATH})
 
 
 def run_leak_case():

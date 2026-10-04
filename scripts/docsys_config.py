@@ -39,7 +39,7 @@ SECTIONS = {
     "register": ("path", "columns", "ordinal_column", "status_column",
                  "ordinal_pattern", "superseded_pattern"),
     "paired_change": ("since", "mechanism", "understanding", "exempt", "enforce_on"),
-    "phases": ("ledger",),
+    "phases": ("ledger", "root", "folder", "field", "markers", "tables", "status", "mention"),
 }
 CHECK_KINDS = ("python", "builtin", "tool")
 CHECK_KEYS = ("name", "args") + CHECK_KINDS
@@ -98,6 +98,60 @@ def _validate_paired_change(pc):
             raise ConfigError(f"`paired_change.{key}` must list at least one entry — {why}.")
 
 
+def _pattern(value, key, groups):
+    """A regular expression that compiles and carries the named `groups`."""
+    try:
+        compiled = re.compile(value)
+    except (re.error, TypeError) as exc:
+        raise ConfigError(f"`{key}` is not a valid regular expression ({exc}) — fix the pattern.") from None
+    missing = [g for g in groups if g not in compiled.groupindex]
+    if missing:
+        raise ConfigError(f"`{key}` must have the named group(s) {missing} — write them as `(?P<name>…)`.")
+
+
+def _validate_phases(ph):
+    for key in ("ledger", "root"):
+        if not isinstance(ph[key], str) or not ph[key]:
+            raise ConfigError(f"`phases.{key}` must be a path, relative to the repo root — "
+                              f"write it as `{key}: <dir>/<file>`.")
+    for key in ("folder", "field"):
+        fmt = ph[key]
+        if not isinstance(fmt, str) or "{number" not in fmt or "{name" not in fmt:
+            raise ConfigError(f"`phases.{key}` must contain `{{number…}}` and `{{name}}` — "
+                              f"write it as e.g. `{key}: 'phase-{{number:02d}}-{{name}}'`.")
+        try:
+            fmt.format(number=1, name="x")
+        except (KeyError, IndexError, ValueError) as exc:
+            raise ConfigError(f"`phases.{key}` does not format with a number and a name ({exc!r}) — "
+                              f"use only `{{number…}}` and `{{name}}`.") from None
+    markers = ph["markers"]
+    statuses = ("done", "current", "planned")
+    if not isinstance(markers, dict) or set(markers) != set(statuses) \
+            or not all(isinstance(v, str) and v for v in markers.values()):
+        raise ConfigError(f"`phases.markers` must map each of {list(statuses)} to the word a table shows for it "
+                          f"— write it as `markers: {{done: …, current: …, planned: …}}`.")
+    if len(set(markers.values())) != len(statuses):
+        raise ConfigError("`phases.markers` must give each status a distinct word — a table row would "
+                          "otherwise not say which status it means.")
+    tables = ph["tables"]
+    if not isinstance(tables, list) or not tables:
+        raise ConfigError("`phases.tables` must list at least one table — the phase-state check would "
+                          "compare the ledger with nothing.")
+    for index, table in enumerate(tables):
+        where = f"phases.tables[{index}]"
+        if not isinstance(table, dict) or set(table) != {"path", "row"}:
+            extra = sorted(set(table) - {"path", "row"}) if isinstance(table, dict) else []
+            raise ConfigError(f"`{where}` must have exactly `path` and `row`"
+                              + (f"; unknown key(s) {extra}" if extra else "") + ".")
+        _pattern(table["row"], f"{where}.row", ("number", "marker"))
+    status = ph["status"]
+    if not isinstance(status, dict) or set(status) != {"path", "line"}:
+        raise ConfigError("`phases.status` must have exactly `path` and `line` — the file holding the "
+                          "status line, and the pattern that finds it.")
+    _pattern(status["line"], "phases.status.line", ("number",))
+    _pattern(ph["mention"], "phases.mention", ("number",))
+
+
 def _validate_check(index, check, seen):
     where = f"checks[{index}]"
     if not isinstance(check, dict):
@@ -146,9 +200,7 @@ def validate(cfg):
         _string_list(cfg["frontmatter"][key], f"frontmatter.{key}")
     _validate_register(cfg["register"])
     _validate_paired_change(cfg["paired_change"])
-    if not isinstance(cfg["phases"]["ledger"], str) or not cfg["phases"]["ledger"]:
-        raise ConfigError("`phases.ledger` must be a path, relative to the repo root — "
-                          "write it as `ledger: <dir>/<file>.yaml`.")
+    _validate_phases(cfg["phases"])
 
     checks = cfg.get("checks")
     if not isinstance(checks, list) or not checks:

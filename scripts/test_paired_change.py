@@ -345,6 +345,27 @@ def run_branch_cases():
         git(repo, "checkout", "-q", "--detach")
         code, lines = paired_change.run(cfg, repo)
         report(code == 1, "the same history fails on a detached HEAD (CI on a pull request)", f"code {code}")
+
+        stale = dict(cfg, enforce_on=["trunk", "develop"])
+        try:
+            paired_change.run(stale, repo)
+        except paired_change.BranchListError as exc:
+            report("enforce_on" in str(exc) and "trunk" in str(exc) and "fix:" in str(exc),
+                   "an enforce_on naming no branch of the repository is refused, naming the key and a fix",
+                   str(exc))
+        else:
+            report(False, "an enforce_on naming no branch of the repository is refused", "it was accepted")
+
+        with tempfile.TemporaryDirectory() as clone:
+            git(clone, "clone", "-q", repo, ".")
+            git(clone, "checkout", "-q", "--detach")
+            git(clone, "branch", "-q", "-D", "main")
+            try:
+                paired_change.run(dict(cfg, enforce_on=["main"]), clone)
+            except paired_change.BranchListError as exc:
+                report(False, "a branch that exists only on a remote counts (CI's detached checkout)", str(exc))
+            else:
+                report(True, "a branch that exists only on a remote counts (CI's detached checkout)")
     return failures
 
 

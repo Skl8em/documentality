@@ -75,9 +75,11 @@ This system keeps them apart — the readable tree on one side, frozen provenanc
 
 ## Status
 
-**v4.0-alpha (Phase 10 complete)** — the source is the producer's shelf: one **gerund-named** folder per function (`theorising`, `operationalizing`, `writing`, `structuring`, `codifying`, `steering`, `imagining`) plus the frozen `phases/`, grouped by era.
+**v4.0-alpha (Phase 12 in progress)** — the source is the producer's shelf: one **gerund-named** folder per function (`theorising`, `operationalizing`, `writing`, `structuring`, `codifying`, `steering`, `imagining`) plus the frozen `phases/`, grouped by era.
 All **twelve forces** are built under `writing/forces/`.
 The **schema is reconciled** to the refounded model and enforced: `intention` is the coarse family, `register` is derived (`constitutive ? govern : direction-of-fit(force)`) and never stored, the new `constitutive` mark is required, and frozen records carry a `hash:` fixity seal.
-One gate — `python3 scripts/check.py` — runs the worktree, link, frontmatter, ULID, slug, fixity, and markdownlint checks.
-Next: **Phase 11** hardens the tooling — closing the frontmatter vocabulary, parsing YAML with a real parser, and validating that identifiers point at something.
-Designing Phase II follows once Phase I closes — re-running the structuring front-end for the incoming AI discourse community — and takes its number when we get there ([`steering/roadmap.md`](steering/roadmap.md)).
+Since Phase 11 the frontmatter vocabulary is **closed**, it is read by a real YAML parser from a YAML source with a generated JSON, and every identifier must point at something.
+One gate — `python3 scripts/check.py` — runs the checks [`docsys.yaml`](docsys.yaml) lists, in order: the worktree, links, frontmatter, ULIDs, slugs, fixity, paired changes, the phase ledger and the phase state, and markdownlint.
+Phase 12 gives the tooling its own shelf, [`codifying/`](codifying/README.md); makes a change to the tooling that explains nothing fail the gate; and declares the current phase once, in [`steering/phases.yaml`](steering/phases.yaml), against which the gate checks every other place that speaks of it — this paragraph included.
+After it, a deployment phase asks how the content reaches third parties; designing Phase II follows once Phase I closes — re-running the structuring front-end for the incoming AI discourse community.
+Neither has a number until we get there ([`steering/roadmap.md`](steering/roadmap.md)).

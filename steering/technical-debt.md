@@ -54,18 +54,21 @@ Note that sealing a record makes any later edit to it fail the gate until it is 
 - **Referential integrity: cycles and self-supersession pass** — `ulid_check.py` now rejects a record that names itself in `supersedes` or `superseded-by`, and a loop along `superseded-by`, each with a fixture that was red first; the [referential-integrity fiche](../codifying/referential-integrity.md) states it (Phase 12 T4).
 - **A register whose row shape matches nothing passed** — `ulid_check.check_register` now fails when it finds no decision rows, with fixtures for an empty register, a wrong column count and a non-matching ordinal; the [referential-integrity fiche](../codifying/referential-integrity.md) states it (Phase 12 T4).
 - **Gate messages: three validators unfixtured** — `slug_check.py`, `linkcheck.py` and `hash_check.py` build their messages in pure functions, with fixtures (`test_slug_check.py`, `test_linkcheck.py`, `test_hash_check.py`, registered in the gate ahead of each check) that fail a message lacking its `fix:` clause, shown by removing the clause from each; the same extraction was needed in `ulid_check.py`'s own `main()` (Phase 12 T4).
+- **A renamed integration branch silently disarmed the paired-change rule** — `paired_change.py` now fails, on every run, when no branch in `enforce_on` exists locally or on a remote, with fixtures for a stale list and a remote-only branch; the [gate fiche](../codifying/gate.md) states it (Phase 12 T6(b)).
 
 ## Engine/config seam residue
 
 **What:** [Phase 12 T1(b)](../phases/refoundation/phase-12-codifying/engine-config-seam.md) moved every path, prefix and register format out of `scripts/` into `docsys.yaml`, and named what it left in code.
-Two of those remain debts rather than design.
+Three of those remain debts rather than design.
 The seam is drawn from a single instance.
+`migrate_ids.py`, the Phase 09 identifier migration, still names the phase root as a bare literal (`git ls-files phases`): the leak check reads the root as the prefix `phases/`, because the bare word is also the ledger's and the config's own key, so this literal passes it (found in T6(b)).
 And the definition of a *frozen* record lives in `hash_seal.py`, where it duplicates a fact the schema also states (its status vocabulary): **kept there on purpose since T4**, guarded by a fixture in `test_hash_check.py` that fails when the two disagree, not moved.
 
 **Why left open:** the single-instance boundary cannot be tested without a second consumer.
 The frozen definition belongs in the schema in principle, but declaring it there widens the schema's vocabulary and rules on part of what the schema's `still_open` list calls the status vocabulary — a ruling, not a refactor, and not one this debt should take by side effect.
 
 **How to resolve:** revisit the seam when a second project wants the pipeline, or when it has held unchanged for a full phase.
+Read the root from `phases.root` in `migrate_ids.py`, or retire the script once no record awaits migration.
 Move the frozen definition into `schema/frontmatter-rules.yaml`, have `hash_seal.py` read it and retire the guard, when the status vocabulary is ruled.
 
 ## Gate messages: two still unfixtured
@@ -99,9 +102,8 @@ The one fixture that mentions an undeclared field fails on invalid YAML, not on 
   How costly that is on a phase-long branch is unmeasured.
 - A change confined to `tools/markdownlint/`, which is apparatus, is in neither list.
   `docsys.yaml` joined the mechanism list in T6, once the phase ledger was ruled out of it; moving `paired_change.since` now needs an account in the same commit, and no explaining file is an obvious home for one.
-- `paired_change.enforce_on` is a list of branch names; if the integration branch is renamed and the list is not, the rule silently becomes a warning.
 - A rename or a behaviour-free refactor still asks for an account; only tests and comment-only edits are exempt.
 
-**Why left open:** the first is what any co-occurrence rule costs and only a reader can close it; the second is a property of git hooks, which are not versioned into a clone (a clone must opt in); the third is the price of not blocking work in progress, chosen in ADR-040; the fourth: `tools/markdownlint/` was never scheduled, and the cost of accounting for a moved `since` is new and unmeasured; the last two await evidence.
+**Why left open:** the first is what any co-occurrence rule costs and only a reader can close it; the second is a property of git hooks, which are not versioned into a clone (a clone must opt in); the third is the price of not blocking work in progress, chosen in ADR-040; the fourth: `tools/markdownlint/` was never scheduled, and the cost of accounting for a moved `since` is new and unmeasured; the last awaits evidence.
 
-**How to resolve:** the plan's table names the step for each — the hook is enabled in the author's clone, and T4 (its first real use) showed it ran the gate on every commit and blocked nothing, so it has not yet been seen to catch a violation — the project owner's verdict on it is still open; the merge-time cost is observed on Phase 12's own merge in T5; the `docsys.yaml` gap is closed (T6 split the ledger into `steering/phases.yaml` and listed `docsys.yaml` as mechanism); `tools/markdownlint/` can join the list the same way, with its explaining file named first; the account for a moved `since` is open point 11 in the plan; `enforce_on` is settled in T6 by failing when no listed branch exists; the first is a phase-close re-read by a person.
+**How to resolve:** the plan's table names the step for each — the hook is enabled in the author's clone, and T4 (its first real use) showed it ran the gate on every commit and blocked nothing, so it has not yet been seen to catch a violation — the project owner's verdict on it is still open; the merge-time cost is observed on Phase 12's own merge in T5; the `docsys.yaml` gap is closed (T6 split the ledger into `steering/phases.yaml` and listed `docsys.yaml` as mechanism); `tools/markdownlint/` can join the list the same way, with its explaining file named first; the account for a moved `since` is open point 11 in the plan; `enforce_on` is settled (T6(b) fails when no listed branch exists); the first is a phase-close re-read by a person.

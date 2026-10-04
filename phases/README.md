@@ -25,11 +25,11 @@ The first version, built before the theory was refounded and before the front-en
 
 | Phase | What it settled | Records |
 |---|---|---|
-| [01 — foundation](naive-sketch/phase-01-foundation/README.md) | the inscribed-act reframe | ADR-001 |
-| [02 — theory](naive-sketch/phase-02-theory/README.md) | perlocution, recommend, drop diataxis, verb | ADR-002…005 |
-| [03 — reorganization](naive-sketch/phase-03-reorganization/README.md) | fractal tree, doors, axis declaration, teach, audience | ADR-006…009 |
-| [04 — disentanglement](naive-sketch/phase-04-disentanglement/README.md) | product vs docs, scope axis, provenance by function | ADR-010 |
-| [05 — records & governance](naive-sketch/phase-05-records-governance/README.md) | decisions by phase, steering, the `entail` face, open pairings | ADR-011…013 |
+| [01 — foundation](naive-sketch/phase-01-foundation/README.md) *(done)* | the inscribed-act reframe | ADR-001 |
+| [02 — theory](naive-sketch/phase-02-theory/README.md) *(done)* | perlocution, recommend, drop diataxis, verb | ADR-002…005 |
+| [03 — reorganization](naive-sketch/phase-03-reorganization/README.md) *(done)* | fractal tree, doors, axis declaration, teach, audience | ADR-006…009 |
+| [04 — disentanglement](naive-sketch/phase-04-disentanglement/README.md) *(done)* | product vs docs, scope axis, provenance by function | ADR-010 |
+| [05 — records & governance](naive-sketch/phase-05-records-governance/README.md) *(done)* | decisions by phase, steering, the `entail` face, open pairings | ADR-011…013 |
 
 ## Era 2 — Refoundation *(current)*
 
@@ -43,6 +43,7 @@ Regrounding the theory on Ferraris and, at last, laying the front-end flat.
 | [09 — tooling](refoundation/phase-09-tooling/README.md) *(done)* | reproducible Nix devShell; unified markdownlint (CLI + VSCode) + corpus reflow; a frontmatter-lint harness (safe invariants); ULID + slug identifiers, minting/verify tooling, and a safe-rename script; one gate (pre-commit + CI) | ADR-028 |
 | [10 — reconcile schema & governance](refoundation/phase-10-schema/README.md) *(done)* | `register` derived & `constitutive` stored; content-hash fixity; ADR tiering; `operationalizing` recorded as the sixth function; hosting settled on GitHub | ADR-029…034 |
 | [11 — tooling hardening](refoundation/phase-11-tooling-hardening/README.md) *(done — closed by Phase 12)* | closed frontmatter vocabulary; real YAML parsing; the schema authored in YAML with a generated JSON; referential integrity; unstarted work no longer numbered | ADR-036…038 |
+| [12 — codifying](refoundation/phase-12-codifying/plan.md) *(in progress)* | `codifying` adopted as the seventh function, with its shelf; Phase 11's account closed; a tooling change that explains nothing fails the gate; the current phase declared once, in a ledger the gate checks every other place against | ADR-035, ADR-039, ADR-040 |
 
 ## Era 3 — Phase II *(later)*
 

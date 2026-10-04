@@ -106,7 +106,7 @@ A version that does not parse, or a file added or deleted, is never comment-only
 On a branch in `enforce_on` (`main`, `develop`) and on a detached HEAD — which is what CI checks out for a pull request — a finding fails the gate.
 On any other branch the same finding is a `WARNING` naming the branch and where it is enforced, and the exit status is 0, so a mechanism commit may precede the commit that explains it while the work is in progress.
 The cost moved, it did not vanish: the pull request examines every commit since the anchor, so the earlier commit fails there and has to be amended or squashed with its account.
-If the integration branch is renamed and `enforce_on` is not, the rule quietly becomes a warning, and nothing in the gate says so.
+If the integration branch is renamed and `enforce_on` is not, the rule would quietly become a warning; so it fails, on every run, when no listed branch exists locally or on a remote (a CI checkout is detached and holds remote refs only).
 
 **The anchor is the only exemption from history, and it shows in a diff.**
 Commits before `since` are not examined.
@@ -123,6 +123,31 @@ That includes moving `since`, which accepts a commit and so needs an account lik
 The phase ledger is kept out of `docsys.yaml` for this reason: it lives in `steering/phases.yaml`, `phases.ledger` points at it, and a phase transition is a ruling the roadmap explains, not a change to the tooling.
 A change confined to `tools/markdownlint/` is still invisible to the rule.
 
+## Where the project is: the ledger and the phase-state check
+
+The current phase is declared once, in the ledger [`steering/phases.yaml`](../steering/phases.yaml): an ordered list of phases, each `done`, `current` or `planned`, the planned ones unnumbered (ADR-038).
+It is the project's state, kept with steering; `phases:` in `docsys.yaml` only says where it is and how to read every other place that speaks of the current phase.
+Two checks read it, in this order.
+
+`phase-ledger` (`scripts/phase_ledger.py`) checks the ledger's own rules: a closed vocabulary, exactly one `current`, no number on a `planned` phase, done then current then planned, numbers counting from 1 without a gap.
+
+`phase-state` (`scripts/phase_state.py`) checks every other place against it, each rule a pure function with fixtures:
+
+- **folders** — a numbered phase has its folder, `phases/<era>/phase-<NN>-<name>`, and no tracked phase folder is missing from the ledger;
+- **tables** — each phase row of the roadmap and the phases index carries the marker of the ledger's status (`done`, `in progress`, `unnumbered`; the text after a ` — ` is free), a row numbering a phase the ledger has not numbered fails, the current phase has a row, and a row pattern that matches nothing is an error, not a pass;
+- **mentions** — no living document names, by number, a phase above the highest the ledger has numbered;
+- **status** — the root README has one status line, and it names the current phase;
+- **`phase:` fields** — each names a numbered phase, and none is behind the last closed phase unless the ledger lists it under `lagging:` with a reason; an allowance whose document has caught up fails, so the list cannot go stale.
+
+Two scope choices are easy to undo by accident.
+A **frozen record is not read for mentions**: it states what was true when it froze and cannot be edited, and [ADR-038](../phases/refoundation/phase-11-tooling-hardening/unstarted-work-unnumbered.md) itself quotes, as its example of the forbidden form, a sentence giving the next phase its number — a red there could never be cleared, and this fiche cannot repeat the example without failing the rule.
+The **status file is not in the seam's leak check**: here it is the root `README.md`, which the frontmatter linter also names as the methodology's root document.
+
+What the check does not do yet: verify that a closed phase's README says `done` and its records are sealed.
+That rule, as planned, conflicts with ADR-031's choice to leave the naive-sketch era unsealed, and waits on a ruling (open point 12 in the [Phase 12 plan](../phases/refoundation/phase-12-codifying/plan.md#open-points-and-when-each-is-settled)).
+
+Starting a phase is one edit to the ledger, and the gate then names every place still describing the old one.
+
 ## What the gate does not establish
 
 - **That the documents are good.**
@@ -130,9 +155,11 @@ A change confined to `tools/markdownlint/` is still invisible to the rule.
 - **That a fix is correct**, only that one is stated.
 - **That the checks cover what matters.**
   The gate can only be as broad as the list; a whole class of failure with no check is invisible to it.
-  The paired-change check below exists because one such class, the tooling changing unexplained, went unseen twice.
+  The paired-change check above exists because one such class, the tooling changing unexplained, went unseen twice.
 - **That an account of the tooling is true.**
   `paired-change` establishes that a change to the mechanism came with an edit to a file that explains it, not that the edit says what the code now does.
+- **That a place which agrees with the ledger is true.**
+  `phase-state` checks that the roadmap, the index and the status line name the right phase, not that what they say of it is right.
 - **Fixity for every frozen record.**
   Frozen records that predate the seal carry none; the gate counts them and does not fail on them (`hash_check.py --unsealed` lists them).
 
