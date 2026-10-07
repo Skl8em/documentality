@@ -144,7 +144,7 @@ A **frozen record is not read for mentions**: it states what was true when it fr
 The **status file is not in the seam's leak check**: here it is the root `README.md`, which the frontmatter linter also names as the methodology's root document.
 
 What the check does not do yet: verify that a closed phase's README says `done` and its records are sealed.
-That rule, as planned, conflicts with ADR-031's choice to leave the naive-sketch era unsealed, and waits on a ruling (open point 12 in the [Phase 12 plan](../phases/refoundation/phase-12-codifying/plan.md#open-points-and-when-each-is-settled)).
+That rule, as planned, conflicts with ADR-031's choice to leave the naive-sketch era unsealed and rests on a `status` vocabulary nobody has ruled, so it was handed to the life-cycle phase ([roadmap](../steering/roadmap.md); open point 12 in the [Phase 12 plan](../phases/refoundation/phase-12-codifying/plan.md#open-points-and-when-each-is-settled)).
 
 Starting a phase is one edit to the ledger, and the gate then names every place still describing the old one.
 
