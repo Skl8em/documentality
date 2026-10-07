@@ -21,9 +21,10 @@
 # steering/roadmap.md, and a second copy of them would be the drift this file exists
 # to remove.
 #
-# The two planned entries carry assumptions, not rulings: that deployment belongs to
-# Phase I's era (the roadmap says as much and calls it an assumption), and that
-# Phase II's era is spelt `phase-ii`, which becomes its folder's name.
+# The planned entries carry assumptions, not rulings: that the life-cycle and
+# deployment phases belong to Phase I's era (the roadmap says as much and calls it
+# an assumption), and that Phase II's era is spelt `phase-ii`, which becomes its
+# folder's name. Their order is a ruling: the life cycle before deployment.
 
 phases:
   - {number: 1, name: foundation, era: naive-sketch, status: done}
@@ -38,6 +39,7 @@ phases:
   - {number: 10, name: schema, era: refoundation, status: done}
   - {number: 11, name: tooling-hardening, era: refoundation, status: done}
   - {number: 12, name: codifying, era: refoundation, status: current}
+  - {name: life-cycle, era: refoundation, status: planned}
   - {name: deployment, era: refoundation, status: planned}
   - {name: phase-ii-design, era: phase-ii, status: planned}
 
