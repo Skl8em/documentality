@@ -16,6 +16,24 @@ History of the documentation system itself.
 Append-only; each entry is dated-fixed.
 Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
 
+## [v4.0-alpha.24] — Phase 12 T6: where the project is, declared once and checked
+
+- **Decided:** [ADR-041](../phases/refoundation/phase-12-codifying/phase-ledger.md).
+  The current phase is declared once, in a ledger of its own, [`steering/phases.yaml`](phases.yaml) — the project owner ruled it out of `docsys.yaml`, which only points at it, because it is the project's state and not the tooling's configuration.
+  A phase transition is an edit to the ledger, and the gate checks every other place against it.
+  It executes [ADR-038](../phases/refoundation/phase-11-tooling-hardening/unstarted-work-unnumbered.md), whose "no check enforces this" limit is closed; that record stays as written.
+- **Added:** `phase-ledger` (`scripts/phase_ledger.py`) checks the ledger's own rules, and `phase-state` (`scripts/phase_state.py`) checks the folders, the roadmap and index rows, forward-numbered mentions, the root README's status line and the `phase:` fields against it; `lagging:` lets a document's `phase:` wait, with a reason, and fails once it no longer waits.
+  `docsys.yaml` gains a `phases:` section, validated by `docsys_config.py` and covered by the seam test.
+  The fixtures — 29 for the ledger, 32 for the state — ran red first; the real ledger and roadmap were also broken by hand.
+- **Fixed, flagged by the first run:** the root README's status paragraph, which said Phase 10; the phases index, which had no markers on the naive-sketch rows and no row for Phase 12.
+  `foundation.md` lags at Phase 07 by the ledger's leave, until T5 re-reads it.
+- **Settled:** open point 3 — `docsys.yaml` joins the paired-change mechanism list with no carve-out; open point 5 — `paired_change.py` fails when no `enforce_on` branch exists locally or on a remote, with fixtures; open point 11 — moving `since` keeps its account, judged at its first real use.
+- **Planned:** a **life-cycle phase**, unnumbered, before deployment ([roadmap](roadmap.md)).
+  T6's closure rule — a closed phase's README and records frozen and sealed — conflicted with ADR-031 and rests on a `status` vocabulary nobody has ruled, so it moves there with open point 12; the project owner named the cost of placing it ahead of deployment.
+  `operationalizing/view.md` said the linter checks `synchronic ⇒ function`; it does not, and every phase plan breaks it — corrected, and handed to the same phase.
+- **Recorded, not fixed:** `migrate_ids.py` names the phase root as a bare literal the seam's leak check cannot see ([`technical-debt.md`](technical-debt.md)).
+  ([plan](../phases/refoundation/phase-12-codifying/plan.md))
+
 ## [v4.0-alpha.23] — Phase 12 T4: the debts T1 recorded are paid, or kept on purpose
 
 - **Fixed:** `ulid_check.py` rejects a record that names itself in `supersedes` or `superseded-by`, and a cycle along `superseded-by`; and it fails when the register's configured row shape matches no row, where it used to pass for want of anything to compare.

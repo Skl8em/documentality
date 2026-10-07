@@ -60,6 +60,7 @@ A superseding decision is a new row and a new record that sets `supersedes`.
 | [038](../phases/refoundation/phase-11-tooling-hardening/unstarted-work-unnumbered.md) | Unstarted work is never referred to by number | 11-tooling-hardening | 2026-09-24 | accepted |
 | [039](../phases/refoundation/phase-12-codifying/paired-change-rule.md) | A change to the tooling that explains nothing fails the gate | 12-codifying | 2026-09-24 | accepted |
 | [040](../phases/refoundation/phase-12-codifying/paired-change-where-it-fails.md) | The paired-change rule fails where work lands (`main`, `develop`, a detached checkout) and skips tests and comment-only edits; refines 039 | 12-codifying | 2026-09-24 | accepted |
+| [041](../phases/refoundation/phase-12-codifying/phase-ledger.md) | The current phase is declared once, in a ledger (`steering/phases.yaml`); a phase transition is an edit to it, and the gate checks every other place against it | 12-codifying | 2026-10-07 | accepted |
 
 Rows 036–038 record decisions Phase 11 took on 2026-09-15, 2026-09-17 and 2026-09-13 and never wrote down; they were written by Phase 12, and the date column is the date they were recorded.
 
