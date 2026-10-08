@@ -28,6 +28,7 @@ This folder groups the governance genres — architecture, contribution rules, h
 - **Every decision, listed** (the register) → [`ADR.md`](ADR.md) *(decide — the act)*
 - **What is still being deliberated** (open questions) → [`open-questions.md`](open-questions.md) *(propose — current, decants to `phases/`)*
 - **Known deferred gaps** (technical debt) → [`technical-debt`](technical-debt.md) *(describe — current register)*
+- **An outside reading of the whole project** (the 2026-10-07 adversarial review, through *The Life of Projects*) → [`external-review.md`](external-review/external-review.md) *(propose — awaiting rulings)*
 - **Why each choice was made, and what it entails** → [`phases/`](../phases/README.md) — records grouped by the construction phase that produced them, each with its `justify` and `entail`.
 
 ## Why this is separate from the product
