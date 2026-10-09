@@ -18,12 +18,12 @@ It is written according to its own rules, so its file tree is the first worked e
 Every file declares its **force** in its frontmatter; this page is an `orient`, so its only job is to situate you and route you onward.
 
 **New here?**
+Pick the line that matches what you need.
 
-You want to read if this approach would make sense to you> Go to `structuring/*to be defined*` You start with your project and want to write the first documentation?
-Go to [writing tutorial`](writing/tutorial.md) You wand to sort your new or existing documentation and want to create a structure for it?
-Start with the [Structure Tutorial](structuring/tutorial.md).
-Already have a document in mind but don't know where to start?
-Go to ...
+- **You want to judge whether this approach makes sense for you** — read [the one idea](#the-one-idea) below, then [`structuring/concepts.md`](structuring/concepts.md), the two systems every corpus has to keep apart.
+- **You are starting a project and want to write its first document** — follow the [writing tutorial](writing/tutorial.md).
+- **You have documentation, new or old, and want to give it a structure** — follow the [structuring tutorial](structuring/tutorial.md).
+- **You already have a document in mind but do not know what kind it is** — [`writing/choosing.md`](writing/choosing.md) finds its force.
 
 Come back here once you know what you need; this page routes by need, not as a course to read in order.
 
@@ -37,7 +37,7 @@ Name the act correctly and the form follows; misname it and no polish recovers t
 
 The source is the **producer's shelf**: each top-level folder is a standing **function** (a provenance), and the user-facing reading order is *generated* from the frontmatter rather than hand-kept as a folder.
 
-- `theorising/` — the inscribed-act theory the product rests on (the three essays + readability patterns).
+- `theorising/` — the inscribed-act theory the product rests on: three essays, an integrative review of how projects evolve, and the readability patterns.
 - **[`operationalizing/`](operationalizing/README.md)** — the **operational apports**: the coordinates we chose to reify so the theory becomes workable and checkable (`view`, `constitutive`, `register`), and why we carved each one that way.
 - **[`writing/`](writing/README.md)** — how to write *one document*: its force, move structure, readability patterns, and the **frontmatter** schema; one folder per force, grouped by the three doors.
 - **[`structuring/`](structuring/README.md)** — how to keep *the whole corpus*: topology, provenance, life cycle, the **audience model** ([`structuring/audience.md`](structuring/audience.md)), and the structuring tutorial.
