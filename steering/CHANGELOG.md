@@ -16,6 +16,11 @@ History of the documentation system itself.
 Append-only; each entry is dated-fixed.
 Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
 
+## [v4.0-alpha.27] — Two debts recorded
+
+- **Recorded:** [`technical-debt.md`](technical-debt.md) gains *Synchronic documents that narrate their own history* — pages declared `synchronic` that describe the changes producing them, and teach that style to every agent that reads them — and *Decision records that are plans* — ADR-020, and ADR-042 for its points 1 to 4.
+  Neither is fixed now; each entry says how it will be.
+
 ## [v4.0-alpha.26] — Phase 12 closes, and Phase I with it; the rush to MVP opens
 
 - **Decided:** [ADR-042](../phases/rush-to-mvp/phase-13-design/rush-to-mvp.md), superseding [ADR-020](../phases/refoundation/phase-06-refoundation/ADR-020-scope-phase-i.md).
