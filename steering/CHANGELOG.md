@@ -16,6 +16,11 @@ History of the documentation system itself.
 Append-only; each entry is dated-fixed.
 Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
 
+## [v4.0-alpha.28] — The root README routes a newcomer again
+
+- **Fixed:** the "New here?" block of the root README, broken since 2026-07-25, routes to four pages that exist: the one idea and `structuring/concepts.md` to judge the approach, the writing tutorial, the structuring tutorial, and `writing/choosing.md`.
+  Its `theorising/` line names the shelf's contents as they are.
+
 ## [v4.0-alpha.27] — Two debts recorded
 
 - **Recorded:** [`technical-debt.md`](technical-debt.md) gains *Synchronic documents that narrate their own history* — pages declared `synchronic` that describe the changes producing them, and teach that style to every agent that reads them — and *Decision records that are plans* — ADR-020, and ADR-042 for its points 1 to 4.
