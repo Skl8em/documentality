@@ -16,6 +16,14 @@ History of the documentation system itself.
 Append-only; each entry is dated-fixed.
 Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
 
+## [v4.0-alpha.25] — Three proposals for what comes after Phase I
+
+- **Added**, in [`imagining/`](../imagining/README.md):
+  - [`theory-of-the-code.md`](../imagining/theory-of-the-code.md) — a position on Naur, answering the external review's finding 1a: what a project's documentation must carry about its code (concepts, relations, states, invariants, the grain, the limits), and how code and theory are held together;
+  - [`reader-first-writing.md`](../imagining/reader-first-writing.md) — the defect of synchronic documents that narrate their own history, why an agent writer falls into it, seven tools against it, and a casebook of the cases found;
+  - [`multi-ecosystem-distribution.md`](../imagining/multi-ecosystem-distribution.md) — one package per language ecosystem, all bound to one API: the configuration, the methodology, the baseline, the CLI, the findings, and a conformance suite.
+- **Rewritten:** `imagining/README.md` lists the proposals the shelf holds — its own casebook entry, rewritten as state.
+
 ## [v4.0-alpha.24] — Phase 12 T6: where the project is, declared once and checked
 
 - **Decided:** [ADR-041](../phases/refoundation/phase-12-codifying/phase-ledger.md).
