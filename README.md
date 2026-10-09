@@ -43,7 +43,7 @@ The source is the **producer's shelf**: each top-level folder is a standing **fu
 - **[`structuring/`](structuring/README.md)** — how to keep *the whole corpus*: topology, provenance, life cycle, the **audience model** ([`structuring/audience.md`](structuring/audience.md)), and the structuring tutorial.
 - **[`codifying/`](codifying/README.md)** — the **tooling's account**: how the gate, the schema pipeline and the referential checks work, and why they are built that way.
 - **[`steering/`](steering/README.md)** — the project's own governance: foundation, roadmap, architecture, contribution rules, changelog, and the decision register (ADRs).
-- **[`imagining/`](imagining/README.md)** — what is only *intended* yet (Phase II), parked so it is neither lost nor mistaken for current work.
+- **[`imagining/`](imagining/README.md)** — what is only *intended* yet, parked so it is neither lost nor mistaken for current work.
 - **[`phases/`](phases/README.md)** — the frozen records of each construction phase (a `project` provenance), grouped by era.
 
 Keeping the *product* (`writing/`, `structuring/`) legible to a **user** and the project's *own* governance (`steering/`, `phases/`) legible to a **contributor** is the theory working — but both are shelved the same way, by the function that maintains them; the two reading orders are generated, not two hand-kept trees.
@@ -75,11 +75,9 @@ This system keeps them apart — the readable tree on one side, frozen provenanc
 
 ## Status
 
-**v4.0-alpha (Phase 12 in progress)** — the source is the producer's shelf: one **gerund-named** folder per function (`theorising`, `operationalizing`, `writing`, `structuring`, `codifying`, `steering`, `imagining`) plus the frozen `phases/`, grouped by era.
+**v4.0-alpha (Phase 13 in progress)** — the project is in its **rush to MVP** ([ADR-042](phases/rush-to-mvp/phase-13-design/rush-to-mvp.md)): making the system installable in another project, then giving that project an agent kit; Phase 13 designs both.
+The source is the producer's shelf: one **gerund-named** folder per function (`theorising`, `operationalizing`, `writing`, `structuring`, `codifying`, `steering`, `imagining`) plus the frozen `phases/`, grouped by era.
 All **twelve forces** are built under `writing/forces/`.
-The **schema is reconciled** to the refounded model and enforced: `intention` is the coarse family, `register` is derived (`constitutive ? govern : direction-of-fit(force)`) and never stored, the new `constitutive` mark is required, and frozen records carry a `hash:` fixity seal.
-Since Phase 11 the frontmatter vocabulary is **closed**, it is read by a real YAML parser from a YAML source with a generated JSON, and every identifier must point at something.
-One gate — `python3 scripts/check.py` — runs the checks [`docsys.yaml`](docsys.yaml) lists, in order: the worktree, links, frontmatter, ULIDs, slugs, fixity, paired changes, the phase ledger and the phase state, and markdownlint.
-Phase 12 gives the tooling its own shelf, [`codifying/`](codifying/README.md); makes a change to the tooling that explains nothing fail the gate; and declares the current phase once, in [`steering/phases.yaml`](steering/phases.yaml), against which the gate checks every other place that speaks of it — this paragraph included.
-After it, a life-cycle phase rules which states a document passes through and what a seal covers, then a deployment phase asks how the content reaches third parties; designing Phase II follows once Phase I closes — re-running the structuring front-end for the incoming AI discourse community.
-Neither has a number until we get there ([`steering/roadmap.md`](steering/roadmap.md)).
+The frontmatter vocabulary is **closed** and enforced: `register` is derived and never stored, `constitutive` is required, frozen records carry a `hash:` fixity seal, and every identifier must point at something.
+One gate — `python3 scripts/check.py` — runs the checks [`docsys.yaml`](docsys.yaml) lists, in order; [`codifying/`](codifying/README.md) explains the tooling, and [`steering/phases.yaml`](steering/phases.yaml) declares the current phase, against which the gate checks every other place that speaks of it — this paragraph included.
+The era ends when an agent given only the kit documents `weft`, the first adopter, correctly ([`steering/roadmap.md`](steering/roadmap.md)).

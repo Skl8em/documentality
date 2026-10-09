@@ -39,7 +39,7 @@ A superseding decision is a new row and a new record that sets `supersedes`.
 | [016](../phases/refoundation/phase-06-refoundation/ADR-016-force-space.md) | know/do/govern is a gloss; recommend & entail are extensions | 06-refoundation | 2026-07-21 | accepted |
 | [017](../phases/refoundation/phase-06-refoundation/ADR-017-audience.md) | Audience: roles collapse, distance is the live axis, human/machine orthogonal | 06-refoundation | 2026-07-21 | accepted |
 | [018](../phases/refoundation/phase-06-refoundation/ADR-018-shelf.md) | Source shelf vs generated surface; the catalogue is the pivot | 06-refoundation | 2026-07-21 | accepted |
-| [020](../phases/refoundation/phase-06-refoundation/ADR-020-scope-phase-i.md) | Scope Phase I; defer and re-found Phase II | 06-refoundation | 2026-07-21 | accepted |
+| [020](../phases/refoundation/phase-06-refoundation/ADR-020-scope-phase-i.md) | Scope Phase I; defer and re-found Phase II | 06-refoundation | 2026-07-21 | superseded by 042 |
 | [021](../phases/refoundation/phase-06-refoundation/ADR-021-line-breaks.md) | Semantic line breaks (one sentence per line) in Markdown source | 06-refoundation | 2026-07-21 | accepted |
 | [022](../phases/refoundation/phase-07-structuring-tutorial/ADR-022-functions-first.md) | Front-end correction: functions first, distance per community, mutable groupings & eras | 07-structuring-tutorial | 2026-07-21 | accepted |
 | [023](../phases/refoundation/phase-07-structuring-tutorial/ADR-023-tutorial-rewrite.md) | Tutorial rewrite: relevance not recurrence, `imagine`, organize-for-author, fractal explicit, conventional docs as examples | 07-structuring-tutorial | 2026-07-24 | accepted |
@@ -61,6 +61,7 @@ A superseding decision is a new row and a new record that sets `supersedes`.
 | [039](../phases/refoundation/phase-12-codifying/paired-change-rule.md) | A change to the tooling that explains nothing fails the gate | 12-codifying | 2026-09-24 | accepted |
 | [040](../phases/refoundation/phase-12-codifying/paired-change-where-it-fails.md) | The paired-change rule fails where work lands (`main`, `develop`, a detached checkout) and skips tests and comment-only edits; refines 039 | 12-codifying | 2026-09-24 | accepted |
 | [041](../phases/refoundation/phase-12-codifying/phase-ledger.md) | The current phase is declared once, in a ledger (`steering/phases.yaml`); a phase transition is an edit to it, and the gate checks every other place against it | 12-codifying | 2026-10-07 | accepted |
+| [042](../phases/rush-to-mvp/phase-13-design/rush-to-mvp.md) | Phase I closes by ruling; the next era is a rush to a minimal viable product, ended by an observable condition on `weft`; no new gate check about the project's own state meanwhile | 13-design | 2026-10-09 | accepted |
 
 Rows 036–038 record decisions Phase 11 took on 2026-09-15, 2026-09-17 and 2026-09-13 and never wrote down; they were written by Phase 12, and the date column is the date they were recorded.
 

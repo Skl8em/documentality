@@ -79,7 +79,7 @@ Read [`../codifying/`](../codifying/README.md) to learn how it is built and why;
 | `structuring/**` | function `structuring` |
 | `codifying/**` (the account), and the code it accounts for: `scripts/**`, `schema/**`, `docsys.yaml`, `tools/**` | function `codifying` |
 | `steering/**` governance (`foundation`, `roadmap`, `ARCHITECTURE`, `CONTRIBUTING`, `CHANGELOG`, `ADR.md` register, `open-questions`) | function `steering` |
-| `imagining/**` | function `imagining` (Phase II, parked) |
+| `imagining/**` | function `imagining` (proposals not yet ruled on) |
 | `phases/<era>/<phase>/**` (records) | project `phase-NN` (frozen, grouped by era) |
 
 ## In short

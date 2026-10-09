@@ -21,10 +21,11 @@
 # steering/roadmap.md, and a second copy of them would be the drift this file exists
 # to remove.
 #
-# The planned entries carry assumptions, not rulings: that the life-cycle and
-# deployment phases belong to Phase I's era (the roadmap says as much and calls it
-# an assumption), and that Phase II's era is spelt `phase-ii`, which becomes its
-# folder's name. Their order is a ruling: the life cycle before deployment.
+# The planned entries' order is the project owner's: adoption, then the agent kit,
+# the two deliverables of the rush-to-MVP era (ADR-042). The life-cycle phase, the
+# deployment phase and the design of Phase II were removed on 2026-10-09: the first
+# is parked with no position, the other two are absorbed or superseded by the era
+# (steering/roadmap.md, "Parked"). A parked phase has no place in an ordered list.
 
 phases:
   - {number: 1, name: foundation, era: naive-sketch, status: done}
@@ -38,16 +39,13 @@ phases:
   - {number: 9, name: tooling, era: refoundation, status: done}
   - {number: 10, name: schema, era: refoundation, status: done}
   - {number: 11, name: tooling-hardening, era: refoundation, status: done}
-  - {number: 12, name: codifying, era: refoundation, status: current}
-  - {name: life-cycle, era: refoundation, status: planned}
-  - {name: deployment, era: refoundation, status: planned}
-  - {name: phase-ii-design, era: phase-ii, status: planned}
+  - {number: 12, name: codifying, era: refoundation, status: done}
+  - {number: 13, name: design, era: rush-to-mvp, status: current}
+  - {name: adoption, era: rush-to-mvp, status: planned}
+  - {name: agent-kit, era: rush-to-mvp, status: planned}
 
 # Documents whose `phase:` may stay behind the last closed phase, each with why. The
 # gate fails an entry once its document has caught up, so the list cannot go stale.
-lagging:
-  - path: steering/foundation.md
-    reason: >-
-      Current as of Phase 07 and not re-read whole since; Phase 12's T5 re-reads it
-      for staleness before raising its `phase:`, which the plan forbids doing on the
-      strength of the sections T1 touched.
+# Empty since Phase 12 closed: steering/foundation.md, the one entry, was re-read by
+# the project owner at that close and raised.
+lagging: []

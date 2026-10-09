@@ -16,6 +16,22 @@ History of the documentation system itself.
 Append-only; each entry is dated-fixed.
 Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
 
+## [v4.0-alpha.26] — Phase 12 closes, and Phase I with it; the rush to MVP opens
+
+- **Decided:** [ADR-042](../phases/rush-to-mvp/phase-13-design/rush-to-mvp.md), superseding [ADR-020](../phases/refoundation/phase-06-refoundation/ADR-020-scope-phase-i.md).
+  Phase I closes by the project owner's ruling, not by a completeness test.
+  The next era, the **rush to MVP**, has two deliverables — adoption by an external project, and the agent kit — and ends on an observable condition on `weft`.
+  No new gate check about the project's own state is added meanwhile.
+  ADR-020 gains its `superseded-by` link and is resealed; its register row reads "superseded by 042".
+- **Closed:** Phase 12, with its [README](../phases/refoundation/phase-12-codifying/README.md).
+  The phase-close re-read of the `codifying/` fiches and of `foundation.md` was the project owner's (open point 4); the merge is still to be observed (open point 2).
+  **Convention, as T5 was to state:** a phase's closing entry supplements its per-task entries and does not supersede them.
+- **Opened:** Phase 13, *design*, in a new era folder, `phases/rush-to-mvp/` ([plan](../phases/rush-to-mvp/phase-13-design/plan.md)): it plans the era's two delivery phases, adoption ([plan](../phases/rush-to-mvp/phase-13-design/adoption-plan.md)) and the agent kit, both unnumbered.
+- **Parked:** the life-cycle phase, with the external review's proposal to reframe it around the records continuum attached; the deployment phase, absorbed by the era; the design of Phase II, superseded ([roadmap](roadmap.md)).
+- **Ruled, for the adoption phase:** the engine is a Python package in its own repository, included here as a submodule; adopters declare it as a development dependency; an adopter's docs are laid out by function, then sub-function, then register, then force, each split made only when needed; legacy documents enter through a baseline that only shrinks; the defaults an adopter gets.
+- **Revised:** `steering/foundation.md` §1 says how Phase I closed and what replaced the design of Phase II, and its `phase:` is raised; the ledger's `lagging:` list is empty; the root README's status paragraph describes the era.
+- **Noted:** the [external review](external-review/external-review.md)'s claim that `linkcheck.py` cannot link `theorising/the_life_of_projects.md` does not reproduce.
+
 ## [v4.0-alpha.25] — Three proposals for what comes after Phase I
 
 - **Added**, in [`imagining/`](../imagining/README.md):
