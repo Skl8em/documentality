@@ -16,6 +16,12 @@ History of the documentation system itself.
 Append-only; each entry is dated-fixed.
 Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
 
+## [v4.0-alpha.36] — Everything through the devShell
+
+- **Changed:** the devShell provides `uv` (0.7.22, from the nixpkgs `flake.lock` already pins) and makes it build every `.venv` on the flake's Python, downloading none; both `.venv`s are rebuilt on it, and this repository's `uv.lock` is relocked by that `uv`.
+- **Changed:** the gate runs only inside the devShell: started outside it, `scripts/check.py` re-enters it even when the calling interpreter can import `pyyaml`, and without `nix` it stops before any check ([the gate](../codifying/gate.md)); a fixture in `scripts/test_check.py` shows the refusal.
+- **Fixed:** the editor's root folder names its interpreter, this repository's `.venv`, instead of falling back to a global Python ([`environment.md`](environment.md)).
+
 ## [v4.0-alpha.35] — Scope by exclusion, and one set of Python tools for the editor and the tests
 
 - **Ruled:** every document is in scope by default; an exclusion takes documents out with its reason, and an inclusion brings them back; the exclusions are the documents still owed, and `docsys init` will write them ([plan](../phases/rush-to-mvp/phase-14-adoption/plan.md), *Rulings* and *Strictness*).

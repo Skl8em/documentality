@@ -13,13 +13,17 @@ This runs the runner over three synthetic checks with a pipe on stdout, and pins
   1. each header immediately precedes its own check's output;
   2. a failing check does not stop the ones after it — the gate is a conjunction, and
      a reader needs every failure in one run, not the first;
-  3. the summary names the failing check, and the exit status is non-zero.
+  3. the summary names the failing check, and the exit status is non-zero;
+  4. outside the devShell, with no `nix` to re-enter it, the gate runs no check and
+     fails with the instruction, rather than run on whatever versions are installed.
 
     python3 scripts/test_check.py
 """
 import os
+import shutil
 import subprocess
 import sys
+import tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
@@ -60,6 +64,19 @@ def main():
                and "third" not in ln for ln in lines),
            "the summary names exactly the failing check")
     report(proc.returncode == 1, "the exit status is non-zero", f"got {proc.returncode}")
+
+    # Outside the devShell, on a PATH holding git and nothing else (so no nix), even
+    # with an interpreter that can import pyyaml.
+    with tempfile.TemporaryDirectory() as bindir:
+        os.symlink(shutil.which("git"), os.path.join(bindir, "git"))
+        env = {k: v for k, v in os.environ.items() if k != "DOCSYS_DEVSHELL"}
+        env["PATH"] = bindir
+        outside = subprocess.run([sys.executable, os.path.join(HERE, "check.py")],
+                                 capture_output=True, text=True, env=env)
+    said = outside.stdout + outside.stderr
+    report(outside.returncode != 0 and "=== " not in said and "nix develop" in said,
+           "outside the devShell and without nix, no check runs and the gate fails naming the fix",
+           f"exit {outside.returncode}, output {said[-300:]!r}")
 
     print()
     if failures:

@@ -8,13 +8,12 @@ own to drift out of step.
 
 This is what pre-commit and CI run. This file itself is stdlib-only, but the
 validators it runs need two things from the devShell: `pyyaml` (the frontmatter
-parser, Phase 11 T2) and markdownlint-cli2 (a Node tool). Without `pyyaml` the
-whole gate re-runs itself under `nix develop --command`; a pinned tool alone falls
-back the same way. So the gate works both inside and outside the shell.
+parser, Phase 11 T2) and markdownlint-cli2 (a Node tool), at the versions its
+flake.lock pins. Outside the shell, the whole gate re-runs itself under
+`nix develop --command`; without nix it fails rather than run on other versions.
 
     python3 scripts/check.py
 """
-import importlib.util
 import os
 import shutil
 import subprocess
@@ -25,35 +24,24 @@ os.chdir(ROOT)
 PY = sys.executable
 
 
-def ensure_pyyaml():
-    """Re-enter the gate inside the devShell if this interpreter lacks `pyyaml`.
-    Fails loud when nix is unavailable too — never a silent skip of the YAML checks."""
-    if importlib.util.find_spec("yaml") is not None:
-        if os.environ.get("DOCSYS_DEVSHELL") != "1":
-            print("WARNING: using pyyaml from this interpreter — not the pinned devShell "
-                  "version. Enter `nix develop` for the guaranteed version.")
+def ensure_devshell():
+    """Run the gate inside the devShell, where `pyyaml` and every tool are the pinned
+    versions: re-enter it through `nix develop` when not already in it, whatever
+    else this interpreter can import. Fails loud when nix is unavailable — never a
+    run on unpinned versions."""
+    if os.environ.get("DOCSYS_DEVSHELL") == "1":
         return
-    if os.environ.get("DOCSYS_DEVSHELL") != "1" and shutil.which("nix"):
-        print("pyyaml not importable here — re-running the gate inside the devShell.")
+    if shutil.which("nix"):
+        print("Not in the devShell — re-running the gate inside it.")
         sys.stdout.flush()
         os.execvp("nix", ["nix", "develop", "--command", "python3", os.path.abspath(__file__), *sys.argv[1:]])
-    raise SystemExit("GATE FAILED: pyyaml is not importable and the devShell cannot be entered. "
-                     "Install nix and run: nix develop")
+    raise SystemExit("GATE FAILED: the gate runs in the Nix devShell, and nix is not available — "
+                     "fix: install nix, then run: nix develop --command python3 scripts/check.py")
 
 
 def pinned_tool_cmd(tool):
-    # Always prefer the PINNED tool (its version is part of the contract with our
-    # custom rules). Inside the devShell it is already on PATH; outside, go
-    # through `nix develop` rather than pick up an unrelated global version.
-    if os.environ.get("DOCSYS_DEVSHELL") == "1":
-        return [tool]
-    if shutil.which("nix"):
-        return ["nix", "develop", "--command", tool]
-    if shutil.which(tool):
-        print(f"WARNING: using {tool} from PATH — not the pinned devShell "
-              "version. Enter `nix develop` for the guaranteed version.")
-        return [tool]
-    return None
+    # Inside the devShell (ensure_devshell), the pinned tool is the one on PATH.
+    return [tool] if shutil.which(tool) else None
 
 
 def worktree_clean():
@@ -104,8 +92,8 @@ def run_checks(checks):
                 failures.append(name)
             continue
         if cmd is None:
-            print(f"FAIL — {tool} unavailable (no PATH entry and no nix). "
-                  "Enter the devShell: nix develop")
+            print(f"FAIL — {tool} is not on the devShell's PATH — "
+                  "fix: add it to the devShell's packages in flake.nix")
             failures.append(name)
             continue
         if subprocess.call(cmd) != 0:
@@ -120,8 +108,8 @@ def run_checks(checks):
 
 
 def main():
-    ensure_pyyaml()
-    from docsys_config import ConfigError, load_config  # after ensure_pyyaml: needs it
+    ensure_devshell()
+    from docsys_config import ConfigError, load_config  # after ensure_devshell: needs pyyaml
     try:
         checks = [(c["name"], resolve(c), c.get("tool")) for c in load_config()["checks"]]
     except ConfigError as exc:

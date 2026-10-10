@@ -2,5 +2,13 @@
   // Point the markdownlint extension at the same config + custom rule the CLI uses,
   // so the editor and `markdownlint-cli2` apply one ruleset.
   "markdownlint.configFile": ".markdownlint.jsonc",
-  "markdownlint.customRules": ["./tools/markdownlint/sentence-per-line.js"]
+  "markdownlint.customRules": ["./tools/markdownlint/sentence-per-line.js"],
+
+  // This folder's interpreter: the .venv `uv sync` builds inside the devShell, on the
+  // flake's Python. Without it, the editor falls back to whatever global Python it
+  // finds. The engine, docsys/, has its own (docsys/.vscode/settings.json).
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+
+  // basedpyright, not Pylance, checks types (see docsys/.vscode/settings.json).
+  "python.analysis.typeCheckingMode": "off"
 }
