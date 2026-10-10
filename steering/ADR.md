@@ -62,6 +62,7 @@ A superseding decision is a new row and a new record that sets `supersedes`.
 | [040](../phases/refoundation/phase-12-codifying/paired-change-where-it-fails.md) | The paired-change rule fails where work lands (`main`, `develop`, a detached checkout) and skips tests and comment-only edits; refines 039 | 12-codifying | 2026-09-24 | accepted |
 | [041](../phases/refoundation/phase-12-codifying/phase-ledger.md) | The current phase is declared once, in a ledger (`steering/phases.yaml`); a phase transition is an edit to it, and the gate checks every other place against it | 12-codifying | 2026-10-07 | accepted |
 | [042](../phases/rush-to-mvp/phase-13-design/rush-to-mvp.md) | Phase I closes by ruling; the next era is a rush to a minimal viable product, ended by an observable condition on `weft`; no new gate check about the project's own state meanwhile | 13-design | 2026-10-09 | accepted |
+| [043](../phases/rush-to-mvp/phase-13-design/licensing.md) | Licensing by kind of artefact: GPL-3.0-or-later for the engine, AGPL-3.0-or-later for services, CC0 for what adopters copy, CC BY-SA 4.0 for the prose; mapped in `REUSE.toml` | 13-design | 2026-10-10 | accepted |
 
 Rows 036–038 record decisions Phase 11 took on 2026-09-15, 2026-09-17 and 2026-09-13 and never wrote down; they were written by Phase 12, and the date column is the date they were recorded.
 

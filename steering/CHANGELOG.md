@@ -16,6 +16,43 @@ History of the documentation system itself.
 Append-only; each entry is dated-fixed.
 Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
 
+## [v4.0-alpha.31] — Phase 13 closes; Phase 14, adoption, opens
+
+- **Closed:** Phase 13, design, with its [README](../phases/rush-to-mvp/phase-13-design/README.md).
+  The agent-kit plan it was to write moves to the agent-kit phase, which plans itself when it starts.
+- **Opened:** Phase 14, adoption; its [plan](../phases/rush-to-mvp/phase-14-adoption/plan.md) moves from the design folder into the phase's own, by `scripts/rename_doc.py`, which rewrote nine links.
+  One of them is in the sealed Phase 12 README, which is resealed for that link path alone.
+- **Created:** the engine's repository, [`Skl8em/docsys`](https://github.com/Skl8em/docsys), public, with its README and the licensing of ADR-043; it is mounted here as a submodule at `docsys/` when its first code lands.
+- **Ruled:** the provenance rule shelves documentation only; tooling and configuration folders carry no function (`steering/CONTRIBUTING.md`).
+  The plan gains an open point on working across two repositories.
+
+ — Licensing by kind of artefact
+
+- **Decided:** [ADR-043](../phases/rush-to-mvp/phase-13-design/licensing.md) — GPL-3.0-or-later for the engine's code, AGPL-3.0-or-later for a component that runs as a service, CC0-1.0 for what an adopter copies into its own repository, CC BY-SA 4.0 for the prose.
+- **Added:** [`REUSE.toml`](../REUSE.toml) maps every tracked file to one licence, and `LICENSES/` holds the three texts; `reuse lint` (reuse 6.2.0) reports the repository compliant with the REUSE specification 3.3, 200 of 200 files covered.
+  It is run by hand, not by the gate.
+- **Changed:** `steering/CONTRIBUTING.md` binds contributions to the licence `REUSE.toml` assigns; the root README states the scheme.
+- **Settled:** the design plan's licensing point, which blocked creating the `docsys` repository.
+
+## [v4.0-alpha.29] — Phase 13 design: rulings, and the present described without Phase I and II
+
+- **Changed:** living documents describe the project by its current era, the rush to MVP, without the Phase I / Phase II framing: the roadmap, `steering/foundation.md` §1 and §7, the phases index, the ledger's comment, the design plan, the schema-pipeline fiche, the debt register and the structuring tutorial's example.
+  Frozen records, the changelog and the external review keep the words of their time.
+  The roadmap and the phases index state how eras are named: the current one to coordinate the work, a closed one's boundaries drawn once it is history.
+- **Ruled:** the theory of the code is two documents, a constitutive lexicon and an `explain` of the grain and limits, recommended and never required ([proposal](../imagining/theory-of-the-code.md#rulings)); the engine's repository is `docsys`, public, on GitHub ([design plan](../phases/rush-to-mvp/phase-13-design/plan.md)).
+- **Open:** licensing, which blocks creating that repository.
+- **Observed:** Phase 12's merge into `main` passes the paired-change rule at commit level, 22 changes since the anchor, none needing an account; examining each commit cost nothing at merge time on that branch (Phase 12, open point 2).
+
+## [v4.0-alpha.28] — The root README routes a newcomer again
+
+- **Fixed:** the "New here?" block of the root README, broken since 2026-07-25, routes to four pages that exist: the one idea and `structuring/concepts.md` to judge the approach, the writing tutorial, the structuring tutorial, and `writing/choosing.md`.
+  Its `theorising/` line names the shelf's contents as they are.
+
+## [v4.0-alpha.27] — Two debts recorded
+
+- **Recorded:** [`technical-debt.md`](technical-debt.md) gains *Synchronic documents that narrate their own history* — pages declared `synchronic` that describe the changes producing them, and teach that style to every agent that reads them — and *Decision records that are plans* — ADR-020, and ADR-042 for its points 1 to 4.
+  Neither is fixed now; each entry says how it will be.
+
 ## [v4.0-alpha.26] — Phase 12 closes, and Phase I with it; the rush to MVP opens
 
 - **Decided:** [ADR-042](../phases/rush-to-mvp/phase-13-design/rush-to-mvp.md), superseding [ADR-020](../phases/refoundation/phase-06-refoundation/ADR-020-scope-phase-i.md).
@@ -26,7 +63,7 @@ Design rationale for each line lives in the matching ADR — listed in the regis
 - **Closed:** Phase 12, with its [README](../phases/refoundation/phase-12-codifying/README.md).
   The phase-close re-read of the `codifying/` fiches and of `foundation.md` was the project owner's (open point 4); the merge is still to be observed (open point 2).
   **Convention, as T5 was to state:** a phase's closing entry supplements its per-task entries and does not supersede them.
-- **Opened:** Phase 13, *design*, in a new era folder, `phases/rush-to-mvp/` ([plan](../phases/rush-to-mvp/phase-13-design/plan.md)): it plans the era's two delivery phases, adoption ([plan](../phases/rush-to-mvp/phase-13-design/adoption-plan.md)) and the agent kit, both unnumbered.
+- **Opened:** Phase 13, *design*, in a new era folder, `phases/rush-to-mvp/` ([plan](../phases/rush-to-mvp/phase-13-design/plan.md)): it plans the era's two delivery phases, adoption ([plan](../phases/rush-to-mvp/phase-14-adoption/plan.md)) and the agent kit, both unnumbered.
 - **Parked:** the life-cycle phase, with the external review's proposal to reframe it around the records continuum attached; the deployment phase, absorbed by the era; the design of Phase II, superseded ([roadmap](roadmap.md)).
 - **Ruled, for the adoption phase:** the engine is a Python package in its own repository, included here as a submodule; adopters declare it as a development dependency; an adopter's docs are laid out by function, then sub-function, then register, then force, each split made only when needed; legacy documents enter through a baseline that only shrinks; the defaults an adopter gets.
 - **Revised:** `steering/foundation.md` §1 says how Phase I closed and what replaced the design of Phase II, and its `phase:` is raised; the ledger's `lagging:` list is empty; the root README's status paragraph describes the era.

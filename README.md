@@ -18,12 +18,12 @@ It is written according to its own rules, so its file tree is the first worked e
 Every file declares its **force** in its frontmatter; this page is an `orient`, so its only job is to situate you and route you onward.
 
 **New here?**
+Pick the line that matches what you need.
 
-You want to read if this approach would make sense to you> Go to `structuring/*to be defined*` You start with your project and want to write the first documentation?
-Go to [writing tutorial`](writing/tutorial.md) You wand to sort your new or existing documentation and want to create a structure for it?
-Start with the [Structure Tutorial](structuring/tutorial.md).
-Already have a document in mind but don't know where to start?
-Go to ...
+- **You want to judge whether this approach makes sense for you** — read [the one idea](#the-one-idea) below, then [`structuring/concepts.md`](structuring/concepts.md), the two systems every corpus has to keep apart.
+- **You are starting a project and want to write its first document** — follow the [writing tutorial](writing/tutorial.md).
+- **You have documentation, new or old, and want to give it a structure** — follow the [structuring tutorial](structuring/tutorial.md).
+- **You already have a document in mind but do not know what kind it is** — [`writing/choosing.md`](writing/choosing.md) finds its force.
 
 Come back here once you know what you need; this page routes by need, not as a course to read in order.
 
@@ -37,7 +37,7 @@ Name the act correctly and the form follows; misname it and no polish recovers t
 
 The source is the **producer's shelf**: each top-level folder is a standing **function** (a provenance), and the user-facing reading order is *generated* from the frontmatter rather than hand-kept as a folder.
 
-- `theorising/` — the inscribed-act theory the product rests on (the three essays + readability patterns).
+- `theorising/` — the inscribed-act theory the product rests on: three essays, an integrative review of how projects evolve, and the readability patterns.
 - **[`operationalizing/`](operationalizing/README.md)** — the **operational apports**: the coordinates we chose to reify so the theory becomes workable and checkable (`view`, `constitutive`, `register`), and why we carved each one that way.
 - **[`writing/`](writing/README.md)** — how to write *one document*: its force, move structure, readability patterns, and the **frontmatter** schema; one folder per force, grouped by the three doors.
 - **[`structuring/`](structuring/README.md)** — how to keep *the whole corpus*: topology, provenance, life cycle, the **audience model** ([`structuring/audience.md`](structuring/audience.md)), and the structuring tutorial.
@@ -73,9 +73,19 @@ A corpus serves two incompatible masters: **be found and read now** (communicati
 No single order serves both.
 This system keeps them apart — the readable tree on one side, frozen provenance on the other — and stitches them at one point: *the frozen record of a change becomes the current state you maintain*. `structuring/concepts.md` develops it.
 
+## Licensing
+
+Each kind of file carries the licence that fits it, mapped per path in [`REUSE.toml`](REUSE.toml), with the texts in [`LICENSES/`](LICENSES/):
+
+- **code** — the validators, the gate, the build and CI wiring — GPL-3.0-or-later;
+- **what you copy into your own project** — the force templates, the schema, the starting configuration — CC0-1.0, so your documents carry no condition from this one;
+- **prose** — the theory, the guidance, the project's records — CC BY-SA 4.0.
+
+The reasons are in [ADR-043](phases/rush-to-mvp/phase-13-design/licensing.md).
+
 ## Status
 
-**v4.0-alpha (Phase 13 in progress)** — the project is in its **rush to MVP** ([ADR-042](phases/rush-to-mvp/phase-13-design/rush-to-mvp.md)): making the system installable in another project, then giving that project an agent kit; Phase 13 designs both.
+**v4.0-alpha (Phase 14 in progress)** — the project is in its **rush to MVP** ([ADR-042](phases/rush-to-mvp/phase-13-design/rush-to-mvp.md)): making the system installable in another project, then giving that project an agent kit; Phase 14 makes it installable, through the [`docsys`](https://github.com/Skl8em/docsys) package.
 The source is the producer's shelf: one **gerund-named** folder per function (`theorising`, `operationalizing`, `writing`, `structuring`, `codifying`, `steering`, `imagining`) plus the frozen `phases/`, grouped by era.
 All **twelve forces** are built under `writing/forces/`.
 The frontmatter vocabulary is **closed** and enforced: `register` is derived and never stored, `constitutive` is required, frozen records carry a `hash:` fixity seal, and every identifier must point at something.

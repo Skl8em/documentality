@@ -22,10 +22,8 @@
 # to remove.
 #
 # The planned entries' order is the project owner's: adoption, then the agent kit,
-# the two deliverables of the rush-to-MVP era (ADR-042). The life-cycle phase, the
-# deployment phase and the design of Phase II were removed on 2026-10-09: the first
-# is parked with no position, the other two are absorbed or superseded by the era
-# (steering/roadmap.md, "Parked"). A parked phase has no place in an ordered list.
+# the two delivery phases of the rush-to-MVP era (ADR-042). Parked work has no
+# place in an ordered list; steering/roadmap.md names it.
 
 phases:
   - {number: 1, name: foundation, era: naive-sketch, status: done}
@@ -40,8 +38,8 @@ phases:
   - {number: 10, name: schema, era: refoundation, status: done}
   - {number: 11, name: tooling-hardening, era: refoundation, status: done}
   - {number: 12, name: codifying, era: refoundation, status: done}
-  - {number: 13, name: design, era: rush-to-mvp, status: current}
-  - {name: adoption, era: rush-to-mvp, status: planned}
+  - {number: 13, name: design, era: rush-to-mvp, status: done}
+  - {number: 14, name: adoption, era: rush-to-mvp, status: current}
   - {name: agent-kit, era: rush-to-mvp, status: planned}
 
 # Documents whose `phase:` may stay behind the last closed phase, each with why. The

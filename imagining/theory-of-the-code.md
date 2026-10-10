@@ -11,9 +11,8 @@ reader: H+M
 status: draft
 ---
 
-A proposal, not a ruling.
+A proposal, ruled on (see *Rulings*).
 It answers finding 1a of the [external review](../steering/external-review/external-review.md) — the project has no written position on Naur — and refines what the product asks a project's documentation to carry.
-Nothing here is enacted until the maintainer rules on it.
 
 ## The gap
 
@@ -94,7 +93,7 @@ No new force is needed; this is the claim to test first, because adding one woul
 - Both are `view: synchronic` under the function that builds the code, and kept current.
   A spec like `weft`'s is their diachronic ancestor, and stays frozen once its decisions are taken.
 
-Whether these are two documents or one with two machine-separable parts is open (below).
+They are two documents (*Rulings*, 1).
 
 ## How we would know it works
 
@@ -117,11 +116,11 @@ It can show where the articulation is too thin to carry, which is the finding we
 - **The symbol check's precision.**
   Matching identifiers to terms is language-specific and noisy (casing, plurals, compound names); how strict it can be without drowning the signal is an empirical question, settled on `weft` before it is generalised.
 
-## Open questions for a ruling
+## Rulings
 
-1. One document with a machine-readable lexicon section, or a lexicon file plus an `explain`?
-   Recommendation: two, because they have different readers (an agent looks terms up; a human builds a model) and different checks.
-2. Is the lexicon `constitutive: yes`?
-   Recommendation: yes — it is what makes "the code must use these terms" a rule rather than advice.
-3. Does a project that adopts the system *have to* carry a theory of its code, or is it a recommended default?
-   Recommendation: a default in the scaffold, never required by the gate — a documentation-only project has no code to theorise.
+Ruled by the project owner on 2026-10-10.
+The agent kit enacts them, writing the two genres into `writing/` and the kit's skill.
+
+1. **Two documents**: a lexicon, read by agents looking terms up and by the check that compares it with the code's symbols, and an `explain` carrying the grain and the limits, read by whoever must build the model.
+2. **The lexicon is `constitutive: yes`**: its terms bind the code.
+3. **A recommendation, never a requirement**: the scaffold proposes both documents to a project with code; the gate does not require them, since a documentation-only project has no code to theorise.

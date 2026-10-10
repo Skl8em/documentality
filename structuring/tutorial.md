@@ -80,7 +80,7 @@ Include, on purpose, the ones you have not done yet.
 There is an activity almost every project forgets because it points at the future rather than the past: **imagine**.
 Dream about what could be done with the project, what could be extended from it, how it might be used — starting from what is here now.
 Name those intended activities in the same list, mark them as intended, and give them a home to be pulled out of the moment the work actually starts.
-This is where a stated roadmap, a planned capability, a "Phase II" lives: not nowhere, but under `imagine`, honestly labelled as not-yet-enacted.
+This is where a stated roadmap, a planned capability, a next version lives: not nowhere, but under `imagine`, honestly labelled as not-yet-enacted.
 
 Because these are easy to under-see, here is a wide net — but read it as a **hierarchy**, not a flat checklist.
 Start from the handful of coarse meta-activities in **bold**; only open one into its finer verbs if your project genuinely needs the distinction.
