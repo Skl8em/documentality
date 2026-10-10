@@ -53,4 +53,5 @@ The era ends on an observable condition on `weft`, not on completeness.
 
 | Phase | What it settled | Records |
 |---|---|---|
-| [13 — design](rush-to-mvp/phase-13-design/plan.md) *(in progress)* | the rush to MVP bounded by an observable condition; its two delivery phases planned: adoption, then the agent kit | ADR-042 |
+| [13 — design](rush-to-mvp/phase-13-design/README.md) *(done)* | the rush to MVP bounded by an observable condition; the adoption phase planned; the engine's repository and licensing settled | ADR-042, ADR-043 |
+| [14 — adoption](rush-to-mvp/phase-14-adoption/plan.md) *(in progress)* | — | — |

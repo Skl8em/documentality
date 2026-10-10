@@ -31,6 +31,7 @@ Rules for documents you write *with* the system are in the product ([`../write/r
 
 - You **must** shelve content by its **provenance** — the function that maintains it: `theorising/`, the operational apports in `operationalizing/`, `writing/`, `structuring/`, the account of the tooling in `codifying/`, the project's governance in `steering/`, intended work in `imagining/`, and frozen records under `phases/`.
   Do not mix a function's content into another's shelf; the user's reading order across `writing/` and `structuring/` is a *generated* surface, not a folder to hand-carve.
+  The rule shelves documentation: tooling and configuration folders — `scripts/`, `tools/`, `schema/`, `LICENSES/`, the engine's submodule, the dot-folders — are not shelves and carry no function.
 
 - You **must** keep `provenance` meaningful: use the maintaining function (`theorising`/`operationalizing`/`writing`/`structuring`/`codifying`/`steering`/`imagining`) or the owning project (`phase-NN`), never a blanket id.
 

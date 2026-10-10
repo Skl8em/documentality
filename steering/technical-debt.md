@@ -116,7 +116,7 @@ They are also the style an agent imitates when it writes here, so each such page
 
 **Why left open:** each page needs a judgment about what its declared reader needs, not a mechanical sweep; and the pages an adopter or an agent will read first matter more than the rest.
 
-**How to resolve:** the rule, the revision test and the cold-reader pass are planned in [the adoption plan's T1](../phases/rush-to-mvp/phase-13-design/adoption-plan.md), starting with the pages the agent kit is built from; the long-term tools and the casebook of cases found are in [`imagining/reader-first-writing.md`](../imagining/reader-first-writing.md).
+**How to resolve:** the rule, the revision test and the cold-reader pass are planned in [the adoption plan's T1](../phases/rush-to-mvp/phase-14-adoption/plan.md), starting with the pages the agent kit is built from; the long-term tools and the casebook of cases found are in [`imagining/reader-first-writing.md`](../imagining/reader-first-writing.md).
 A page is paid when a cold-reader pass on it finds nothing it cannot place.
 
 ## Decision records that are plans

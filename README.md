@@ -85,7 +85,7 @@ The reasons are in [ADR-043](phases/rush-to-mvp/phase-13-design/licensing.md).
 
 ## Status
 
-**v4.0-alpha (Phase 13 in progress)** — the project is in its **rush to MVP** ([ADR-042](phases/rush-to-mvp/phase-13-design/rush-to-mvp.md)): making the system installable in another project, then giving that project an agent kit; Phase 13 designs both.
+**v4.0-alpha (Phase 14 in progress)** — the project is in its **rush to MVP** ([ADR-042](phases/rush-to-mvp/phase-13-design/rush-to-mvp.md)): making the system installable in another project, then giving that project an agent kit; Phase 14 makes it installable, through the [`docsys`](https://github.com/Skl8em/docsys) package.
 The source is the producer's shelf: one **gerund-named** folder per function (`theorising`, `operationalizing`, `writing`, `structuring`, `codifying`, `steering`, `imagining`) plus the frozen `phases/`, grouped by era.
 All **twelve forces** are built under `writing/forces/`.
 The frontmatter vocabulary is **closed** and enforced: `register` is derived and never stored, `constitutive` is required, frozen records carry a `hash:` fixity seal, and every identifier must point at something.
