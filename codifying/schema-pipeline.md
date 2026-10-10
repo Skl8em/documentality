@@ -52,8 +52,9 @@ No Node consumer of the schema exists; the one custom rule, `sentence-per-line.j
 The dependency-free reader is a capability kept in reserve, not one in use.
 The case for a YAML *source* stands on its own; the case for a second, generated file rests on a reader that has not appeared, and is the pipeline's weakest joint.
 [Medium confidence: this reads the repository as it is now.]
-ADR-037 rules that the JSON **stays for now**, because the reader it is kept for — Phase II's generators — is not yet designed, and because keeping costs one green check.
-It also says when that answer lapses: if the Phase-II design closes with no non-Python reader, or if the drift check fails for any reason other than a forgotten regeneration, collapsing to one file, loaded through the strict loader below, would remove the drift check and the whole class of failure it guards.
+ADR-037 rules that the JSON **stays for now**, because the reader it is kept for — a generator, or a non-Python tool reading the schema — does not exist yet, and because keeping costs one green check.
+The answer lapses when the design of the agent machinery closes with no non-Python reader — in practice, at the end of the rush to MVP — or when the drift check fails for any reason other than a forgotten regeneration; collapsing to one file, loaded through the strict loader below, would then remove the drift check and the whole class of failure it guards.
+The cross-package API proposed in [`imagining/multi-ecosystem-distribution.md`](../imagining/multi-ecosystem-distribution.md) has every package load the YAML methodology unchanged, which weakens the JSON's case further.
 
 ## The trap the pipeline already fell into
 

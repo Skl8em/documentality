@@ -28,7 +28,7 @@ Adopting `id`/`slug` on the legacy records — and choosing whether their filena
 
 ## Linter-grandfathered content
 
-**What:** `phases/naive-sketch/**` (pre-ADR-021 records), `imagining/**` (informal Phase-II notes), and the blind-test transcripts are excluded from markdownlint / the frontmatter linter.
+**What:** `phases/naive-sketch/**` (pre-ADR-021 records), `imagining/**` (proposals and informal notes), and the blind-test transcripts are excluded from markdownlint / the frontmatter linter.
 
 **Why:** they predate the current conventions or are not authored prose; forcing them into compliance would be churn without value.
 

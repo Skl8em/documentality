@@ -17,6 +17,7 @@ The one-line act of each decision is in the register, [`../steering/ADR.md`](../
 
 Phases are grouped into coarse **eras**, because a coarse map reads far better than twenty microscopic records (ADR-022).
 The era is the orient of the record; the micro-phases are the detail beneath it.
+The current era is named to coordinate the work in progress; a closed era's boundaries can be redrawn once it is history.
 The eras are **physical folders** — `phases/naive-sketch/`, `phases/refoundation/` and `phases/rush-to-mvp/` — grouped as below.
 
 ## Era 1 — Naive sketch *(closed)*
@@ -47,9 +48,9 @@ Regrounding the theory on Ferraris and, at last, laying the front-end flat.
 
 ## Era 3 — Rush to MVP *(current)*
 
-Phase I closed by ruling with Phase 12, and the computational model it deferred arrives as two deliverables instead of a design phase: an external project can install the machinery, then the agent kit that lets an agent document it by this product ([ADR-042](rush-to-mvp/phase-13-design/rush-to-mvp.md)).
+Making the system usable outside this repository: an external project installs the machinery, then the agent kit that lets an agent document it by this product ([ADR-042](rush-to-mvp/phase-13-design/rush-to-mvp.md)).
 The era ends on an observable condition on `weft`, not on completeness.
 
 | Phase | What it settled | Records |
 |---|---|---|
-| [13 — design](rush-to-mvp/phase-13-design/plan.md) *(in progress)* | Phase I closed by ruling; the rush to MVP planned: adoption, then the agent kit | ADR-042 |
+| [13 — design](rush-to-mvp/phase-13-design/plan.md) *(in progress)* | the rush to MVP bounded by an observable condition; its two delivery phases planned: adoption, then the agent kit | ADR-042 |
