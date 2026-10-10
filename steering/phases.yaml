@@ -38,8 +38,8 @@ phases:
   - {number: 10, name: schema, era: refoundation, status: done}
   - {number: 11, name: tooling-hardening, era: refoundation, status: done}
   - {number: 12, name: codifying, era: refoundation, status: done}
-  - {number: 13, name: design, era: rush-to-mvp, status: current}
-  - {name: adoption, era: rush-to-mvp, status: planned}
+  - {number: 13, name: design, era: rush-to-mvp, status: done}
+  - {number: 14, name: adoption, era: rush-to-mvp, status: current}
   - {name: agent-kit, era: rush-to-mvp, status: planned}
 
 # Documents whose `phase:` may stay behind the last closed phase, each with why. The
