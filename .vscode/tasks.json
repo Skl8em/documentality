@@ -3,11 +3,37 @@
   "tasks": [
     {
       "label": "docs: run the gate",
-      "detail": "markdownlint + frontmatter + ULID + link checks (scripts/check.py)",
+      "detail": "every check in docsys.yaml (scripts/check.py); failures land in the Problems pane",
       "type": "shell",
       "command": "python3 scripts/check.py",
       "group": "test",
-      "problemMatcher": []
+      "problemMatcher": [
+        {
+          "owner": "docsys-gate",
+          "source": "gate",
+          "fileLocation": ["relative", "${workspaceFolder}"],
+          "severity": "error",
+          "pattern": {
+            "regexp": "^(?:  |PHASE (?:STATE|LEDGER): )?([A-Za-z0-9_.-]*/[A-Za-z0-9_./-]*|[A-Za-z0-9_.-]*\\.[A-Za-z]+):(\\d+)(?::(\\d+))?:?\\s+(.+)$",
+            "file": 1,
+            "line": 2,
+            "column": 3,
+            "message": 4
+          }
+        },
+        {
+          "owner": "docsys-gate",
+          "source": "gate",
+          "fileLocation": ["relative", "${workspaceFolder}"],
+          "severity": "error",
+          "pattern": {
+            "kind": "file",
+            "regexp": "^(?:  |PHASE (?:STATE|LEDGER): )([A-Za-z0-9_.-]*/[A-Za-z0-9_./-]*|[A-Za-z0-9_.-]*\\.[A-Za-z]+):?\\s+(.+)$",
+            "file": 1,
+            "message": 2
+          }
+        }
+      ]
     }
   ]
 }
