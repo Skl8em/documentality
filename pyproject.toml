@@ -18,3 +18,15 @@ package = false
 
 [tool.uv.sources]
 docsys = { path = "docsys", editable = true }
+
+# This repository's own Python is scripts/, retired as its checks move to docsys, and
+# one markdownlint fixture under tools/; neither is typed or formatted, so both stay
+# out of the type checker and the linter. docsys/ is checked by its own configuration
+# (open documentation-system.code-workspace in the editor).
+[tool.basedpyright]
+exclude = ["docsys", "scripts", "tools", ".venv"]
+ignore = ["scripts", "tools"]
+
+[tool.ruff]
+extend-exclude = ["docsys", "scripts", "tools"]
+force-exclude = true

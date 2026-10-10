@@ -53,5 +53,9 @@ The tooling separates by rate of change ([`engine-config-seam.md`](../phases/ref
 - [`schema-pipeline`](schema-pipeline.md) — why the schema is authored in YAML and compiled to JSON, and how the two are kept from drifting.
 - [`referential-integrity`](referential-integrity.md) — why a dangling `supersedes` is a hard error, why supersession must be symmetric, and the holes the check still has.
 
+For a project that uses the engine, [`docsys`](https://github.com/Skl8em/docsys):
+
+- [`docsys-configuration`](docsys-configuration.md) — every key of `docsys.yaml`, what it means, and when a value is refused.
+
 Still to write: the frontmatter linter's derivation of `register` and its closed vocabulary; the YAML reader and its two departures from `safe_load`; the content-hash fixity mechanism (`hash_seal.py`, `hash_check.py`); the identifier tools and the safe-rename core; the sentence-per-line markdownlint rule; and the `linkcheck` scope.
 The environment the gate runs in is an `instruct` document, [`steering/environment.md`](../steering/environment.md), not a fiche.

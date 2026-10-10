@@ -1,3 +1,7 @@
 {
-  "recommendations": ["DavidAnson.vscode-markdownlint"]
+  "recommendations": [
+    "DavidAnson.vscode-markdownlint",
+    "detachhead.basedpyright",
+    "charliermarsh.ruff"
+  ]
 }

@@ -16,6 +16,15 @@ History of the documentation system itself.
 Append-only; each entry is dated-fixed.
 Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
 
+## [v4.0-alpha.35] — Scope by exclusion, and one set of Python tools for the editor and the tests
+
+- **Ruled:** every document is in scope by default; an exclusion takes documents out with its reason, and an inclusion brings them back; the exclusions are the documents still owed, and `docsys init` will write them ([plan](../phases/rush-to-mvp/phase-14-adoption/plan.md), *Rulings* and *Strictness*).
+  How a project uses and configures `docsys` is documented in `codifying/`; how the engine works inside, in `docsys/docs/`, as each check is ported.
+  basedpyright and ruff are the Python tools; `ty` is to be evaluated later.
+- **Changed:** `docsys` reads the scope that way, and checks its Python with basedpyright (strict, `Any` refused) and ruff, from its tests and from the editor at the same locked versions.
+- **Moved:** the `docsys.yaml` reference, from the engine to [`codifying/docsys-configuration.md`](../codifying/docsys-configuration.md).
+- **Added:** [`documentation-system.code-workspace`](../documentation-system.code-workspace), which opens the engine as a folder of its own so the editor applies its configuration, and the section of [`environment.md`](environment.md) on working on the engine.
+
 ## [v4.0-alpha.34] — The engine is strictly typed
 
 - **Changed:** every function of `docsys`, its tests included, carries a full signature, checked by `mypy --strict` from the engine's own test suite, so an unannotated function fails it; the configuration is returned as one typed structure per section, and the package ships `py.typed`.
