@@ -9,7 +9,7 @@ distance: initiated
 audience: [contributor, decider]
 reader: H+M
 status: done
-hash: sha256:514021b4f1e456609fef0a59559ba105b2e42b77eab29f8d9a0c2f1cbfc1e442
+hash: sha256:652653a953be91d68ca073b429b1a487e65b80fdc7ac4b8918222c41f58c9165
 ---
 
 The last phase of Phase I, and of the refoundation era.
@@ -58,4 +58,4 @@ Departures and gaps, recorded rather than hidden.
 The phase grew by T6, a workstream inserted mid-phase, and by a planned phase ahead of deployment that it did not run.
 It added roughly 1,400 lines of Python and fixtures to keep the repository's mentions of its own phase consistent; the external review read that as the project optimising what its method could see, and ADR-042's moratorium on self-referential checks is the answer the project owner chose.
 The review also found defects that the gate could not see and this phase did not look for: the root README's front door had been broken since 2026-07-25, and the product pages disagree on where documents go.
-The adoption phase fixes those first ([plan](../../rush-to-mvp/phase-13-design/adoption-plan.md), T1).
+The adoption phase fixes those first ([plan](../../rush-to-mvp/phase-14-adoption/plan.md), T1).

@@ -31,8 +31,12 @@ Rules for documents you write *with* the system are in the product ([`../write/r
 
 - You **must** shelve content by its **provenance** — the function that maintains it: `theorising/`, the operational apports in `operationalizing/`, `writing/`, `structuring/`, the account of the tooling in `codifying/`, the project's governance in `steering/`, intended work in `imagining/`, and frozen records under `phases/`.
   Do not mix a function's content into another's shelf; the user's reading order across `writing/` and `structuring/` is a *generated* surface, not a folder to hand-carve.
+  The rule shelves documentation: tooling and configuration folders — `scripts/`, `tools/`, `schema/`, `LICENSES/`, the engine's submodule, the dot-folders — are not shelves and carry no function.
 
 - You **must** keep `provenance` meaningful: use the maintaining function (`theorising`/`operationalizing`/`writing`/`structuring`/`codifying`/`steering`/`imagining`) or the owning project (`phase-NN`), never a blanket id.
+
+- You **must** contribute under the licence [`REUSE.toml`](../REUSE.toml) assigns to the file you add or change: GPL-3.0-or-later for code, CC0-1.0 for what an adopter copies (templates, schema, starting configuration), CC BY-SA 4.0 for prose ([ADR-043](../phases/rush-to-mvp/phase-13-design/licensing.md)).
+  A new kind of file that no annotation fits gets one in the same commit; `reuse lint` confirms every file is covered.
 
 - You **must** pair a change to the tooling with its account: a commit that touches `scripts/`, `schema/` or `docsys.yaml` also edits a file that explains it — under `writing/`, `structuring/`, `operationalizing/` or `codifying/`, or `steering/ARCHITECTURE.md` — in the same commit.
   In practice that is the [`codifying/`](../codifying/README.md) fiche for what you touched, or a new one.

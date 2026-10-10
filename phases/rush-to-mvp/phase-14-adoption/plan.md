@@ -1,10 +1,10 @@
 ---
-title: "The adoption phase — the detailed plan"
+title: "Phase 14 adoption — the plan"
 force: propose
 verb: argue
 intention: suasive
 view: synchronic
-provenance: { type: project, id: phase-13-design }
+provenance: { type: project, id: phase-14-adoption }
 constitutive: no
 concerns: [steering, codifying, structuring, writing]
 distance: initiated
@@ -13,9 +13,9 @@ reader: H+M
 status: draft
 ---
 
-The plan for the first delivery phase of the rush to MVP ([ADR-042](rush-to-mvp.md)): an external project can install the machinery and is guided through populating what the framework needs to run.
-The phase after it delivers the agent kit; the two together end the era on the condition ADR-042 states.
-This plan is an output of the design phase and is revised there until the adoption phase starts.
+The first delivery phase of the rush to MVP ([ADR-042](../phase-13-design/rush-to-mvp.md)): an external project can install the machinery and is guided through populating what the framework needs to run.
+The agent-kit phase follows it; the two together end the era on the condition ADR-042 states.
+The plan was drafted in Phase 13, the design phase, where its rulings were taken.
 
 ## Why this phase exists
 
@@ -37,6 +37,8 @@ And the pages an adopter or an agent reads first contradict each other or themse
 - **The layout default for an adopter's docs** (project owner, 2026-10-09): by **function** first, then by **sub-function**, then by **register** (`know` / `do` / `govern`), then by **force** — each split made only when the level above has grown enough to need it, fractally.
   This extends what the [structuring tutorial](../../../structuring/tutorial.md) already says (function first, register inside it) and contradicts `structuring/setup.md`, which lays docs out by force at the top.
 - **`weft` is the first adopter**; its repository was initialised on 2026-10-08.
+- **The engine is [`Skl8em/docsys`](https://github.com/Skl8em/docsys)**, public, licensed by kind of artefact ([ADR-043](../phase-13-design/licensing.md)); it is mounted in this repository as a git submodule at `docsys/`, beside `scripts/`, which it replaces (project owner, 2026-10-10).
+  The provenance rule shelves documentation; tooling and configuration folders — `scripts/`, `docsys/`, `LICENSES/`, `.githooks/` — are not shelves.
 
 ## Workstreams
 
@@ -79,6 +81,7 @@ The blocking rule of the [Phase 12 plan](../../refoundation/phase-12-codifying/p
 | 3 | **What an adopter gets by default.** *Ruled by the project owner, 2026-10-09:* frontmatter, links, identifiers, slugs and fixity on; the decision register when `init` is told where it is; the paired-change rule off until the adopter names its mechanism and understanding paths (the agent kit will propose turning it on for the theory of the code, see [`imagining/theory-of-the-code.md`](../../../imagining/theory-of-the-code.md)); the phase checks off. | The project owner | Settled |
 | 4 | **The adopter's frontmatter when the vocabulary changes.** Pinned to the package's version for now; no migration tool. | Out of the era unless `weft` forces it | No |
 | 5 | **`weft`'s functions and its provenance map.** Its owner names them; `init` does not guess. | T4, by the project owner | Blocks T4 |
+| 6 | **Working across two repositories.** This repository consumes the engine through a submodule, as any adopter would through its lockfile. To settle as T2 meets them: CI checks out the submodule; a document here that cites the engine's code cites it at the submodule's pinned commit (the `pin:` field, until now unused); the engine's own documentation — the `codifying/` fiches — moves to `docsys` with the code it explains, so the paired-change rule still pairs them inside one repository, and `docsys` is checked by `docsys` like any adopter. | T2 | No |
 
 ## Verification / definition of done
 
@@ -92,4 +95,4 @@ The blocking rule of the [Phase 12 plan](../../refoundation/phase-12-codifying/p
 - **The agent kit** — the phase after this one.
 - **The life cycle of a document**, the records-continuum reframing the review proposes for it, and the closure rule: parked ([roadmap](../../../steering/roadmap.md)).
 - **Generated reading surfaces**, an MCP server, integrations with issue trackers.
-- **New gate checks on this repository's own state** ([ADR-042](rush-to-mvp.md), point 5).
+- **New gate checks on this repository's own state** ([ADR-042](../phase-13-design/rush-to-mvp.md), point 5).

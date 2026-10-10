@@ -28,7 +28,7 @@ Adopting `id`/`slug` on the legacy records — and choosing whether their filena
 
 ## Linter-grandfathered content
 
-**What:** `phases/naive-sketch/**` (pre-ADR-021 records), `imagining/**` (informal Phase-II notes), and the blind-test transcripts are excluded from markdownlint / the frontmatter linter.
+**What:** `phases/naive-sketch/**` (pre-ADR-021 records), `imagining/**` (proposals and informal notes), and the blind-test transcripts are excluded from markdownlint / the frontmatter linter.
 
 **Why:** they predate the current conventions or are not authored prose; forcing them into compliance would be churn without value.
 
@@ -107,3 +107,23 @@ The one fixture that mentions an undeclared field fails on invalid YAML, not on 
 **Why left open:** the first is what any co-occurrence rule costs and only a reader can close it; the second is a property of git hooks, which are not versioned into a clone (a clone must opt in); the third is the price of not blocking work in progress, chosen in ADR-040; the fourth: `tools/markdownlint/` was never scheduled, and the cost of accounting for a moved `since` is new and unmeasured; the last awaits evidence.
 
 **How to resolve:** the plan's table names the step for each — the hook is enabled in the author's clone, and T4 (its first real use) showed it ran the gate on every commit and blocked nothing, so it has not yet been seen to catch a violation — the project owner's verdict on it is still open; the merge-time cost is observed on Phase 12's own merge in T5; the `docsys.yaml` gap is closed (T6 split the ledger into `steering/phases.yaml` and listed `docsys.yaml` as mechanism); `tools/markdownlint/` can join the list the same way, with its explaining file named first; the account for a moved `since` is open point 11 in the plan; `enforce_on` is settled (T6(b) fails when no listed branch exists); the first is a phase-close re-read by a person.
+
+## Synchronic documents that narrate their own history
+
+**What:** many documents declared `view: synchronic` — the root README, `steering/roadmap.md`, `steering/foundation.md`, the `codifying/` fiches, `writing/frontmatter.md`, the comments in `docsys.yaml` and `steering/phases.yaml` — describe the changes that produced their content rather than the content: which phase did what, which ruling moved what, what a section used to say.
+To a newcomer, they read as accounts under an `orient` or `describe` label.
+They are also the style an agent imitates when it writes here, so each such page teaches the defect again.
+
+**Why left open:** each page needs a judgment about what its declared reader needs, not a mechanical sweep; and the pages an adopter or an agent will read first matter more than the rest.
+
+**How to resolve:** the rule, the revision test and the cold-reader pass are planned in [the adoption plan's T1](../phases/rush-to-mvp/phase-14-adoption/plan.md), starting with the pages the agent kit is built from; the long-term tools and the casebook of cases found are in [`imagining/reader-first-writing.md`](../imagining/reader-first-writing.md).
+A page is paid when a cold-reader pass on it finds nothing it cannot place.
+
+## Decision records that are plans
+
+**What:** [ADR-020](../phases/refoundation/phase-06-refoundation/ADR-020-scope-phase-i.md) records a sequencing choice — which phase comes before which — and installs no standing obligation on how the system behaves, which [ADR-032](../phases/refoundation/phase-10-schema/adr-tiering.md) places in the roadmap, not the register.
+[ADR-042](../phases/rush-to-mvp/phase-13-design/rush-to-mvp.md) inherits the defect by superseding it: its points 1 to 4 are sequencing, and only point 5, no new gate check on the project's own state, is a standing obligation.
+
+**Why left open:** demoting a frozen record costs a register note and a reasoned exception for little gain while the era runs; the project owner chose not to fix it now.
+
+**How to resolve:** demote ADR-020 the way ADR-019 was demoted (its record stays frozen; the register carries a note; the ordinal is retired), and either demote ADR-042 the same way with its moratorium moved into a record of its own, or let the moratorium lapse with the era.
