@@ -16,7 +16,14 @@ History of the documentation system itself.
 Append-only; each entry is dated-fixed.
 Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
 
-## [v4.0-alpha.31] — Phase 13 closes; Phase 14, adoption, opens
+## [v4.0-alpha.32] — The engine is mounted, and consumed like any adopter's
+
+- **Added:** [`Skl8em/docsys`](https://github.com/Skl8em/docsys) as a submodule at `docsys/`, and a `pyproject.toml` that declares it as an editable development dependency (`uv sync`; `uv run docsys check`).
+  The engine has its skeleton, its workspace discovery, its exit codes, the frontmatter reader and ULID minting, with 41 tests; it ports no check yet, so the gate is still `scripts/check.py`.
+- **Changed:** markdownlint leaves `docsys/` to the engine's own gate; `REUSE.toml` files the new build files with the code; `.venv/` is ignored.
+- **Progress:** Phase 14's [plan](../phases/rush-to-mvp/phase-14-adoption/plan.md) records T2's state and its next steps.
+
+ — Phase 13 closes; Phase 14, adoption, opens
 
 - **Closed:** Phase 13, design, with its [README](../phases/rush-to-mvp/phase-13-design/README.md).
   The agent-kit plan it was to write moves to the agent-kit phase, which plans itself when it starts.

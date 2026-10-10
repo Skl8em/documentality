@@ -23,6 +23,10 @@ path = [
   "flake.nix",
   "flake.lock",
   ".envrc",
+  "pyproject.toml",
+  "uv.lock",
+  ".python-version",
+  ".gitmodules",
 ]
 precedence = "override"
 SPDX-FileCopyrightText = "2026 Benjamin Claverie"
