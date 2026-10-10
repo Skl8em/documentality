@@ -42,6 +42,8 @@ Our own validators under [`../scripts/`](../scripts/) are Python, and every one 
 `markdownlint-cli2` needs the shell too (it is a Node binary), because its version is part of the contract with our custom rules.
 `check.py` never runs from a stray global copy: started outside the shell, it re-runs itself under `nix develop`, and without nix it fails rather than run on other versions.
 
+In VS Code, the task `docs: run the gate` (*Terminal › Run Task*) runs the same command and puts each failure in the Problems pane, on the file and line it names.
+
 ## Enable the pre-commit hook (optional)
 
 To run the gate automatically before each commit, point git at the committed hooks directory once:
@@ -75,6 +77,21 @@ Each folder of the workspace names its interpreter, the `.venv` above, so the ed
 The `docsys` folder runs the copies of basedpyright and ruff in `docsys/.venv`, with the engine's `pyproject.toml`, so the editor reports what `uv run pytest` reports.
 basedpyright turns Pylance's own checking off.
 
+## Lint Markdown in the editor
+
+The markdownlint extension (`DavidAnson.vscode-markdownlint`) reads the same configuration and custom rule as the gate, but cannot run the devShell's `markdownlint-cli2`: it runs the copy it bundles.
+So the extension is held at the release that bundles the version `flake.lock` pins, today **0.59.0**, which bundles `markdownlint-cli2` 0.17.2:
+
+```sh
+"/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code" \
+  --install-extension davidanson.vscode-markdownlint@0.59.0 --force
+```
+
+(`code`, if it is on your `PATH`.)
+Installing a given version pins the extension: VS Code stops updating it.
+The pin is VS Code's, not the project's, so it applies to every folder you open.
+The gate's `editor-markdownlint` check fails when the extension bundles another version than the flake's, and names both; the `dependencies` of an extension release's `package.json` say which `markdownlint-cli2` it bundles.
+
 ## Update the toolchain
 
 Bumping a tool is a deliberate, reviewed act — not a side effect of a global update:
@@ -84,6 +101,7 @@ nix flake update            # bump nixpkgs (and thus the pinned tools)
 ```
 
 Commit the changed `flake.lock` in its own change, and re-run the checks, especially the markdown lint — a `markdownlint-cli2` major bump can shift the custom-rule API.
+If `markdownlint-cli2` moves, `editor-markdownlint` then fails until the extension is moved to the release that bundles the new version.
 
 ## Why pinned per project (not home-manager)
 

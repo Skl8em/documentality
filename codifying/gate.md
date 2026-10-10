@@ -72,13 +72,24 @@ Started outside it, the runner re-executes itself under `nix develop --command`,
 The pinned versions are not a preference but part of the contract: markdownlint's version is part of the contract with the custom rule it loads, and a `pyyaml` from an unrelated environment could read a frontmatter differently.
 So the gate never goes green on versions other than the pinned ones; a fixture in `scripts/test_check.py` shows it refusing to run on a path without `nix`.
 
+The editor lints Markdown as well, through its markdownlint extension, and that extension cannot be pointed at the devShell's binary: it runs the `markdownlint-cli2` it bundles.
+`editor-markdownlint` (`scripts/editor_markdownlint.py`) compares the two on the machine it runs on, and fails when the extension bundles another version than the one `flake.lock` pins, or when two copies of it are installed.
+It runs last, because it judges this machine's editor and not the corpus; where VS Code has no extensions (CI) it passes and says there is nothing to compare.
+[`environment.md`](../steering/environment.md) names the release of the extension that matches the flake.
+
 ## The output contract
 
 Each check is announced by a `=== name ===` header, flushed before the check runs.
 When the output is a pipe — which is how CI and any agent see it — an unflushed header would arrive after the check's own lines and misattribute them; the runner fixes it and `runner` guards it.
 Each failure line names the file, the rule and, after `fix:`, the edit that clears it.
-The fixtures of `frontmatter_lint.py`, `ulid_check.py`, `paired_change.py`, `slug_check.py`, `linkcheck.py` and `hash_check.py` enforce the `fix:` clause: each builds its messages in a pure function, so a case can fail a message that lacks one.
+The fixtures of `frontmatter_lint.py`, `ulid_check.py`, `paired_change.py`, `slug_check.py`, `linkcheck.py`, `hash_check.py` and `editor_markdownlint.py` enforce the `fix:` clause: each builds its messages in a pure function, so a case can fail a message that lacks one.
 Two are not covered: the drift message of `generate_schema.py --check`, which states its fix (`Run … and commit the result`) but not under the marker and has no fixture, and the runner's own messages; [technical debt](../steering/technical-debt.md) records both.
+
+The editor reads the same output.
+VS Code's task `docs: run the gate` ([`.vscode/tasks.json`](../.vscode/tasks.json)) runs the gate through two problem matchers, which put each failure in the Problems pane on the file it names: one reads a line that carries a line number, `path:line[:column]` (bare, as `markdownlint-cli2` prints it, indented by two spaces, or after `PHASE STATE:` or `PHASE LEDGER:`); the other, a line that names a file only, `path  message` indented by two spaces or after the same two prefixes, which VS Code would otherwise drop.
+So the shape of a line is part of the contract: a failure on a file starts with its path in one of those forms, and no other line may, a green summary least of all.
+`problem-matcher` (`scripts/test_problem_matcher.py`) runs both patterns over lines of every check's shape, after `runner`.
+A `paired-change` finding names commits, not files, and stays out of the Problems pane.
 
 ## The rule that keeps this shelf true
 
@@ -156,6 +167,8 @@ Starting a phase is one edit to the ledger, and the gate then names every place 
   `paired-change` establishes that a change to the mechanism came with an edit to a file that explains it, not that the edit says what the code now does.
 - **That a place which agrees with the ledger is true.**
   `phase-state` checks that the roadmap, the index and the status line name the right phase, not that what they say of it is right.
+- **That VS Code shows what the gate prints.**
+  `problem-matcher` tests the patterns with Python's `re`, which reads them as JavaScript does only because they use nothing the two read differently; VS Code's own reading of them is not tested.
 - **Fixity for every frozen record.**
   Frozen records that predate the seal carry none; the gate counts them and does not fail on them (`hash_check.py --unsealed` lists them).
 

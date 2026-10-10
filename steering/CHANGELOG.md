@@ -16,6 +16,11 @@ History of the documentation system itself.
 Append-only; each entry is dated-fixed.
 Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
 
+## [v4.0-alpha.37] — The editor shows what the gate shows
+
+- **Added:** the VS Code task `docs: run the gate` reads the gate's output through two problem matchers, so each failure lands in the Problems pane on the file, and line, it names; `problem-matcher` (`scripts/test_problem_matcher.py`) pins which lines they read and which they leave alone ([the gate](../codifying/gate.md), *The output contract*).
+- **Added:** `editor-markdownlint` (`scripts/editor_markdownlint.py`, with its fixtures) fails when the editor's markdownlint extension bundles another `markdownlint-cli2` than the one `flake.lock` pins; the extension is held at 0.59.0, the release that bundles 0.17.2 ([`environment.md`](environment.md), *Lint Markdown in the editor*).
+
 ## [v4.0-alpha.36] — Everything through the devShell
 
 - **Changed:** the devShell provides `uv` (0.7.22, from the nixpkgs `flake.lock` already pins) and makes it build every `.venv` on the flake's Python, downloading none; both `.venv`s are rebuilt on it, and this repository's `uv.lock` is relocked by that `uv`.
