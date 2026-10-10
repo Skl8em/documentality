@@ -16,6 +16,12 @@ History of the documentation system itself.
 Append-only; each entry is dated-fixed.
 Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
 
+## [v4.0-alpha.34] — The engine is strictly typed
+
+- **Changed:** every function of `docsys`, its tests included, carries a full signature, checked by `mypy --strict` from the engine's own test suite, so an unannotated function fails it; the configuration is returned as one typed structure per section, and the package ships `py.typed`.
+  Narrowing the configuration by type adds four refusals: a register, table or status path that is not a string, and a key that is not a name.
+- **Progress:** Phase 14's [plan](../phases/rush-to-mvp/phase-14-adoption/plan.md) records T2's state.
+
 ## [v4.0-alpha.33] — The engine reads its configuration
 
 - **Added:** `docsys` reads `docsys.yaml` in format version 1, listed key by key in the engine's [`docsys.yaml` reference](https://github.com/Skl8em/docsys/blob/main/codifying/configuration.md): a required `version`, a required `scope` of `include` and `exclude` patterns, a `root_document` that defaults to `README.md`, and `register`, `paired_change` and `phases` as optional sections whose checks run only when they are present.
