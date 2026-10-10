@@ -16,6 +16,15 @@ History of the documentation system itself.
 Append-only; each entry is dated-fixed.
 Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
 
+## [v4.0-alpha.33] — The engine reads its configuration
+
+- **Added:** `docsys` reads `docsys.yaml` in format version 1, listed key by key in the engine's [`docsys.yaml` reference](https://github.com/Skl8em/docsys/blob/main/codifying/configuration.md): a required `version`, a required `scope` of `include` and `exclude` patterns, a `root_document` that defaults to `README.md`, and `register`, `paired_change` and `phases` as optional sections whose checks run only when they are present.
+  `docsys check` refuses a malformed file with exit 2, naming the key and the fix.
+- **Not yet:** this repository's `docsys.yaml` is still in the shape `scripts/` reads, so `uv run docsys check` refuses it; it moves to format version 1 when the gate switches to `docsys check`.
+  Written in format version 1, its scope selects the same 127 of 157 tracked Markdown files as the current ignore lists.
+- **Fixed:** the headings of v4.0-alpha.30 and v4.0-alpha.31, which lost their version when the next entry was inserted above them.
+- **Progress:** Phase 14's [plan](../phases/rush-to-mvp/phase-14-adoption/plan.md) records T2's state and its next steps.
+
 ## [v4.0-alpha.32] — The engine is mounted, and consumed like any adopter's
 
 - **Added:** [`Skl8em/docsys`](https://github.com/Skl8em/docsys) as a submodule at `docsys/`, and a `pyproject.toml` that declares it as an editable development dependency (`uv sync`; `uv run docsys check`).
@@ -23,7 +32,7 @@ Design rationale for each line lives in the matching ADR — listed in the regis
 - **Changed:** markdownlint leaves `docsys/` to the engine's own gate; `REUSE.toml` files the new build files with the code; `.venv/` is ignored.
 - **Progress:** Phase 14's [plan](../phases/rush-to-mvp/phase-14-adoption/plan.md) records T2's state and its next steps.
 
- — Phase 13 closes; Phase 14, adoption, opens
+## [v4.0-alpha.31] — Phase 13 closes; Phase 14, adoption, opens
 
 - **Closed:** Phase 13, design, with its [README](../phases/rush-to-mvp/phase-13-design/README.md).
   The agent-kit plan it was to write moves to the agent-kit phase, which plans itself when it starts.
@@ -33,7 +42,7 @@ Design rationale for each line lives in the matching ADR — listed in the regis
 - **Ruled:** the provenance rule shelves documentation only; tooling and configuration folders carry no function (`steering/CONTRIBUTING.md`).
   The plan gains an open point on working across two repositories.
 
- — Licensing by kind of artefact
+## [v4.0-alpha.30] — Licensing by kind of artefact
 
 - **Decided:** [ADR-043](../phases/rush-to-mvp/phase-13-design/licensing.md) — GPL-3.0-or-later for the engine's code, AGPL-3.0-or-later for a component that runs as a service, CC0-1.0 for what an adopter copies into its own repository, CC BY-SA 4.0 for the prose.
 - **Added:** [`REUSE.toml`](../REUSE.toml) maps every tracked file to one licence, and `LICENSES/` holds the three texts; `reuse lint` (reuse 6.2.0) reports the repository compliant with the REUSE specification 3.3, 200 of 200 files covered.
