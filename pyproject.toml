@@ -1,0 +1,20 @@
+# This repository consumes the docsys engine the way any adopter does: as a
+# development dependency. Here it resolves to the submodule, installed editable,
+# so a change to the engine is exercised on this corpus before it is released.
+# An adopter pins a git tag instead:
+#   docsys = { git = "https://github.com/Skl8em/docsys", tag = "vX.Y.Z" }
+
+[project]
+name = "documentality"
+version = "0"
+requires-python = ">=3.11"
+dependencies = []
+
+[dependency-groups]
+dev = ["docsys"]
+
+[tool.uv]
+package = false
+
+[tool.uv.sources]
+docsys = { path = "docsys", editable = true }

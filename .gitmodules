@@ -1,0 +1,3 @@
+[submodule "docsys"]
+	path = docsys
+	url = https://github.com/Skl8em/docsys.git

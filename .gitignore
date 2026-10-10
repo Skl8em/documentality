@@ -9,3 +9,6 @@ __pycache__/
 result
 result-*
 .direnv/
+
+# Python environment (uv)
+.venv/
