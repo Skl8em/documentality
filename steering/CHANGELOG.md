@@ -16,6 +16,14 @@ History of the documentation system itself.
 Append-only; each entry is dated-fixed.
 Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
 
+## [v4.0-alpha.30] — Licensing by kind of artefact
+
+- **Decided:** [ADR-043](../phases/rush-to-mvp/phase-13-design/licensing.md) — GPL-3.0-or-later for the engine's code, AGPL-3.0-or-later for a component that runs as a service, CC0-1.0 for what an adopter copies into its own repository, CC BY-SA 4.0 for the prose.
+- **Added:** [`REUSE.toml`](../REUSE.toml) maps every tracked file to one licence, and `LICENSES/` holds the three texts; `reuse lint` (reuse 6.2.0) reports the repository compliant with the REUSE specification 3.3, 200 of 200 files covered.
+  It is run by hand, not by the gate.
+- **Changed:** `steering/CONTRIBUTING.md` binds contributions to the licence `REUSE.toml` assigns; the root README states the scheme.
+- **Settled:** the design plan's licensing point, which blocked creating the `docsys` repository.
+
 ## [v4.0-alpha.29] — Phase 13 design: rulings, and the present described without Phase I and II
 
 - **Changed:** living documents describe the project by its current era, the rush to MVP, without the Phase I / Phase II framing: the roadmap, `steering/foundation.md` §1 and §7, the phases index, the ledger's comment, the design plan, the schema-pipeline fiche, the debt register and the structuring tutorial's example.

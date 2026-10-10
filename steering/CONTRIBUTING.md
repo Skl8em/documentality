@@ -34,6 +34,9 @@ Rules for documents you write *with* the system are in the product ([`../write/r
 
 - You **must** keep `provenance` meaningful: use the maintaining function (`theorising`/`operationalizing`/`writing`/`structuring`/`codifying`/`steering`/`imagining`) or the owning project (`phase-NN`), never a blanket id.
 
+- You **must** contribute under the licence [`REUSE.toml`](../REUSE.toml) assigns to the file you add or change: GPL-3.0-or-later for code, CC0-1.0 for what an adopter copies (templates, schema, starting configuration), CC BY-SA 4.0 for prose ([ADR-043](../phases/rush-to-mvp/phase-13-design/licensing.md)).
+  A new kind of file that no annotation fits gets one in the same commit; `reuse lint` confirms every file is covered.
+
 - You **must** pair a change to the tooling with its account: a commit that touches `scripts/`, `schema/` or `docsys.yaml` also edits a file that explains it — under `writing/`, `structuring/`, `operationalizing/` or `codifying/`, or `steering/ARCHITECTURE.md` — in the same commit.
   In practice that is the [`codifying/`](../codifying/README.md) fiche for what you touched, or a new one.
   The gate checks it ([ADR-039](../phases/refoundation/phase-12-codifying/paired-change-rule.md), [ADR-040](../phases/refoundation/phase-12-codifying/paired-change-where-it-fails.md)); it checks that an edit exists, not that it is right, so write the account you would want to have read.

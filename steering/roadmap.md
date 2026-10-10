@@ -51,6 +51,7 @@ It takes a place, and later a number, only by a ruling.
 - **A human cold reader** of the product and of the `codifying/` fiches.
   The rush to MVP tests an agent as a cold reader on `weft`; a human stranger has still read nothing.
 - **Re-running the structuring front-end for the agent community**, if the `weft` pilot shows the current audiences and functions do not fit it.
+- **A licence check on the engines' dependencies**, once a package bundles third-party code rather than calling it: the notices of what it bundles travel with it, GPL-2.0-only code such as git's is called as a separate program and never copied in, and a licence allowlist in each package's build (`pip-licenses`, `cargo-deny`) checks what the dependency tree pulls in ([ADR-043](../phases/rush-to-mvp/phase-13-design/licensing.md)).
 
 ## Plan changes
 
