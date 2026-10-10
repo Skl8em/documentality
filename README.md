@@ -6,7 +6,7 @@ intention: formative
 view: synchronic
 provenance: { type: function, id: steering }
 constitutive: no
-axis: provenance       # the source is the producer's shelf: one folder per function (theorising/ writing/ structuring/ steering/ imagining/) + phases/
+axis: provenance       # the source is the producer's shelf: one folder per function (theorising/ operationalizing/ writing/ structuring/ codifying/ steering/ imagining/) + phases/
 dominant-community: contributor
 audience: [user, contributor]
 reader: H+M
@@ -41,8 +41,9 @@ The source is the **producer's shelf**: each top-level folder is a standing **fu
 - **[`operationalizing/`](operationalizing/README.md)** — the **operational apports**: the coordinates we chose to reify so the theory becomes workable and checkable (`view`, `constitutive`, `register`), and why we carved each one that way.
 - **[`writing/`](writing/README.md)** — how to write *one document*: its force, move structure, readability patterns, and the **frontmatter** schema; one folder per force, grouped by the three doors.
 - **[`structuring/`](structuring/README.md)** — how to keep *the whole corpus*: topology, provenance, life cycle, the **audience model** ([`structuring/audience.md`](structuring/audience.md)), and the structuring tutorial.
+- **[`codifying/`](codifying/README.md)** — the **tooling's account**: how the gate, the schema pipeline and the referential checks work, and why they are built that way.
 - **[`steering/`](steering/README.md)** — the project's own governance: foundation, roadmap, architecture, contribution rules, changelog, and the decision register (ADRs).
-- **[`imagining/`](imagining/README.md)** — what is only *intended* yet (Phase II), parked so it is neither lost nor mistaken for current work.
+- **[`imagining/`](imagining/README.md)** — what is only *intended* yet, parked so it is neither lost nor mistaken for current work.
 - **[`phases/`](phases/README.md)** — the frozen records of each construction phase (a `project` provenance), grouped by era.
 
 Keeping the *product* (`writing/`, `structuring/`) legible to a **user** and the project's *own* governance (`steering/`, `phases/`) legible to a **contributor** is the theory working — but both are shelved the same way, by the function that maintains them; the two reading orders are generated, not two hand-kept trees.
@@ -52,7 +53,7 @@ Keeping the *product* (`writing/`, `structuring/`) legible to a **user** and the
 *(This is the axis-and-dominant-community declaration that `structuring/rules.md` requires a tree root to carry — you are reading it, and it lives in the root README.)*
 
 - **Axis: by provenance.**
-  The source is shelved by the **function** that produces and maintains each area (`theorising`, `operationalizing`, `writing`, `structuring`, `steering`, `imagining`), plus the bounded `project` records under `phases/`.
+  The source is shelved by the **function** that produces and maintains each area (`theorising`, `operationalizing`, `writing`, `structuring`, `codifying`, `steering`, `imagining`), plus the bounded `project` records under `phases/`.
   Inside `writing/forces/` the sub-axis is **by door** (know / do / govern-and-record).
 - **Dominant community: `contributor`** — the shelf is ordered for whoever writes and maintains the docs, their first reader.
   The `user`'s reading order is *generated* from the frontmatter, not carved into this tree.
@@ -74,9 +75,9 @@ This system keeps them apart — the readable tree on one side, frozen provenanc
 
 ## Status
 
-**v4.0-alpha (Phase 10 complete)** — the source is the producer's shelf: one **gerund-named** folder per function (`theorising`, `operationalizing`, `writing`, `structuring`, `steering`, `imagining`) plus the frozen `phases/`, grouped by era.
+**v4.0-alpha (Phase 13 in progress)** — the project is in its **rush to MVP** ([ADR-042](phases/rush-to-mvp/phase-13-design/rush-to-mvp.md)): making the system installable in another project, then giving that project an agent kit; Phase 13 designs both.
+The source is the producer's shelf: one **gerund-named** folder per function (`theorising`, `operationalizing`, `writing`, `structuring`, `codifying`, `steering`, `imagining`) plus the frozen `phases/`, grouped by era.
 All **twelve forces** are built under `writing/forces/`.
-The **schema is reconciled** to the refounded model and enforced: `intention` is the coarse family, `register` is derived (`constitutive ? govern : direction-of-fit(force)`) and never stored, the new `constitutive` mark is required, and frozen records carry a `hash:` fixity seal.
-One gate — `python3 scripts/check.py` — runs the worktree, link, frontmatter, ULID, slug, fixity, and markdownlint checks.
-Next: **Phase 11** hardens the tooling — closing the frontmatter vocabulary, parsing YAML with a real parser, and validating that identifiers point at something.
-Designing Phase II follows once Phase I closes — re-running the structuring front-end for the incoming AI discourse community — and takes its number when we get there ([`steering/roadmap.md`](steering/roadmap.md)).
+The frontmatter vocabulary is **closed** and enforced: `register` is derived and never stored, `constitutive` is required, frozen records carry a `hash:` fixity seal, and every identifier must point at something.
+One gate — `python3 scripts/check.py` — runs the checks [`docsys.yaml`](docsys.yaml) lists, in order; [`codifying/`](codifying/README.md) explains the tooling, and [`steering/phases.yaml`](steering/phases.yaml) declares the current phase, against which the gate checks every other place that speaks of it — this paragraph included.
+The era ends when an agent given only the kit documents `weft`, the first adopter, correctly ([`steering/roadmap.md`](steering/roadmap.md)).

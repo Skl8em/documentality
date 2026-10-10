@@ -47,6 +47,11 @@ def replace(field_line, *new_lines):
     return "\n".join(out) + "\n"
 
 
+# Every error the linter emits names the edit that clears it, after this marker. The
+# gate's reader is often a machine with no other context: a message that says what is
+# wrong and not what to do about it leaves it guessing (Phase 12 T1(c)).
+FIX_MARKER = "fix:"
+
 # (name, frontmatter, [(file line, message fragment)] the linter must report — exactly)
 LINT_CASES = [
     # --- wrongly PASSED by the hand-rolled parser -----------------------------
@@ -115,11 +120,14 @@ def run_lint_cases():
     failures = 0
     for name, text, expected in LINT_CASES:
         got = lint(text)
-        if matches(got, expected):
-            print(f"ok    {name}")
-        else:
+        if not matches(got, expected):
             failures += 1
             print(f"FAIL  {name}: expected {expected}, got {got}")
+        elif unfixable := [m for _, m in got if FIX_MARKER not in m]:
+            failures += 1
+            print(f"FAIL  {name}: message(s) without a `{FIX_MARKER}` clause: {unfixable}")
+        else:
+            print(f"ok    {name}")
     return failures
 
 
@@ -158,9 +166,35 @@ def run_parse_cases():
     return failures
 
 
+# Which documents the linter looks at is configuration (docsys.yaml `frontmatter:`),
+# not code: the fixtures state their own scope, so nothing here is this repo's layout.
+SCOPE = {"ignore_prefixes": ["raw/", "old/v1/"], "ignore_substrings": ["/transcripts/"]}
+
+# (name, path, ignored?)
+SCOPE_CASES = [
+    ("a path under an ignored prefix", "raw/essay.md", True),
+    ("a nested ignored prefix", "old/v1/notes.md", True),
+    ("an ignored substring, at any depth", "docs/run/transcripts/a.md", True),
+    ("a prefix only counts at the start", "docs/raw/essay.md", False),
+    ("an ordinary document", "docs/guide.md", False),
+]
+
+
+def run_scope_cases():
+    failures = 0
+    for name, path, expected in SCOPE_CASES:
+        got = frontmatter_lint.ignored(path, SCOPE)
+        if got == expected:
+            print(f"ok    {name}")
+        else:
+            failures += 1
+            print(f"FAIL  {name}: {path} expected ignored={expected}, got {got}")
+    return failures
+
+
 def main():
-    failures = run_lint_cases() + run_parse_cases()
-    total = len(LINT_CASES) + len(PARSE_CASES)
+    failures = run_lint_cases() + run_parse_cases() + run_scope_cases()
+    total = len(LINT_CASES) + len(PARSE_CASES) + len(SCOPE_CASES)
     print("\n" + "=" * 40)
     if failures:
         print(f"frontmatter parser: {failures}/{total} case(s) failed")

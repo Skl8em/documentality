@@ -26,6 +26,31 @@ os.chdir(ROOT)
 SLUG_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 
 
+def yaml_error(path, exc):
+    return (path, f"invalid YAML frontmatter at {exc} — fix: correct the YAML at that line")
+
+
+def check_slug(path, fm):
+    """One record's slug errors, as [(path, message)]. `fm` is its loaded
+    frontmatter; a record without a `slug` is not checked."""
+    slug = fm.get("slug")
+    if not slug:
+        return []
+    if not isinstance(slug, str):
+        return [(path, f"slug {slug!r} is not a string — fix: write it as a plain hyphen-cased word, e.g. `slug: my-record`")]
+    errors = []
+    stem = os.path.basename(path)[:-3]  # drop ".md"
+    if not SLUG_RE.match(slug):
+        errors.append((path, f"slug {slug!r} is not hyphen-cased (a-z, 0-9, -) — fix: rewrite it in lowercase words joined by hyphens"))
+    allowed = {slug}
+    if fm.get("id"):
+        allowed.add(f"{slug}-{fm['id']}")
+    if stem not in allowed:
+        want = slug + (f" (or {slug}-<id>)" if fm.get("id") else "")
+        errors.append((path, f"filename stem {stem!r} != slug {want} — fix: rename the file (`python3 scripts/rename_doc.py` rewrites the links to it), or change `slug`"))
+    return errors
+
+
 def main():
     files = subprocess.check_output(["git", "ls-files", "*.md"], text=True).splitlines()
     errors = []
@@ -34,24 +59,11 @@ def main():
         try:
             fm = values(load(f))
         except FrontmatterError as exc:
-            errors.append((f, f"invalid YAML frontmatter at {exc}"))
+            errors.append(yaml_error(f, exc))
             continue
-        slug = fm.get("slug")
-        if not slug:
-            continue
-        n += 1
-        if not isinstance(slug, str):
-            errors.append((f, f"slug {slug!r} is not a string"))
-            continue
-        stem = os.path.basename(f)[:-3]  # drop ".md"
-        if not SLUG_RE.match(slug):
-            errors.append((f, f"slug {slug!r} is not hyphen-cased (a-z, 0-9, -)"))
-        allowed = {slug}
-        if fm.get("id"):
-            allowed.add(f"{slug}-{fm['id']}")
-        if stem not in allowed:
-            want = slug + (f" (or {slug}-<id>)" if fm.get("id") else "")
-            errors.append((f, f"filename stem {stem!r} != slug {want}"))
+        if fm.get("slug"):
+            n += 1
+        errors.extend(check_slug(f, fm))
 
     if errors:
         print(f"SLUG ERRORS: {len(errors)}")

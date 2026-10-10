@@ -15,9 +15,9 @@ The system was built in **phases**, each a bounded effort that closed, holding t
 To understand *why the system is shaped as it is*, read a phase end to end; do not reassemble scattered decisions.
 The one-line act of each decision is in the register, [`../steering/ADR.md`](../steering/ADR.md).
 
-Phases are grouped into three coarse **eras**, because a coarse map reads far better than twenty microscopic records (ADR-022).
+Phases are grouped into coarse **eras**, because a coarse map reads far better than twenty microscopic records (ADR-022).
 The era is the orient of the record; the micro-phases are the detail beneath it.
-The eras are now **physical folders** — `phases/naive-sketch/` and `phases/refoundation/` (Phase II's folder waits for its first record) — grouped as below.
+The eras are **physical folders** — `phases/naive-sketch/`, `phases/refoundation/` and `phases/rush-to-mvp/` — grouped as below.
 
 ## Era 1 — Naive sketch *(closed)*
 
@@ -25,13 +25,13 @@ The first version, built before the theory was refounded and before the front-en
 
 | Phase | What it settled | Records |
 |---|---|---|
-| [01 — foundation](naive-sketch/phase-01-foundation/README.md) | the inscribed-act reframe | ADR-001 |
-| [02 — theory](naive-sketch/phase-02-theory/README.md) | perlocution, recommend, drop diataxis, verb | ADR-002…005 |
-| [03 — reorganization](naive-sketch/phase-03-reorganization/README.md) | fractal tree, doors, axis declaration, teach, audience | ADR-006…009 |
-| [04 — disentanglement](naive-sketch/phase-04-disentanglement/README.md) | product vs docs, scope axis, provenance by function | ADR-010 |
-| [05 — records & governance](naive-sketch/phase-05-records-governance/README.md) | decisions by phase, steering, the `entail` face, open pairings | ADR-011…013 |
+| [01 — foundation](naive-sketch/phase-01-foundation/README.md) *(done)* | the inscribed-act reframe | ADR-001 |
+| [02 — theory](naive-sketch/phase-02-theory/README.md) *(done)* | perlocution, recommend, drop diataxis, verb | ADR-002…005 |
+| [03 — reorganization](naive-sketch/phase-03-reorganization/README.md) *(done)* | fractal tree, doors, axis declaration, teach, audience | ADR-006…009 |
+| [04 — disentanglement](naive-sketch/phase-04-disentanglement/README.md) *(done)* | product vs docs, scope axis, provenance by function | ADR-010 |
+| [05 — records & governance](naive-sketch/phase-05-records-governance/README.md) *(done)* | decisions by phase, steering, the `entail` face, open pairings | ADR-011…013 |
 
-## Era 2 — Refoundation *(current)*
+## Era 2 — Refoundation *(closed)*
 
 Regrounding the theory on Ferraris and, at last, laying the front-end flat.
 
@@ -42,10 +42,14 @@ Regrounding the theory on Ferraris and, at last, laying the front-end flat.
 | [08 — refactor product & source](refoundation/phase-08-refactor/README.md) *(done)* | refounded vocabulary (intention floor, register gloss); producer shelf; nine forces migrated & `_legacy/` retired; gerund naming; eras made physical | ADR-024…027 |
 | [09 — tooling](refoundation/phase-09-tooling/README.md) *(done)* | reproducible Nix devShell; unified markdownlint (CLI + VSCode) + corpus reflow; a frontmatter-lint harness (safe invariants); ULID + slug identifiers, minting/verify tooling, and a safe-rename script; one gate (pre-commit + CI) | ADR-028 |
 | [10 — reconcile schema & governance](refoundation/phase-10-schema/README.md) *(done)* | `register` derived & `constitutive` stored; content-hash fixity; ADR tiering; `operationalizing` recorded as the sixth function; hosting settled on GitHub | ADR-029…034 |
-| 11 — tooling hardening *(next)* | closing the frontmatter vocabulary, real YAML parsing, a referential validator | — |
+| [11 — tooling hardening](refoundation/phase-11-tooling-hardening/README.md) *(done — closed by Phase 12)* | closed frontmatter vocabulary; real YAML parsing; the schema authored in YAML with a generated JSON; referential integrity; unstarted work no longer numbered | ADR-036…038 |
+| [12 — codifying](refoundation/phase-12-codifying/README.md) *(done)* | `codifying` adopted as the seventh function, with its shelf; Phase 11's account closed; a tooling change that explains nothing fails the gate; the current phase declared once, in a ledger the gate checks every other place against | ADR-035, ADR-039, ADR-040 |
 
-## Era 3 — Phase II *(later)*
+## Era 3 — Rush to MVP *(current)*
 
-The computational model — designed only once Phase I closes, for the new discourse community it brings.
-Not yet begun.
-Its design is thought to become the first phase of that era; it takes a number when we tackle it, not before.
+Phase I closed by ruling with Phase 12, and the computational model it deferred arrives as two deliverables instead of a design phase: an external project can install the machinery, then the agent kit that lets an agent document it by this product ([ADR-042](rush-to-mvp/phase-13-design/rush-to-mvp.md)).
+The era ends on an observable condition on `weft`, not on completeness.
+
+| Phase | What it settled | Records |
+|---|---|---|
+| [13 — design](rush-to-mvp/phase-13-design/plan.md) *(in progress)* | Phase I closed by ruling; the rush to MVP planned: adoption, then the agent kit | ADR-042 |

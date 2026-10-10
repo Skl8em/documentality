@@ -52,7 +52,7 @@ def main():
     if dry:
         return 0
     print("\n=== running the gate ===")
-    return subprocess.call([sys.executable, "scripts/check.py"])
+    return subprocess.call([sys.executable, os.path.join(HERE, "check.py")])
 
 
 if __name__ == "__main__":

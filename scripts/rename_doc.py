@@ -19,6 +19,7 @@ import re
 import subprocess
 import sys
 
+HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = subprocess.check_output(["git", "rev-parse", "--show-toplevel"], text=True).strip()
 os.chdir(ROOT)
 
@@ -120,7 +121,7 @@ def main():
     cf, cl = rename_path(old, new, dry=dry)
     print(f"{'[dry-run] ' if dry else ''}moved {old} -> {new}; "
           f"rewrote {cl} link(s) in {cf} file(s)")
-    return 0 if dry else subprocess.call([sys.executable, "scripts/linkcheck.py"])
+    return 0 if dry else subprocess.call([sys.executable, os.path.join(HERE, "linkcheck.py")])
 
 
 if __name__ == "__main__":

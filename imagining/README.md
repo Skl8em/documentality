@@ -11,10 +11,10 @@ reader: H+M
 status: draft
 ---
 
-This is the `imagine` shelf: the home for activities the project only *intends*, held here so they are neither lost nor mistaken for current work.
+This shelf holds proposals: work the project intends but has not ruled on, one file each.
+Nothing here is enacted; a proposal leaves for the function that enacts it once it is ruled on.
 
-Right now it parks one thing: **Phase II — the computational model** (AI operating instructions, git hooks, validation and generation driven by the frontmatter).
-It is named, not planned: current work is restricted to Phase I ([`../steering/foundation.md`](../steering/foundation.md) §1), and Phase II is *designed* only once Phase I closes, because it introduces a new body of knowledge (LLM and agent tooling) and so a new discourse community, for which the whole front-end will be re-run ([`../steering/roadmap.md`](../steering/roadmap.md), Phase 10).
-
-Nothing here is enacted.
-When Phase I is complete, this shelf is where its successor is dreamt before it is built.
+- [`theory-of-the-code.md`](theory-of-the-code.md) — what a project's documentation must carry about its code, and how the code is held to it.
+- [`reader-first-writing.md`](reader-first-writing.md) — tools against prose that narrates its own history, with a casebook of the cases found.
+- [`multi-ecosystem-distribution.md`](multi-ecosystem-distribution.md) — one package per language ecosystem, all bound to one API.
+- [`integration-in-other-tools.md`](integration-in-other-tools.md), [`generated-reading-orders.md`](generated-reading-orders.md), [`git-integration.md`](git-integration.md), [`improve-adrs.md`](improve-adrs.md), [`linting.md`](linting.md), [`rework-git-workflow.md`](rework-git-workflow.md), [`testing-framework.md`](testing-framework.md) — earlier notes, not yet developed into proposals.

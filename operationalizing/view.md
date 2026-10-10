@@ -29,4 +29,6 @@ A three-value `view` (adding "pending") — rejected: a deliberation is a *curre
 **The work it does.**
 Gates freeze-vs-current; drives the split between the communication surface (current) and the archive (frozen); lets a generator know what may be re-ordered and what must be preserved.
 
-The *check* that `synchronic ⇒ function`, and the freezing discipline, live in the IT tools (the frontmatter linter) — not here.
+Neither `synchronic ⇒ function` nor the freezing discipline is checked yet, though this fiche used to say the frontmatter linter checked the first.
+It does not, and every phase plan breaks it: a working document, `synchronic` under a project's provenance, that freezes when its phase closes — the deliberation the rejected *pending* value was meant for.
+What closing does to such a document is the life-cycle phase's question ([roadmap](../steering/roadmap.md)); the sealing that is enforced is accounted for in [`codifying/`](../codifying/README.md).

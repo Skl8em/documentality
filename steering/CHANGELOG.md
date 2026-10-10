@@ -16,6 +16,156 @@ History of the documentation system itself.
 Append-only; each entry is dated-fixed.
 Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
 
+## [v4.0-alpha.26] — Phase 12 closes, and Phase I with it; the rush to MVP opens
+
+- **Decided:** [ADR-042](../phases/rush-to-mvp/phase-13-design/rush-to-mvp.md), superseding [ADR-020](../phases/refoundation/phase-06-refoundation/ADR-020-scope-phase-i.md).
+  Phase I closes by the project owner's ruling, not by a completeness test.
+  The next era, the **rush to MVP**, has two deliverables — adoption by an external project, and the agent kit — and ends on an observable condition on `weft`.
+  No new gate check about the project's own state is added meanwhile.
+  ADR-020 gains its `superseded-by` link and is resealed; its register row reads "superseded by 042".
+- **Closed:** Phase 12, with its [README](../phases/refoundation/phase-12-codifying/README.md).
+  The phase-close re-read of the `codifying/` fiches and of `foundation.md` was the project owner's (open point 4); the merge is still to be observed (open point 2).
+  **Convention, as T5 was to state:** a phase's closing entry supplements its per-task entries and does not supersede them.
+- **Opened:** Phase 13, *design*, in a new era folder, `phases/rush-to-mvp/` ([plan](../phases/rush-to-mvp/phase-13-design/plan.md)): it plans the era's two delivery phases, adoption ([plan](../phases/rush-to-mvp/phase-13-design/adoption-plan.md)) and the agent kit, both unnumbered.
+- **Parked:** the life-cycle phase, with the external review's proposal to reframe it around the records continuum attached; the deployment phase, absorbed by the era; the design of Phase II, superseded ([roadmap](roadmap.md)).
+- **Ruled, for the adoption phase:** the engine is a Python package in its own repository, included here as a submodule; adopters declare it as a development dependency; an adopter's docs are laid out by function, then sub-function, then register, then force, each split made only when needed; legacy documents enter through a baseline that only shrinks; the defaults an adopter gets.
+- **Revised:** `steering/foundation.md` §1 says how Phase I closed and what replaced the design of Phase II, and its `phase:` is raised; the ledger's `lagging:` list is empty; the root README's status paragraph describes the era.
+- **Noted:** the [external review](external-review/external-review.md)'s claim that `linkcheck.py` cannot link `theorising/the_life_of_projects.md` does not reproduce.
+
+## [v4.0-alpha.25] — Three proposals for what comes after Phase I
+
+- **Added**, in [`imagining/`](../imagining/README.md):
+  - [`theory-of-the-code.md`](../imagining/theory-of-the-code.md) — a position on Naur, answering the external review's finding 1a: what a project's documentation must carry about its code (concepts, relations, states, invariants, the grain, the limits), and how code and theory are held together;
+  - [`reader-first-writing.md`](../imagining/reader-first-writing.md) — the defect of synchronic documents that narrate their own history, why an agent writer falls into it, seven tools against it, and a casebook of the cases found;
+  - [`multi-ecosystem-distribution.md`](../imagining/multi-ecosystem-distribution.md) — one package per language ecosystem, all bound to one API: the configuration, the methodology, the baseline, the CLI, the findings, and a conformance suite.
+- **Rewritten:** `imagining/README.md` lists the proposals the shelf holds — its own casebook entry, rewritten as state.
+
+## [v4.0-alpha.24] — Phase 12 T6: where the project is, declared once and checked
+
+- **Decided:** [ADR-041](../phases/refoundation/phase-12-codifying/phase-ledger.md).
+  The current phase is declared once, in a ledger of its own, [`steering/phases.yaml`](phases.yaml) — the project owner ruled it out of `docsys.yaml`, which only points at it, because it is the project's state and not the tooling's configuration.
+  A phase transition is an edit to the ledger, and the gate checks every other place against it.
+  It executes [ADR-038](../phases/refoundation/phase-11-tooling-hardening/unstarted-work-unnumbered.md), whose "no check enforces this" limit is closed; that record stays as written.
+- **Added:** `phase-ledger` (`scripts/phase_ledger.py`) checks the ledger's own rules, and `phase-state` (`scripts/phase_state.py`) checks the folders, the roadmap and index rows, forward-numbered mentions, the root README's status line and the `phase:` fields against it; `lagging:` lets a document's `phase:` wait, with a reason, and fails once it no longer waits.
+  `docsys.yaml` gains a `phases:` section, validated by `docsys_config.py` and covered by the seam test.
+  The fixtures — 29 for the ledger, 32 for the state — ran red first; the real ledger and roadmap were also broken by hand.
+- **Fixed, flagged by the first run:** the root README's status paragraph, which said Phase 10; the phases index, which had no markers on the naive-sketch rows and no row for Phase 12.
+  `foundation.md` lags at Phase 07 by the ledger's leave, until T5 re-reads it.
+- **Settled:** open point 3 — `docsys.yaml` joins the paired-change mechanism list with no carve-out; open point 5 — `paired_change.py` fails when no `enforce_on` branch exists locally or on a remote, with fixtures; open point 11 — moving `since` keeps its account, judged at its first real use.
+- **Planned:** a **life-cycle phase**, unnumbered, before deployment ([roadmap](roadmap.md)).
+  T6's closure rule — a closed phase's README and records frozen and sealed — conflicted with ADR-031 and rests on a `status` vocabulary nobody has ruled, so it moves there with open point 12; the project owner named the cost of placing it ahead of deployment.
+  `operationalizing/view.md` said the linter checks `synchronic ⇒ function`; it does not, and every phase plan breaks it — corrected, and handed to the same phase.
+- **Recorded, not fixed:** `migrate_ids.py` names the phase root as a bare literal the seam's leak check cannot see ([`technical-debt.md`](technical-debt.md)).
+  ([plan](../phases/refoundation/phase-12-codifying/plan.md))
+
+## [v4.0-alpha.23] — Phase 12 T4: the debts T1 recorded are paid, or kept on purpose
+
+- **Fixed:** `ulid_check.py` rejects a record that names itself in `supersedes` or `superseded-by`, and a cycle along `superseded-by`; and it fails when the register's configured row shape matches no row, where it used to pass for want of anything to compare.
+  Each has fixtures that were red first.
+- **Added:** `slug_check.py`, `linkcheck.py` and `hash_check.py` build their messages in pure functions, with `test_slug_check.py`, `test_linkcheck.py` and `test_hash_check.py` registered in the gate ahead of each check; each fails a message that lacks its `fix:` clause, which was tried by removing the clause from each.
+  `ulid_check.py`'s own `main()` had the same inline shape, so its messages were extracted too.
+- **Decided, not recorded as an ADR:** the frozen-record definition **stays in `hash_seal.py`**, guarded.
+  `FROZEN_STATUSES` and a new `OPEN_STATUSES` classify every word of the schema's `warn_enums.status`, and a fixture fails the gate when they stop matching it.
+  Moving the definition into the schema would rule on the status vocabulary, which the schema's `still_open` list leaves open; it moves when that is ruled.
+  It installs a guard, not a norm about the methodology, so it does not clear ADR-032's test.
+- **Recorded, not fixed:** the drift message of `generate_schema.py --check` and the runner's own messages are still unfixtured ([`technical-debt.md`](technical-debt.md)).
+  The `codifying/` fiches for the gate, referential integrity and the schema pipeline, the audit and the seam record state the new behaviour, and the debt register moves three entries to Paid and narrows a fourth.
+  One commit per fix, code and fiche together, so the paired-change rule found nothing to flag.
+  ([plan](../phases/refoundation/phase-12-codifying/plan.md))
+
+## [v4.0-alpha.22] — Phase 12 T3, refined: the rule fails where work lands
+
+- **Decided:** [ADR-040](../phases/refoundation/phase-12-codifying/paired-change-where-it-fails.md), refining ADR-039 (which stands) on the project owner's ruling.
+  The paired-change rule **fails** only on `main`, `develop` and a detached checkout (a pull request's merge commit in CI), and **warns** on any other branch; a test-only or comment-only change needs no account.
+  The unit is still the commit.
+  This moves the cost ADR-039 charged at commit time to merge time, on purpose, and says so.
+- **Changed:** `docsys.yaml`'s `paired_change:` gains `exempt` and `enforce_on`, validated by `docsys_config.py` and covered by the seam test.
+  `paired_change.py` decides comment-only by comparing a Python file's syntax tree before and after, docstrings set aside; fixtures cover it, the branch decision, and one violation on a feature branch, on `main` and on a detached HEAD.
+  `CONTRIBUTING.md`, `ARCHITECTURE.md` and `codifying/gate.md` state the refinement.
+- **Planned:** the open points T3 left are scheduled against tasks in the [plan](../phases/refoundation/phase-12-codifying/plan.md#open-points-and-when-each-is-settled), with a **blocking rule**: a point that blocks a task stops it, the tree goes back to the last state that stands without the point, and the point is reported rather than worked around.
+  Two of them land in T6 (the `docsys.yaml` gap and a stale `enforce_on`), one in T5 (Phase 12's own merge is the first test of commit-level at merge time), one is the project owner's before T4 (the opt-in hook).
+  ([plan](../phases/refoundation/phase-12-codifying/plan.md))
+
+## [v4.0-alpha.21] — Phase 12 T3: a change to the tooling that explains nothing fails the gate
+
+- **Decided:** [ADR-039](../phases/refoundation/phase-12-codifying/paired-change-rule.md).
+  The unit of the rule is a **commit**, plus the uncommitted work that will become the next, not the branch.
+  The plan said "a diff" and left the unit open; it was settled against the history.
+  A branch-level rule passes Phase 11 — the phase touched `steering/ARCHITECTURE.md`, `writing/frontmatter.md` and `structuring/tutorial.md` incidentally, and on a phase-long branch any such edit pairs every script edit — while a commit-level rule fires on four of the five Phase 11 commits that touched the tooling.
+- **Added:** the `paired-change` gate check (`scripts/paired_change.py`) and its fixtures, which run it against throwaway git repositories: a scripts-only commit fails and passes once a docs file joins it; uncommitted work; deletes and moves out of `scripts/`; merge commits; an unresolvable or shallow-clone anchor is refused, not passed.
+  It is registered in `docsys.yaml` like any validator; `check.py` was not extended, as the plan first said, because it is only the runner.
+  Its `paired_change:` section — the anchor, the mechanism and the explaining paths — is validated by `docsys_config.py` and covered by the seam test, which now also catches a path prefix hard-coded in the engine.
+- **Added:** [`CONTRIBUTING.md`](CONTRIBUTING.md) states the pairing rule, that the gate is run before committing, and where a check is registered and what it must bring.
+  `ARCHITECTURE.md` names the decision; `codifying/gate.md` explains the check; CI fetches full history so the anchor exists.
+- **Recorded, not fixed:** the rule verifies that an account was edited, not that it is right; the pre-commit hook is opt-in, so a violation may first surface in CI; a change confined to `docsys.yaml` or `tools/markdownlint/` is invisible to it ([`technical-debt.md`](technical-debt.md)).
+  The rule starts after the commit before this one, so earlier history is not re-judged.
+  ([plan](../phases/refoundation/phase-12-codifying/plan.md))
+
+## [v4.0-alpha.20] — Phase 12 plan: a phase ledger, T6
+
+- **Planned:** **T6**, a phase ledger — the current phase declared once in `docsys.yaml`, with a `phase-state` gate check that verifies the folders, the roadmap and index markers, the root README's status, forward phase numbers and the `phase:` fields against it.
+  The problem it answers: the current phase was implied in a dozen places with nothing tying them together, which is what left Phases 10 and 11 closing with stale ones.
+  It **supersedes** the forward-numbering check alpha.19 planned for T3, which inferred the phase from folders instead of reading it; T3 is back to the paired-change rule alone.
+  ADR-038 is still enforced by the result, so its "no check enforces this" limit closes when T6 lands, and it stays unedited.
+  T5 shrinks to flipping the ledger and fixing what the gate flags; the ledger's own decision earns an ADR when T6 makes it.
+  A sequencing decision, so held here and in the roadmap (ADR-032).
+  ([plan](../phases/refoundation/phase-12-codifying/plan.md))
+
+## [v4.0-alpha.19] — Phase 12 plan: ADR-038 gets a check
+
+- **Planned:** T3 gains a second gate check that enforces [ADR-038](../phases/refoundation/phase-11-tooling-hardening/unstarted-work-unnumbered.md): a tracked document may not name an arabic-numbered phase above the highest one under `phases/`, and a roadmap row may not carry a number for a phase with no folder.
+  ADR-038 recorded that no check enforced it and that the rule held by attention; this is what closes that limit, so it is a changelog line, not a record.
+  The definition of done and the roadmap row grow to match.
+  ([plan](../phases/refoundation/phase-12-codifying/plan.md))
+
+## [v4.0-alpha.18] — Phase 12 T2: Phase 11's account closed
+
+- **Decided:** the three decisions Phase 11 took and never recorded, now on the register with the phase's provenance — [ADR-036](../phases/refoundation/phase-11-tooling-hardening/closed-frontmatter-vocabulary.md) (the vocabulary is closed and a field earns its place by carrying a reason), [ADR-037](../phases/refoundation/phase-11-tooling-hardening/yaml-source-generated-json.md) (the schema's source is YAML, its JSON generated) and [ADR-038](../phases/refoundation/phase-11-tooling-hardening/unstarted-work-unnumbered.md) (unstarted work is never referred to by number).
+  Each was checked against ADR-032 and clears it; ADR-038 is the thinnest, since nothing but attention enforces it.
+  The dates are the day they were recorded; the decisions were taken on 2026-09-15, 2026-09-17 and 2026-09-13.
+- **Ruled:** the generated schema JSON **stays**, in ADR-037.
+  Its only reader is `frontmatter_lint.py`, which already needs `pyyaml`, so it is a capability in reserve; it is kept because Phase II's generators are the reader it is for and are not yet designed, and it lapses if that design closes with no non-Python reader.
+  The strict-loader rule was checked against ADR-032 as a possible fourth record and held inside ADR-037.
+- **Added:** [the Phase 11 README](../phases/refoundation/phase-11-tooling-hardening/README.md), the closing record the phase never had, written afterwards and saying so; it lists what the plan got wrong and left open.
+- **Changed:** `writing/frontmatter.md` states that the vocabulary is closed, that an optional field needs a reason and that `schema/frontmatter-rules.yaml` is the source of truth.
+  Its field table is reconciled to the schema: `id`, `slug` and `concerns` were declared and never listed, the pre-refoundation `written-at` and `valid-for` are named as not in the vocabulary, and the `distance`, `power` and `status` rows say their value sets are current practice and still open.
+- **Changed:** `steering/ARCHITECTURE.md` no longer places schema reconciliation in the future, names Phase 11's four standing decisions and points at `codifying/` for the tooling; `phases/README.md` and the roadmap mark Phase 11 done.
+- **Recorded, not fixed:** the closed-vocabulary rule and the reason requirement are enforced and have no fixtures, so weakening either turns no test red ([`technical-debt.md`](technical-debt.md)).
+  ([plan](../phases/refoundation/phase-12-codifying/plan.md))
+
+## [v4.0-alpha.17] — Phase 12 plan extended; deployment named
+
+- **Planned:** [Phase 12's plan](../phases/refoundation/phase-12-codifying/plan.md) absorbs the open points T1 handed on, so none lives only in a hand-off message.
+  T2 gains the `ARCHITECTURE.md` reconciliation and the question of whether the generated JSON stays; T3 gains the `CONTRIBUTING.md` rule and how to extend the tooling; **T4** pays the four debts T1 recorded; **T5** closes the phase, including the stale root-README status and phases index and a stated changelog convention.
+  The definition of done grows to match.
+- **Named:** a **deployment phase** after Phase 12, unnumbered per the roadmap's own rule: how the current content is exposed and made usable by third parties, with cold readers for the `codifying/` fiches and the product.
+  It takes the adopter community Phase 12's map cut and the extraction triggers the plan named.
+  A sequencing decision, so held here and in the roadmap rather than in the ADR register (ADR-032).
+
+## [v4.0-alpha.16] — Phase 12 T1: codifying adopted
+
+- **Decided:** **`codifying` is the seventh function**, the account of the tooling — [ADR-035](../phases/refoundation/phase-12-codifying/codifying-function.md).
+  It takes the last link of [ADR-033](../phases/refoundation/phase-10-schema/operationalizing-function.md)'s chain, "IT tools".
+  The code stays in `scripts/`, `schema/` and `docsys.yaml`; the account is shelved in `codifying/`.
+  The boundary with `operationalizing` is by subject: a coordinate of the corpus is operationalizing, a mechanism that checks, generates or runs is codifying.
+  ADR-033's count is refined, not superseded.
+- **Added:** the [`codifying/`](../codifying/README.md) shelf — an orient and three fiches for the maintainer: [the gate](../codifying/gate.md), [the schema pipeline](../codifying/schema-pipeline.md) and [referential integrity](../codifying/referential-integrity.md).
+  Each states what it does not establish; none has been read cold by anyone but its author.
+- **Ruled:** [the community map](../phases/refoundation/phase-12-codifying/community-map.md) — gate-runner, maintainer and machine, with the adopter named and cut until a second consumer exists.
+  `maintainer` is `contributor`, refined, for a distance judged in the tooling field; it stays the linter's warning rather than a schema enum.
+  `user ≈ contributor` holds for roles and is qualified for distance, in `foundation.md` §3.
+- **Changed:** every repo-specific value in `scripts/` — the linter's out-of-scope prefixes, the schema's paths, the register's path and row shape, the gate's check list — moved to [`docsys.yaml`](../docsys.yaml), read only through `scripts/docsys_config.py`.
+  `check.py` is now only the runner, and `scripts/test_seam.py` is a gate check that fails if an instance value is ever hard-coded back ([the seam](../phases/refoundation/phase-12-codifying/engine-config-seam.md)).
+- **Fixed:** the runner printed each check's header into a buffer while the check wrote straight to the shared descriptor, so piped output — CI, an agent — put every header after every check's output and failures could not be attributed.
+  Found auditing the gate's messages against the machine reader; pinned by `scripts/test_check.py`, which was run red against the unflushed runner first.
+  Two smaller findings from the seam work: sibling scripts were addressed by a repo-relative path, and `ulid_check.py` skipped the register cross-check when the register was not a tracked file.
+- **Changed:** every validator failure line now ends `— fix: <the edit that clears it>`; the fixtures for `frontmatter_lint.py` and `ulid_check.py` fail a message without one ([the audit](../phases/refoundation/phase-12-codifying/error-message-audit.md)).
+- **Changed:** the function set reads seven in `foundation.md`, `CONTRIBUTING.md`, `ARCHITECTURE.md` and the root README.
+  `ARCHITECTURE.md`'s provenance map had never gained `operationalizing` either.
+- **Recorded, not fixed:** cycles and self-supersession pass `ulid_check.py`; three validators build their messages inline and are unfixtured; the frozen-record definition in `hash_seal.py` duplicates the schema's status list; an empty register match passes.
+  All four are in [`technical-debt.md`](technical-debt.md).
+  ([plan](../phases/refoundation/phase-12-codifying/plan.md))
+
 ## [v4.0-alpha.15] — Phase 12 inserted: codifying
 
 - **Planned:** **Phase 12 — codifying**, inserted before the Phase-II design.

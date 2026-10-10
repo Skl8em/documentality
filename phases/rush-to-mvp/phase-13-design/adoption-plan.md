@@ -1,0 +1,95 @@
+---
+title: "The adoption phase — the detailed plan"
+force: propose
+verb: argue
+intention: suasive
+view: synchronic
+provenance: { type: project, id: phase-13-design }
+constitutive: no
+concerns: [steering, codifying, structuring, writing]
+distance: initiated
+audience: [contributor, decider]
+reader: H+M
+status: draft
+---
+
+The plan for the first delivery phase of the rush to MVP ([ADR-042](rush-to-mvp.md)): an external project can install the machinery and is guided through populating what the framework needs to run.
+The phase after it delivers the agent kit; the two together end the era on the condition ADR-042 states.
+This plan is an output of the design phase and is revised there until the adoption phase starts.
+
+## Why this phase exists
+
+Nothing in the repository runs anywhere but here.
+Phase 12 drew the engine/config seam from one instance and said so: the seam "cannot be tested without a second consumer" ([engine/config seam](../../refoundation/phase-12-codifying/engine-config-seam.md)).
+Checked on 2026-10-08, four things stop a second project from running the gate at all, none of them named by the external review:
+
+- **Every section of `docsys.yaml` is mandatory** (`docsys_config.py`), so an adopter must invent a phase ledger and a decision register to lint a single file.
+- **The frontmatter linter covers every tracked `.md` minus an ignore list**, so adoption cannot be incremental in a code repository whose existing Markdown carries no frontmatter.
+- **The root document is the literal `README.md`** (`frontmatter_lint.py`), which also contradicts [ADR-008](../../naive-sketch/phase-03-reorganization/ADR-008-tree-axis-declaration.md).
+- **Nix is assumed**: without `pyyaml` the gate re-executes itself under `nix develop`, which an adopter without Nix cannot follow.
+
+And the pages an adopter or an agent reads first contradict each other or themselves (T1).
+
+## Rulings taken before the phase
+
+- **A package, not a vendored copy** (project owner, 2026-10-09).
+  One engine that adopters pin, rather than a copy forked into each project.
+- **The layout default for an adopter's docs** (project owner, 2026-10-09): by **function** first, then by **sub-function**, then by **register** (`know` / `do` / `govern`), then by **force** — each split made only when the level above has grown enough to need it, fractally.
+  This extends what the [structuring tutorial](../../../structuring/tutorial.md) already says (function first, register inside it) and contradicts `structuring/setup.md`, which lays docs out by force at the top.
+- **`weft` is the first adopter**; its repository was initialised on 2026-10-08.
+
+## Workstreams
+
+| # | Workstream | Output |
+|---|---|---|
+| **T1** | **Fix what the kit will teach.** An agent applies a page literally, so these are fixed before the kit is built from them. (i) The root README's "New here?" block, broken since 2026-07-25. (ii) The layout ruling applied: `structuring/setup.md` section A and `structuring/defaults.md`'s in-repo axis rewritten to it, the tutorial's rule extended with sub-function and force, and the CHANGELOG's register made consistent (the tutorial says `govern`, `setup.md` says `account`). (iii) The orient template and step 3 of the writing tutorial stop producing the "suspect pair" (`synchronic` under a project's provenance). (iv) `writing/forces/know/describe/README.md` declares `force: explain, verb: illuminate` — its own stance, mislabelled. (v) The *Validation rules* of `writing/frontmatter.md` say which rule the gate enforces and which it does not. (vi) CI's Nix installer pinned rather than `@main`. **Prose that narrates its own history** ([`imagining/reader-first-writing.md`](../../../imagining/reader-first-writing.md)): (vii) the rule and its revision test added to [`writing/rules.md`](../../../writing/rules.md) — a synchronic document states the present for its declared reader, and the account of a change goes to the commit, the changelog or the reply; (viii) a cold-reader pass — a subagent with no conversation history, given one page and its declared audience — over the pages the kit is built from (the root README, the writing and structuring tutorials, `writing/frontmatter.md`, the force stances and templates); (ix) the pages it flags rewritten, starting with those edited when this phase opened (the root README's status paragraph, `steering/foundation.md` §1, `imagining/README.md`). Each case the project owner finds is added to the casebook and fixed the same way, until the project owner judges the result satisfying. | the six defects fixed; the rule in `writing/rules.md`; a cold-reader record per page passed; the casebook grown; the gate green |
+| **T2** | **The engine as a Python package, `docsys`.** An adopter declares it as a development dependency in its `pyproject.toml`, pinned to a git tag and locked by its own lockfile; this repository installs it the same way, editable (`pip install -e` or the `uv` equivalent), so it is its own first consumer. Fixtures first, against a throwaway adopter repository built by the test — the second consumer the seam lacks. (i) **The workspace is explicit**, on `weft`'s model: the CLI finds it as the nearest ancestor holding `docsys.yaml`, the way `make` finds its control file, or takes `--workspace`; the library takes it as a parameter; nothing is changed or read from the current directory at import. (ii) **Strictness is configurable** — see *Strictness* below. (iii) The `register`, `paired_change` and `phases` sections of `docsys.yaml` become optional, and their checks run only when configured. (iv) The root document is configurable, defaulting to `README.md`. (v) `pyyaml` comes with the package, so Nix is optional; markdownlint and its custom rule stay available, opt-in, since they need Node. (vi) A `docsys` CLI: `docsys check` runs the configured gate, `docsys report` lists the documents not yet compliant. The schema ships inside the package. (vii) **The cross-package API is honoured from the start**, since every later package must read the same files ([`imagining/multi-ecosystem-distribution.md`](../../../imagining/multi-ecosystem-distribution.md)): `docsys.yaml` carries a format version, every finding carries a rule identifier beside its `fix:` clause, and the fixtures for the methodology's rules are data files (input documents and expected findings) rather than Python test code. | the `docsys` package, in its own repository, with fixtures; this repository consuming it; `codifying/` fiches updated in step |
+| **T3** | **The guided install.** `docsys init` writes `docsys.yaml` with the adopter's include scope, the root README's frontmatter (`axis`, `dominant-community`), the first level of the layout (one folder per function the adopter names), and the pre-commit hook. `docsys new <force> <path>` writes a document from the force's template with `id` and `slug` minted and the force's defaults filled, so a person chooses the force and the rest follows. Fields that need the theory to fill — `intention`, `constitutive` for an existing document — are not asked in a questionnaire: `new` proposes the force's default, and classifying documents that already exist is the agent kit's job, checked by the gate. | `init` and `new`, with fixtures; the structuring and writing tutorials point at them |
+| **T4** | **Install on `weft`.** One command, gate green on the scaffold; `weft_spec.md` given its frontmatter by hand with `docsys new`'s defaults as a guide. Every friction met is recorded, not smoothed over in the moment. | an adoption record in this folder: what was run, what failed, what was changed because of it |
+| **T5** | **Close the phase**: a README, the ledger, the roadmap and the index. | phase README |
+
+T1 comes first because the package will ship these pages' templates.
+T2 before T3: `init` writes a configuration the package must accept.
+T4 is the definition of done; it may start as soon as T2 runs, and feed T3.
+
+## Strictness
+
+An adopter's existing documentation does not become compliant at once, and the gate must not demand it; it must also not let a document slip back out once it is in.
+
+- **The scope** is an include list in `docsys.yaml`: the folders and files the framework governs.
+  A document outside it is not checked.
+- **A document in scope is either *adopted* or *legacy*.**
+  An adopted document is fully linted, and stays so: the gate offers no way to un-adopt it except removing it from the scope, an edit visible in review.
+  A legacy document is listed in a **baseline** in `docsys.yaml`, and is checked only for being there.
+- **The baseline only shrinks.**
+  An entry whose document has become compliant fails the gate until it is removed, as the phase ledger's `lagging:` list does; so the list is always exactly the set of documents still owed.
+  `docsys init` writes the first baseline from the documents already in scope.
+- **The gap is accounted for**: `docsys report` lists the legacy documents and what each lacks, and prints their count, so the reduction is visible over time.
+- **Each rule has a severity** — error, warning or off — configurable per rule in `docsys.yaml`, with the methodology's defaults.
+  A rule the methodology states as a heuristic (the sentence-per-line rule, the "suspect pair") defaults to a warning.
+
+## Open points, and when each is settled
+
+The blocking rule of the [Phase 12 plan](../../refoundation/phase-12-codifying/plan.md) carries over unchanged: a point that blocks a planned task stops it, and the tree goes back to the last state that stands without the point.
+
+| # | Open point | Settled by | Blocking? |
+| --- | --- | --- | --- |
+| 1 | **Where the package lives.** *Ruled by the project owner, 2026-10-09:* its own repository, included here as a git submodule and installed editable. An agent session on the engine does not load the theory corpus; this repository consumes the engine exactly as an adopter does; the engine's explaining documents (`codifying/`) move with it, so the paired-change rule still pairs code and explanation inside one repository. Costs accepted with it: three links from sealed phase records into `scripts/` stop resolving and need an allowance in the link check; the schema, authored with the engine, is explained by `writing/frontmatter.md` across the repository boundary. | The project owner | Settled |
+| 2 | **Non-Python adopters.** The Python package covers `weft`; a project in another ecosystem installs it as a tool (`uv tool install`) or through the flake, unpinned by its own lockfile. The long-term answer is in [`imagining/multi-ecosystem-distribution.md`](../../../imagining/multi-ecosystem-distribution.md). | Out of the era | No |
+| 3 | **What an adopter gets by default.** *Ruled by the project owner, 2026-10-09:* frontmatter, links, identifiers, slugs and fixity on; the decision register when `init` is told where it is; the paired-change rule off until the adopter names its mechanism and understanding paths (the agent kit will propose turning it on for the theory of the code, see [`imagining/theory-of-the-code.md`](../../../imagining/theory-of-the-code.md)); the phase checks off. | The project owner | Settled |
+| 4 | **The adopter's frontmatter when the vocabulary changes.** Pinned to the package's version for now; no migration tool. | Out of the era unless `weft` forces it | No |
+| 5 | **`weft`'s functions and its provenance map.** Its owner names them; `init` does not guess. | T4, by the project owner | Blocks T4 |
+
+## Verification / definition of done
+
+- `docsys check` is green in this repository, run through the installed package.
+- On `weft`, the package is a development dependency in `pyproject.toml`; `docsys init` and `docsys check` are green on the scaffold, with `weft_spec.md` either adopted or in the baseline, and `docsys report` lists the baseline.
+- Each T2 and T3 behaviour has a fixture that was red first, including a baseline entry whose document has become compliant.
+- The six T1 defects are fixed, and the root README routes a newcomer to a page that exists.
+
+## Explicitly out of scope
+
+- **The agent kit** — the phase after this one.
+- **The life cycle of a document**, the records-continuum reframing the review proposes for it, and the closure rule: parked ([roadmap](../../../steering/roadmap.md)).
+- **Generated reading surfaces**, an MCP server, integrations with issue trackers.
+- **New gate checks on this repository's own state** ([ADR-042](rush-to-mvp.md), point 5).
