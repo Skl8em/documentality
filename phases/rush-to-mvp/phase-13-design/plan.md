@@ -33,7 +33,7 @@ It builds nothing.
 | --- | --- | --- | --- |
 | 1 | **The engine's repository.** *Ruled by the project owner, 2026-10-10:* named `docsys`, hosted on GitHub, public. | The project owner | Settled |
 | 2 | **The theory of the code**: one document or two, whether the lexicon is constitutive, whether it is a default or required. *Ruled by the project owner, 2026-10-10:* two documents; constitutive; recommended, never required ([its rulings](../../../imagining/theory-of-the-code.md#rulings)). | The project owner | Settled |
-| 3 | **Licensing.** The repository carries the GPL-3.0 text. Three kinds of artefact may want different licences: the engine's code; the prose (theory and guidance); the material an adopter copies into its own repository (templates, the agent kit's files, the schema and the conformance suite that make up the cross-package API). The engine's repository needs its licence when it is created. | The project owner | Blocks creating the `docsys` repository |
+| 3 | **Licensing.** *Ruled by the project owner, 2026-10-10* ([ADR-043](licensing.md)): GPL-3.0-or-later for the engine's code, AGPL-3.0-or-later for a component that runs as a service, CC0-1.0 for what an adopter copies (templates, schema, starting configuration, the agent kit's files, the conformance suite), CC BY-SA 4.0 for the prose; mapped in `REUSE.toml`. | The project owner | Settled |
 
 ## Definition of done
 

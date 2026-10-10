@@ -1,0 +1,48 @@
+# Licensing of every file in this repository, by kind (ADR-043).
+# Checked with `reuse lint` (https://reuse.software). When several annotations
+# match a file, the last one wins, so the default comes first and the
+# exceptions follow it.
+
+version = 1
+
+# Prose — the theory, the guidance, the project's own records: CC BY-SA 4.0.
+[[annotations]]
+path = "**"
+precedence = "override"
+SPDX-FileCopyrightText = "2026 Benjamin Claverie"
+SPDX-License-Identifier = "CC-BY-SA-4.0"
+
+# Code — the validators, the gate, the custom lint rule, the build and CI
+# wiring: GPL-3.0-or-later.
+[[annotations]]
+path = [
+  "scripts/**",
+  "tools/**",
+  ".githooks/**",
+  ".github/**",
+  "flake.nix",
+  "flake.lock",
+  ".envrc",
+]
+precedence = "override"
+SPDX-FileCopyrightText = "2026 Benjamin Claverie"
+SPDX-License-Identifier = "GPL-3.0-or-later"
+
+# What an adopter copies into its own repository — the templates, the schema,
+# the configuration files a new instance starts from — and editor settings:
+# CC0, so an adopter's documents and any other implementation of the format
+# carry no condition from this project.
+[[annotations]]
+path = [
+  "writing/forces/**/template.md",
+  "schema/**",
+  "docsys.yaml",
+  ".markdownlint-cli2.jsonc",
+  ".markdownlint.jsonc",
+  ".gitignore",
+  ".vscode/**",
+  ".claude/**",
+]
+precedence = "override"
+SPDX-FileCopyrightText = "2026 Benjamin Claverie"
+SPDX-License-Identifier = "CC0-1.0"

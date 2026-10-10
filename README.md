@@ -73,6 +73,16 @@ A corpus serves two incompatible masters: **be found and read now** (communicati
 No single order serves both.
 This system keeps them apart — the readable tree on one side, frozen provenance on the other — and stitches them at one point: *the frozen record of a change becomes the current state you maintain*. `structuring/concepts.md` develops it.
 
+## Licensing
+
+Each kind of file carries the licence that fits it, mapped per path in [`REUSE.toml`](REUSE.toml), with the texts in [`LICENSES/`](LICENSES/):
+
+- **code** — the validators, the gate, the build and CI wiring — GPL-3.0-or-later;
+- **what you copy into your own project** — the force templates, the schema, the starting configuration — CC0-1.0, so your documents carry no condition from this one;
+- **prose** — the theory, the guidance, the project's records — CC BY-SA 4.0.
+
+The reasons are in [ADR-043](phases/rush-to-mvp/phase-13-design/licensing.md).
+
 ## Status
 
 **v4.0-alpha (Phase 13 in progress)** — the project is in its **rush to MVP** ([ADR-042](phases/rush-to-mvp/phase-13-design/rush-to-mvp.md)): making the system installable in another project, then giving that project an agent kit; Phase 13 designs both.
