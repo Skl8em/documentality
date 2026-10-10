@@ -19,6 +19,24 @@ Design note: the schema carries only **hard coordinates not derivable from one a
 It omits `diataxis` (re-derived by `force` × `intention`, see [`concepts.md`](concepts.md)), any direction-of-fit field (fixed by `force`), and `register` (derived from `constitutive` and `force`).
 Storing any of them would encode the same fact twice.
 
+## The vocabulary is closed
+
+The fields in the table below are **all the fields there are**.
+A document that carries a field this page does not list fails the gate, however reasonable the field looks, and so does a document that carries one of the two tree-root fields anywhere but the root.
+That is deliberate.
+A field nobody declared has no meaning anyone can look up, and a field declared and never used is a promise the corpus does not keep.
+
+The only way in is to declare the field, and declaring it means writing down **why it exists**.
+Every optional field carries its own reason in [`schema/frontmatter-rules.yaml`](../schema/frontmatter-rules.yaml), one field to one reason, and the schema refuses to load if a reason is missing.
+A reason is a sentence about the coordinate, not a form to fill in: if you cannot write one, what you wanted to record is not a coordinate, and it belongs in the document's own prose.
+
+That file is the **source of truth** for the vocabulary — the fields, their enumerated values, and each reason.
+This page is its reading for someone writing documents; where the two disagree, the schema is right and this page is the defect.
+A JSON copy is generated from the schema for programs to read and is never edited by hand; [`../codifying/schema-pipeline.md`](../codifying/schema-pipeline.md) explains how the pair is kept in step, for whoever maintains it.
+
+Closing the vocabulary does not close its *values*.
+What `distance`, `power` and `status` may hold, and the shape of `concerns`, are still open in the schema: the sets in the table are current practice, and a value outside them warns instead of failing.
+
 ## Fields
 
 `R` = required, `O` = optional.
@@ -34,18 +52,22 @@ Storing any of them would encode the same fact twice.
 | `provenance` | R | `{type, id}` | `type: function` (maintained) or `type: project` (freezes). See `../structuring/concepts.md`. |
 | `audience` | R | roles, e.g. `[contributor, decider]` | Generic roles `user` / `contributor` / `decider`, refinable per project. See [`../structuring/audience.md`](../structuring/audience.md). |
 | `reader` | R | `H` `M` `H+M` | Human / machine / both. Sub-kinds like `M[rag]` only if a project needs them. See [`../structuring/audience.md`](../structuring/audience.md). |
-| `distance` | O | `peer` `near` `far` | Shared code → scaffolding. `patterns.md` recipient section. |
-| `power` | O | `none` `holds` | Sanction → armor. |
-| `status` | R | `draft` `stable` `deprecated` | Life cycle; make staleness explicit. |
-| `written-at` | O | phase, e.g. `mvp` `v3` | Production phase. Legacy: the pre-refoundation (`v1`–`v3`) versioning scheme, `phases/naive-sketch/` only. |
-| `valid-for` | O | phase | Phase the content is valid for; the gap is computable. Legacy, same scope as `written-at`. |
+| `distance` | O | current practice: `initiated` `novice` `peer` `near` `far` (open) | Shared code → scaffolding. `patterns.md` recipient section. |
+| `power` | O | current practice: `none` `low` `holds` (open) | Sanction → armor. |
+| `status` | R | current practice: `draft` `stable` `deprecated`, and for frozen records `accepted` `done` `in-progress` `planned` (open) | Life cycle; make staleness explicit. |
 | `phase` | O | a phase id, e.g. `11-tooling-hardening` | The construction phase a *steering* document was written for, or is current as of — bumped forward when the document is reconciled to a later phase (`steering/roadmap.md`, `steering/foundation.md`). Distinct from `provenance`, which names the activity that produced the document, not the phase it tracks. |
-| `supersedes` / `superseded-by` | O | path/id | Chain frozen records (ADRs). |
+| `id` | O | ULID | The record's stable machine identity, independent of its filename. |
+| `slug` | O | the filename stem | The human-readable identity paired with `id`; the gate checks it equals the filename. |
+| `concerns` | O | activities, e.g. `[steering, codifying]` | The activities a document governs, distinct from `provenance`, which names who maintains it. One ⇒ vertical, several ⇒ transversal. Its shape is still open. |
+| `supersedes` / `superseded-by` | O | path/id | Chain frozen records (ADRs). Each must resolve to a record, and the pair must agree: if A supersedes B, B names A. |
 | `retention` | O | `permanent` `until-release` `ephemeral` `legal:<duration>` | Defaults by force in `../structuring/defaults.md`. |
 | `pin` | O | submodule ref / SHA | Fixity anchor for a cross-project reference. `../structuring/concepts.md`. |
 | `hash` | O | `sha256:<64 hex>` | Fixity seal of a *frozen* record — written at close, verified thereafter. Where `pin` fixes what a document points at, `hash` fixes what the document is. |
 | `axis` | R* | shelf axis, e.g. `scope` `function` `component` | *Required only on the root orient of a tree* (omitted elsewhere). The order the shelf is browsed by. `../structuring/rules.md`. |
 | `dominant-community` | R* | a role, e.g. `contributor` | *Required only on the root orient of a tree.* The community the shelf's axis is chosen to serve (see [`../structuring/audience.md`](../structuring/audience.md)). |
+
+Two fields of the pre-refoundation scheme, `written-at` and `valid-for`, are **not** in the vocabulary.
+Only `phases/naive-sketch/`, which the linter does not read, still carries them; a catalogued document that used one would fail.
 
 ## Derivable views (generate, do not store)
 
@@ -59,6 +81,7 @@ Computed, read by tooling and newcomers, and **never written into the frontmatte
 
 ## Validation rules
 
+- A field outside the vocabulary above is an **error**, and an optional field without a reason in the schema stops the schema from loading (see [The vocabulary is closed](#the-vocabulary-is-closed)).
 - `force`, `intention`, `constitutive`, `view`, `provenance`, `audience`, `reader`, `status` are **required** on every non-ephemeral document.
   A file lacking them does not enter the catalogue.
 - `constitutive` has **no default**: it is required precisely so that the judgement is made consciously rather than inherited.
@@ -106,3 +129,4 @@ Eight fields required everywhere — `force`, `intention`, `constitutive`, `view
 They catalogue, validate, and route.
 `verb` guides writing when it diverges; `distance`/`power` tune the address; the life-cycle fields track trajectory, and `pin`/`hash` fix what a record points at and what it is.
 Anything derivable — `register`, direction of fit, `diataxis` — is generated, never stored.
+The vocabulary is closed: no field beyond these, and a new one arrives with its reason.

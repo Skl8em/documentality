@@ -21,7 +21,7 @@ coordinates*, not the order they happen to be written in.
 
 A record is *frozen* — and so eligible for sealing — when it is a project's
 diachronic record that has closed: `view: diachronic`, `provenance.type: project`,
-and `status` in accepted / done / stable. Those fields are read as YAML (through
+and `status` in accepted / done / stable (FROZEN_STATUSES, below). Those fields are read as YAML (through
 scripts/yaml_frontmatter.py, so this needs `pyyaml`); the seal itself stays a
 line-based canonical form, above, and does not depend on the parser.
 
@@ -41,7 +41,13 @@ from yaml_frontmatter import load, values  # noqa: E402
 ROOT = subprocess.check_output(["git", "rev-parse", "--show-toplevel"], text=True).strip()
 os.chdir(ROOT)
 
+# Which `status` words close a record. Deliberately here and not in the schema: the
+# schema still lists its status vocabulary as an open question, and declaring "frozen"
+# there would settle part of it by side effect. Together the two lists classify every
+# word of `warn_enums.status` in schema/frontmatter-rules.yaml exactly once, and
+# scripts/test_hash_check.py fails the gate when they stop doing so.
 FROZEN_STATUSES = ("accepted", "done", "stable")
+OPEN_STATUSES = ("draft", "deprecated", "in-progress", "planned")
 
 
 def split_document(path):

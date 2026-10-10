@@ -9,6 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # paired-change reads commits back to `paired_change.since`; a shallow
+          # checkout would lose the anchor and the check would refuse to run.
+          fetch-depth: 0
       # Installs Nix with flakes enabled. Pin to a released tag for full reproducibility.
       - uses: DeterminateSystems/nix-installer-action@main
       # Same pinned toolchain (flake.lock) and same gate as local.
