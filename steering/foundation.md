@@ -18,19 +18,17 @@ This is the project laid flat: the front-end we skipped when we started, now wri
 It is the *structuring tutorial applied to ourselves* — its sections follow that tutorial's steps, in order.
 It rests on the refounded theory (the three revised essays: `The Inscribed Act`, `A Rhetoric of Organizational Genres`, `The Documentary System`, grounded on Ferraris's documentality — *object = inscribed act*).
 Where a claim below is a committed choice, it is marked **[decided]** and is recorded as an ADR.
-**Scope: written for Phase I; §1 was revised when Phase I closed by ruling ([ADR-042](../phases/rush-to-mvp/phase-13-design/rush-to-mvp.md)).**
 
 ## 1. Intention — what we are building
 
-Two horizons, and the first has closed.
-
-- **Phase I — an operational system.**
+- **An operational system.**
   Guidance, templates, and a metadata schema that let someone *structure* and *write* a project's documentation according to the inscribed-act theory, legible to humans and to a machine.
-  **Closed by ruling with Phase 12**, not by a completeness test: the product is usable enough to be tried on someone other than its author.
-- **Phase II — the system made machine-operational**: an agent amends and expands a project's documentation by this product, and the frontmatter is the interface it works through.
-  It was to be designed only once Phase I was complete, by re-running this front-end for a **new discourse community** (LLM and agent tooling).
-  That community was already the project's main co-producer, so the design is now found by use instead: the current era, the **rush to MVP**, makes the system installable in another project and gives that project an agent kit, and what the agent needs is observed on a first adopter, `weft`.
-  **[decided: Phase I closes by ruling; the rush to MVP replaces the a-priori design of Phase II (ADR-042, superseding ADR-020)]**
+- **The machinery that lets an agent use it.**
+  An agent amends and expands a project's documentation by this product, with the frontmatter as its interface.
+  What the agent needs is found by watching it work on a real project, not designed in advance: the agent is a reader at maximum distance, and its mistakes show where the product does not carry.
+
+The current era, the **rush to MVP**, delivers both to a first adopter, `weft`, and ends when an agent given only the installed kit documents it correctly.
+**[decided: the rush to MVP, bounded by an observable condition on `weft` (ADR-042)]**
 
 ## 2. Functions — what the project touches
 
@@ -129,7 +127,7 @@ Recorded as ADRs, several superseding or refining older ones:
 - **Audience derived from functions**: functions first, communities and per-community `distance` derived; human/machine orthogonal (ADR-017, ADR-022).
 - **Shelf**: source = producer shelf by provenance, reader surface = generated; a function *is* a provenance; `synchronic ⇒ function` (ADR-018, refines ADR-010; ADR-022).
 - **Groupings are mutable**; three eras over the micro-phases (ADR-022).
-- **Restart strategy (a)**; **scope Phase I; defer and re-found Phase II** (ADR-019, ADR-020) — ADR-020 superseded when Phase I closed by ruling (ADR-042).
+- **Restart strategy (a)** (ADR-019); **the rush to MVP**, bounded by an observable condition on a first adopter (ADR-042, superseding ADR-020).
 
 ## 8. Where this leads
 

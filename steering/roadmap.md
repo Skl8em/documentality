@@ -13,9 +13,9 @@ phase: 13-design
 ---
 
 The working plan, revisable.
-It names the **construction phases** (how *we* build the system).
-**Phase I closed with Phase 12, by ruling** ([ADR-042](../phases/rush-to-mvp/phase-13-design/rush-to-mvp.md), superseding ADR-020): the product is usable enough to be tried on someone other than its author.
-The current era is the **rush to MVP**: an external project can install the machinery and be guided through populating it (*adoption*), then install what an agent needs to amend and expand its documentation by this product (the *agent kit*).
+It names the **construction phases** (how *we* build the system), grouped into eras.
+The current era's name is a coordination signal — it says what the project is doing now; how past work divides is drawn afterwards, once it is history.
+The current era is the **rush to MVP** ([ADR-042](../phases/rush-to-mvp/phase-13-design/rush-to-mvp.md)): an external project can install the machinery and be guided through populating it (*adoption*), then install what an agent needs to amend and expand its documentation by this product (the *agent kit*).
 It ends on an observable condition on `weft`, stated in ADR-042, not on completeness.
 Phase 13 designs both deliverables before either is built.
 Phases 01–05 are past and recorded in [`phases/`](../phases/README.md); this roadmap looks forward from 06.
@@ -31,7 +31,7 @@ Phases 01–05 are past and recorded in [`phases/`](../phases/README.md); this r
 | **12 — Codifying: shelve the tooling, close Phase 11's account** *(done)* | Give the tooling a shelf: adopt **codifying** as the seventh function — the "IT tools" link ADR-033's own chain names but never gave a home — with an ADR, an orient, and fiches for the gate, the YAML/JSON split, and referential integrity. Close Phase 11's unfinished account: its three promised ADRs, its closing README, the vocabulary-closure fact retrofitted into `writing/frontmatter.md`. Make the gap **self-detecting**: a `scripts/`/`schema/` change with no paired documentation change fails the gate, and the current phase is **declared once** in a ledger against which the gate checks the roadmap, the index, the folders and the `phase:` fields. | `codifying/` shelf (ADR, README, fiches); Phase 11's backlogged ADRs + README; reconciled `writing/frontmatter.md` + `ARCHITECTURE.md`; a paired-change gate check; a **phase ledger** (`steering/phases.yaml`) declaring where the project is, and a `phase-state` gate check verifying every place that speaks of it (enforcing ADR-038); this phase's [`plan.md`](../phases/refoundation/phase-12-codifying/plan.md) |
 | **13 — Design** *(in progress)* | Plan and design the rush to MVP before building it: the decision that opens the era, the plan of each delivery phase, and the proposals their design rests on — the cross-package API, strictness for legacy documents, the theory of the code, reader-first writing. | [ADR-042](../phases/rush-to-mvp/phase-13-design/rush-to-mvp.md); the [adoption plan](../phases/rush-to-mvp/phase-13-design/adoption-plan.md); an agent-kit plan; this phase's [`plan.md`](../phases/rush-to-mvp/phase-13-design/plan.md) |
 | **Adoption** *(unnumbered — see below)* | The first half of the rush to MVP: an external project installs the machinery and is guided through populating what it needs. Fix first what an adopter or an agent will read and copy (the front door, the conflicting layout pages, the orient template); make the engine a `docsys` package that runs outside this repository (optional config sections, an include scope, Nix optional); `docsys init` and `docsys new`; install it on `weft`. | the product pages fixed; a `docsys` package with fixtures; `init` and `new`; an adoption record for `weft`; its [plan](../phases/rush-to-mvp/phase-13-design/adoption-plan.md), drafted in Phase 13 |
-| **Agent kit** *(unnumbered — see below)* | The second half: an external project installs what an agent needs — a skill generated from `writing/`, the instructions that make it run the gate and fix what it reports, and the documents that carry the theory of the code ([`imagining/theory-of-the-code.md`](../imagining/theory-of-the-code.md), once ruled). Ends on ADR-042's condition: a fresh agent session writes `weft`'s orient, its theory and a decision record that pass the gate and that the project owner judges right, and questions a change `weft`'s design refuses. | the kit; the `weft` pilot record; the MVP condition met or the reason it is not |
+| **Agent kit** *(unnumbered — see below)* | The second half: an external project installs what an agent needs — a skill generated from `writing/`, the instructions that make it run the gate and fix what it reports, and the documents that carry the theory of the code ([`imagining/theory-of-the-code.md`](../imagining/theory-of-the-code.md)). Ends on ADR-042's condition: a fresh agent session writes `weft`'s orient, its theory and a decision record that pass the gate and that the project owner judges right, and questions a change `weft`'s design refuses. | the kit; the `weft` pilot record; the MVP condition met or the reason it is not |
 
 **A phase takes its number when we tackle it, not before.**
 Until then we know the work but not its position, because anything inserted ahead of it moves it — which has now happened twice, each time invalidating every forward reference that had named a number.
@@ -48,9 +48,9 @@ It takes a place, and later a number, only by a ruling.
 - **Life cycle.**
   Which states a document passes through, set by its coordinates; what closing an effort does to its documents; what a seal covers; the `status` vocabulary; the closure rule Phase 12 handed on; the lifecycle tutorial planned since Phase 07.
   The external review proposes reframing it around the records continuum before it starts — which dimensions of a record's continuing life the catalogue records, rather than which states it passes through — as the project's own third essay argues; that is to be weighed when it is unparked.
-- **Deployment**, as planned in Phase 12: absorbed by the rush to MVP, whose two phases are deployment to a first adopter.
-  What it held that the rush does not — a human cold reader of the product and of the `codifying/` fiches — stays owed.
-- **Design of Phase II**: superseded by ADR-042, which replaces an a-priori re-run of the front-end with the `weft` pilot; the front-end is re-run afterwards if the evidence calls for it.
+- **A human cold reader** of the product and of the `codifying/` fiches.
+  The rush to MVP tests an agent as a cold reader on `weft`; a human stranger has still read nothing.
+- **Re-running the structuring front-end for the agent community**, if the `weft` pilot shows the current audiences and functions do not fit it.
 
 ## Plan changes
 

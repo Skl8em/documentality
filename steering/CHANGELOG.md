@@ -16,6 +16,15 @@ History of the documentation system itself.
 Append-only; each entry is dated-fixed.
 Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
 
+## [v4.0-alpha.29] — Phase 13 design: rulings, and the present described without Phase I and II
+
+- **Changed:** living documents describe the project by its current era, the rush to MVP, without the Phase I / Phase II framing: the roadmap, `steering/foundation.md` §1 and §7, the phases index, the ledger's comment, the design plan, the schema-pipeline fiche, the debt register and the structuring tutorial's example.
+  Frozen records, the changelog and the external review keep the words of their time.
+  The roadmap and the phases index state how eras are named: the current one to coordinate the work, a closed one's boundaries drawn once it is history.
+- **Ruled:** the theory of the code is two documents, a constitutive lexicon and an `explain` of the grain and limits, recommended and never required ([proposal](../imagining/theory-of-the-code.md#rulings)); the engine's repository is `docsys`, public, on GitHub ([design plan](../phases/rush-to-mvp/phase-13-design/plan.md)).
+- **Open:** licensing, which blocks creating that repository.
+- **Observed:** Phase 12's merge into `main` passes the paired-change rule at commit level, 22 changes since the anchor, none needing an account; examining each commit cost nothing at merge time on that branch (Phase 12, open point 2).
+
 ## [v4.0-alpha.28] — The root README routes a newcomer again
 
 - **Fixed:** the "New here?" block of the root README, broken since 2026-07-25, routes to four pages that exist: the one idea and `structuring/concepts.md` to judge the approach, the writing tutorial, the structuring tutorial, and `writing/choosing.md`.
