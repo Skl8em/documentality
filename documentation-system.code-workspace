@@ -1,0 +1,10 @@
+{
+  // Open this file (File > Open Workspace from File) rather than the folder: the
+  // engine, docsys/, is its own Python project, with its own environment and its own
+  // basedpyright and ruff configuration, and the editor applies them only when the
+  // folder is a root of its own.
+  "folders": [
+    { "path": ".", "name": "documentality" },
+    { "path": "docsys", "name": "docsys" }
+  ]
+}

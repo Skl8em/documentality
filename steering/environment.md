@@ -52,6 +52,22 @@ git config core.hooksPath .githooks
 
 The [`../.githooks/pre-commit`](../.githooks/pre-commit) hook then runs `scripts/check.py` and blocks a commit that fails the gate.
 
+## Work on the engine, `docsys/`
+
+The engine is its own Python project, a git submodule, whose tools are locked by `uv` in its own `uv.lock` rather than by the flake.
+It needs [`uv`](https://docs.astral.sh/uv/) on `PATH`.
+
+```sh
+git submodule update --init
+cd docsys
+uv sync              # the engine and its tools, at the locked versions, in docsys/.venv
+uv run pytest        # its tests, which also run basedpyright and ruff
+```
+
+In VS Code, open [`../documentation-system.code-workspace`](../documentation-system.code-workspace) rather than the folder, and install the extensions it recommends, basedpyright and Ruff.
+The `docsys` folder of the workspace then runs the copies of basedpyright and ruff in `docsys/.venv`, with the engine's `pyproject.toml`, so the editor reports what `uv run pytest` reports.
+basedpyright turns Pylance's own checking off.
+
 ## Update the toolchain
 
 Bumping a tool is a deliberate, reviewed act — not a side effect of a global update:
