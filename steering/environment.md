@@ -11,14 +11,15 @@ reader: H+M
 status: draft
 ---
 
-The project's tooling (the markdown linter, Node, Python) is **pinned per project** in a Nix `devShell`, not installed globally.
+The project's tooling (the markdown linter, Node, Python, `uv`) is **pinned per project** in a Nix `devShell`, not installed globally.
 This gives every contributor — and CI — the same bit-for-bit toolchain, so a check that passes locally passes everywhere.
 Follow this to get the environment; the reasoning is in the Phase-09 [`plan.md`](../phases/refoundation/phase-09-tooling/plan.md) §Part 0.
 
 ## Prerequisites
 
 - **Nix** with flakes enabled (`experimental-features = nix-command flakes`).
-- Nothing else: the shell provides `markdownlint-cli2`, `nodejs`, and `python3` with `pyyaml`.
+- Nothing else: the shell provides `markdownlint-cli2`, `nodejs`, `python3` with `pyyaml`, and `uv`.
+  Run everything below inside it; a tool of the same name installed elsewhere on the machine is not the pinned one.
 
 ## Enter the shell
 
@@ -39,8 +40,7 @@ python3 scripts/check.py     # the full gate: markdownlint + frontmatter + ULID 
 
 Our own validators under [`../scripts/`](../scripts/) are Python, and every one that reads frontmatter parses it as real YAML with `pyyaml`, pinned in the shell next to its interpreter.
 `markdownlint-cli2` needs the shell too (it is a Node binary), because its version is part of the contract with our custom rules.
-`check.py` never runs either from a stray global copy: when its interpreter lacks `pyyaml` it re-runs itself under `nix develop`, and it reaches the *pinned* markdownlint the same way.
-Without nix, the gate fails rather than skipping the YAML checks.
+`check.py` never runs from a stray global copy: started outside the shell, it re-runs itself under `nix develop`, and without nix it fails rather than run on other versions.
 
 ## Enable the pre-commit hook (optional)
 
@@ -54,18 +54,25 @@ The [`../.githooks/pre-commit`](../.githooks/pre-commit) hook then runs `scripts
 
 ## Work on the engine, `docsys/`
 
-The engine is its own Python project, a git submodule, whose tools are locked by `uv` in its own `uv.lock` rather than by the flake.
-It needs [`uv`](https://docs.astral.sh/uv/) on `PATH`.
+The engine is its own Python project, a git submodule.
+The flake pins `uv` and the interpreter; the engine's own `uv.lock` pins its Python packages, basedpyright and ruff among them.
+Inside the shell, `uv` builds every `.venv` on the flake's interpreter and downloads none (`UV_PYTHON`, `UV_PYTHON_DOWNLOADS=never`, set by the shell).
 
 ```sh
+nix develop
 git submodule update --init
+uv sync --locked                    # this repository's .venv: docsys installed editable
 cd docsys
-uv sync              # the engine and its tools, at the locked versions, in docsys/.venv
-uv run pytest        # its tests, which also run basedpyright and ruff
+uv sync --locked                    # the engine and its tools, in docsys/.venv
+uv run pytest                       # its tests, which also run basedpyright and ruff
 ```
 
+`--locked` fails rather than rewrite a `uv.lock` that no longer matches its `pyproject.toml`; a change of dependencies is locked deliberately, with `uv lock`, inside the shell.
+A `.venv` points at the flake's interpreter by its Nix store path: after `nix flake update`, or a garbage collection that removed that path, run the two `uv sync` again.
+
 In VS Code, open [`../documentation-system.code-workspace`](../documentation-system.code-workspace) rather than the folder, and install the extensions it recommends, basedpyright and Ruff.
-The `docsys` folder of the workspace then runs the copies of basedpyright and ruff in `docsys/.venv`, with the engine's `pyproject.toml`, so the editor reports what `uv run pytest` reports.
+Each folder of the workspace names its interpreter, the `.venv` above, so the editor needs no global Python.
+The `docsys` folder runs the copies of basedpyright and ruff in `docsys/.venv`, with the engine's `pyproject.toml`, so the editor reports what `uv run pytest` reports.
 basedpyright turns Pylance's own checking off.
 
 ## Update the toolchain

@@ -67,14 +67,10 @@ The fixtures being in the gate is the point, not tidiness.
 
 ## The environment it enters
 
-The gate needs `pyyaml` and a pinned `markdownlint-cli2`, both from the Nix devShell.
-If `pyyaml` is not importable, the runner re-executes itself under `nix develop --command`; with neither, it stops with an instruction.
-A `tool:` entry always prefers the pinned version, because the version is part of the contract with the custom rule the tool loads.
-
-There is one soft spot, and a reader should know it.
-When the devShell is not entered but a `pyyaml` or a tool is on the path, the gate proceeds with a `WARNING` line, and a warning does not fail it.
-The gate can therefore go green on an unpinned markdownlint.
-A human sees the warning; a machine reader must be told to treat it as material.
+The gate runs only inside the Nix devShell, where `pyyaml`, the interpreter and `markdownlint-cli2` are the versions `flake.lock` pins.
+Started outside it, the runner re-executes itself under `nix develop --command`, whatever the calling interpreter can import; without `nix`, it stops before any check, with an instruction.
+The pinned versions are not a preference but part of the contract: markdownlint's version is part of the contract with the custom rule it loads, and a `pyyaml` from an unrelated environment could read a frontmatter differently.
+So the gate never goes green on versions other than the pinned ones; a fixture in `scripts/test_check.py` shows it refusing to run on a path without `nix`.
 
 ## The output contract
 
