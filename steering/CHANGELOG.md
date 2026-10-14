@@ -16,6 +16,11 @@ History of the documentation system itself.
 Append-only; each entry is dated-fixed.
 Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
 
+## [v4.0-alpha.38] — Work in nested branches, committed in steps
+
+- **Added:** a rule in [`CONTRIBUTING.md`](CONTRIBUTING.md): a branch per workstream and per item, merged with `--no-ff` once the project owner has accepted the item; an item committed in optional steps (specify, red, implement, document, integrate, review global docs); the same branch names in the engine's repository.
+- **Added:** the project skill `branch-and-commit` (`.claude/skills/`), the agent's procedure for that rule; `.claude/` is outside the documents the gate checks ([the gate](../codifying/gate.md)).
+
 ## [v4.0-alpha.37] — The editor shows what the gate shows
 
 - **Added:** the VS Code task `docs: run the gate` reads the gate's output through two problem matchers, so each failure lands in the Problems pane on the file, and line, it names; `problem-matcher` (`scripts/test_problem_matcher.py`) pins which lines they read and which they leave alone ([the gate](../codifying/gate.md), *The output contract*).
