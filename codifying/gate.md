@@ -160,6 +160,8 @@ Starting a phase is one edit to the ledger, and the gate then names every place 
 - **That the documents are good.**
   It checks structure — frontmatter, links, identifiers, fixity seals, one-sentence-per-line — not whether a document's force is the right one, or its claims true.
 - **That a fix is correct**, only that one is stated.
+- **What lies outside the documents.**
+  `.claude/`, the agent's own configuration and skills, is not documentation: the frontmatter linter and markdownlint skip it, and the contributing rules a skill applies are written in [`CONTRIBUTING.md`](../steering/CONTRIBUTING.md), which the gate does check.
 - **That the checks cover what matters.**
   The gate can only be as broad as the list; a whole class of failure with no check is invisible to it.
   The paired-change check above exists because one such class, the tooling changing unexplained, went unseen twice.
