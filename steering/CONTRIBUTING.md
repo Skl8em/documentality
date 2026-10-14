@@ -49,6 +49,22 @@ Rules for documents you write *with* the system are in the product ([`../write/r
   Opt in to the pre-commit hook once with `git config core.hooksPath .githooks`.
   Consequence: without the hook, a violation is found only by CI, after the commit exists.
 
+- You **must** work in nested branches and merge each into the one it came from with `--no-ff`: the phase branch holds one branch per workstream (`t2-port-other-checks-one-at-a-time`), which holds one branch per item (`t2-port-slug-check`), named `<workstream id>-<item>` in hyphen-case.
+  An item branch is cut from its workstream branch, and merged back into it when the project owner has accepted the item; a workstream branch is merged into the phase branch the same way when its workstream closes.
+  Consequence: the larger branch reads as one merge commit per item, and the steps of each item stay in the history under it.
+
+- You **must** commit an item in steps, each made only when it is meaningful: *specify* (the rules, as data or prose), *red* (the tests that fail for the right reason, run and seen failing), *implement* (the change that turns them green), *document* (the account of what was done, for the reader who inherits it), *integrate* (the change wired into what uses it), *review global docs* (the pages elsewhere that state the present, brought up to date).
+  Code that is moved, not written, is moved with its tests in a first commit that changes nothing else, and is not given a red step; *integrate* and *document* follow as they are worth it.
+  A commit's subject names the item and says what the step leaves true (`T2 slug: the check reports the rules conformance/slugs.yaml states`); its body says why, when the diff does not.
+  A commit holds one step, and only the files of that step.
+
+- You **must** present a finished item before merging it: what each step committed, what was run and what it showed, the assumptions taken, and what the project owner should check.
+  Consequence: a merge without that acceptance is reverted.
+
+- You **must** use the same branch names in the engine's repository (the `docsys/` submodule) and in this one when an item changes both.
+  The engine's branch is merged first; the commit in this repository that moves the submodule pointer to the engine's merge commit goes on the branch it is merged into.
+  Nothing is pushed without the project owner's word.
+
 - You **must** register a new check in the `checks:` list of [`docsys.yaml`](../docsys.yaml), never in `scripts/check.py`, which only runs what the list names.
   A check brings its fixtures, written red first and listed *ahead of* it, and every failure message names the file, the rule and a `fix:` clause.
   Consequence: a check without fixtures can stop detecting and still read green.
