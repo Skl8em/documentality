@@ -33,7 +33,7 @@ A refusal makes `docsys` exit `2`, with a message that starts `docsys.yaml:`, na
 | Section | Required | Default when absent |
 | --- | --- | --- |
 | `version` | yes | — |
-| `scope` | no | every Markdown document is in scope |
+| `scope` | no | every document is in scope |
 | `root_document` | no | `README.md` |
 | `register` | no | the register checks do not run |
 | `paired_change` | no | the paired-change rule does not run |
@@ -47,7 +47,9 @@ A version this `docsys` does not read is refused, naming the versions it reads.
 ### `scope`
 
 Which documents the framework governs.
-Every Markdown document in the workspace is in scope unless the section says otherwise:
+A document is a Markdown file of the workspace that git tracks, or would track once added: committed or not, but never one `.gitignore` excludes, and never one inside a submodule.
+A workspace outside a git repository is refused.
+Every document is in scope unless the section says otherwise:
 
 | Key | Value | When absent |
 | --- | --- | --- |
@@ -132,6 +134,6 @@ Where the phase ledger is, and how to read every other place that names the curr
 
 ## Out of scope
 
-- What each check verifies, and the severity of its findings: with the checks.
+- What each check verifies, and the default severity of its rules: stated case by case in the engine's [conformance suite](https://github.com/Skl8em/docsys/tree/main/conformance).
 - This repository's own `docsys.yaml`, still in the shape `scripts/` reads: [the gate](gate.md).
 - The frontmatter vocabulary, explained by [`writing/frontmatter.md`](../writing/frontmatter.md).
