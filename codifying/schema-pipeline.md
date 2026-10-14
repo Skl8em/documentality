@@ -28,6 +28,10 @@ The gate's `schema-drift` check regenerates the JSON in memory, compares it to t
 It runs before anything that loads the JSON, so a schema edit cannot go unenforced because the generated file was left stale.
 Editing the JSON by hand fails the same check, from the other side.
 
+The `docsys` engine, mounted at `docsys/`, ships the same vocabulary as `docsys/src/docsys/schema/frontmatter-rules.yaml` and reads that YAML itself, with no generated JSON, so the vocabulary exists twice while the gate still runs `scripts/`.
+A change to what a verdict depends on (a required field, an enum, an optional field, the root-only fields, the direction of fit, the hash pattern) is made in both; the engine's tests compare them when run from this repository and fail on a difference.
+The rationales and the comments are the engine's own prose and are not compared.
+
 Where the two files live is instance configuration (`schema:` in [`docsys.yaml`](../docsys.yaml)); what they declare is the *methodology's*, shared by any project that adopts the vocabulary.
 [`engine-config-seam.md`](../phases/refoundation/phase-12-codifying/engine-config-seam.md) draws that line.
 
