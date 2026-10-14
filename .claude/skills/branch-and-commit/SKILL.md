@@ -3,7 +3,7 @@ name: branch-and-commit
 description: Branch, commit and merge a unit of work in this repository by the contributing rules — a branch per workstream and per item, an item committed in meaningful steps, presented before it is merged with --no-ff. Use whenever you start an item of a plan, commit, merge, or are asked to "proceed with the next item" or "commit this".
 ---
 
-The binding rules are in `steering/CONTRIBUTING.md` (the three rules on nested branches, steps and presentation); read them first.
+The binding rules are in `steering/CONTRIBUTING.md` (the rules on nested branches, steps, presentation, the engine's mirror and `main`); read them first.
 This skill is the procedure.
 
 ## Starting an item
@@ -11,7 +11,9 @@ This skill is the procedure.
 1. Check which branch you are on and that the tree is clean: `git status`.
    Uncommitted work that belongs to an earlier item is committed there first, never carried into the new branch.
 2. Cut the item branch from its workstream branch: `git switch -c <workstream id>-<item>` (e.g. `t2-port-slug-check` from `t2-port-other-checks-one-at-a-time`).
-3. If the item touches `docsys/` (the engine), cut the same branch name there: `git -C docsys switch -c <same name>`.
+3. If the item touches `docsys/` (the engine), cut the same branch name there, from the counterpart of the branch you cut from here: `git -C docsys switch -c <same name> <workstream>`.
+   If the engine has no workstream or phase branch of that name yet, cut it first, the same way one level up; the engine's phase branch is cut from its `main`.
+   Then `git -C docsys branch --list` and `git branch --list` should name the same branches for this work.
 
 ## Committing in steps
 
@@ -40,4 +42,6 @@ Make only the steps that are meaningful, in this order, one commit each, only th
 4. Keep the item branch until told otherwise; push nothing without the project owner's word.
 5. Start the next item (back to *Starting an item*).
 
-Closing a workstream is the same, one level up: present it, then merge the workstream branch into the phase branch with `--no-ff`.
+Closing a workstream is the same, one level up: present it, then merge the workstream branch into the phase branch with `--no-ff`, in the engine first when the workstream changed it, and commit the submodule pointer at the engine's merge on the phase branch here.
+
+`main` is left alone in both repositories until the phase closes; the phase branch is then merged into it with `--no-ff`, the same way.

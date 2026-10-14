@@ -61,8 +61,12 @@ Rules for documents you write *with* the system are in the product ([`../write/r
 - You **must** present a finished item before merging it: what each step committed, what was run and what it showed, the assumptions taken, and what the project owner should check.
   Consequence: a merge without that acceptance is reverted.
 
-- You **must** use the same branch names in the engine's repository (the `docsys/` submodule) and in this one when an item changes both.
-  The engine's branch is merged first; the commit in this repository that moves the submodule pointer to the engine's merge commit goes on the branch it is merged into.
+- You **must** mirror in the engine's repository (the `docsys/` submodule) the branches of work that changes both repositories: the same phase, workstream and item branches, under the same names, each cut from its counterpart there and merged with `--no-ff` at the same level and at the same time as here.
+  The engine's branch is merged first; the commit in this repository that moves the submodule pointer to the engine's merge commit goes on the branch it is merged into, so each merge here is followed by a pointer at the merge of the same name there.
+  Work that changes the engine alone needs no mirror, and the engine may carry branches of its own beside it.
+  Consequence: the two branch graphs read alike, so whether the repositories are in step can be seen by comparing them.
+
+- You **must** leave `main` alone until a phase closes: the phase branch is then merged into `main` with `--no-ff`, as one commit, in each repository the phase changed.
   Nothing is pushed without the project owner's word.
 
 - You **must** register a new check in the `checks:` list of [`docsys.yaml`](../docsys.yaml), never in `scripts/check.py`, which only runs what the list names.
