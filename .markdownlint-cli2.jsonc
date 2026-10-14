@@ -7,6 +7,7 @@
     "theorising/**", // upstream academic essays, not our authored guidance
     "phases/naive-sketch/**", // pre-refoundation records, predate ADR-021 (grandfathered)
     "imagining/**", // proposals and informal notes, not prose held to ADR-021
+    ".claude/**", // the agent's configuration and skills, not authored documents
     "docsys/**", // the engine's submodule: another repository, checked by its own gate
     "**/blind-test/**", // raw agent transcripts, not authored prose
     "**/weft-blindtest-round2/**",

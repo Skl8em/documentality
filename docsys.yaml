@@ -20,13 +20,14 @@ schema:
 # Documents outside the authored, refounded catalogue, which the frontmatter linter
 # skips:
 #  - theorising/**            raw upstream essays;
+#  - .claude/**               the agent's configuration and skills, not documents;
 #  - phases/naive-sketch/**   pre-refoundation frozen records (predate `intention`);
 #  - blind-test transcripts   raw agent outputs, not catalogued documents.
 # A prefix matches at the start of a path; a substring matches anywhere in it.
 # (.markdownlint-cli2.jsonc keeps its own, wider list: markdownlint reads no
 # config but its own.)
 frontmatter:
-  ignore_prefixes: [theorising/, phases/naive-sketch/]
+  ignore_prefixes: [theorising/, phases/naive-sketch/, .claude/]
   ignore_substrings: [/blind-test/, /weft-blindtest]
 
 # The central decision register scripts/ulid_check.py cross-checks against each
