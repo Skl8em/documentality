@@ -51,11 +51,15 @@ The tooling separates by rate of change ([`engine-config-seam.md`](../phases/ref
 
 - [`gate`](gate.md) — why every check is one property, what the order of the checks means, and what a green gate does not say.
 - [`schema-pipeline`](schema-pipeline.md) — why the schema is authored in YAML and compiled to JSON, and how the two are kept from drifting.
-- [`referential-integrity`](referential-integrity.md) — why a dangling `supersedes` is a hard error, why supersession must be symmetric, and the holes the check still has.
 
 For a project that uses the engine, [`docsys`](https://github.com/Skl8em/docsys):
 
 - [`docsys-configuration`](docsys-configuration.md) — every key of `docsys.yaml`, what it means, and when a value is refused.
 
-Still to write: the frontmatter linter's derivation of `register` and its closed vocabulary; the YAML reader and its two departures from `safe_load`; the content-hash fixity mechanism (`hash_seal.py`, `hash_check.py`); the identifier tools and the safe-rename core; the sentence-per-line markdownlint rule; and the `linkcheck` scope.
+How a check extracted into `docsys` works inside is explained with it, in its `docs/` folder, for the engine's maintainer:
+
+- [`referential-integrity`](https://github.com/Skl8em/docsys/blob/main/docs/referential-integrity.md) — why a dangling `supersedes` is an error, why supersession must be symmetric, and what the ULID check does not establish.
+
+Still to write, in `docsys`'s `docs/`: the frontmatter check's derivation of `register` and its closed vocabulary; the YAML reader and its two departures from `safe_load`; the fixity check; and the link check's scope.
+Still to write here, for the tools `scripts/` keeps: the identifier tools and the safe-rename core (`migrate_ids.py`, `rename_doc.py`), the seal writer (`hash_seal.py`), and the sentence-per-line markdownlint rule.
 The environment the gate runs in is an `instruct` document, [`steering/environment.md`](../steering/environment.md), not a fiche.
