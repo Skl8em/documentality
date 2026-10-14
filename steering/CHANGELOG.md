@@ -16,6 +16,12 @@ History of the documentation system itself.
 Append-only; each entry is dated-fixed.
 Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
 
+## [v4.0-alpha.39] — The engine mirrors the phase's branches
+
+- **Changed:** the rule in [`CONTRIBUTING.md`](CONTRIBUTING.md) on the engine's repository: work that changes both repositories runs on the same phase, workstream and item branches in each, merged with `--no-ff` at the same level and at the same time, each merge here followed by a pointer at its counterpart there; work on the engine alone needs no mirror.
+- **Added:** a rule in [`CONTRIBUTING.md`](CONTRIBUTING.md): `main` is left alone until a phase closes, and then receives the phase branch as one `--no-ff` merge, in each repository the phase changed.
+  The skill `branch-and-commit` follows both.
+
 ## [v4.0-alpha.38] — Work in nested branches, committed in steps
 
 - **Added:** a rule in [`CONTRIBUTING.md`](CONTRIBUTING.md): a branch per workstream and per item, merged with `--no-ff` once the project owner has accepted the item; an item committed in optional steps (specify, red, implement, document, integrate, review global docs); the same branch names in the engine's repository.
