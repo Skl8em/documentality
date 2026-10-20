@@ -43,7 +43,7 @@ The tooling separates by rate of change ([`engine-config-seam.md`](../phases/ref
 
 | Home | What lives there | Read |
 | --- | --- | --- |
-| **engine** — `scripts/`, `tools/markdownlint/` | behaviour any project using this system would run unchanged | the fiches below |
+| **engine** — `scripts/`, and in [`docsys`](https://github.com/Skl8em/docsys) the markdownlint rule `src/docsys/markdownlint/` | behaviour any project using this system would run unchanged | the fiches below |
 | **methodology** — `schema/frontmatter-rules.yaml` | the frontmatter vocabulary, its enums, each optional field's reason | [the schema pipeline](schema-pipeline.md) |
 | **instance** — `docsys.yaml` | where this repo keeps its schema, what is out of scope, its register's shape, where its phase ledger is, which checks make its gate and in what order | [the gate](gate.md) |
 
