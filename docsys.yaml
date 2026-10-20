@@ -128,8 +128,8 @@ checks:
   # Must pass before anything that loads schema/frontmatter-rules.json: a stale
   # generated file would otherwise let a schema edit go unenforced.
   - {name: schema-drift, python: scripts/generate_schema.py, args: [--check]}
-  # Parser fixtures run BEFORE the corpus checks, for the same reason as md100
-  # below: a green corpus says nothing if the parser has stopped reading it.
+  # Parser fixtures run BEFORE the corpus checks: a green corpus says nothing if
+  # the parser has stopped reading it.
   - {name: frontmatter-parser, python: scripts/test_frontmatter_lint.py}
   # The frontmatter invariants (warns on what is still open).
   - {name: frontmatter, python: scripts/frontmatter_lint.py}
@@ -162,12 +162,9 @@ checks:
   # Every place that speaks of the current phase agrees with the ledger. After the
   # ledger's own check, which it relies on.
   - {name: phase-state, python: scripts/phase_state.py}
-  # The rule is a heuristic; its fixtures run BEFORE the corpus lint, so a green
-  # corpus can never be read as "the rule works" when it has stopped flagging
-  # anything.
-  - {name: md100, python: tools/markdownlint/test_sentence_per_line.py}
-  # One shared ruleset incl. one-sentence-per-line (ADR-021). The pinned version is
-  # part of the contract with the custom rule.
+  # One shared ruleset incl. one-sentence-per-line (ADR-021), a custom rule the
+  # engine ships (docsys/src/docsys/markdownlint/) and tests in its own suite. The
+  # pinned version is part of the contract with the custom rule.
   - {name: markdownlint, tool: markdownlint-cli2}
   # Fixtures first, as above.
   - {name: editor-markdownlint-test, python: scripts/test_editor_markdownlint.py}
