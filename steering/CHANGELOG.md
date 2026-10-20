@@ -239,7 +239,7 @@ Design rationale for each line lives in the matching ADR — listed in the regis
   The code stays in `scripts/`, `schema/` and `docsys.yaml`; the account is shelved in `codifying/`.
   The boundary with `operationalizing` is by subject: a coordinate of the corpus is operationalizing, a mechanism that checks, generates or runs is codifying.
   ADR-033's count is refined, not superseded.
-- **Added:** the [`codifying/`](../codifying/README.md) shelf — an orient and three fiches for the maintainer: [the gate](../codifying/gate.md), [the schema pipeline](../codifying/schema-pipeline.md) and [referential integrity](../codifying/referential-integrity.md).
+- **Added:** the [`codifying/`](../codifying/README.md) shelf — an orient and three fiches for the maintainer: [the gate](../codifying/gate.md), [the schema pipeline](../codifying/schema-pipeline.md) and [referential integrity](https://github.com/Skl8em/docsys/blob/main/docs/referential-integrity.md).
   Each states what it does not establish; none has been read cold by anyone but its author.
 - **Ruled:** [the community map](../phases/refoundation/phase-12-codifying/community-map.md) — gate-runner, maintainer and machine, with the adopter named and cut until a second consumer exists.
   `maintainer` is `contributor`, refined, for a distance judged in the tooling field; it stays the linter's warning rather than a schema enum.
