@@ -59,7 +59,7 @@ For a project that uses the engine, [`docsys`](https://github.com/Skl8em/docsys)
 How a check extracted into `docsys` works inside is explained with it, in its `docs/` folder, for the engine's maintainer:
 
 - [`referential-integrity`](https://github.com/Skl8em/docsys/blob/main/docs/referential-integrity.md) — why a dangling `supersedes` is an error, why supersession must be symmetric, and what the ULID check does not establish.
+- [`paired-change`](https://github.com/Skl8em/docsys/blob/main/docs/paired-change.md) — why the unit is the commit, what needs no account, where the rule fails rather than warns, and what it does not establish.
 
-Still to write, in `docsys`'s `docs/`: the frontmatter check's derivation of `register` and its closed vocabulary; the YAML reader and its two departures from `safe_load`; the fixity check; and the link check's scope.
-Still to write here, for the tools `scripts/` keeps: the identifier tools and the safe-rename core (`migrate_ids.py`, `rename_doc.py`), the seal writer (`hash_seal.py`), and the sentence-per-line markdownlint rule.
+Still to write, in `docsys`'s `docs/`: the frontmatter check's derivation of `register` and its closed vocabulary; the YAML reader and its two departures from `safe_load`; the fixity check; the link check's scope; the sentence-per-line markdownlint rule; and the author tools of `scripts/` — the identifier tools and the safe-rename core (`migrate_ids.py`, `rename_doc.py`, `slugify_names.py`), the seal writer (`hash_seal.py`) — each with its port to the engine.
 The environment the gate runs in is an `instruct` document, [`steering/environment.md`](../steering/environment.md), not a fiche.
