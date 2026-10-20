@@ -66,7 +66,7 @@ Read [`../codifying/`](../codifying/README.md) to learn how it is built and why;
   This was an execution step in Phase 11, not a decision of its own; [the referential-integrity fiche](https://github.com/Skl8em/docsys/blob/main/docs/referential-integrity.md) explains the check and what it still lets through.
 - **Unstarted work is never referred to by number** ([ADR-038](../phases/refoundation/phase-11-tooling-hardening/unstarted-work-unnumbered.md)), so an inserted phase moves nothing that has not begun.
 - **The tooling does not change unexplained** ([ADR-039](../phases/refoundation/phase-12-codifying/paired-change-rule.md)): a commit that touches `scripts/`, `schema/` or `docsys.yaml` must also touch a file that explains them, or the gate fails where work lands (`main`, `develop`, a pull request) and warns elsewhere ([ADR-040](../phases/refoundation/phase-12-codifying/paired-change-where-it-fails.md)); tests and comment-only edits need none.
-  It exists because two phases in a row changed the mechanism and left the product describing the old one; see [`../codifying/gate.md`](../codifying/gate.md) for what it does and does not establish.
+  It exists because two phases in a row changed the mechanism and left the product describing the old one; [the paired-change fiche](https://github.com/Skl8em/docsys/blob/main/docs/paired-change.md) explains what it does and does not establish, and [`../codifying/gate.md`](../codifying/gate.md) how this repository configures it.
 
 ## Provenance map (how this repo is owned)
 
