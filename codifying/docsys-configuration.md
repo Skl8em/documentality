@@ -38,6 +38,7 @@ A refusal makes `docsys` exit `2`, with a message that starts `docsys.yaml:`, na
 | `register` | no | the register checks do not run |
 | `paired_change` | no | the paired-change rule does not run |
 | `phases` | no | the phase checks do not run |
+| `rules` | no | every rule has the severity the methodology gives it |
 
 ### `version`
 
@@ -131,6 +132,28 @@ Where the phase ledger is, and how to read every other place that names the curr
 | `tables` | at least one `{path, row}`: a file listing the phases, and a regular expression over its phase rows with the named groups `number` and `marker` |
 | `status` | `{path, line}`: the file holding the status line, and a regular expression that finds it with the named group `number` |
 | `mention` | a regular expression for a phase named in prose, with the named group `number` |
+
+### `rules`
+
+How serious each rule is in this project.
+Every rule is named `<check>/<rule>`, such as `links/resolve`, and has a default severity set by the methodology.
+A rule the methodology states as a heuristic defaults to `warning`, and one that is not yet wanted by default, such as `hashes/unsealed`, to `off`.
+
+| Severity | The run |
+| --- | --- |
+| `error` | fails, exit code `1` |
+| `warning` | reports the finding and does not fail |
+| `off` | does not report the finding |
+
+The section is a mapping from a rule to its severity, listing only the rules whose severity the project changes:
+
+```yaml
+rules:
+  hashes/unsealed: error
+  frontmatter/open: off
+```
+
+A rule that no check has is refused, with the rules that exist in the message.
 
 ## Out of scope
 
