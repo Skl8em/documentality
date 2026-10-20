@@ -43,7 +43,8 @@ Four reasons recur.
 2. **The gate's own integrity before the checks that rely on it** — the `seam` and `runner` fixtures, which fail if the config is malformed, an instance value leaks into the engine, or the runner misattributes output.
 3. **A generated input is verified before its consumers.**
    `schema-drift` runs before anything that loads `frontmatter-rules.json`.
-4. **A check's fixtures run before the corpus run they gate** — `frontmatter-parser`, `ulid-test`, `md100`.
+4. **A check's fixtures run before the corpus run they gate** — `frontmatter-parser`, `ulid-test`.
+   The sentence-per-line rule (MD100) is the exception for now: its fixtures moved with the rule into the engine, which ships it, and run in the engine's suite, not in this gate.
    A green corpus says nothing if the check has stopped detecting anything, so proof that it still detects comes first.
 
 **The order is diagnostic, not protective.**
@@ -128,7 +129,7 @@ It checks co-occurrence, and a one-word edit to a fiche passes; what it removes 
 `docsys.yaml` is in the mechanism list since Phase 12 T6: it decides what the gate runs and where the rule bites, so a change to it is a change to the tooling.
 That includes moving `since`, which accepts a commit and so needs an account like any other change.
 The phase ledger is kept out of `docsys.yaml` for this reason: it lives in `steering/phases.yaml`, `phases.ledger` points at it, and a phase transition is a ruling the roadmap explains, not a change to the tooling.
-A change confined to `tools/markdownlint/` is still invisible to the rule.
+The markdownlint rule is no longer in this repository, so a change to it is a change to the engine, paired there with its account.
 
 ## Where the project is: the ledger and the phase-state check
 

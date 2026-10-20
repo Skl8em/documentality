@@ -39,6 +39,7 @@ A refusal makes `docsys` exit `2`, with a message that starts `docsys.yaml:`, na
 | `paired_change` | no | the paired-change rule does not run |
 | `phases` | no | the phase checks do not run |
 | `rules` | no | every rule has the severity the methodology gives it |
+| `tools` | no | no external command runs |
 
 ### `version`
 
@@ -154,6 +155,26 @@ rules:
 ```
 
 A rule that no check has is refused, with the rules that exist in the message.
+
+### `tools`
+
+External commands that `docsys check` runs after its own checks, for what needs a program `docsys` does not carry, such as a Markdown linter that needs Node.
+
+| Key | Value |
+| --- | --- |
+| `name` | a hyphen-cased word, unique among the tools |
+| `command` | the program, then each argument as its own item; at least the program |
+
+```yaml
+tools:
+  - name: markdownlint
+    command: [markdownlint-cli2]
+```
+
+The tools run in order, from the workspace, and a failing tool does not stop the next.
+Each one's output is shown under its name.
+A tool that exits with a non-zero status is reported by `tools/failed`, and a program that cannot be run by `tools/missing`; both are errors, and `rules` changes that.
+The command is not read by a shell, and `docsys` does not pin the program: it runs the one the `PATH` finds.
 
 ## Out of scope
 
