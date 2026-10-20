@@ -2,7 +2,7 @@
   // Point the markdownlint extension at the same config + custom rule the CLI uses,
   // so the editor and `markdownlint-cli2` apply one ruleset.
   "markdownlint.configFile": ".markdownlint.jsonc",
-  "markdownlint.customRules": ["./tools/markdownlint/sentence-per-line.js"],
+  "markdownlint.customRules": ["./docsys/src/docsys/markdownlint/sentence-per-line.js"],
 
   // This folder's interpreter: the .venv `uv sync` builds inside the devShell, on the
   // flake's Python. Without it, the editor falls back to whatever global Python it
