@@ -16,7 +16,9 @@ shapes, each read by one matcher:
 This test reads every matcher from tasks.json and runs it over lines of each shape,
 copied from real runs: each failure line must yield its file, line, column, rule and
 message through exactly one matcher, and no other line may yield a problem, a green
-summary least of all. A matcher is known by its source, severity and kind.
+summary least of all. A matcher is known by its source, severity and kind. A path
+holds no whitespace, so a line that echoes a failure after a word, as this test's
+own output does (`ok    a.md:1: …`), is not read as one.
 
 The patterns are JavaScript regular expressions; they use only what Python's `re`
 reads the same way. tasks.json is read as strict JSON, so it carries no comments.
@@ -188,6 +190,9 @@ NOT_FAILURES: Final = [
     "ok    a stem equal to the slug passes",
     "FAIL  a stem that is not the slug: expected ['filename stem'] on a/other.md",
     "problem matcher: all 33 cases pass",
+    # This test's own output, which echoes the failure lines it reads.
+    "ok    README.md:1: frontmatter/required: missing required field `intention` — fix: add `in",
+    "FAIL  a/b.md:7:5 sentence-per-line/MD100 One sentence per line (semantic line breaks, AD: expected",
 ]
 
 

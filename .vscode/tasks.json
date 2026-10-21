@@ -14,7 +14,7 @@
           "source": "docsys",
           "severity": "error",
           "pattern": {
-            "regexp": "^([^\\s:][^:]*):(\\d+): ([a-z0-9-]+/[a-z0-9-]+): (.+)$",
+            "regexp": "^([^\\s:]+):(\\d+): ([a-z0-9-]+/[a-z0-9-]+): (.+)$",
             "file": 1,
             "line": 2,
             "code": 3,
@@ -27,7 +27,7 @@
           "source": "docsys",
           "severity": "warning",
           "pattern": {
-            "regexp": "^  ([^\\s:][^:]*):(\\d+): ([a-z0-9-]+/[a-z0-9-]+): (.+)$",
+            "regexp": "^  ([^\\s:]+):(\\d+): ([a-z0-9-]+/[a-z0-9-]+): (.+)$",
             "file": 1,
             "line": 2,
             "code": 3,
@@ -40,7 +40,7 @@
           "source": "markdownlint",
           "severity": "error",
           "pattern": {
-            "regexp": "^([^\\s:][^:]*):(\\d+)(?::(\\d+))? ([^\\s/]+(?:/[^\\s/]+)+) (.+)$",
+            "regexp": "^([^\\s:]+):(\\d+)(?::(\\d+))? ([^\\s/]+(?:/[^\\s/]+)+) (.+)$",
             "file": 1,
             "line": 2,
             "column": 3,
