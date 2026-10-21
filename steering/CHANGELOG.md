@@ -16,8 +16,11 @@ History of the documentation system itself.
 Append-only; each entry is dated-fixed.
 Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
 
-## [v4.0-alpha.46] — One vocabulary, read by the engine
+## [v4.0-alpha.46] — The gate is `docsys check`
 
+- **Changed:** the gate is `uv run --locked docsys check`, run inside the devShell by the pre-commit hook, by CI after `uv sync --locked`, and by the VS Code task; `docsys.yaml` is in the engine's shape, its scope's exclusions each with its reason, and [the gate](../codifying/gate.md) explains it.
+- **Changed:** the paired-change rule's mechanism is `docsys.yaml`, `tools/`, `.githooks/`, `.github/workflows/` and `flake.nix`, anchored at the last commit of the old gate; the submodule pointer is not mechanism, by the project owner's ruling.
+- **Moved:** this repository's own checks — the editor's markdownlint version and the problem matchers' fixtures — to `tools/`, run as `tools:` entries after `markdownlint`; the VS Code task's four problem matchers read the engine's output.
 - **Decided:** [ADR-044](../phases/rush-to-mvp/phase-14-adoption/one-vocabulary-read-directly.md), superseding [ADR-037](../phases/refoundation/phase-11-tooling-hardening/yaml-source-generated-json.md): the engine's YAML is the one frontmatter vocabulary, read directly, and `schema/` with its generated JSON retires with `scripts/`.
 - **Fixed:** the engine's `phase-state/folder` no longer takes a file directly under an era, such as the `.DS_Store` macOS leaves there, for a phase folder the ledger does not list.
 

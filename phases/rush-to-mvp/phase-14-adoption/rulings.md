@@ -78,7 +78,8 @@ The engine's test of the sentence-per-line rule reads the output of any `markdow
 
 Project owner, 2026-10-21.
 ws2 is finished before ws1's remaining defects, and continuous integration of both repositories comes first, pushed to verify it.
-The engine gets its own CI and pre-commit hook, rather than this repository's gate running its suite; this repository's own checks (the editor's markdownlint version, the VS Code task's problem matchers) run as `tools:` entries from a folder here; after the switch the paired-change rule's mechanism is `docsys.yaml`, that folder, `.githooks/`, `.github/workflows/` and `flake.nix`, the submodule pointer still to rule; the hook and CI run `uv run --locked docsys check` inside the devShell.
+The engine gets its own CI and pre-commit hook, rather than this repository's gate running its suite; this repository's own checks (the editor's markdownlint version, the VS Code task's problem matchers) run as `tools:` entries from a folder here; after the switch the paired-change rule's mechanism is `docsys.yaml`, that folder, `.githooks/`, `.github/workflows/` and `flake.nix`, and not the submodule pointer, whose engine changes are paired with their accounts in the engine's repository; the hook and CI run `uv run --locked docsys check` inside the devShell.
+The engine's check of itself by `docsys` moves to ws4, beside `weft`, and its root document's `axis` and `dominant-community` are chosen there.
 The steps are in [Closing ws2](ws2-closing.md).
 
 ## How a plan is divided
