@@ -16,6 +16,12 @@ History of the documentation system itself.
 Append-only; each entry is dated-fixed.
 Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
 
+## [v4.0-alpha.40] — What the switch to `docsys` retires
+
+- **Ruled:** before this repository's gate becomes `docsys check`, the accounts of the extracted checks move to the engine, the engine's link check allows a frozen record's link to a retired file with a reason, and the author tools of `scripts/` are ported to the engine, but for `migrate_ids.py`, which goes to its `legacy/` folder; `schema/` retires with `scripts/`, by an ADR to come that supersedes ADR-037 ([plan](../phases/rush-to-mvp/phase-14-adoption/plan.md), *Rulings*).
+- **Ruled:** every Markdown file under the workspace is a document, whatever git knows of it; an exclusion, a virtual environment's included, is written in `scope.exclude` with its reason, and the worktree check retires instead of being ported.
+- **Parked:** what a freeze may cover (only what the record owns, not what it links to), under the life cycle; a utility for renaming documents and migrating identifiers; moving markdownlint past 0.17.2 ([roadmap](roadmap.md), *Parked*).
+
 ## [v4.0-alpha.39] — The engine mirrors the phase's branches
 
 - **Changed:** the rule in [`CONTRIBUTING.md`](CONTRIBUTING.md) on the engine's repository: work that changes both repositories runs on the same phase, workstream and item branches in each, merged with `--no-ff` at the same level and at the same time, each merge here followed by a pointer at its counterpart there; work on the engine alone needs no mirror.
