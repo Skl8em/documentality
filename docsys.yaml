@@ -21,6 +21,27 @@ scope:
     .venv/: the virtual environment uv builds, with its packages' files
     .direnv/: direnv's cache of the devShell
 
+# The dead links the link check accepts: links from frozen records, which cannot be
+# edited, to what has since been retired. `links/allowance` reports an allowance
+# whose link resolves again or is gone, so the list cannot outlive its reasons.
+links:
+  allow:
+    - document: phases/refoundation/phase-09-tooling/plan.md
+      target: ../../../scripts/linkcheck.py
+      reason: scripts/ retired when the gate became docsys check (ADR-044); the record is frozen
+    - document: phases/refoundation/phase-11-tooling-hardening/plan.md
+      target: ../../../scripts/frontmatter_lint.py
+      reason: scripts/ retired when the gate became docsys check (ADR-044); the record is frozen
+    - document: phases/refoundation/phase-12-codifying/engine-config-seam.md
+      target: ../../../schema/frontmatter-rules.yaml
+      reason: schema/ retired with scripts/, the engine's vocabulary being the one copy (ADR-044); the record is frozen
+    - document: phases/refoundation/phase-12-codifying/engine-config-seam.md
+      target: ../../../scripts/docsys_config.py
+      reason: scripts/ retired when the gate became docsys check (ADR-044); the record is frozen
+    - document: phases/refoundation/phase-11-tooling-hardening/yaml-source-generated-json.md
+      target: ../../../codifying/schema-pipeline.md
+      reason: the fiche on the schema pipeline retired with the pipeline (ADR-044); the record is frozen
+
 # The central decision register, cross-checked against each record's own
 # `superseded-by`. A decision row is a table row with `columns` cells; the
 # `ordinal_column` cell matches `ordinal_pattern` (group 1: the ordinal, group 2:

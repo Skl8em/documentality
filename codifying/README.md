@@ -11,7 +11,7 @@ reader: H+M
 status: draft
 ---
 
-This shelf holds the **account of the tooling**: the scripts, the schema pipeline and the gate that make the theory's coordinates checkable, and the reasons each is built the way it is.
+This shelf holds the **account of the tooling**: the engine this repository runs, its configuration here and the gate that make the theory's coordinates checkable, and the reasons each is built the way it is.
 It is the last link of the chain [ADR-033](../phases/refoundation/phase-10-schema/operationalizing-function.md) drew, named and shelved by [ADR-035](../phases/refoundation/phase-12-codifying/codifying-function.md):
 
 `theorising → operationalizing → structuring / writing → designing → codifying`
@@ -19,7 +19,7 @@ It is the last link of the chain [ADR-033](../phases/refoundation/phase-10-schem
 `operationalizing` says *what a coordinate is and why we reified it*.
 `codifying` says *how a rule about it is enforced, and why the enforcement is built so*.
 The test for filing a document is its subject: a coordinate or convention of the corpus goes to `operationalizing`; a mechanism that checks, generates or runs goes here.
-It holds the account, not the code — `scripts/`, `schema/` and `docsys.yaml` stay where they are and belong to this function.
+It holds the account, not the code — `docsys.yaml` and `tools/` stay where they are and belong to this function, and the engine's code is in its own repository, mounted here at `docsys/`.
 
 ## Who this is for, and who it is not
 
@@ -43,26 +43,29 @@ The tooling separates by rate of change ([`engine-config-seam.md`](../phases/ref
 
 | Home | What lives there | Read |
 | --- | --- | --- |
-| **engine** — `scripts/`, and in [`docsys`](https://github.com/Skl8em/docsys) the markdownlint rule `src/docsys/markdownlint/` | behaviour any project using this system would run unchanged | the fiches below |
-| **methodology** — `schema/frontmatter-rules.yaml` | the frontmatter vocabulary, its enums, each optional field's reason | [the schema pipeline](schema-pipeline.md) |
-| **instance** — `docsys.yaml` | where this repo keeps its schema, what is out of scope, its register's shape, where its phase ledger is, which checks make its gate and in what order | [the gate](gate.md) |
+| **engine** — [`docsys`](https://github.com/Skl8em/docsys), mounted at `docsys/` | the checks, the commands and the markdownlint rule: behaviour any project using this system runs unchanged | the engine's fiches below |
+| **methodology** — the engine's `src/docsys/schema/frontmatter-rules.yaml` | the frontmatter vocabulary, its enums, each optional field's reason | [the vocabulary fiche](https://github.com/Skl8em/docsys/blob/main/docs/vocabulary.md) |
+| **instance** — `docsys.yaml`, and `tools/` | what is out of scope, its register's shape, where its phase ledger is, where the paired-change rule bites, which tools run after the checks; this repository's own checks | [the gate](gate.md) |
 
 ## The fiches
 
-- [`gate`](gate.md) — why every check is one property, what the order of the checks means, and what a green gate does not say.
-- [`schema-pipeline`](schema-pipeline.md) — why the schema is authored in YAML and compiled to JSON, and how the two are kept from drifting.
+- [`gate`](gate.md) — why every check is one property, what this repository configures and runs, and what a green gate does not say.
 
 For a project that uses the engine, [`docsys`](https://github.com/Skl8em/docsys):
 
 - [`docsys-configuration`](docsys-configuration.md) — every key of `docsys.yaml`, what it means, and when a value is refused.
 - [`docsys-commands`](docsys-commands.md) — every command of `docsys`: `check`, `report`, and the four that write for the author (`id`, `seal`, `rename`, `slugify`), with their options and exit codes.
 
-How a check extracted into `docsys` works inside is explained with it, in its `docs/` folder, for the engine's maintainer:
+How the engine works inside is explained with it, in its `docs/` folder, for the engine's maintainer:
+
+- [`runner`](https://github.com/Skl8em/docsys/blob/main/docs/runner.md) — why every check runs, what makes a run fail, how the tools run, and how a rule's severity is set.
+- [`links`](https://github.com/Skl8em/docsys/blob/main/docs/links.md) — what the link check resolves, and why a dead link is allowed only with its reason.
 
 - [`referential-integrity`](https://github.com/Skl8em/docsys/blob/main/docs/referential-integrity.md) — why a dangling `supersedes` is an error, why supersession must be symmetric, and what the ULID check does not establish.
 - [`paired-change`](https://github.com/Skl8em/docsys/blob/main/docs/paired-change.md) — why the unit is the commit, what needs no account, where the rule fails rather than warns, and what it does not establish.
 - [`phase-state`](https://github.com/Skl8em/docsys/blob/main/docs/phase-state.md) — why the current phase is declared once in a ledger, what the ledger and phase-state checks verify against it, and what they do not establish.
 - [`vocabulary`](https://github.com/Skl8em/docsys/blob/main/docs/vocabulary.md) — why the vocabulary is YAML with a reason per field, why it is never loaded through a bare `safe_load`, what the frontmatter check knows beyond it, and which statuses close a record.
+- [`author-tools`](https://github.com/Skl8em/docsys/blob/main/docs/author-tools.md) — why the author's commands write what the checks verify, and where each refuses.
 
-Still to write, in `docsys`'s `docs/`: the fixity check; the link check's scope; the sentence-per-line markdownlint rule; and the author tools of `scripts/` — the identifier tools and the safe-rename core (`migrate_ids.py`, `rename_doc.py`, `slugify_names.py`), the seal writer (`hash_seal.py`) — each with its port to the engine.
+Still to write, in `docsys`'s `docs/`: the fixity check, and the sentence-per-line markdownlint rule.
 The environment the gate runs in is an `instruct` document, [`steering/environment.md`](../steering/environment.md), not a fiche.

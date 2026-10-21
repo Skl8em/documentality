@@ -35,12 +35,15 @@ If you use **direnv** (with `nix-direnv`), the committed [`../.envrc`](../.envrc
 ## Run the checks
 
 ```sh
-python3 scripts/check.py     # the full gate: markdownlint + frontmatter + ULID + links
+git submodule update --init      # once: the engine, docsys/
+uv sync --locked                 # once, and whenever uv.lock changes: docsys, installed from docsys/
+uv run --locked docsys check     # the gate: the engine's checks, then markdownlint and this repository's own
 ```
 
-Our own validators under [`../scripts/`](../scripts/) are Python, and every one that reads frontmatter parses it as real YAML with `pyyaml`, pinned in the shell next to its interpreter.
-`markdownlint-cli2` needs the shell too (it is a Node binary), because its version is part of the contract with our custom rules.
-`check.py` never runs from a stray global copy: started outside the shell, it re-runs itself under `nix develop`, and without nix it fails rather than run on other versions.
+`docsys` is this repository's development dependency, installed editable from the submodule; `uv.lock` pins it with its Python packages, `pyyaml` among them.
+`markdownlint-cli2` needs the shell too (it is a Node binary), because its version is part of the contract with the custom rule the engine ships.
+The gate never runs from a stray global copy: the hook and the editor's task enter the shell themselves when started outside it, and `--locked` refuses a lockfile that no longer matches `pyproject.toml`.
+[The gate](../codifying/gate.md) explains what it checks and in what order.
 
 In VS Code, the task `docs: run the gate` (*Terminal › Run Task*) runs the same command and puts each failure in the Problems pane, on the file and line it names.
 
@@ -52,7 +55,7 @@ To run the gate automatically before each commit, point git at the committed hoo
 git config core.hooksPath .githooks
 ```
 
-The [`../.githooks/pre-commit`](../.githooks/pre-commit) hook then runs `scripts/check.py` and blocks a commit that fails the gate.
+The [`../.githooks/pre-commit`](../.githooks/pre-commit) hook then runs `docsys check` and blocks a commit that fails the gate.
 
 ## Work on the engine, `docsys/`
 

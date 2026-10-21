@@ -40,7 +40,7 @@ Every commit passes the gate in force at that commit: the pre-commit hook is rea
 
 ### `switch-adr`
 
-1. Write ADR-044, superseding ADR-037: the engine's YAML is the one vocabulary, read directly; `schema/` and its generated JSON retire with `scripts/`; its case against the JSON is ADR-037's own sceptical reading in [`schema-pipeline.md`](../../../codifying/schema-pipeline.md) (a reader kept in reserve that never appeared).
+1. Write ADR-044, superseding ADR-037: the engine's YAML is the one vocabulary, read directly; `schema/` and its generated JSON retire with `scripts/`; its case against the JSON is ADR-037's own sceptical reading in [`schema-pipeline.md`](https://github.com/Skl8em/documentality/blob/09f7ebdfc1658d560469177c214cea858920171d/codifying/schema-pipeline.md) (a reader kept in reserve that never appeared).
 2. Set ADR-037's `superseded-by`, and reseal it with `docsys seal --reseal`.
 3. Add the row to [`ADR.md`](../../../steering/ADR.md) and a changelog line.
 
