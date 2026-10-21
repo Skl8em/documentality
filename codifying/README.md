@@ -55,6 +55,7 @@ The tooling separates by rate of change ([`engine-config-seam.md`](../phases/ref
 For a project that uses the engine, [`docsys`](https://github.com/Skl8em/docsys):
 
 - [`docsys-configuration`](docsys-configuration.md) — every key of `docsys.yaml`, what it means, and when a value is refused.
+- [`docsys-commands`](docsys-commands.md) — every command of `docsys`: `check`, `report`, and the four that write for the author (`id`, `seal`, `rename`, `slugify`), with their options and exit codes.
 
 How a check extracted into `docsys` works inside is explained with it, in its `docs/` folder, for the engine's maintainer:
 
