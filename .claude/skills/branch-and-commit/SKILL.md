@@ -10,7 +10,7 @@ This skill is the procedure.
 
 1. Check which branch you are on and that the tree is clean: `git status`.
    Uncommitted work that belongs to an earlier item is committed there first, never carried into the new branch.
-2. Cut the item branch from its workstream branch: `git switch -c <workstream id>-<item>` (e.g. `t2-port-slug-check` from `t2-port-other-checks-one-at-a-time`).
+2. Cut the item branch from its workstream branch: `git switch -c <workstream id>-<item>` (for the `ph14` workstreams, `feature/ph14-t2-ws1-tsk1-ci-engine-shell` from `feature/ph14-t2-ws1-ci`; earlier items: `t2-port-slug-check` from `t2-port-other-checks-one-at-a-time`).
 3. If the item touches `docsys/` (the engine), cut the same branch name there, from the counterpart of the branch you cut from here: `git -C docsys switch -c <same name> <workstream>`.
    If the engine has no workstream or phase branch of that name yet, cut it first, the same way one level up; the engine's phase branch is cut from its `main`.
    Then `git -C docsys branch --list` and `git branch --list` should name the same branches for this work.
@@ -38,7 +38,7 @@ Make only the steps that are meaningful, in this order, one commit each, only th
 
 1. Run the full suite of each repository touched, and the gate in this one.
 2. **Present the item** to the project owner: the commits by step, what was run and what it showed, the assumptions taken, what to check. Then stop: do not merge.
-3. On acceptance only: in the engine first (`git -C docsys switch <workstream> && git -C docsys merge --no-ff <item>`), then in this repository merge the item branch with `--no-ff`, and commit the submodule pointer at the engine's merge commit on the workstream branch.
+3. On acceptance only (given in advance when the project owner asked for the whole workstream; the presentation is then the workstream's): in the engine first (`git -C docsys switch <workstream> && git -C docsys merge --no-ff <item>`), then in this repository merge the item branch with `--no-ff`, and commit the submodule pointer at the engine's merge commit on the workstream branch.
 4. Keep the item branch until told otherwise; push nothing without the project owner's word.
 5. Start the next item (back to *Starting an item*).
 
