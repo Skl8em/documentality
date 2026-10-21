@@ -52,6 +52,10 @@ It takes a place, and later a number, only by a ruling.
 - **A human cold reader** of the product and of the `codifying/` fiches.
   The rush to MVP tests an agent as a cold reader on `weft`; a human stranger has still read nothing.
 - **Re-running the structuring front-end for the agent community**, if the `weft` pilot shows the current audiences and functions do not fit it.
+- **Explaining a rule from the installed package — first once the MVP closes** (project owner, 2026-10-21).
+  `docsys explain <rule>` prints what a rule checks, why, and how to clear its finding, from text the package ships, built from the rule statements in the engine's `conformance/`: it works offline and matches the installed version, which a link to the engine's repository does not, and nothing is copied into the adopter's repository to drift.
+  The MVP's adopters already know the system, so it can wait; the first adopter that does not will need it.
+  The fiches in the engine's `docs/` stay in its repository: they are written for its maintainer.
 - **A utility for renaming documents and migrating identifiers** — renaming a document while rewriting every link to it, and giving a corpus its identifiers in bulk, are needs most documentation projects meet; `migrate_ids.py`, kept in the engine's `legacy/` folder, is the lead.
 - **Moving markdownlint past 0.17.2**, the version nixos-25.05 pins: the gate and the editor's extension must run one version, and today no release of the extension bundles the version a newer nixpkgs pins (nixos-25.11: 0.18.1; the extension's 0.62.1 bundles 0.23.2).
   Staying breaks nothing: the sentence-per-line rule reports the same findings under 0.21.0.

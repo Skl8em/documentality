@@ -110,3 +110,4 @@ The blocking rule of the [Phase 12 plan](../../refoundation/phase-12-codifying/p
 - **Generated reading surfaces**, an MCP server, integrations with issue trackers.
 - **New gate checks on this repository's own state** ([ADR-042](../phase-13-design/rush-to-mvp.md), point 5).
 - **Evaluating `ty`** as the engine's type checker: later, at the project owner's call.
+- **Explaining a rule from the installed package** (`docsys explain <rule>`): the first work once the MVP closes ([roadmap](../../../steering/roadmap.md), *Parked*); this phase's adopters know the system.
