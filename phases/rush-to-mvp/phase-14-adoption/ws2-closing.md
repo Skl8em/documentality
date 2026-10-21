@@ -1,5 +1,5 @@
 ---
-title: "Closing T2 — from continuous integration to the switch"
+title: "Closing ws2 — from continuous integration to the switch"
 force: instruct
 intention: state
 view: synchronic
@@ -11,13 +11,13 @@ reader: H+M
 status: draft
 ---
 
-This walks T2, a workstream of Phase 14, to its close: both repositories verified by continuous integration, every Markdown file a document, the link check's allowance, the author tools in the engine, and this repository's gate switched to `docsys check` with `scripts/` and `schema/` retired.
-The rulings it carries out are in the [plan](plan.md), *Rulings*; T1's remaining defects come after it.
+This walks ws2, a workstream of Phase 14, to its close: both repositories verified by continuous integration, every Markdown file a document, the link check's allowance, the author tools in the engine, and this repository's gate switched to `docsys check` with `scripts/` and `schema/` retired.
+The rulings it carries out are in the [plan](plan.md), *Rulings*; ws1's remaining defects come after it.
 
 ## Before you start
 
 - Run every command inside the devShell (`nix develop`, or the shell direnv enters); `uv` locks only there.
-- Branch, commit and merge by [`CONTRIBUTING.md`](../../../steering/CONTRIBUTING.md) and the skill `branch-and-commit`: each track below is a branch cut from `feature/phase-14-adoption`, each task (1.1, 1.2…) a branch cut from its track, carried out in one session and committed in steps, mirrored in `docsys/` when the task changes the engine.
+- Branch, commit and merge by [`CONTRIBUTING.md`](../../../steering/CONTRIBUTING.md) and the skill `branch-and-commit`: each track below is a branch cut from `ph14-adoption`, each task (1.1, 1.2…) a branch cut from its track, carried out in one session and committed in steps, mirrored in `docsys/` when the task changes the engine.
   A track or a task is numbered when its branch is cut, with the next number at its level; until then this page names it by its slug (`documents`, `switch-gate`).
   A track with no tasks listed is carried out as a single task of the same slug, on a task branch of its own like any other.
 - Present each task to the project owner before merging it.
@@ -28,42 +28,42 @@ The rulings it carries out are in the [plan](plan.md), *Rulings*; T1's remaining
 
 | Track | Repositories | Done when |
 | --- | --- | --- |
-| `feature/ph14-t2-ws1-ci` | both | both repositories' CI is green on the pushed phase branches |
+| `ph14-ws2-tr1-ci` | both | both repositories' CI is green on the pushed phase branches |
 | `documents` | engine; the configuration reference here | every `.md` under the workspace is a document unless an exclusion names it |
 | `link-allowance` | engine; the configuration reference here | a dead link can be allowed, with its reason, and a stale allowance is reported |
 | `author-tools` | engine; a commands reference here | `docsys` mints identifiers, seals, renames and slugifies; `migrate_ids.py` is in the engine's `legacy/` |
 | `switch` | both | this repository's gate is `docsys check`, and `scripts/` and `schema/` are gone |
-| close | both | the plan says T2 is done, and both phase branches are pushed and green |
+| close | both | the plan says ws2 is done, and both phase branches are pushed and green |
 
 CI comes first because every later step is verified by it, and neither repository has a working one: this repository's has failed since 2026-10-10 on a fixture that assumes git's default branch is `main`, and the engine has none.
 The allowance and the author tools come before the switch because the switch deletes `scripts/`: frozen records' links into it need their allowance first, and the switch reseals ADR-037 with `docsys seal`.
 
-## Continuous integration, then push (`feature/ph14-t2-ws1-ci`)
+## Continuous integration, then push (`ph14-ws2-tr1-ci`)
 
-### `feature/ph14-t2-ws1-tsk1-ci-engine-shell` (engine)
+### `ph14-ws2-tr1-ts1-ci-engine-shell` (engine)
 
 1. Add `flake.nix` and `flake.lock` to the engine, pinning the nixpkgs this repository's flake pins (`nixos-25.05`): Python 3, `uv`, `nodejs`, `markdownlint-cli2` and `git`, with `UV_PYTHON` set to the flake's interpreter and `UV_PYTHON_DOWNLOADS=never`, as here.
    The engine is its own project and pins its own development tools; an adopter installs the package and needs none of them.
 2. Add `.envrc` (`use flake`) and `.githooks/pre-commit`, which runs `uv run --locked pytest`, entering `nix develop` first when `DOCSYS_DEVSHELL` is unset.
 3. Check: `nix develop --command uv run --locked pytest` passes, and `reuse lint` covers the new files.
 
-### `feature/ph14-t2-ws1-tsk2-ci-engine-workflow` (engine)
+### `ph14-ws2-tr1-ts2-ci-engine-workflow` (engine)
 
 1. Add `.github/workflows/checks.yml`, run on push and on pull request: `actions/checkout` and `DeterminateSystems/nix-installer-action` pinned to released tags (`v7.0.1` and `v23` are the latest on 2026-10-21; check with `gh api repos/<owner>/<action>/releases/latest`), then `nix develop --command uv sync --locked` and `nix develop --command uv run --locked pytest`.
 2. Check: `reuse lint` passes.
 
-### `feature/ph14-t2-ws1-tsk3-ci-documentality` (this repository)
+### `ph14-ws2-tr1-ts3-ci-documentality` (this repository)
 
 1. Make `scripts/test_paired_change.py` create each throwaway repository with `git init -q -b main`, so the fixtures stop depending on the machine's `init.defaultBranch`.
    Run it red first: with `GIT_CONFIG_GLOBAL` pointing at a file that sets `init.defaultBranch = master`, it fails as CI does.
    It is a test file, so the paired-change rule asks for no account.
-2. In `.github/workflows/checks.yml`, check the submodule out (`submodules: true`) and pin both actions to the engine's tags; pinning the Nix installer fixes T1's defect (vi) on the way.
+2. In `.github/workflows/checks.yml`, check the submodule out (`submodules: true`) and pin both actions to the engine's tags; pinning the Nix installer fixes ws1's defect (vi) on the way.
 3. Check: the gate passes.
 
 ### Push and verify (both)
 
-1. Merge the tasks into `feature/ph14-t2-ws1-ci`, then the track into `feature/phase-14-adoption`, the engine first and the pointer after.
-2. Push the engine's `feature/phase-14-adoption` first, then this repository's: CI here checks the submodule out at the commit the pointer names, which must already be on the engine's remote.
+1. Merge the tasks into `ph14-ws2-tr1-ci`, then the track into `ph14-adoption`, the engine first and the pointer after.
+2. Push the engine's `ph14-adoption` first, then this repository's: CI here checks the submodule out at the commit the pointer names, which must already be on the engine's remote.
 3. Check: `gh run list -R Skl8em/docsys` and `gh run list` show a green run on each pushed commit.
    On a red run, read `gh run view <id> --log-failed`, fix it in a new task, and push again.
 
@@ -170,12 +170,12 @@ The recommendation is to leave it out; the project owner rules.
 2. Its root document, the README, then needs `axis` and `dominant-community`: the project owner chooses them.
 3. Run `docsys check` in the engine's hook and CI.
 
-This closes open point 6 of the plan; if the project owner prefers, it moves to T4, beside `weft`.
+This closes open point 6 of the plan; if the project owner prefers, it moves to ws4, beside `weft`.
 
-## Close T2
+## Close ws2
 
-1. Bring the plan's T2 progress to *done*, and add the changelog entry.
-2. Merge any track still open into `feature/phase-14-adoption`, the engine first.
+1. Bring the plan's ws2 progress to *done*, and add the changelog entry.
+2. Merge any track still open into `ph14-adoption`, the engine first.
 3. Push both phase branches with the project owner's word, and check both CI runs are green.
 
 ## When something fails
