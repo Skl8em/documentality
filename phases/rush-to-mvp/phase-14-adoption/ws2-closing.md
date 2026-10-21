@@ -12,7 +12,7 @@ status: draft
 ---
 
 This walks ws2, a workstream of Phase 14, to its close: both repositories verified by continuous integration, every Markdown file a document, the link check's allowance, the author tools in the engine, and this repository's gate switched to `docsys check` with `scripts/` and `schema/` retired.
-The rulings it carries out are in the [plan](plan.md), *Rulings*; ws1's remaining defects come after it.
+The rulings it carries out are in [Rulings](rulings.md); ws1's remaining defects come after it.
 
 ## Before you start
 
@@ -170,11 +170,11 @@ The recommendation is to leave it out; the project owner rules.
 2. Its root document, the README, then needs `axis` and `dominant-community`: the project owner chooses them.
 3. Run `docsys check` in the engine's hook and CI.
 
-This closes open point 6 of the plan; if the project owner prefers, it moves to ws4, beside `weft`.
+This closes [open point 6](open-points.md); if the project owner prefers, it moves to ws4, beside `weft`.
 
 ## Close ws2
 
-1. Bring the plan's ws2 progress to *done*, and add the changelog entry.
+1. Bring ws2 to *done* in the plan and in [Workstreams](workstreams.md), and add the changelog entry.
 2. Merge any track still open into `ph14-adoption`, the engine first.
 3. Push both phase branches with the project owner's word, and check both CI runs are green.
 
