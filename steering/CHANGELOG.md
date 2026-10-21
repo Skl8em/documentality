@@ -16,6 +16,13 @@ History of the documentation system itself.
 Append-only; each entry is dated-fixed.
 Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
 
+## [v4.0-alpha.42] — Short names for the levels of a plan
+
+- **Changed:** branches and commit subjects name the levels of a plan `ph`, `ws`, `tr`, `ts` and `sp`, with no `feature/` prefix ([`CONTRIBUTING.md`](CONTRIBUTING.md)): the phase branch is `ph14-adoption` in both repositories, the track that set up continuous integration `ph14-ws2-tr1-ci`, its tasks `ph14-ws2-tr1-ts1-ci-engine-shell`, `-ts2-ci-engine-workflow` and `-ts3-ci-documentality`; a subject starts with its branch's name less `ph<NN>-`, or with `ph<NN>:` on the phase branch.
+  Older branches keep the names they were merged under.
+  The skill `branch-and-commit` follows it.
+- **Changed:** Phase 14's workstreams are labelled ws1 to ws5 in the [plan](../phases/rush-to-mvp/phase-14-adoption/plan.md), and the closing plan of ws2 is [`ws2-closing.md`](../phases/rush-to-mvp/phase-14-adoption/ws2-closing.md); the entries below keep the labels they were written with.
+
 ## [v4.0-alpha.41] — A plan divides into workstreams, tracks, tasks and steps
 
 - **Ruled:** a phase's plan divides into workstreams, which may run side by side and have no branch; tracks, each a branch merged into the phase branch; tasks, each sized for one agent session, each a branch merged into its track's; and steps, each one commit; work at every level is numbered when it starts, never before, as ADR-038 says of phases; Phase 14 applies it as far as its plan allows, and every plan after Phase 14 is divided by it ([plan](../phases/rush-to-mvp/phase-14-adoption/plan.md), *Rulings*).
