@@ -69,6 +69,8 @@ The author tools of `scripts/` (`hash_seal.py`, `rename_doc.py`, `slugify_names.
 
 Project owner, 2026-10-21.
 A document is a `.md` file anywhere under the workspace but inside `.git`; `.gitignore` is not consulted, so a virtual environment, a dependency folder or a submodule leaves the scope only through `scope.exclude`, with its reason, like any other exclusion.
+A submodule's files are documents too, on purpose: the engine, mounted here as `docsys/`, falls under this repository's rules.
+After the MVP a submodule is to be excluded by default and opted in explicitly ([roadmap](../../../steering/roadmap.md), *Parked*).
 The worktree check of `scripts/` is retired with it, not ported: it existed because `scripts/` read only tracked files.
 The engine's test of the sentence-per-line rule reads the output of any `markdownlint-cli2` version; moving the pinned version past 0.17.2 is parked until after the MVP, since staying breaks nothing.
 

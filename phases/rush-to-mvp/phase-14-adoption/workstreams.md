@@ -62,7 +62,8 @@ The steps still to take are walked in [Closing ws2](ws2-closing.md).
   The workspace is the nearest directory holding `docsys.yaml`, or `--workspace`; exit codes are 0, 1 and 2.
   The configuration loader reads the format version, the scope, the root document and the optional `register`, `paired_change` and `phases` sections, listed key by key in [`codifying/docsys-configuration.md`](../../../codifying/docsys-configuration.md).
 - **Documents.**
-  The documents are the Markdown files git tracks or would track once added, never one it ignores, never one in a submodule, filtered by the scope.
+  The documents are the Markdown files anywhere under the workspace but inside `.git`, filtered by the scope; git's index and `.gitignore` are not consulted, and the walk follows no symlink and skips a folder the scope leaves out wholly.
+  A workspace need not be a git repository.
 - **Checks.**
   Every check of `scripts/` that belongs to the engine is extracted, and each is stated case by case in `docsys/conformance/<check>.yaml`, which the package's tests run:
 
@@ -81,7 +82,7 @@ The steps still to take are walked in [Closing ws2](ws2-closing.md).
   `docsys check` runs, in a fixed order, the checks the configuration turns on, gives each finding the severity its rule has (the methodology's default, or the one `rules:` in `docsys.yaml` sets: `error`, `warning` or `off`), prints what is not off and exits 0, 1 or 2.
   A finding is a path, a line, a rule identifier and a message ending in a `fix:` clause.
 - **Report.**
-  `docsys report` lists the documents the scope leaves out, each with its reason, and counts them.
+  `docsys report` lists each exclusion with its reason and the number of documents it leaves out, and counts the documents in scope; `--documents` lists the excluded documents.
 - **Vocabulary.**
   The engine ships the frontmatter vocabulary as `src/docsys/schema/frontmatter-rules.yaml` and reads it itself, without the generated JSON; the schema exists twice until the gate switches, and a test of the engine compares them.
   The engine classifies every status word as frozen or open, and its suite fails when the classification and the vocabulary disagree.
