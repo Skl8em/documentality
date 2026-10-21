@@ -64,7 +64,7 @@ Because the gate reads the disk and not git's index, an untracked file is checke
 
 ## The environment it enters
 
-The devShell pins the interpreter, `uv`, Node and `markdownlint-cli2` through `flake.lock`; `uv.lock` pins `docsys`, installed editable from the submodule, and its Python dependencies, and `--locked` refuses to run on a lockfile that no longer matches `pyproject.toml`.
+The devShell pins the interpreter, `uv`, Node, `markdownlint-cli2` and the `git` through which the paired-change rule reads the history, through `flake.lock`; `uv.lock` pins `docsys`, installed editable from the submodule, and its Python dependencies, and `--locked` refuses to run on a lockfile that no longer matches `pyproject.toml`.
 CI enters the devShell, runs `uv sync --locked`, then the gate.
 `docsys` does not pin the tools it runs: it runs what the `PATH` finds, and inside the devShell under `uv run`, `markdownlint-cli2` is the flake's and `python3` the virtual environment's.
 The pinned versions are part of the contract: markdownlint's version is part of the contract with the custom rule it loads, and a YAML parser from another environment could read a frontmatter differently.

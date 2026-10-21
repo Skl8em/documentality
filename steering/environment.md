@@ -18,7 +18,7 @@ Follow this to get the environment; the reasoning is in the Phase-09 [`plan.md`]
 ## Prerequisites
 
 - **Nix** with flakes enabled (`experimental-features = nix-command flakes`).
-- Nothing else: the shell provides `markdownlint-cli2`, `nodejs`, `python3` with `pyyaml`, and `uv`.
+- Nothing else: the shell provides `markdownlint-cli2`, `nodejs`, `python3`, `git` and `uv`; `uv` installs the Python packages, `docsys` among them, from `uv.lock`.
   Run everything below inside it; a tool of the same name installed elsewhere on the machine is not the pinned one.
 
 ## Enter the shell

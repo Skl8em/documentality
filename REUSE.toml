@@ -12,11 +12,10 @@ precedence = "override"
 SPDX-FileCopyrightText = "2026 Benjamin Claverie"
 SPDX-License-Identifier = "CC-BY-SA-4.0"
 
-# Code — the validators, the gate, the custom lint rule, the build and CI
-# wiring: GPL-3.0-or-later.
+# Code — this repository's own checks, the hook, the build and CI wiring:
+# GPL-3.0-or-later.
 [[annotations]]
 path = [
-  "scripts/**",
   "tools/**",
   ".githooks/**",
   ".github/**",
@@ -32,14 +31,13 @@ precedence = "override"
 SPDX-FileCopyrightText = "2026 Benjamin Claverie"
 SPDX-License-Identifier = "GPL-3.0-or-later"
 
-# What an adopter copies into its own repository — the templates, the schema,
-# the configuration files a new instance starts from — and editor settings:
+# What an adopter copies into its own repository — the templates, the
+# configuration files a new instance starts from — and editor settings:
 # CC0, so an adopter's documents and any other implementation of the format
 # carry no condition from this project.
 [[annotations]]
 path = [
   "writing/forces/**/template.md",
-  "schema/**",
   "docsys.yaml",
   ".markdownlint-cli2.jsonc",
   ".markdownlint.jsonc",
