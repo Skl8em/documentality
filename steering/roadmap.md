@@ -57,6 +57,9 @@ It takes a place, and later a number, only by a ruling.
   The MVP's adopters already know the system, so it can wait; the first adopter that does not will need it.
   The fiches in the engine's `docs/` stay in its repository: they are written for its maintainer.
 - **A utility for renaming documents and migrating identifiers** — renaming a document while rewriting every link to it, and giving a corpus its identifiers in bulk, are needs most documentation projects meet; `migrate_ids.py`, kept in the engine's `legacy/` folder, is the lead.
+- **Excluding submodules from the documents by default** (project owner, 2026-10-21).
+  A submodule is another project, under its own steering and rules, so once the MVP closes a document is to be a Markdown file of the workspace's own tree, and a project opts a submodule in explicitly (a key of `scope`, named when it is designed).
+  Until then every Markdown file but inside `.git` is a document, a submodule's included, because the engine, mounted here as `docsys/`, is to fall under the rules of this repository.
 - **Moving markdownlint past 0.17.2**, the version nixos-25.05 pins: the gate and the editor's extension must run one version, and today no release of the extension bundles the version a newer nixpkgs pins (nixos-25.11: 0.18.1; the extension's 0.62.1 bundles 0.23.2).
   Staying breaks nothing: the sentence-per-line rule reports the same findings under 0.21.0.
 - **Dividing a plan into any number of levels** (project owner, 2026-10-21).
