@@ -119,7 +119,7 @@ checks:
   # The same output, read by the editor: the gate task's problem matchers
   # (.vscode/tasks.json) put each failure line on the file and line it names, and read
   # no other line as a problem. After the runner, whose output they parse.
-  - {name: problem-matcher, python: scripts/test_problem_matcher.py}
+  - {name: problem-matcher, python: tools/test_problem_matcher.py}
   # Fixtures first, as for every check that has them: the message of a broken link is
   # the whole interaction for the machine that reads it, and must carry its `fix:`.
   - {name: linkcheck-test, python: scripts/test_linkcheck.py}
@@ -167,8 +167,8 @@ checks:
   # pinned version is part of the contract with the custom rule.
   - {name: markdownlint, tool: markdownlint-cli2}
   # Fixtures first, as above.
-  - {name: editor-markdownlint-test, python: scripts/test_editor_markdownlint.py}
+  - {name: editor-markdownlint-test, python: tools/test_editor_markdownlint.py}
   # The editor's markdownlint extension lints with the markdownlint-cli2 it bundles,
   # which must be the version the line above runs, or the editor and the gate disagree
   # on the same file. Last: it judges this machine's editor, not the corpus.
-  - {name: editor-markdownlint, python: scripts/editor_markdownlint.py}
+  - {name: editor-markdownlint, python: tools/editor_markdownlint.py}

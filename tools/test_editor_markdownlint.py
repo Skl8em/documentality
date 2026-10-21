@@ -6,7 +6,7 @@ markdownlint-cli2's banner, find the extension among VS Code's installed ones,
 compare the two versions — so each case is a string or a small list, not a VS Code
 installation. Every message must name the edit that clears it, after `fix:`.
 
-    python3 scripts/test_editor_markdownlint.py
+    python3 tools/test_editor_markdownlint.py
 """
 import os
 import sys

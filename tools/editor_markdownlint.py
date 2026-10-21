@@ -12,7 +12,7 @@ editor to disagree with, and the check passes saying so.
 
 Needs the devShell: the pinned version is read from the markdownlint-cli2 on PATH.
 
-    python3 scripts/editor_markdownlint.py
+    python3 tools/editor_markdownlint.py
 """
 import json
 import os
