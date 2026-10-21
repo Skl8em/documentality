@@ -19,6 +19,7 @@ Design rationale for each line lives in the matching ADR — listed in the regis
 ## [v4.0-alpha.46] — One vocabulary, read by the engine
 
 - **Decided:** [ADR-044](../phases/rush-to-mvp/phase-14-adoption/one-vocabulary-read-directly.md), superseding [ADR-037](../phases/refoundation/phase-11-tooling-hardening/yaml-source-generated-json.md): the engine's YAML is the one frontmatter vocabulary, read directly, and `schema/` with its generated JSON retires with `scripts/`.
+- **Fixed:** the engine's `phase-state/folder` no longer takes a file directly under an era, such as the `.DS_Store` macOS leaves there, for a phase folder the ledger does not list.
 
 ## [v4.0-alpha.45] — The engine writes what its checks verify
 
