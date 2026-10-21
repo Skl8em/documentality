@@ -51,7 +51,7 @@ The case for a YAML *source* stands on its own; the case for a second, generated
 ADR-037 rules that the JSON **stays for now**, because the reader it is kept for — a generator, or a non-Python tool reading the schema — does not exist yet, and because keeping costs one green check.
 The answer lapses when the design of the agent machinery closes with no non-Python reader — in practice, at the end of the rush to MVP — or when the drift check fails for any reason other than a forgotten regeneration; collapsing to one file, loaded through the strict loader, would then remove the drift check and the whole class of failure it guards.
 The cross-package API proposed in [`imagining/multi-ecosystem-distribution.md`](../imagining/multi-ecosystem-distribution.md) has every package load the YAML methodology unchanged, which weakens the JSON's case further.
-The project owner ruled on 2026-10-20 that `schema/` retires with `scripts/` when this repository's gate becomes `docsys check`, by an ADR that supersedes ADR-037 ([Phase 14 plan](../phases/rush-to-mvp/phase-14-adoption/plan.md), *Rulings*); until then ADR-037 stands.
+[ADR-044](../phases/rush-to-mvp/phase-14-adoption/one-vocabulary-read-directly.md) supersedes ADR-037: the engine's YAML is the one vocabulary, read directly, and `schema/` retires with `scripts/` when this repository's gate becomes `docsys check`.
 
 ## What the pipeline does not establish
 
