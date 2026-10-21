@@ -94,64 +94,28 @@ A `paired-change` finding names commits, not files, and stays out of the Problem
 
 ## The rule that keeps this shelf true
 
-`paired-change` (`scripts/paired_change.py`, decided in [ADR-039](../phases/refoundation/phase-12-codifying/paired-change-rule.md) and refined by [ADR-040](../phases/refoundation/phase-12-codifying/paired-change-where-it-fails.md)) fails a change to `scripts/`, `schema/` or `docsys.yaml` that touches no file under `writing/`, `structuring/`, `operationalizing/` or `codifying/` and not `steering/ARCHITECTURE.md`.
-Its lists — mechanism, understanding, what needs no account, the branches it is enforced on, and the anchor — are `paired_change:` in `docsys.yaml`, so the engine names none of them.
+`paired-change` ([ADR-039](../phases/refoundation/phase-12-codifying/paired-change-rule.md), refined by [ADR-040](../phases/refoundation/phase-12-codifying/paired-change-where-it-fails.md)) fails a change to `scripts/`, `schema/` or `docsys.yaml` that touches no file under `writing/`, `structuring/`, `operationalizing/` or `codifying/` and not `steering/ARCHITECTURE.md`.
 This fiche is one of the files that satisfies it, which is why a change to the gate lands with an edit here.
+How the rule works — the commit as the unit, what needs no account, where it fails rather than warns, the anchor, and what it does not establish — is explained with the engine's check, in [the paired-change fiche](https://github.com/Skl8em/docsys/blob/main/docs/paired-change.md); this gate runs `scripts/paired_change.py`, which agrees with that check on this repository.
 
-Four properties are easy to get wrong when touching it.
+What is this repository's is the configuration, `paired_change:` in `docsys.yaml`: the mechanism and understanding lists above, tests (`scripts/test_`) exempt, and the rule enforced on `main` and `develop`.
 
-**The unit is the commit, not the branch.**
-It examines every non-merge commit after `paired_change.since`, and the uncommitted work that will become the next one, each on its own.
-A branch-level rule was tried against Phase 11 first and passes it: the phase touched three explaining documents incidentally, and on a phase-long branch any such edit pairs every script edit.
-So a later docs commit never pairs an earlier scripts commit, and the account goes in the same commit as the change.
-
-**Two kinds of change are not a change to the mechanism.**
-A file under an `exempt` prefix (`scripts/test_`) and a Python edit whose syntax tree, docstrings set aside, is unchanged — comments, docstrings, formatting — have nothing to explain, so they need no account, on any branch.
-The second is a comparison of the file before and after, so it is a heuristic on the tree and not on intent: a docstring that replaces the description of unchanged behaviour passes, and only Python is examined.
-A version that does not parse, or a file added or deleted, is never comment-only.
-
-**It fails only where work lands.**
-On a branch in `enforce_on` (`main`, `develop`) and on a detached HEAD — which is what CI checks out for a pull request — a finding fails the gate.
-On any other branch the same finding is a `WARNING` naming the branch and where it is enforced, and the exit status is 0, so a mechanism commit may precede the commit that explains it while the work is in progress.
-The cost moved, it did not vanish: the pull request examines every commit since the anchor, so the earlier commit fails there and has to be amended or squashed with its account.
-If the integration branch is renamed and `enforce_on` is not, the rule would quietly become a warning; so it fails, on every run, when no listed branch exists locally or on a remote (a CI checkout is detached and holds remote refs only).
-
-**The anchor is the only exemption from history, and it shows in a diff.**
-Commits before `since` are not examined.
-A violating commit that is already made cannot be repaired by adding docs afterwards; moving `since` past it is the way to accept it, and that is an edit to a tracked file that a reviewer sees.
-An anchor that cannot be resolved (a shallow clone; a commit not in this history) is an error, never a pass, and that is why CI fetches full history.
-
-**It reads git, so it depends on where it runs.**
-Run by hand or from the opt-in hook it sees the working tree; in CI it sees the commits pushed.
-A clone that has not opted into the hook meets the failure only in CI, after the commit exists.
-
-It checks co-occurrence, and a one-word edit to a fiche passes; what it removes is the silent case.
-`docsys.yaml` is in the mechanism list since Phase 12 T6: it decides what the gate runs and where the rule bites, so a change to it is a change to the tooling.
-That includes moving `since`, which accepts a commit and so needs an account like any other change.
-The phase ledger is kept out of `docsys.yaml` for this reason: it lives in `steering/phases.yaml`, `phases.ledger` points at it, and a phase transition is a ruling the roadmap explains, not a change to the tooling.
-The markdownlint rule is no longer in this repository, so a change to it is a change to the engine, paired there with its account.
+- **`docsys.yaml` is mechanism** since Phase 12 T6: it decides what the gate runs and where the rule bites, so a change to it is a change to the tooling.
+  That includes moving `since`, which accepts a commit and so needs an account like any other change.
+- **The phase ledger is kept out of `docsys.yaml`** for that reason: it lives in `steering/phases.yaml`, `phases.ledger` points at it, and a phase transition is a ruling the roadmap explains, not a change to the tooling.
+- **The markdownlint rule is no longer in this repository**, so a change to it is a change to the engine, paired there with its account.
+- **The hook is opt-in**, so a clone that has not opted in meets a violation only in CI, after the commit exists; CI fetches the full history, since an anchor it cannot reach is an error.
 
 ## Where the project is: the ledger and the phase-state check
 
 The current phase is declared once, in the ledger [`steering/phases.yaml`](../steering/phases.yaml): an ordered list of phases, each `done`, `current` or `planned`, the planned ones unnumbered (ADR-038).
 It is the project's state, kept with steering; `phases:` in `docsys.yaml` only says where it is and how to read every other place that speaks of the current phase.
-Two checks read it, in this order.
+`phase-ledger` (`scripts/phase_ledger.py`) checks the ledger's own rules, and `phase-state` (`scripts/phase_state.py`) checks every other place against it; what each rule verifies, and why, is explained with the engine's checks, which agree with them on this repository, in [the phase-ledger and phase-state fiche](https://github.com/Skl8em/docsys/blob/main/docs/phase-state.md).
 
-`phase-ledger` (`scripts/phase_ledger.py`) checks the ledger's own rules: a closed vocabulary, exactly one `current`, no number on a `planned` phase, done then current then planned, numbers counting from 1 without a gap.
-
-`phase-state` (`scripts/phase_state.py`) checks every other place against it, each rule a pure function with fixtures:
-
-- **folders** — a numbered phase has its folder, `phases/<era>/phase-<NN>-<name>`, and no tracked phase folder is missing from the ledger;
-- **tables** — each phase row of the roadmap and the phases index carries the marker of the ledger's status (`done`, `in progress`, `unnumbered`; the text after a ` — ` is free), a row numbering a phase the ledger has not numbered fails, the current phase has a row, and a row pattern that matches nothing is an error, not a pass;
-- **mentions** — no living document names, by number, a phase above the highest the ledger has numbered;
-- **status** — the root README has one status line, and it names the current phase;
-- **`phase:` fields** — each names a numbered phase, and none is behind the last closed phase unless the ledger lists it under `lagging:` with a reason; an allowance whose document has caught up fails, so the list cannot go stale.
-
-Two scope choices are easy to undo by accident.
-A **frozen record is not read for mentions**: it states what was true when it froze and cannot be edited, and [ADR-038](../phases/refoundation/phase-11-tooling-hardening/unstarted-work-unnumbered.md) itself quotes, as its example of the forbidden form, a sentence giving the next phase its number — a red there could never be cleared, and this fiche cannot repeat the example without failing the rule.
+What is this repository's is where those places are: the phase folders under `phases/<era>/`, the phase rows of the [roadmap](../steering/roadmap.md) and of the [phases index](../phases/README.md) with their markers (`done`, `in progress`, `unnumbered`; the text after a ` — ` is free), the status line of the root `README.md`, and the `phase:` fields.
 The **status file is not in the seam's leak check**: here it is the root `README.md`, which the frontmatter linter also names as the methodology's root document.
 
-What the check does not do yet: verify that a closed phase's README says `done` and its records are sealed.
+What the gate does not check yet: that a closed phase's README says `done` and its records are sealed.
 That rule, as planned, conflicts with ADR-031's choice to leave the naive-sketch era unsealed and rests on a `status` vocabulary nobody has ruled, so it was handed to the life-cycle phase ([roadmap](../steering/roadmap.md); open point 12 in the [Phase 12 plan](../phases/refoundation/phase-12-codifying/plan.md#open-points-and-when-each-is-settled)).
 
 Starting a phase is one edit to the ledger, and the gate then names every place still describing the old one.
