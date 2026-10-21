@@ -14,8 +14,8 @@ reader: H+M
 status: accepted
 retention: permanent
 supersedes: null
-superseded-by: null
-hash: sha256:73777f86e95ff02588d05a1574ca291ef875143b344d1137cf47fbda8f73d029
+superseded-by: 01M5G47VH8GVQ5KAQPX5WWTQ6D
+hash: sha256:4dd5f2ddaca8dfc7127960e12d7aa6661dd98812ea4c5b6eb23392a6093b6d5a
 ---
 
 ## Status

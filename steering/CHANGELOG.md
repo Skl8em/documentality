@@ -16,6 +16,10 @@ History of the documentation system itself.
 Append-only; each entry is dated-fixed.
 Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
 
+## [v4.0-alpha.46] — One vocabulary, read by the engine
+
+- **Decided:** [ADR-044](../phases/rush-to-mvp/phase-14-adoption/one-vocabulary-read-directly.md), superseding [ADR-037](../phases/refoundation/phase-11-tooling-hardening/yaml-source-generated-json.md): the engine's YAML is the one frontmatter vocabulary, read directly, and `schema/` with its generated JSON retires with `scripts/`.
+
 ## [v4.0-alpha.45] — The engine writes what its checks verify
 
 - **Added:** four `docsys` commands for the author: `docsys id` mints a ULID, `docsys seal` writes a frozen record's `hash:`, `docsys rename` moves a file or folder and rewrites every relative link to it, and `docsys slugify` names each document after its slug; the reference is [`codifying/docsys-commands.md`](../codifying/docsys-commands.md).
