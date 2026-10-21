@@ -181,7 +181,7 @@ def run_git_cases():
         failures += not ok
 
     with tempfile.TemporaryDirectory() as repo:
-        git(repo, "init", "-q")
+        git(repo, "init", "-q", "-b", "main")
         # History before the anchor is never examined: it predates the rule.
         commit(repo, "old scripts-only", {"scripts/old.py": "old\n"})
         anchor = commit(repo, "the rule lands", {"writing/a.md": "a\n"})
@@ -225,7 +225,7 @@ def run_git_cases():
                "moving a script out of scripts/ is caught by its old path", str(got))
 
     with tempfile.TemporaryDirectory() as repo:
-        git(repo, "init", "-q")
+        git(repo, "init", "-q", "-b", "main")
         commit(repo, "base", {"scripts/x.py": "x = 1\n", "scripts/test_x.py": "t = 1\n", "writing/a.md": "a\n"})
         anchor = git(repo, "rev-parse", "HEAD")
 
@@ -248,7 +248,7 @@ def run_git_cases():
         git(repo, "checkout", "-q", "--", ".")
 
     with tempfile.TemporaryDirectory() as repo:
-        git(repo, "init", "-q")
+        git(repo, "init", "-q", "-b", "main")
         commit(repo, "base", {"scripts/x.py": "x\n", "writing/a.md": "a\n"})
         anchor = git(repo, "rev-parse", "HEAD")
 
@@ -277,7 +277,7 @@ def run_git_cases():
                "a merge commit is not itself a unit")
 
     with tempfile.TemporaryDirectory() as repo:
-        git(repo, "init", "-q")
+        git(repo, "init", "-q", "-b", "main")
         commit(repo, "base", {"writing/a.md": "a\n"})
         try:
             paired_change.commit_units("0" * 40, repo)
@@ -318,7 +318,7 @@ def run_branch_cases():
         failures += not ok
 
     with tempfile.TemporaryDirectory() as repo:
-        git(repo, "init", "-q")
+        git(repo, "init", "-q", "-b", "main")
         git(repo, "symbolic-ref", "HEAD", "refs/heads/main")
         anchor = commit(repo, "base", {"writing/a.md": "a\n"})
         cfg["since"] = anchor
@@ -357,7 +357,7 @@ def run_branch_cases():
             report(False, "an enforce_on naming no branch of the repository is refused", "it was accepted")
 
         with tempfile.TemporaryDirectory() as clone:
-            git(clone, "clone", "-q", repo, ".")
+            git(clone, "clone", "-q", "-b", "main", repo, ".")
             git(clone, "checkout", "-q", "--detach")
             git(clone, "branch", "-q", "-D", "main")
             try:
