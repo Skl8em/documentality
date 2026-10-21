@@ -1,5 +1,9 @@
 #!/bin/sh
-# Documentation gate — runs every check listed in docsys.yaml (scripts/check.py).
+# Documentation gate — `docsys check`, every check docsys.yaml configures.
 # Opt in once with:  git config core.hooksPath .githooks
-# check.py uses the pinned markdownlint (via the devShell or `nix develop`).
-exec python3 "$(git rev-parse --show-toplevel)/scripts/check.py"
+# Inside the devShell, uv, the interpreter and markdownlint-cli2 are the versions
+# flake.lock pins; outside it, the hook enters it first.
+if [ -z "${DOCSYS_DEVSHELL:-}" ]; then
+  exec nix develop --command uv run --locked docsys check
+fi
+exec uv run --locked docsys check

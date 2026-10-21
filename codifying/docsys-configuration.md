@@ -213,5 +213,5 @@ The command is not read by a shell, and `docsys` does not pin the program: it ru
 ## Out of scope
 
 - What each check verifies, and the default severity of its rules: stated case by case in the engine's [conformance suite](https://github.com/Skl8em/docsys/tree/main/conformance).
-- This repository's own `docsys.yaml`, still in the shape `scripts/` reads: [the gate](gate.md).
+- This repository's own `docsys.yaml`, and why it says what it says: [the gate](gate.md).
 - The frontmatter vocabulary, explained by [`writing/frontmatter.md`](../writing/frontmatter.md).

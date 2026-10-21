@@ -3,9 +3,9 @@
   "tasks": [
     {
       "label": "docs: run the gate",
-      "detail": "every check in docsys.yaml (scripts/check.py); failures land in the Problems pane",
+      "detail": "docsys check, every check docsys.yaml configures; failures land in the Problems pane",
       "type": "shell",
-      "command": "python3 scripts/check.py",
+      "command": "if [ -z \"${DOCSYS_DEVSHELL:-}\" ]; then exec nix develop --command uv run --locked docsys check; fi; exec uv run --locked docsys check",
       "group": "test",
       "problemMatcher": [
         {

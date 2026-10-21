@@ -1,39 +1,30 @@
-# Instance configuration: what the engine in scripts/ is pointed at, in THIS repo.
+# What docsys checks in THIS repository, and how: `uv run --locked docsys check`.
 #
-# scripts/ knows how to lint frontmatter, verify a decision register and run a
-# sequence of checks; it knows nothing of where this repo keeps its schema, which
-# documents are out of scope, what its register looks like, or which checks make
-# up its gate. That is all here, read through scripts/docsys_config.py, and
-# scripts/test_seam.py fails if any of it is ever hard-coded back into the engine.
-#
-# The vocabulary is closed — an unknown section or key is an error. The frontmatter
-# vocabulary itself is a different thing and lives in schema/frontmatter-rules.yaml:
-# that is the methodology's rules, this is one instance's layout.
-# See phases/refoundation/phase-12-codifying/engine-config-seam.md.
+# The engine, docsys, knows how to check documentation; this file says where this
+# repository keeps its decision register and its phases, which documents are out of
+# scope and why, where the paired-change rule bites, and which external tools run
+# after the engine's checks. Every key is explained in codifying/docsys-configuration.md;
+# what each check verifies is explained with the engine, in docsys/docs/.
+version: 1
 
-# Where the frontmatter schema lives (scripts/generate_schema.py compiles the first
-# into the second; scripts/frontmatter_lint.py loads the second).
-schema:
-  source: schema/frontmatter-rules.yaml
-  generated: schema/frontmatter-rules.json
+# Every Markdown file under the workspace is a document unless excluded here, with
+# its reason. `docsys report` lists these exclusions and how many documents each
+# leaves out. (.markdownlint-cli2.jsonc keeps its own, wider list: markdownlint
+# reads no config but its own.)
+scope:
+  exclude:
+    theorising/: raw upstream essays, not authored with the system's frontmatter
+    phases/naive-sketch/: pre-refoundation frozen records, which predate `intention`
+    .claude/: the agent's configuration and skills, not documents
+    "**/blind-test/": raw agent transcripts, not catalogued documents
+    docsys/: the engine's submodule, another repository, checked by its own CI
+    .venv/: the virtual environment uv builds, with its packages' files
+    .direnv/: direnv's cache of the devShell
 
-# Documents outside the authored, refounded catalogue, which the frontmatter linter
-# skips:
-#  - theorising/**            raw upstream essays;
-#  - .claude/**               the agent's configuration and skills, not documents;
-#  - phases/naive-sketch/**   pre-refoundation frozen records (predate `intention`);
-#  - blind-test transcripts   raw agent outputs, not catalogued documents.
-# A prefix matches at the start of a path; a substring matches anywhere in it.
-# (.markdownlint-cli2.jsonc keeps its own, wider list: markdownlint reads no
-# config but its own.)
-frontmatter:
-  ignore_prefixes: [theorising/, phases/naive-sketch/, .claude/]
-  ignore_substrings: [/blind-test/, /weft-blindtest]
-
-# The central decision register scripts/ulid_check.py cross-checks against each
-# record's own `superseded-by`. A decision row is a table row with `columns` cells;
-# the `ordinal_column` cell matches `ordinal_pattern` (group 1: the ordinal, group
-# 2: the link to the record), the `status_column` cell is searched for
+# The central decision register, cross-checked against each record's own
+# `superseded-by`. A decision row is a table row with `columns` cells; the
+# `ordinal_column` cell matches `ordinal_pattern` (group 1: the ordinal, group 2:
+# the link to the record), the `status_column` cell is searched for
 # `superseded_pattern` (group 1: the ordinal of the superseding decision).
 register:
   path: steering/ADR.md
@@ -43,38 +34,32 @@ register:
   ordinal_pattern: '^\[(\d+)\]\(([^)]+)\)$'
   superseded_pattern: 'superseded by (\d+)'
 
-# The paired-change rule (Phase 12 T3, ADR-039 and ADR-040): a change to the tooling
-# must touch something a human reads for understanding. The unit is one commit, plus the
-# uncommitted work that will become the next; scripts/paired_change.py examines every
-# non-merge commit in `since`..HEAD (the anchor itself is exempt, and so is everything
-# before it: the rule starts there). Moving `since` forward is how a commit already
-# made is accepted — a visible edit to this file, not a silent exemption.
-#  - mechanism / understanding / exempt are path prefixes, matched at the start of a
-#    path, so `steering/ARCHITECTURE.md` names one file. `exempt` paths, and Python
-#    edits that change only comments, docstrings or formatting, need no account.
-#    This file is mechanism too (Phase 12 T6): it decides what the gate runs and
-#    where the rule bites. That includes moving `since`, which accepts a commit and
-#    so must say why. The phase ledger is NOT mechanism, which is why it is kept out
-#    of this file: a phase transition is a ruling, explained by the roadmap.
-#  - enforce_on: the rule FAILS only on these branches, and on a detached HEAD (a pull
-#    request's merge commit in CI). Anywhere else it warns and exits 0, so work in
-#    progress on a feature branch is not blocked.
-# The rule needs the anchor in the checked-out history: CI must fetch it in full.
+# The paired-change rule (ADR-039, ADR-040): a commit that changes the mechanism
+# must touch something a person reads to understand it, in the same commit.
+#  - mechanism: what decides what the gate runs and how — this file, this
+#    repository's own checks (tools/), the hook, the CI workflows and the devShell.
+#    The submodule pointer `docsys` is not mechanism: the engine's changes are paired
+#    with their accounts in the engine's repository.
+#  - exempt: the tests of tools/, which explain themselves.
+#  - since: the last commit of the old gate (scripts/check.py), whose mechanism list
+#    named scripts/ and schema/; the commits before it answered to that list, and
+#    would fail this one.
+#  - enforce_on: the rule fails on these branches and on a detached HEAD (a pull
+#    request in CI); anywhere else it warns, so work in progress is not blocked.
+#    CI fetches the full history, since an anchor it cannot reach is an error.
+# Moving `since` forward accepts a commit made without its account: an edit to this
+# file, so a reviewer sees it. The phase ledger is NOT mechanism, which is why it is
+# kept out of this file: a phase transition is a ruling, explained by the roadmap.
 paired_change:
-  since: 092e87bb56b30a7b3d558d1c864a5f57c355f909
-  mechanism: [scripts/, schema/, docsys.yaml]
+  since: 0e16a6289700ebd43e1f6d581f421745d44e8418
+  mechanism: [docsys.yaml, tools/, .githooks/, .github/workflows/, flake.nix]
   understanding: [writing/, structuring/, operationalizing/, codifying/, steering/ARCHITECTURE.md]
-  exempt: [scripts/test_]
+  exempt: [tools/test_]
   enforce_on: [main, develop]
 
-# Where the phase ledger is (Phase 12 T6): the project's declared state — which
-# phases are done, which one is current, which are planned and so unnumbered
-# (ADR-038). Its contents are steering's, not this file's: it changes when a phase
-# starts or closes, by a ruling, not when the tooling changes, and keeping it out of
-# here is what lets this file count as mechanism for the paired-change rule.
-#
-# The rest says where every other place that speaks of the current phase is, and
-# how to read it, for scripts/phase_state.py (Phase 12 T6(b)):
+# Where the phase ledger is: the project's declared state — which phases are done,
+# which one is current, which are planned and so unnumbered (ADR-038). The rest says
+# where every other place that speaks of the current phase is, and how to read it:
 #  - root / folder: a numbered phase lives in <root>/<era>/<folder>;
 #  - field: the format of a `phase:` frontmatter value;
 #  - markers: the word a table row shows for each ledger status;
@@ -100,75 +85,24 @@ phases:
     line: '^\*\*v\S+ \(Phase (?P<number>\d+) (?:in progress|complete)\)\*\*'
   mention: '\b[Pp]hases?[ -](?P<number>\d+)'
 
-# The gate, in order — `python3 scripts/check.py` runs every entry and fails if any
-# fails. An entry is exactly one of:
-#   python: <script>   run with the gate's interpreter (`args:` optional)
-#   builtin: <name>    a check implemented in scripts/check.py itself
-#   tool: <command>    an external tool, always the PINNED devShell version
-checks:
-  # No untracked cruft on disk: the gate reads git, so it must also notice what git
-  # is NOT tracking.
-  - {name: worktree, builtin: worktree}
-  # The engine/config seam holds: a malformed docsys.yaml or an instance value
-  # hard-coded in scripts/ would otherwise go unnoticed.
-  - {name: seam, python: scripts/test_seam.py}
-  # The runner itself: a gate whose output cannot be attributed to the check that
-  # produced it is unreadable to the machine that runs it through a pipe. Fixtures
-  # run before the checks whose output they make legible.
-  - {name: runner, python: scripts/test_check.py}
-  # The same output, read by the editor: the gate task's problem matchers
-  # (.vscode/tasks.json) put each failure line on the file and line it names, and read
-  # no other line as a problem. After the runner, whose output they parse.
-  - {name: problem-matcher, python: tools/test_problem_matcher.py}
-  # Fixtures first, as for every check that has them: the message of a broken link is
-  # the whole interaction for the machine that reads it, and must carry its `fix:`.
-  - {name: linkcheck-test, python: scripts/test_linkcheck.py}
-  # Every relative markdown link resolves.
-  - {name: linkcheck, python: scripts/linkcheck.py}
-  # Must pass before anything that loads schema/frontmatter-rules.json: a stale
-  # generated file would otherwise let a schema edit go unenforced.
-  - {name: schema-drift, python: scripts/generate_schema.py, args: [--check]}
-  # Parser fixtures run BEFORE the corpus checks: a green corpus says nothing if
-  # the parser has stopped reading it.
-  - {name: frontmatter-parser, python: scripts/test_frontmatter_lint.py}
-  # The frontmatter invariants (warns on what is still open).
-  - {name: frontmatter, python: scripts/frontmatter_lint.py}
-  # Same reasoning as frontmatter-parser above: fixtures for the referential checks
-  # run before the corpus check they gate.
-  - {name: ulid-test, python: scripts/test_ulid_check.py}
-  # Every frontmatter `id` is a valid, unique ULID; every `supersedes` /
-  # `superseded-by` resolves, is symmetric, and agrees with the register.
-  - {name: ulid, python: scripts/ulid_check.py}
-  - {name: slug-test, python: scripts/test_slug_check.py}
-  # Filename stem == frontmatter `slug` (ADR-028).
-  - {name: slug, python: scripts/slug_check.py}
-  - {name: hash-test, python: scripts/test_hash_check.py}
-  # Every frozen record's fixity seal still matches.
-  - {name: hash, python: scripts/hash_check.py}
-  # Fixtures first, as above: they run the rule against a throwaway git repository, so
-  # a green result on the real history cannot mean the rule stopped detecting.
-  - {name: paired-change-test, python: scripts/test_paired_change.py}
-  # A change to scripts/ or schema/ is accompanied by a change to what explains it.
-  - {name: paired-change, python: scripts/paired_change.py}
-  # Fixtures first, as above: each rule of the ledger demonstrated failing on a
-  # synthetic ledger before the real one is read.
-  - {name: phase-ledger-test, python: scripts/test_phase_ledger.py}
-  # The phase ledger keeps its own rules: one current phase, planned phases
-  # unnumbered, numbers in order.
-  - {name: phase-ledger, python: scripts/phase_ledger.py}
-  # Fixtures first: each rule shown failing on a synthetic mismatch, and what it must
-  # not flag (a frozen record naming a phase since started, the era name "Phase II").
-  - {name: phase-state-test, python: scripts/test_phase_state.py}
-  # Every place that speaks of the current phase agrees with the ledger. After the
-  # ledger's own check, which it relies on.
-  - {name: phase-state, python: scripts/phase_state.py}
+# What runs after the engine's checks, in order, each under its own `=== name ===`.
+# docsys does not pin a tool: run through `uv run` inside the devShell, `python3`
+# is the .venv's interpreter and markdownlint-cli2 the version flake.lock pins.
+tools:
   # One shared ruleset incl. one-sentence-per-line (ADR-021), a custom rule the
   # engine ships (docsys/src/docsys/markdownlint/) and tests in its own suite. The
   # pinned version is part of the contract with the custom rule.
-  - {name: markdownlint, tool: markdownlint-cli2}
-  # Fixtures first, as above.
-  - {name: editor-markdownlint-test, python: tools/test_editor_markdownlint.py}
+  - name: markdownlint
+    command: [markdownlint-cli2]
+  # The editor's gate task (.vscode/tasks.json) reads this output through problem
+  # matchers; their fixtures show each shape of line read, and no other.
+  - name: problem-matcher
+    command: [python3, tools/test_problem_matcher.py]
+  # Fixtures first: a green check says nothing if it has stopped detecting.
+  - name: editor-markdownlint-test
+    command: [python3, tools/test_editor_markdownlint.py]
   # The editor's markdownlint extension lints with the markdownlint-cli2 it bundles,
   # which must be the version the line above runs, or the editor and the gate disagree
   # on the same file. Last: it judges this machine's editor, not the corpus.
-  - {name: editor-markdownlint, python: tools/editor_markdownlint.py}
+  - name: editor-markdownlint
+    command: [python3, tools/editor_markdownlint.py]
