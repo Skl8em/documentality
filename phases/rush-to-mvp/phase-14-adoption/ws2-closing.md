@@ -17,7 +17,7 @@ The rulings it carries out are in the [plan](plan.md), *Rulings*; ws1's remainin
 ## Before you start
 
 - Run every command inside the devShell (`nix develop`, or the shell direnv enters); `uv` locks only there.
-- Branch, commit and merge by [`CONTRIBUTING.md`](../../../steering/CONTRIBUTING.md) and the skill `branch-and-commit`: each track below is a branch cut from `ph14-adoption`, each task (1.1, 1.2…) a branch cut from its track, carried out in one session and committed in steps, mirrored in `docsys/` when the task changes the engine.
+- Branch, commit, rebase and merge by [`CONTRIBUTING.md`](../../../steering/CONTRIBUTING.md) and the skill `branch-and-commit`: each track below is a branch cut from `ph14-adoption`, each task (1.1, 1.2…) a branch cut from its track, carried out in one session and committed in steps, mirrored in `docsys/` when the task changes the engine.
   A track or a task is numbered when its branch is cut, with the next number at its level; until then this page names it by its slug (`documents`, `switch-gate`).
   A track with no tasks listed is carried out as a single task of the same slug, on a task branch of its own like any other.
 - Present each task to the project owner before merging it.
