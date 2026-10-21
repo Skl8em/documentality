@@ -60,6 +60,7 @@ How a check extracted into `docsys` works inside is explained with it, in its `d
 
 - [`referential-integrity`](https://github.com/Skl8em/docsys/blob/main/docs/referential-integrity.md) — why a dangling `supersedes` is an error, why supersession must be symmetric, and what the ULID check does not establish.
 - [`paired-change`](https://github.com/Skl8em/docsys/blob/main/docs/paired-change.md) — why the unit is the commit, what needs no account, where the rule fails rather than warns, and what it does not establish.
+- [`phase-state`](https://github.com/Skl8em/docsys/blob/main/docs/phase-state.md) — why the current phase is declared once in a ledger, what the ledger and phase-state checks verify against it, and what they do not establish.
 
 Still to write, in `docsys`'s `docs/`: the frontmatter check's derivation of `register` and its closed vocabulary; the YAML reader and its two departures from `safe_load`; the fixity check; the link check's scope; the sentence-per-line markdownlint rule; and the author tools of `scripts/` — the identifier tools and the safe-rename core (`migrate_ids.py`, `rename_doc.py`, `slugify_names.py`), the seal writer (`hash_seal.py`) — each with its port to the engine.
 The environment the gate runs in is an `instruct` document, [`steering/environment.md`](../steering/environment.md), not a fiche.
