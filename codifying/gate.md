@@ -87,9 +87,9 @@ The fixtures of `frontmatter_lint.py`, `ulid_check.py`, `paired_change.py`, `slu
 Two are not covered: the drift message of `generate_schema.py --check`, which states its fix (`Run … and commit the result`) but not under the marker and has no fixture, and the runner's own messages; [technical debt](../steering/technical-debt.md) records both.
 
 The editor reads the same output.
-VS Code's task `docs: run the gate` ([`.vscode/tasks.json`](../.vscode/tasks.json)) runs the gate through two problem matchers, which put each failure in the Problems pane on the file it names: one reads a line that carries a line number, `path:line[:column]` (bare, as `markdownlint-cli2` prints it, indented by two spaces, or after `PHASE STATE:` or `PHASE LEDGER:`); the other, a line that names a file only, `path  message` indented by two spaces or after the same two prefixes, which VS Code would otherwise drop.
+VS Code's task `docs: run the gate` ([`.vscode/tasks.json`](../.vscode/tasks.json)) reads the output of `docsys check` through four problem matchers, which put each failure in the Problems pane on the file and line it names, with its rule: an error finding, `path:line: rule: message — fix: …`; a warning finding, the same line indented by two spaces; a line of `markdownlint-cli2`, `path:line[:column] rule/alias message`; and a refused `docsys.yaml`, `docsys: docsys.yaml: message`, which names the file only.
 So the shape of a line is part of the contract: a failure on a file starts with its path in one of those forms, and no other line may, a green summary least of all.
-`problem-matcher` (`scripts/test_problem_matcher.py`) runs both patterns over lines of every check's shape, after `runner`.
+`problem-matcher` (`tools/test_problem_matcher.py`) runs the four patterns over lines of each shape, copied from real runs, and over the lines that must stay out of the pane.
 A `paired-change` finding names commits, not files, and stays out of the Problems pane.
 
 ## The rule that keeps this shelf true

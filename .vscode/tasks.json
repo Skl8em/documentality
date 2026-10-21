@@ -10,25 +10,52 @@
       "problemMatcher": [
         {
           "owner": "docsys-gate",
-          "source": "gate",
           "fileLocation": ["relative", "${workspaceFolder}"],
+          "source": "docsys",
           "severity": "error",
           "pattern": {
-            "regexp": "^(?:  |PHASE (?:STATE|LEDGER): )?([A-Za-z0-9_.-]*/[A-Za-z0-9_./-]*|[A-Za-z0-9_.-]*\\.[A-Za-z]+):(\\d+)(?::(\\d+))?:?\\s+(.+)$",
+            "regexp": "^([^\\s:][^:]*):(\\d+): ([a-z0-9-]+/[a-z0-9-]+): (.+)$",
             "file": 1,
             "line": 2,
-            "column": 3,
+            "code": 3,
             "message": 4
           }
         },
         {
           "owner": "docsys-gate",
-          "source": "gate",
           "fileLocation": ["relative", "${workspaceFolder}"],
+          "source": "docsys",
+          "severity": "warning",
+          "pattern": {
+            "regexp": "^  ([^\\s:][^:]*):(\\d+): ([a-z0-9-]+/[a-z0-9-]+): (.+)$",
+            "file": 1,
+            "line": 2,
+            "code": 3,
+            "message": 4
+          }
+        },
+        {
+          "owner": "docsys-gate",
+          "fileLocation": ["relative", "${workspaceFolder}"],
+          "source": "markdownlint",
+          "severity": "error",
+          "pattern": {
+            "regexp": "^([^\\s:][^:]*):(\\d+)(?::(\\d+))? ([^\\s/]+(?:/[^\\s/]+)+) (.+)$",
+            "file": 1,
+            "line": 2,
+            "column": 3,
+            "code": 4,
+            "message": 5
+          }
+        },
+        {
+          "owner": "docsys-gate",
+          "fileLocation": ["relative", "${workspaceFolder}"],
+          "source": "docsys",
           "severity": "error",
           "pattern": {
             "kind": "file",
-            "regexp": "^(?:  |PHASE (?:STATE|LEDGER): )([A-Za-z0-9_.-]*/[A-Za-z0-9_./-]*|[A-Za-z0-9_.-]*\\.[A-Za-z]+):?\\s+(.+)$",
+            "regexp": "^docsys: (docsys\\.yaml): (.+)$",
             "file": 1,
             "message": 2
           }
