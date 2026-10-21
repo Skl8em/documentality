@@ -56,13 +56,14 @@ A superseding decision is a new row and a new record that sets `supersedes`.
 | [034](../phases/refoundation/phase-10-schema/hosting-github-canonical.md) | Hosting: GitHub canonical; Codeberg deferred to a self-hosted Forgejo | 10-schema | 2026-09-12 | accepted |
 | [035](../phases/refoundation/phase-12-codifying/codifying-function.md) | `codifying` is the seventh function, the account of the tooling | 12-codifying | 2026-09-23 | accepted |
 | [036](../phases/refoundation/phase-11-tooling-hardening/closed-frontmatter-vocabulary.md) | The frontmatter vocabulary is closed; a field earns its place by carrying a reason | 11-tooling-hardening | 2026-09-24 | accepted |
-| [037](../phases/refoundation/phase-11-tooling-hardening/yaml-source-generated-json.md) | The schema's source is YAML; its JSON is a generated artifact, kept for now | 11-tooling-hardening | 2026-09-24 | accepted |
+| [037](../phases/refoundation/phase-11-tooling-hardening/yaml-source-generated-json.md) | The schema's source is YAML; its JSON is a generated artifact, kept for now | 11-tooling-hardening | 2026-09-24 | superseded by 044 |
 | [038](../phases/refoundation/phase-11-tooling-hardening/unstarted-work-unnumbered.md) | Unstarted work is never referred to by number | 11-tooling-hardening | 2026-09-24 | accepted |
 | [039](../phases/refoundation/phase-12-codifying/paired-change-rule.md) | A change to the tooling that explains nothing fails the gate | 12-codifying | 2026-09-24 | accepted |
 | [040](../phases/refoundation/phase-12-codifying/paired-change-where-it-fails.md) | The paired-change rule fails where work lands (`main`, `develop`, a detached checkout) and skips tests and comment-only edits; refines 039 | 12-codifying | 2026-09-24 | accepted |
 | [041](../phases/refoundation/phase-12-codifying/phase-ledger.md) | The current phase is declared once, in a ledger (`steering/phases.yaml`); a phase transition is an edit to it, and the gate checks every other place against it | 12-codifying | 2026-10-07 | accepted |
 | [042](../phases/rush-to-mvp/phase-13-design/rush-to-mvp.md) | Phase I closes by ruling; the next era is a rush to a minimal viable product, ended by an observable condition on `weft`; no new gate check about the project's own state meanwhile | 13-design | 2026-10-09 | accepted |
 | [043](../phases/rush-to-mvp/phase-13-design/licensing.md) | Licensing by kind of artefact: GPL-3.0-or-later for the engine, AGPL-3.0-or-later for services, CC0 for what adopters copy, CC BY-SA 4.0 for the prose; mapped in `REUSE.toml` | 13-design | 2026-10-10 | accepted |
+| [044](../phases/rush-to-mvp/phase-14-adoption/one-vocabulary-read-directly.md) | The engine's YAML is the one frontmatter vocabulary, read directly; `schema/` and its generated JSON retire with `scripts/`; supersedes 037 | 14-adoption | 2026-10-21 | accepted |
 
 Rows 036–038 record decisions Phase 11 took on 2026-09-15, 2026-09-17 and 2026-09-13 and never wrote down; they were written by Phase 12, and the date column is the date they were recorded.
 
