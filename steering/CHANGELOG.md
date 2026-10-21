@@ -20,6 +20,7 @@ Design rationale for each line lives in the matching ADR — listed in the regis
 
 - **Changed:** a document is any Markdown file under the workspace but inside `.git`; git's index and `.gitignore` are no longer consulted, so a build folder or a virtual environment is left out by a `scope.exclude` entry with its reason, and a workspace outside a git repository is accepted.
   `docsys report` prints one line per exclusion with its reason and the number of documents it leaves out, and `--documents` lists the documents; the reference is [`codifying/docsys-configuration.md`](../codifying/docsys-configuration.md).
+- **Parked:** excluding submodules from the documents by default, with an explicit opt-in, after the MVP; until then a submodule's files are documents, so that the engine falls under this repository's rules.
 
 ## [v4.0-alpha.43] — A branch is rebased on its destination before it is merged
 
