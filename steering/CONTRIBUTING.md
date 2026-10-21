@@ -61,6 +61,13 @@ Rules for documents you write *with* the system are in the product ([`../write/r
   Branches are named in hyphen-case from those abbreviations: the phase branch `ph<NN>-<phase>` (`ph14-adoption`), a track's `ph<NN>-ws<N>-tr<N>-<track>` (`ph14-ws2-tr1-ci`), a task's `ph<NN>-ws<N>-tr<N>-ts<N>-<task>` (`ph14-ws2-tr1-ts1-ci-engine-shell`); older branches keep the names they were merged under (`t2-port-slug-check`, `phase-13-design-rush-to-mvp`).
   Consequence: the phase branch reads as one merge commit per track, each track as one merge commit per task, and the steps of each task stay in the history under it.
 
+- You **must** keep a branch rebased on the branch it will be merged into, and merge it only from there: rebase it when you start a session on it, whenever its destination moves, and last before you present it; then run the suite and the gate on its tip, since no hook runs during a rebase.
+  The merge is then a fast-forward that `--no-ff` records as a merge commit: it meets no conflict and brings nothing the checks have not seen.
+  `--no-ff` does not squash: every step stays in the history, and the merge commit groups them, so that `git log --first-parent` on the destination reads one commit per task or track.
+  A track is rebased with `--rebase-merges`, which keeps the merge commits of its tasks; a plain rebase flattens them.
+  Only a branch that has never been pushed is rebased: task and track branches stay local, and the phase branch and `main`, which are pushed, never are.
+  Consequence: conflicts are met early and in small pieces, on the branch that made them, never in a merge.
+
 - You **must** carry out a task in steps, each one commit, made only when it is meaningful: *specify* (the rules, as data or prose), *red* (the tests that fail for the right reason, run and seen failing), *implement* (the change that turns them green), *document* (the account of what was done, for the reader who inherits it), *integrate* (the change wired into what uses it), *review global docs* (the pages elsewhere that state the present, brought up to date).
   Code that is moved, not written, is moved with its tests in a first commit that changes nothing else, and is not given a red step; *integrate* and *document* follow as they are worth it.
   A commit's subject starts with the name of the branch it is made on, less `ph<NN>-`, and says what the step leaves true (`ws2-tr1-ts1-ci-engine-shell: the engine pins its development tools in a flake`); on the phase branch it starts with `ph<NN>:`; its body says why, when the diff does not.
@@ -73,6 +80,7 @@ Rules for documents you write *with* the system are in the product ([`../write/r
 - You **must** mirror in the engine's repository (the `docsys/` submodule) the branches of work that changes both repositories: the same phase, track and task branches, under the same names, each cut from its counterpart there and merged with `--no-ff` at the same level and at the same time as here.
   The engine's branch is merged first; the commit in this repository that moves the submodule pointer to the engine's merge commit goes on the branch it is merged into, so each merge here is followed by a pointer at the merge of the same name there.
   A task that changes only the engine still gets its pointer commit here, on the task branch, at the engine's task tip, so that merging the task here is a real merge; the pointer at the engine's merge follows on the track branch.
+  A rebase, too, is made in the engine first; every pointer commit here is then moved to the engine's rebased commit, since a pointer at a commit the rebase replaced names a commit no branch holds, which CI cannot fetch once it is pushed.
   Work that changes the engine alone and belongs to no task here needs no mirror, and the engine may carry branches of its own beside it.
   Consequence: the two branch graphs read alike, so whether the repositories are in step can be seen by comparing them.
 
