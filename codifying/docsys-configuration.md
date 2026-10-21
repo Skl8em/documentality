@@ -49,8 +49,11 @@ A version this `docsys` does not read is refused, naming the versions it reads.
 ### `scope`
 
 Which documents the framework governs.
-A document is a Markdown file of the workspace that git tracks, or would track once added: committed or not, but never one `.gitignore` excludes, and never one inside a submodule.
-A workspace outside a git repository is refused.
+A document is a Markdown file anywhere under the workspace but inside `.git`: tracked, untracked or ignored by git alike, and a submodule's files included.
+The walk follows no symlink, so a symlinked file or folder holds no document, and it does not enter a folder an exclusion leaves out wholly.
+A workspace need not be a git repository; only the `paired_change` section needs one.
+Because `.gitignore` is not consulted, a build folder or a virtual environment is left out the way any document is: by an exclusion with its reason (`.venv/: virtual environment`).
+`docsys report` prints one line per exclusion with its reason and the number of documents it leaves out, and `docsys report --documents` lists those documents.
 Every document is in scope unless the section says otherwise:
 
 | Key | Value | When absent |
