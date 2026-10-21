@@ -16,6 +16,13 @@ History of the documentation system itself.
 Append-only; each entry is dated-fixed.
 Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
 
+## [v4.0-alpha.45] — The engine writes what its checks verify
+
+- **Added:** four `docsys` commands for the author: `docsys id` mints a ULID, `docsys seal` writes a frozen record's `hash:`, `docsys rename` moves a file or folder and rewrites every relative link to it, and `docsys slugify` names each document after its slug; the reference is [`codifying/docsys-commands.md`](../codifying/docsys-commands.md).
+  `seal` replaces a seal that no longer matches only with `--reseal`; `rename` and `slugify` list each sealed record whose links they rewrote, since the rewrite breaks its seal.
+- **Changed:** `rename` also rewrites a link to a folder inside a moved folder, which `scripts/rename_doc.py` left pointing at the old place, and `slugify` leaves alone a `<slug>-<id>` name that the slug check accepts, which `scripts/slugify_names.py` renamed.
+- **Moved:** `migrate_ids.py` to the engine's `legacy/`, unchanged, with a README saying that it does not run and why it is kept; the scripts it replaces stay in `scripts/` until the gate switches.
+
 ## [v4.0-alpha.44] — Every Markdown file is a document
 
 - **Changed:** a document is any Markdown file under the workspace but inside `.git`; git's index and `.gitignore` are no longer consulted, so a build folder or a virtual environment is left out by a `scope.exclude` entry with its reason, and a workspace outside a git repository is accepted.
