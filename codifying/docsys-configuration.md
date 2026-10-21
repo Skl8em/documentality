@@ -35,6 +35,7 @@ A refusal makes `docsys` exit `2`, with a message that starts `docsys.yaml:`, na
 | `version` | yes | — |
 | `scope` | no | every document is in scope |
 | `root_document` | no | `README.md` |
+| `links` | no | no dead link is allowed |
 | `register` | no | the register checks do not run |
 | `paired_change` | no | the paired-change rule does not run |
 | `phases` | no | the phase checks do not run |
@@ -94,6 +95,36 @@ scope:
 
 The document that declares the tree's axis: a path relative to the workspace, `README.md` by default.
 A path that starts with `/` or contains a `..` segment is refused.
+
+### `links`
+
+Which dead links the link check accepts.
+A link in a document resolves, or `links/resolve` reports it; a frozen record whose target has since been retired cannot be edited to repair it, so the project allows that one link, with its reason:
+
+| Key | Value | When absent |
+| --- | --- | --- |
+| `allow` | a list of allowances | no dead link is allowed |
+
+Each allowance carries all three keys:
+
+| Key | Value |
+| --- | --- |
+| `document` | the document that holds the link: a path relative to the workspace, as for `root_document` |
+| `target` | the link's target as written in the document, anchor included and link title left out |
+| `reason` | why the link may stay dead; not empty |
+
+```yaml
+links:
+  allow:
+    - document: phases/refoundation/phase-09-tooling/plan.md
+      target: ../../../scripts/linkcheck.py
+      reason: retired with scripts/ when the gate moved to docsys; the record is frozen
+```
+
+An allowance covers that link in that document, on every line that holds it, and no other.
+An allowance whose link resolves, or whose document no longer holds that link, is reported by `links/allowance`, on `docsys.yaml`, so the list cannot outlive its reasons.
+An allowance without a reason, or one that repeats another's document and target, is refused.
+The engine's [fiche on the link check](https://github.com/Skl8em/docsys/blob/main/docs/links.md) says why.
 
 ### `register`
 
