@@ -3,9 +3,9 @@
 # The project's state, not the tooling's configuration: it changes at phase
 # boundaries and by a ruling of whoever steers the project, so it is kept here with
 # steering, and docsys.yaml only says where it is (`phases.ledger`). The gate checks
-# its own rules with scripts/phase_ledger.py; every other place that speaks of the
+# its own rules (the phase-ledger check), and every other place that speaks of the
 # current phase — the roadmap, the phases index, the root README, the phase folders,
-# `phase:` fields — is to be checked against it.
+# `phase:` fields — against it (the phase-state check).
 #
 # One entry per phase, in order: every `done`, then the one `current`, then every
 # `planned`. A `done` or `current` phase has a `number`, counting 1, 2, 3…; a

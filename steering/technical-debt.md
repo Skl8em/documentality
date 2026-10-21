@@ -24,71 +24,50 @@ The corpus therefore carries two naming schemes at once.
 **Why left open:** the decision (ADR-028) deliberately keeps the naming convention open, rather than forcing a corpus-wide rename now.
 Adopting `id`/`slug` on the legacy records — and choosing whether their filenames become `<slug>.md` or `<slug>-<ulid>.md` — is a per-record judgement, not a debt that must be paid on a schedule.
 
-**How to resolve (when we choose):** add `id`/`slug` to a record's frontmatter (mint with `scripts/ulid.py` — ADRs chronological, phases ordinal via an `order` key), then normalise its filename with `scripts/slugify_names.py` (→ `<slug>.md`) or `scripts/migrate_ids.py` (→ `<slug>-<ulid>.md`); both rewrite all references via the safe-rename core, gated by `linkcheck` + `slug_check` + `ulid_check`.
+**How to resolve (when we choose):** add `id`/`slug` to a record's frontmatter (mint with `docsys id` — ADRs chronological, phases ordinal via an `order` key), then normalise its filename with `docsys slugify` (→ `<slug>.md`), which rewrites every link to it and leaves the link, slug and identifier checks to verify the result ([`docsys-commands.md`](../codifying/docsys-commands.md)).
+The other direction, `<slug>-<ulid>.md`, has no command: `migrate_ids.py` is parked, unported, in the engine's `legacy/`.
 
 ## Linter-grandfathered content
 
-**What:** `phases/naive-sketch/**` (pre-ADR-021 records), `imagining/**` (proposals and informal notes), and the blind-test transcripts are excluded from markdownlint / the frontmatter linter.
+**What:** `phases/naive-sketch/**` (pre-ADR-021 records), `imagining/**` (proposals and informal notes), and the blind-test transcripts are excluded from markdownlint, and all but `imagining/**` from the engine's checks.
 
 **Why:** they predate the current conventions or are not authored prose; forcing them into compliance would be churn without value.
 
 **How to resolve:** bring a file into the catalogue (frontmatter + one-sentence-per-line) and remove it from the ignore lists when it stops being historical/informal — case by case, not in bulk.
-There are two lists: `frontmatter:` in [`docsys.yaml`](../docsys.yaml) for the linter, and `.markdownlint-cli2.jsonc` for markdownlint, which reads only its own config; nothing checks that they agree.
+There are two lists: `scope.exclude` in [`docsys.yaml`](../docsys.yaml) for the engine's checks, and `.markdownlint-cli2.jsonc` for markdownlint, which reads only its own config; nothing checks that they agree.
 
 ## Unsealed frozen records
 
-**What:** `scripts/hash_check.py --unsealed` lists frozen records that carry no `hash:` fixity seal (ADR-031).
-The naive-sketch era (phases 01–05) is the bulk of it.
+**What:** frozen records that carry no `hash:` fixity seal (ADR-031); the rule that reports them, `hashes/unsealed`, is off by default, and `rules:` in `docsys.yaml` turns it on.
+The naive-sketch era (phases 01–05), which the scope excludes, is the bulk of it.
 
 **Why left open:** sealing is an act performed *at freeze*, and those records were frozen before the seal existed.
 Back-sealing them fixes their *current* content, not the content they had when they closed — which is an honest thing to do, but it should be a deliberate act rather than a bulk sweep.
 
-**How to resolve:** `python3 scripts/hash_seal.py <path>` per record, or `--frozen` for all unsealed ones at once.
+**How to resolve:** `docsys seal <path>` per record, or `docsys seal --frozen` for every frozen record of the scope at once.
 Note that sealing a record makes any later edit to it fail the gate until it is consciously re-sealed — that is the point, and the cost.
 
 ## Paid
 
 - **Reorg leftovers (untracked on-disk zombies)** — the three untracked directories the Phase-08 renames left on disk (`theory/`, `write/`, a top-level `phases/phase-07-structuring-tutorial/` husk) are gone, and the root `.gitignore` stops the `.DS_Store` files that blocked their deletion from coming back.
-  The real lesson is paid too: `scripts/check.py` now asserts `git status --porcelain` is clean of untracked paths, so on-disk cruft can no longer pass a gate that reads only `git ls-files` (Phase 10).
+  The real lesson is paid too: the gate reads every Markdown file on disk, tracked or not, so on-disk cruft cannot pass it unseen.
 - **Duplicated round-2 blind-test transcripts** — the `weft-blindtest-round2/` directory was byte-identical to the `blind-test/weft-{response,review}-round2.md` copies and was deleted; the `blind-test/` copies stay, sitting with round 1 (Phase 10).
-- **Referential integrity: cycles and self-supersession pass** — `ulid_check.py` now rejects a record that names itself in `supersedes` or `superseded-by`, and a loop along `superseded-by`, each with a fixture that was red first; the [referential-integrity fiche](https://github.com/Skl8em/docsys/blob/main/docs/referential-integrity.md) states it (Phase 12 T4).
-- **A register whose row shape matches nothing passed** — `ulid_check.check_register` now fails when it finds no decision rows, with fixtures for an empty register, a wrong column count and a non-matching ordinal; the [referential-integrity fiche](https://github.com/Skl8em/docsys/blob/main/docs/referential-integrity.md) states it (Phase 12 T4).
-- **Gate messages: three validators unfixtured** — `slug_check.py`, `linkcheck.py` and `hash_check.py` build their messages in pure functions, with fixtures (`test_slug_check.py`, `test_linkcheck.py`, `test_hash_check.py`, registered in the gate ahead of each check) that fail a message lacking its `fix:` clause, shown by removing the clause from each; the same extraction was needed in `ulid_check.py`'s own `main()` (Phase 12 T4).
-- **A renamed integration branch silently disarmed the paired-change rule** — `paired_change.py` now fails, on every run, when no branch in `enforce_on` exists locally or on a remote, with fixtures for a stale list and a remote-only branch; the [paired-change fiche](https://github.com/Skl8em/docsys/blob/main/docs/paired-change.md) states it (Phase 12 T6(b)).
+- **Referential integrity: cycles and self-supersession pass** — the ULID check rejects a record that names itself in `supersedes` or `superseded-by`, and a loop along `superseded-by`, each with a fixture that was red first; the [referential-integrity fiche](https://github.com/Skl8em/docsys/blob/main/docs/referential-integrity.md) states it (Phase 12 T4).
+- **A register whose row shape matches nothing passed** — the register check fails when it finds no decision rows, with fixtures for an empty register, a wrong column count and a non-matching ordinal; the [referential-integrity fiche](https://github.com/Skl8em/docsys/blob/main/docs/referential-integrity.md) states it (Phase 12 T4).
+- **Gate messages without their fix** — every finding of the engine carries its `fix:` clause, and its conformance suite fails a finding that lacks one; the two sources that had no fixture, the schema's drift message and the old runner's own, retired with `scripts/` (ADR-044).
+- **Closed vocabulary without a fixture** — the engine's frontmatter check has a case for an undeclared field (`frontmatter/vocabulary`), and its vocabulary refuses to load an optional field without its reason, with a test for each.
+- **A renamed integration branch silently disarmed the paired-change rule** — the rule fails, on every run, when no branch in `enforce_on` exists locally or on a remote, with fixtures for a stale list and a remote-only branch; the [paired-change fiche](https://github.com/Skl8em/docsys/blob/main/docs/paired-change.md) states it (Phase 12 T6(b)).
 
 ## Engine/config seam residue
 
-**What:** [Phase 12 T1(b)](../phases/refoundation/phase-12-codifying/engine-config-seam.md) moved every path, prefix and register format out of `scripts/` into `docsys.yaml`, and named what it left in code.
-Three of those remain debts rather than design.
-The seam is drawn from a single instance.
-`migrate_ids.py`, the Phase 09 identifier migration, still names the phase root as a bare literal (`git ls-files phases`): the leak check reads the root as the prefix `phases/`, because the bare word is also the ledger's and the config's own key, so this literal passes it (found in T6(b)).
-And the definition of a *frozen* record lives in `hash_seal.py`, where it duplicates a fact the schema also states (its status vocabulary): **kept there on purpose since T4**, guarded by a fixture in `test_hash_check.py` that fails when the two disagree, not moved.
+**What:** the engine reads every path, prefix and register format from `docsys.yaml`, a seam drawn from a single instance, this repository ([Phase 12 T1(b)](../phases/refoundation/phase-12-codifying/engine-config-seam.md)).
+And the definition of a *frozen* record lives in the engine's code (`FROZEN_STATUSES` in its fixity check), where it duplicates a fact the vocabulary also states, its status vocabulary, guarded by a test that fails when a declared status is classified neither frozen nor open.
 
 **Why left open:** the single-instance boundary cannot be tested without a second consumer.
-The frozen definition belongs in the schema in principle, but declaring it there widens the schema's vocabulary and rules on part of what the schema's `still_open` list calls the status vocabulary — a ruling, not a refactor, and not one this debt should take by side effect.
+The frozen definition belongs in the vocabulary in principle, but declaring it there widens the vocabulary and rules on part of what its `still_open` list calls the status vocabulary — a ruling, not a refactor, and not one this debt should take by side effect.
 
-**How to resolve:** revisit the seam when a second project wants the pipeline, or when it has held unchanged for a full phase.
-Read the root from `phases.root` in `migrate_ids.py`, or retire the script once no record awaits migration.
-Move the frozen definition into `schema/frontmatter-rules.yaml`, have `hash_seal.py` read it and retire the guard, when the status vocabulary is ruled.
-
-## Gate messages: two still unfixtured
-
-**What:** the gate's failure messages each carry a `— fix:` clause, and the validators whose messages are built in pure functions fail a fixture that lacks one.
-Two sources are outside that: the drift message of `generate_schema.py --check` says what to run and to commit but not under the `fix:` marker, and no fixture runs it; and the runner's own messages (`check.py`) are pinned only for order and attribution.
-
-**Why left open:** found while paying the three-validator debt; each is small, and neither was in the debt as recorded.
-
-**How to resolve:** extract the drift message into a function with a fixture asserting the marker, as for the validators; decide whether the runner's unavailable-tool and summary messages need the marker or are a different kind of message.
-
-## Closed vocabulary: the rule has no fixture
-
-**What:** `frontmatter_lint.py` rejects any field outside `required` ∪ `optional_fields` ∪ `root_only_fields`, and `load_schema()` refuses an optional field with no rationale ([ADR-036](../phases/refoundation/phase-11-tooling-hardening/closed-frontmatter-vocabulary.md)).
-Both were demonstrated by running them on 2026-09-24, but `scripts/test_frontmatter_lint.py` has no case for either.
-The one fixture that mentions an undeclared field fails on invalid YAML, not on the vocabulary rule.
-
-**Why left open:** found while closing Phase 11's account, whose task was documentation; adding fixtures is a change to the validator's tests, not to that account.
-
-**How to resolve:** add a lint case with an undeclared field that must fail with the `closed frontmatter vocabulary` message and a `fix:` clause, and a schema-load case with an empty rationale that must stop `load_schema()`; run each red against a linter with the rule removed first.
+**How to resolve:** revisit the seam when `weft` adopts the engine (ws4 of [Phase 14](../phases/rush-to-mvp/phase-14-adoption/plan.md)).
+Move the frozen definition into the engine's vocabulary, and retire the guard, when the status vocabulary is ruled.
 
 ## Paired-change: what the rule does not see
 

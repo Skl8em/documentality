@@ -82,7 +82,7 @@ ULID = *identity* (which record); a per-record **content hash** = *fixity* (this
 The record-level `pin`.
 
 - **Ratified:** add an optional `hash:` sealing each frozen record at close.
-- **Decanted:** ADR-031 — [`content-hash-fixity`](../phases/refoundation/phase-10-schema/content-hash-fixity.md); `scripts/hash_seal.py` mints, `scripts/hash_check.py` verifies, and the gate runs it.
+- **Decanted:** ADR-031 — [`content-hash-fixity`](../phases/refoundation/phase-10-schema/content-hash-fixity.md); `docsys seal` writes the seal, the engine's fixity check verifies it, and the gate runs it.
 
 ## Closed
 

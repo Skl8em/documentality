@@ -74,4 +74,4 @@ New records keep `<slug>.md` filenames; older rows keep their `ADR-NNN` names fo
 Its record stays frozen and unedited at [`phases/refoundation/phase-06-refoundation/ADR-019-restart.md`](../phases/refoundation/phase-06-refoundation/ADR-019-restart.md) — a demoted decision was still taken — and the plan content it carried is held by [`roadmap.md`](roadmap.md).
 The ordinal 019 is retired rather than reused: the numbers are generated display labels, so the gap costs nothing and every existing reference still resolves.
 
-To add a decision: append a row here, and write its full record (context + `justify` + `entail`) in the current phase folder as `<slug>.md`, with an `id` minted by `scripts/ulid.py`.
+To add a decision: append a row here, and write its full record (context + `justify` + `entail`) in the current phase folder as `<slug>.md`, with an `id` minted by `docsys id`.

@@ -21,7 +21,7 @@ It says nothing about *what a project's documentation must be about*.
 A project can satisfy every rule here — each file a well-formed `explain`, `describe` or `decide` — and still leave a newcomer, or an agent, without the one thing they need before changing the code: the theory the code embodies.
 
 The project has built that theory for its own domain without naming it as such.
-`schema/frontmatter-rules.yaml` is a closed lexicon — each term declared once, each carrying its reason — and a checker holds documents to it.
+The frontmatter vocabulary, the engine's `frontmatter-rules.yaml`, is a closed lexicon — each term declared once, each carrying its reason — and a checker holds documents to it.
 That is the pattern this proposal asks the product to teach for an adopter's *code*.
 
 ## A position on Naur
