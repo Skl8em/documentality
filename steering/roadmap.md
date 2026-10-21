@@ -59,6 +59,10 @@ It takes a place, and later a number, only by a ruling.
 - **A utility for renaming documents and migrating identifiers** — renaming a document while rewriting every link to it, and giving a corpus its identifiers in bulk, are needs most documentation projects meet; `migrate_ids.py`, kept in the engine's `legacy/` folder, is the lead.
 - **Moving markdownlint past 0.17.2**, the version nixos-25.05 pins: the gate and the editor's extension must run one version, and today no release of the extension bundles the version a newer nixpkgs pins (nixos-25.11: 0.18.1; the extension's 0.62.1 bundles 0.23.2).
   Staying breaks nothing: the sentence-per-line rule reports the same findings under 0.21.0.
+- **Dividing a plan into any number of levels** (project owner, 2026-10-21).
+  A plan is divided into four named levels below the phase — workstream, track, task, step ([`CONTRIBUTING.md`](CONTRIBUTING.md)) — and naming them suggests kinds of work where there are only finer divisions of one plan.
+  A scheme that divides a plan as deep as the work needs, with branches to match, is to be designed once the MVP closes.
+  Git refuses a branch `a/b` beside `a/b/c`, so the levels cannot be nested in branch names with `/` alone.
 - **A licence check on the engines' dependencies**, once a package bundles third-party code rather than calling it: the notices of what it bundles travel with it, GPL-2.0-only code such as git's is called as a separate program and never copied in, and a licence allowlist in each package's build (`pip-licenses`, `cargo-deny`) checks what the dependency tree pulls in ([ADR-043](../phases/rush-to-mvp/phase-13-design/licensing.md)).
 
 ## Plan changes
