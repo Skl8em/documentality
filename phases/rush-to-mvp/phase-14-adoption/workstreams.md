@@ -65,7 +65,7 @@ The steps still to take are walked in [Closing ws2](ws2-closing.md).
   The documents are the Markdown files anywhere under the workspace but inside `.git`, filtered by the scope; git's index and `.gitignore` are not consulted, and the walk follows no symlink and skips a folder the scope leaves out wholly.
   A workspace need not be a git repository.
 - **Checks.**
-  Every check of `scripts/` that belongs to the engine is extracted, and each is stated case by case in `docsys/conformance/<check>.yaml`, which the package's tests run:
+  Every check of the old gate that belongs to the engine is the engine's, and each is stated case by case in `docsys/conformance/<check>.yaml`, which the package's tests run:
 
   | Check | Rules | Conformance file |
   | --- | --- | --- |
@@ -88,7 +88,7 @@ The steps still to take are walked in [Closing ws2](ws2-closing.md).
   They are listed in [`codifying/docsys-commands.md`](../../../codifying/docsys-commands.md) and explained in the engine's [fiche](https://github.com/Skl8em/docsys/blob/main/docs/author-tools.md); `migrate_ids.py`, which does not run, is kept in the engine's `legacy/`.
   A rewrite of a sealed record's links breaks its seal, so the tools list each record they rewrote with the command that renews it.
 - **Vocabulary.**
-  The engine ships the frontmatter vocabulary as `src/docsys/schema/frontmatter-rules.yaml` and reads it itself, without the generated JSON; the schema exists twice until the gate switches, and a test of the engine compares them.
+  The engine ships the frontmatter vocabulary as `src/docsys/schema/frontmatter-rules.yaml` and reads it itself, with nothing generated from it; it is the one vocabulary ([ADR-044](one-vocabulary-read-directly.md)).
   The engine classifies every status word as frozen or open, and its suite fails when the classification and the vocabulary disagree.
 - **Types.**
   Every function, tests included, is checked by basedpyright and ruff from the test suite and from the editor at the same versions.
@@ -96,10 +96,14 @@ The steps still to take are walked in [Closing ws2](ws2-closing.md).
   `docsys.yaml` names external commands under `tools`; `docsys check` runs them after its own checks and reports `tools/failed` or `tools/missing`.
   The engine ships the sentence-per-line markdownlint rule, which this repository's markdownlint loads from the submodule; its test reads markdownlint-cli2's output under the pinned 0.17.2 and under 0.21.0.
 - **Fiches.**
-  The engine's fiches on the ULID check, [referential integrity](https://github.com/Skl8em/docsys/blob/main/docs/referential-integrity.md), the [paired-change rule](https://github.com/Skl8em/docsys/blob/main/docs/paired-change.md), the [phase ledger and the phase-state check](https://github.com/Skl8em/docsys/blob/main/docs/phase-state.md) and the [vocabulary and its reader](https://github.com/Skl8em/docsys/blob/main/docs/vocabulary.md) and the [author tools](https://github.com/Skl8em/docsys/blob/main/docs/author-tools.md) are in `docsys/docs/`; `codifying/gate.md` and `codifying/schema-pipeline.md` keep what is this repository's.
+  The engine's fiches on the ULID check, [referential integrity](https://github.com/Skl8em/docsys/blob/main/docs/referential-integrity.md), the [paired-change rule](https://github.com/Skl8em/docsys/blob/main/docs/paired-change.md), the [phase ledger and the phase-state check](https://github.com/Skl8em/docsys/blob/main/docs/phase-state.md) and the [vocabulary and its reader](https://github.com/Skl8em/docsys/blob/main/docs/vocabulary.md), the [author tools](https://github.com/Skl8em/docsys/blob/main/docs/author-tools.md), the [runner](https://github.com/Skl8em/docsys/blob/main/docs/runner.md) and the [link check](https://github.com/Skl8em/docsys/blob/main/docs/links.md) are in `docsys/docs/`; [`codifying/gate.md`](../../../codifying/gate.md) keeps what is this repository's.
   This repository links to the engine's fiches by URL.
-- **Parity with `scripts/`.**
-  Run from a copy of this repository with a `docsys.yaml` in the engine's shape (the scope taken from the frontmatter ignore list; the register, paired-change and phases sections unchanged), `docsys check` reports no finding but the paired-change rule's own on the uncommitted configuration.
+- **The gate.**
+  This repository's gate is `uv run --locked docsys check`, run inside the devShell by the pre-commit hook, by CI after `uv sync --locked`, and by the VS Code task, whose problem matchers read the engine's output.
+  `docsys.yaml` is in the engine's shape; this repository's own checks, the editor's markdownlint version and the problem matchers' fixtures, run from `tools/` as `tools:` entries after `markdownlint`.
+  The paired-change rule's mechanism is `docsys.yaml`, `tools/`, `.githooks/`, `.github/workflows/` and `flake.nix`, anchored at the last commit before the switch; the submodule pointer is not mechanism.
+  `scripts/` and `schema/` are gone; five links from frozen records into them are allowed in `docsys.yaml`, each with its reason.
+- **The engine's check of itself** is ws4's, by the project owner's ruling.
 
 ## ws3 — The guided install
 
@@ -119,6 +123,9 @@ Delivers: `init` and `new`, with fixtures; the structuring and writing tutorials
 
 One command, gate green on the scaffold; `weft_spec.md` given its frontmatter by hand with `docsys new`'s defaults as a guide.
 Every friction met is recorded, not smoothed over in the moment.
+
+Before `weft`, the engine checks itself with `docsys`, settling [open point 6](open-points.md): a `docsys.yaml` of its own, `.venv/` excluded and `paired_change` with `src/` as mechanism and `docs/` and `README.md` as understanding, enforced on `main`; its README given the `axis` and `dominant-community` the project owner chooses; `docsys check` in its hook and CI.
+Run on the engine's documents with this repository's rules on 2026-10-21, it found two defects: `legacy/README.md` has no frontmatter, and the link check reads the example link that `docs/links.md` writes inside a code span as a dead link, as it does in any document.
 
 Delivers: an adoption record in this folder: what was run, what failed, what was changed because of it.
 

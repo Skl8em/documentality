@@ -77,7 +77,7 @@ The blocking rule of the [Phase 12 plan](../../refoundation/phase-12-codifying/p
 | 3 | What an adopter gets by default | settled |
 | 4 | Adopter frontmatter when the vocabulary changes | out of the era |
 | 5 | `weft`'s functions and provenance map | blocks ws4 |
-| 6 | Working across two repositories | settled by ws2 |
+| 6 | Working across two repositories | ws2; self-check in ws4 |
 
 ## Verification / definition of done
 

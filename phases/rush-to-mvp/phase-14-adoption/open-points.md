@@ -52,7 +52,7 @@ Blocking: it blocks ws4.
 
 ## 6. Working across two repositories
 
-Settled by ws2.
+Settled by ws2, but for the engine checking itself, which ws4 does.
 This repository consumes the engine through a submodule, as any adopter would through its lockfile.
 To settle as ws2 meets them:
 
