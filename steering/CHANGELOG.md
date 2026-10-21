@@ -16,6 +16,12 @@ History of the documentation system itself.
 Append-only; each entry is dated-fixed.
 Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
 
+## [v4.0-alpha.44] — Every Markdown file is a document
+
+- **Changed:** a document is any Markdown file under the workspace but inside `.git`; git's index and `.gitignore` are no longer consulted, so a build folder or a virtual environment is left out by a `scope.exclude` entry with its reason, and a workspace outside a git repository is accepted.
+  `docsys report` prints one line per exclusion with its reason and the number of documents it leaves out, and `--documents` lists the documents; the reference is [`codifying/docsys-configuration.md`](../codifying/docsys-configuration.md).
+- **Parked:** excluding submodules from the documents by default, with an explicit opt-in, after the MVP; until then a submodule's files are documents, so that the engine falls under this repository's rules.
+
 ## [v4.0-alpha.43] — A branch is rebased on its destination before it is merged
 
 - **Added:** a rule in [`CONTRIBUTING.md`](CONTRIBUTING.md): a branch is kept rebased on the branch it will be merged into — at the start of each session, whenever the destination moves, and last before it is presented — and checked on its tip, since no hook runs during a rebase; the `--no-ff` merge is then a fast-forward recorded as a merge commit, which groups the steps without squashing them.
