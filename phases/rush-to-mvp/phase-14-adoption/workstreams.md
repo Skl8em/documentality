@@ -83,6 +83,10 @@ The steps still to take are walked in [Closing ws2](ws2-closing.md).
   A finding is a path, a line, a rule identifier and a message ending in a `fix:` clause.
 - **Report.**
   `docsys report` lists each exclusion with its reason and the number of documents it leaves out, and counts the documents in scope; `--documents` lists the excluded documents.
+- **Author tools.**
+  `docsys id` mints a ULID, chronological (`--at`), ordinal (`--order`) or as a filename stem (`--slug`), outside any workspace; `docsys seal` writes a frozen record's `hash:` and refuses to replace a seal that no longer matches without `--reseal`; `docsys rename` moves a file or folder and rewrites the links to it, in the documents of the scope; `docsys slugify` names each slugged document after its slug, through `rename`.
+  They are listed in [`codifying/docsys-commands.md`](../../../codifying/docsys-commands.md) and explained in the engine's [fiche](https://github.com/Skl8em/docsys/blob/main/docs/author-tools.md); `migrate_ids.py`, which does not run, is kept in the engine's `legacy/`.
+  A rewrite of a sealed record's links breaks its seal, so the tools list each record they rewrote with the command that renews it.
 - **Vocabulary.**
   The engine ships the frontmatter vocabulary as `src/docsys/schema/frontmatter-rules.yaml` and reads it itself, without the generated JSON; the schema exists twice until the gate switches, and a test of the engine compares them.
   The engine classifies every status word as frozen or open, and its suite fails when the classification and the vocabulary disagree.
@@ -90,9 +94,9 @@ The steps still to take are walked in [Closing ws2](ws2-closing.md).
   Every function, tests included, is checked by basedpyright and ruff from the test suite and from the editor at the same versions.
 - **Opt-in tools.**
   `docsys.yaml` names external commands under `tools`; `docsys check` runs them after its own checks and reports `tools/failed` or `tools/missing`.
-  The engine ships the sentence-per-line markdownlint rule, which this repository's markdownlint loads from the submodule.
+  The engine ships the sentence-per-line markdownlint rule, which this repository's markdownlint loads from the submodule; its test reads markdownlint-cli2's output under the pinned 0.17.2 and under 0.21.0.
 - **Fiches.**
-  The engine's fiches on the ULID check, [referential integrity](https://github.com/Skl8em/docsys/blob/main/docs/referential-integrity.md), the [paired-change rule](https://github.com/Skl8em/docsys/blob/main/docs/paired-change.md), the [phase ledger and the phase-state check](https://github.com/Skl8em/docsys/blob/main/docs/phase-state.md) and the [vocabulary and its reader](https://github.com/Skl8em/docsys/blob/main/docs/vocabulary.md) are in `docsys/docs/`; `codifying/gate.md` and `codifying/schema-pipeline.md` keep what is this repository's.
+  The engine's fiches on the ULID check, [referential integrity](https://github.com/Skl8em/docsys/blob/main/docs/referential-integrity.md), the [paired-change rule](https://github.com/Skl8em/docsys/blob/main/docs/paired-change.md), the [phase ledger and the phase-state check](https://github.com/Skl8em/docsys/blob/main/docs/phase-state.md) and the [vocabulary and its reader](https://github.com/Skl8em/docsys/blob/main/docs/vocabulary.md) and the [author tools](https://github.com/Skl8em/docsys/blob/main/docs/author-tools.md) are in `docsys/docs/`; `codifying/gate.md` and `codifying/schema-pipeline.md` keep what is this repository's.
   This repository links to the engine's fiches by URL.
 - **Parity with `scripts/`.**
   Run from a copy of this repository with a `docsys.yaml` in the engine's shape (the scope taken from the frontmatter ignore list; the register, paired-change and phases sections unchanged), `docsys check` reports no finding but the paired-change rule's own on the uncommitted configuration.
