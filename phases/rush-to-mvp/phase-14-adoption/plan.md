@@ -56,6 +56,10 @@ And the pages an adopter or an agent reads first contradict each other or themse
 - **Closing T2** (project owner, 2026-10-21): T2 is finished before T1's remaining defects, and continuous integration of both repositories comes first, pushed to verify it.
   The engine gets its own CI and pre-commit hook, rather than this repository's gate running its suite; this repository's own checks (the editor's markdownlint version, the VS Code task's problem matchers) run as `tools:` entries from a folder here; after the switch the paired-change rule's mechanism is `docsys.yaml`, that folder, `.githooks/`, `.github/workflows/` and `flake.nix`, the submodule pointer still to rule; the hook and CI run `uv run --locked docsys check` inside the devShell.
   The steps are in [Closing T2](t2-closing.md).
+- **How a plan is divided** (project owner, 2026-10-21): a phase into **workstreams** (T1–T5 below), which may run side by side and have no branch; a workstream into **tracks**, each a branch merged into the phase branch, so the tracks of different workstreams land in any order; a track into **tasks**, each sized for one agent session without running out of context, each a branch merged into its track's; a task into **steps**, each one commit.
+  Work at every level is numbered when it starts, never before, as [ADR-038](../../refoundation/phase-11-tooling-hardening/unstarted-work-unnumbered.md) says of phases; a step, being a commit, takes no number.
+  This phase applies it as far as its plan allows: its workstreams keep the numbers this plan gave them, and [Closing T2](t2-closing.md) is divided by it; every phase after Phase 14 is planned by it.
+  The binding rule is in [`CONTRIBUTING.md`](../../../steering/CONTRIBUTING.md); dividing a plan into any number of levels is parked until after the MVP ([roadmap](../../../steering/roadmap.md), *Parked*).
 
 ## Workstreams
 
