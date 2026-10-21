@@ -49,23 +49,30 @@ Rules for documents you write *with* the system are in the product ([`../write/r
   Opt in to the pre-commit hook once with `git config core.hooksPath .githooks`.
   Consequence: without the hook, a violation is found only by CI, after the commit exists.
 
-- You **must** work in nested branches and merge each into the one it came from with `--no-ff`: the phase branch holds one branch per workstream (`feature/ph14-t2-ws1-ci`), which holds one branch per task (`feature/ph14-t2-ws1-tsk1-ci-engine-shell`), named `feature/ph<NN>-t<N>-ws<N>-<workstream>` and `feature/ph<NN>-t<N>-ws<N>-tsk<N>-<task>` in hyphen-case; the earlier branches (`t2-port-slug-check`) keep their names.
-  A task branch is cut from its workstream branch, and merged back into it when the project owner has accepted the task; a workstream branch is merged into the phase branch the same way when its workstream closes.
-  The project owner may accept in advance, by asking for a whole workstream to be carried out: each task is then merged as soon as its checks pass, and the presentation (below) is made once, for the workstream.
-  Consequence: the larger branch reads as one merge commit per task, and the steps of each task stay in the history under it.
+- You **must** divide a phase's plan into workstreams, tracks, tasks and steps, and branch by them, merging each branch into the one it came from with `--no-ff`:
+  - a **workstream** (`T1`, `T2`… in a plan) is a part of the phase that may run beside the others; it has no branch, since the tracks of different workstreams land on the phase branch in any order;
+  - a **track** is a part of a workstream, with a branch cut from the phase branch and merged back into it when the track closes;
+  - a **task** is a part of a track sized to be carried out in one agent session without running out of context, with a branch cut from its track's and merged back into it when the project owner has accepted the task;
+  - a **step** is one commit (below).
 
-- You **must** commit an item in steps, each made only when it is meaningful: *specify* (the rules, as data or prose), *red* (the tests that fail for the right reason, run and seen failing), *implement* (the change that turns them green), *document* (the account of what was done, for the reader who inherits it), *integrate* (the change wired into what uses it), *review global docs* (the pages elsewhere that state the present, brought up to date).
+  The project owner may accept in advance, by asking for a whole track to be carried out: each task is then merged as soon as its checks pass, and the presentation (below) is made once, for the track.
+  Work is numbered when it starts, never before, as [ADR-038](../phases/refoundation/phase-11-tooling-hardening/unstarted-work-unnumbered.md) says of phases: a plan names and orders the workstreams, tracks and tasks it has not begun, and each takes the next free number at its level when it starts; a step is a commit, identified by its hash, and takes no number.
+  Phase 14 applies these levels as far as its plan allows, its workstreams keeping the numbers its plan gave them; every plan after Phase 14 is divided by them.
+  Phase 14's branches are named `feature/ph<NN>-t<N>-ws<N>-<track>` and `feature/ph<NN>-t<N>-ws<N>-tsk<N>-<task>` in hyphen-case, where `t<N>` numbers the workstream, `ws<N>` the track and `tsk<N>` the task (`feature/ph14-t2-ws1-ci`, `feature/ph14-t2-ws1-tsk1-ci-engine-shell`); the earlier branches (`t2-port-slug-check`) keep their names.
+  Consequence: the phase branch reads as one merge commit per track, each track as one merge commit per task, and the steps of each task stay in the history under it.
+
+- You **must** carry out a task in steps, each one commit, made only when it is meaningful: *specify* (the rules, as data or prose), *red* (the tests that fail for the right reason, run and seen failing), *implement* (the change that turns them green), *document* (the account of what was done, for the reader who inherits it), *integrate* (the change wired into what uses it), *review global docs* (the pages elsewhere that state the present, brought up to date).
   Code that is moved, not written, is moved with its tests in a first commit that changes nothing else, and is not given a red step; *integrate* and *document* follow as they are worth it.
-  A commit's subject names the item and says what the step leaves true (`T2 slug: the check reports the rules conformance/slugs.yaml states`); its body says why, when the diff does not.
+  A commit's subject names the task and says what the step leaves true (`T2 slug: the check reports the rules conformance/slugs.yaml states`); its body says why, when the diff does not.
   A commit holds one step, and only the files of that step.
 
-- You **must** present a finished item before merging it: what each step committed, what was run and what it showed, the assumptions taken, and what the project owner should check.
-  For a workstream carried out on the project owner's standing request, the presentation is the workstream's: every task with its commits, what was run, what remains open.
+- You **must** present a finished task before merging it: what each step committed, what was run and what it showed, the assumptions taken, and what the project owner should check.
+  For a track carried out on the project owner's standing request, the presentation is the track's: every task with its commits, what was run, what remains open.
   Consequence: a merge without that acceptance is reverted.
 
-- You **must** mirror in the engine's repository (the `docsys/` submodule) the branches of work that changes both repositories: the same phase, workstream and item branches, under the same names, each cut from its counterpart there and merged with `--no-ff` at the same level and at the same time as here.
+- You **must** mirror in the engine's repository (the `docsys/` submodule) the branches of work that changes both repositories: the same phase, track and task branches, under the same names, each cut from its counterpart there and merged with `--no-ff` at the same level and at the same time as here.
   The engine's branch is merged first; the commit in this repository that moves the submodule pointer to the engine's merge commit goes on the branch it is merged into, so each merge here is followed by a pointer at the merge of the same name there.
-  A task that changes only the engine still gets its pointer commit here, on the task branch, at the engine's task tip, so that merging the task here is a real merge; the pointer at the engine's merge follows on the workstream branch.
+  A task that changes only the engine still gets its pointer commit here, on the task branch, at the engine's task tip, so that merging the task here is a real merge; the pointer at the engine's merge follows on the track branch.
   Work that changes the engine alone and belongs to no task here needs no mirror, and the engine may carry branches of its own beside it.
   Consequence: the two branch graphs read alike, so whether the repositories are in step can be seen by comparing them.
 
