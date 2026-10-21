@@ -135,7 +135,7 @@ Commit `5f9eed9` corrected exactly this defect in `operationalizing/view.md`, in
 ### An accepted decision contradicts the linter
 
 [ADR-008](../../phases/naive-sketch/phase-03-reorganization/ADR-008-tree-axis-declaration.md) declares `axis` and `dominant-community` "at each tree root".
-[`frontmatter_lint.py`](../../scripts/frontmatter_lint.py#L154) hard-codes `is_root = path == "README.md"` and fails `axis` anywhere else.
+[`frontmatter_lint.py`](https://github.com/Skl8em/documentality/blob/09f7ebdfc1658d560469177c214cea858920171d/scripts/frontmatter_lint.py#L154) hard-codes `is_root = path == "README.md"` and fails `axis` anywhere else.
 The sub-axis "by door" that the root README declares for `writing/forces/` therefore cannot be declared where the rule says it should be.
 The literal is also an instance value inside the engine, exempted from the engine/config seam check by statement in [`codifying/gate.md`](../../codifying/gate.md) rather than by design.
 
@@ -154,7 +154,7 @@ Either the rule is false as written, or those three records are accounts of deci
 ### `linkcheck.py` cannot link the new paper
 
 - A link to `theorising/the_life_of_projects.md` is reported broken both raw and percent-encoded (both tested).
-- The CommonMark form for such a path, `<…>`, is skipped as a "placeholder" ([`linkcheck.py`](../../scripts/linkcheck.py#L33)), so a correct link would go unchecked.
+- The CommonMark form for such a path, `<…>`, is skipped as a "placeholder" ([`linkcheck.py`](https://github.com/Skl8em/documentality/blob/09f7ebdfc1658d560469177c214cea858920171d/scripts/linkcheck.py#L33)), so a correct link would go unchecked.
 - Anchors and reference-style links are never checked.
 
 That is why this review names the paper in code text rather than linking it.

@@ -57,15 +57,15 @@ What is still open is listed in the schema's own `still_open`: the `distance`/`p
 
 ## The tooling that enforces it
 
-The catalogue is only as good as what checks it, and that apparatus — `scripts/`, `schema/`, `docsys.yaml` and the gate that runs them — is the function `codifying`'s ([ADR-035](../phases/refoundation/phase-12-codifying/codifying-function.md)).
-Read [`../codifying/`](../codifying/README.md) to learn how it is built and why; this section says only what shape of decision Phases 11 and 12 left standing.
+The catalogue is only as good as what checks it, and that apparatus — the engine [`docsys`](https://github.com/Skl8em/docsys), mounted at `docsys/`, this repository's `docsys.yaml` and `tools/`, and the gate that runs them — is the function `codifying`'s ([ADR-035](../phases/refoundation/phase-12-codifying/codifying-function.md)).
+Read [`../codifying/`](../codifying/README.md) to learn how it is built and why; this section says only what shape of decision stands.
 
 - **The vocabulary is closed** ([ADR-036](../phases/refoundation/phase-11-tooling-hardening/closed-frontmatter-vocabulary.md)): a field is legal only if the schema declares it, and declaring it means giving its reason.
-- **The schema is authored in YAML, and its JSON is generated** ([ADR-037](../phases/refoundation/phase-11-tooling-hardening/yaml-source-generated-json.md)), so the reason for each field can live beside it and no one edits the artifact by hand.
+- **The vocabulary is one YAML file, the engine's, read directly** ([ADR-044](../phases/rush-to-mvp/phase-14-adoption/one-vocabulary-read-directly.md), superseding ADR-037), so the reason for each field lives beside it and no copy can drift from it.
 - **Identifiers must point at something** — every `supersedes` and `superseded-by` resolves, supersession is symmetric, and the register agrees with the records — because a decision register is the project's governance line and a dangling pointer in it would pass a gate that only read fields.
   This was an execution step in Phase 11, not a decision of its own; [the referential-integrity fiche](https://github.com/Skl8em/docsys/blob/main/docs/referential-integrity.md) explains the check and what it still lets through.
 - **Unstarted work is never referred to by number** ([ADR-038](../phases/refoundation/phase-11-tooling-hardening/unstarted-work-unnumbered.md)), so an inserted phase moves nothing that has not begun.
-- **The tooling does not change unexplained** ([ADR-039](../phases/refoundation/phase-12-codifying/paired-change-rule.md)): a commit that touches `scripts/`, `schema/` or `docsys.yaml` must also touch a file that explains them, or the gate fails where work lands (`main`, `develop`, a pull request) and warns elsewhere ([ADR-040](../phases/refoundation/phase-12-codifying/paired-change-where-it-fails.md)); tests and comment-only edits need none.
+- **The tooling does not change unexplained** ([ADR-039](../phases/refoundation/phase-12-codifying/paired-change-rule.md)): a commit that touches the mechanism — `docsys.yaml`, `tools/`, the hook, the CI workflows, the devShell — must also touch a file that explains it, or the gate fails where work lands (`main`, `develop`, a pull request) and warns elsewhere ([ADR-040](../phases/refoundation/phase-12-codifying/paired-change-where-it-fails.md)); tests and comment-only edits need none.
   It exists because two phases in a row changed the mechanism and left the product describing the old one; [the paired-change fiche](https://github.com/Skl8em/docsys/blob/main/docs/paired-change.md) explains what it does and does not establish, and [`../codifying/gate.md`](../codifying/gate.md) how this repository configures it.
 
 ## Provenance map (how this repo is owned)
@@ -77,7 +77,7 @@ Read [`../codifying/`](../codifying/README.md) to learn how it is built and why;
 | `operationalizing/**` | function `operationalizing` |
 | `writing/**` | function `writing` |
 | `structuring/**` | function `structuring` |
-| `codifying/**` (the account), and the code it accounts for: `scripts/**`, `schema/**`, `docsys.yaml`, `tools/**` | function `codifying` |
+| `codifying/**` (the account), and what it accounts for: `docsys.yaml`, `tools/**`, and the engine's submodule `docsys/` | function `codifying` |
 | `steering/**` governance (`foundation`, `roadmap`, `ARCHITECTURE`, `CONTRIBUTING`, `CHANGELOG`, `ADR.md` register, `open-questions`) | function `steering` |
 | `imagining/**` | function `imagining` (proposals not yet ruled on) |
 | `phases/<era>/<phase>/**` (records) | project `phase-NN` (frozen, grouped by era) |

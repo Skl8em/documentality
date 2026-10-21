@@ -19,14 +19,14 @@ package = false
 [tool.uv.sources]
 docsys = { path = "docsys", editable = true }
 
-# This repository's own Python is scripts/, retired as its checks move to docsys, and
-# one markdownlint fixture under tools/; neither is typed or formatted, so both stay
-# out of the type checker and the linter. docsys/ is checked by its own configuration
-# (open documentation-system.code-workspace in the editor).
+# This repository's own Python is tools/, its own checks, run by `docsys check` as
+# tools. This project locks no type checker or linter, so tools/ stays out of both,
+# as the editor would otherwise run them on it. docsys/ is checked by its own
+# configuration (open documentation-system.code-workspace in the editor).
 [tool.basedpyright]
-exclude = ["docsys", "scripts", "tools", ".venv"]
-ignore = ["scripts", "tools"]
+exclude = ["docsys", "tools", ".venv"]
+ignore = ["tools"]
 
 [tool.ruff]
-extend-exclude = ["docsys", "scripts", "tools"]
+extend-exclude = ["docsys", "tools"]
 force-exclude = true

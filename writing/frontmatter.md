@@ -27,12 +27,12 @@ That is deliberate.
 A field nobody declared has no meaning anyone can look up, and a field declared and never used is a promise the corpus does not keep.
 
 The only way in is to declare the field, and declaring it means writing down **why it exists**.
-Every optional field carries its own reason in [`schema/frontmatter-rules.yaml`](../schema/frontmatter-rules.yaml), one field to one reason, and the schema refuses to load if a reason is missing.
+Every optional field carries its own reason in the engine's vocabulary, [`frontmatter-rules.yaml`](https://github.com/Skl8em/docsys/blob/main/src/docsys/schema/frontmatter-rules.yaml), one field to one reason, and the schema refuses to load if a reason is missing.
 A reason is a sentence about the coordinate, not a form to fill in: if you cannot write one, what you wanted to record is not a coordinate, and it belongs in the document's own prose.
 
 That file is the **source of truth** for the vocabulary — the fields, their enumerated values, and each reason.
 This page is its reading for someone writing documents; where the two disagree, the schema is right and this page is the defect.
-A JSON copy is generated from the schema for programs to read and is never edited by hand; [`../codifying/schema-pipeline.md`](../codifying/schema-pipeline.md) explains how the pair is kept in step, for whoever maintains it.
+`docsys` reads that file directly, and nothing is generated from it ([ADR-044](../phases/rush-to-mvp/phase-14-adoption/one-vocabulary-read-directly.md)); the engine's [vocabulary fiche](https://github.com/Skl8em/docsys/blob/main/docs/vocabulary.md) explains it, for whoever maintains it.
 
 Closing the vocabulary does not close its *values*.
 What `distance`, `power` and `status` may hold, and the shape of `concerns`, are still open in the schema: the sets in the table are current practice, and a value outside them warns instead of failing.

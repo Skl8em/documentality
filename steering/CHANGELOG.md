@@ -20,6 +20,8 @@ Design rationale for each line lives in the matching ADR — listed in the regis
 
 - **Changed:** the gate is `uv run --locked docsys check`, run inside the devShell by the pre-commit hook, by CI after `uv sync --locked`, and by the VS Code task; `docsys.yaml` is in the engine's shape, its scope's exclusions each with its reason, and [the gate](../codifying/gate.md) explains it.
 - **Changed:** the paired-change rule's mechanism is `docsys.yaml`, `tools/`, `.githooks/`, `.github/workflows/` and `flake.nix`, anchored at the last commit of the old gate; the submodule pointer is not mechanism, by the project owner's ruling.
+- **Removed:** `scripts/` and `schema/`, with the fiche on the schema pipeline; five links from frozen records into them are allowed in `docsys.yaml` with their reasons, and the living pages that linked into them point at the engine's vocabulary, or at this repository's last pushed commit that holds them.
+- **Removed:** the engine's test that compared its vocabulary with this repository's copy.
 - **Moved:** this repository's own checks — the editor's markdownlint version and the problem matchers' fixtures — to `tools/`, run as `tools:` entries after `markdownlint`; the VS Code task's four problem matchers read the engine's output.
 - **Decided:** [ADR-044](../phases/rush-to-mvp/phase-14-adoption/one-vocabulary-read-directly.md), superseding [ADR-037](../phases/refoundation/phase-11-tooling-hardening/yaml-source-generated-json.md): the engine's YAML is the one frontmatter vocabulary, read directly, and `schema/` with its generated JSON retires with `scripts/`.
 - **Fixed:** the engine's `phase-state/folder` no longer takes a file directly under an era, such as the `.DS_Store` macOS leaves there, for a phase folder the ledger does not list.
@@ -288,7 +290,7 @@ Design rationale for each line lives in the matching ADR — listed in the regis
   The code stays in `scripts/`, `schema/` and `docsys.yaml`; the account is shelved in `codifying/`.
   The boundary with `operationalizing` is by subject: a coordinate of the corpus is operationalizing, a mechanism that checks, generates or runs is codifying.
   ADR-033's count is refined, not superseded.
-- **Added:** the [`codifying/`](../codifying/README.md) shelf — an orient and three fiches for the maintainer: [the gate](../codifying/gate.md), [the schema pipeline](../codifying/schema-pipeline.md) and [referential integrity](https://github.com/Skl8em/docsys/blob/main/docs/referential-integrity.md).
+- **Added:** the [`codifying/`](../codifying/README.md) shelf — an orient and three fiches for the maintainer: [the gate](../codifying/gate.md), [the schema pipeline](https://github.com/Skl8em/documentality/blob/09f7ebdfc1658d560469177c214cea858920171d/codifying/schema-pipeline.md) and [referential integrity](https://github.com/Skl8em/docsys/blob/main/docs/referential-integrity.md).
   Each states what it does not establish; none has been read cold by anyone but its author.
 - **Ruled:** [the community map](../phases/refoundation/phase-12-codifying/community-map.md) — gate-runner, maintainer and machine, with the adopter named and cut until a second consumer exists.
   `maintainer` is `contributor`, refined, for a distance judged in the tooling field; it stays the linter's warning rather than a schema enum.
@@ -323,13 +325,13 @@ Design rationale for each line lives in the matching ADR — listed in the regis
   A `<...>` placeholder (a force template's SPECIMEN frontmatter) is not a reference and is skipped, the same test `hash_seal.is_frozen` already used for a specimen `provenance.id`.
 - **Fixed:** three real asymmetric references, found by the new check, not suspected: ADR-001, ADR-002 and ADR-006 (`phases/naive-sketch/`) each carried `superseded-by: null` although the register and their superseding record (ADR-014, ADR-015, ADR-017) had already recorded the other direction.
   Retrofitted `superseded-by` on the three, the same way [`hosting-codeberg-github-mirror.md`](../phases/refoundation/phase-10-schema/hosting-codeberg-github-mirror.md) already had it added when [`hosting-github-canonical.md`](../phases/refoundation/phase-10-schema/hosting-github-canonical.md) superseded it — the pointer is kept live, only the decision's own reasoning is dated-fixed.
-- **Added:** [`scripts/test_ulid_check.py`](../scripts/test_ulid_check.py), fixtures on the same model as `test_frontmatter_lint.py` — a dangling reference, a broken symmetry, a register disagreement, a `<...>` placeholder, a list-valued reference — run by the gate (`ulid-test`) before the corpus check it gates.
+- **Added:** [`scripts/test_ulid_check.py`](https://github.com/Skl8em/documentality/blob/09f7ebdfc1658d560469177c214cea858920171d/scripts/test_ulid_check.py), fixtures on the same model as `test_frontmatter_lint.py` — a dangling reference, a broken symmetry, a register disagreement, a `<...>` placeholder, a list-valued reference — run by the gate (`ulid-test`) before the corpus check it gates.
   ([plan](../phases/refoundation/phase-11-tooling-hardening/plan.md))
 
 ## [v4.0-alpha.13] — Phase 11 T3: YAML source, generated JSON
 
-- **Changed:** the schema's source of truth is now [`schema/frontmatter-rules.yaml`](../schema/frontmatter-rules.yaml) — hand-edited, `#` comments allowed, replacing the `"//"` key JSON used as a comment substitute.
-  [`scripts/generate_schema.py`](../scripts/generate_schema.py) compiles it to `schema/frontmatter-rules.json`, the artifact `frontmatter_lint.py` and any other dependency-free reader actually loads; the two files carry identical data.
+- **Changed:** the schema's source of truth is now [`schema/frontmatter-rules.yaml`](https://github.com/Skl8em/documentality/blob/09f7ebdfc1658d560469177c214cea858920171d/schema/frontmatter-rules.yaml) — hand-edited, `#` comments allowed, replacing the `"//"` key JSON used as a comment substitute.
+  [`scripts/generate_schema.py`](https://github.com/Skl8em/documentality/blob/09f7ebdfc1658d560469177c214cea858920171d/scripts/generate_schema.py) compiles it to `schema/frontmatter-rules.json`, the artifact `frontmatter_lint.py` and any other dependency-free reader actually loads; the two files carry identical data.
   This retires `schema/frontmatter.schema.json`, whose name claimed a JSON Schema dialect the hand-written validator never implemented.
 - **Added:** a drift check — `scripts/generate_schema.py --check` regenerates the JSON in memory and diffs it against the committed file, failing loud on any mismatch.
   Wired into `check.py` as `schema-drift`, run before anything that loads the generated file, so a schema edit can never go unenforced because the generated artifact was left stale.
@@ -340,13 +342,13 @@ Design rationale for each line lives in the matching ADR — listed in the regis
 
 ## [v4.0-alpha.12] — Phase 11 T2: parse YAML with YAML
 
-- **Changed:** frontmatter is parsed as **real YAML**, through one shared reader, [`scripts/yaml_frontmatter.py`](../scripts/yaml_frontmatter.py), on `pyyaml` pinned in the devShell (`python3.withPackages`, no new flake input).
+- **Changed:** frontmatter is parsed as **real YAML**, through one shared reader, [`scripts/yaml_frontmatter.py`](https://github.com/Skl8em/documentality/blob/09f7ebdfc1658d560469177c214cea858920171d/scripts/yaml_frontmatter.py), on `pyyaml` pinned in the devShell (`python3.withPackages`, no new flake input).
   It replaces three hand-rolled comma-and-colon splitters: the one in `frontmatter_lint.py`, and the one duplicated in `slug_check.py` and `ulid_check.py` (which `slugify_names.py` imported).
   `hash_seal.is_frozen` reads its three fields through it too; the seal's line-based canonical form is untouched, and every seal still verifies.
 - **Ruled:** two departures from `yaml.safe_load`, each for a failure it would otherwise introduce.
   Scalars stay strings and only `null` resolves, because YAML 1.1 reads `constitutive: no` as a boolean, an all-digit ULID as an integer and a date as a date — against a schema whose vocabulary is strings.
   Duplicate keys are errors at any depth, because pyyaml silently keeps the last one.
-- **Added:** [`scripts/test_frontmatter_lint.py`](../scripts/test_frontmatter_lint.py), fixtures on the MD100 harness model, run by the gate before the corpus checks.
+- **Added:** [`scripts/test_frontmatter_lint.py`](https://github.com/Skl8em/documentality/blob/09f7ebdfc1658d560469177c214cea858920171d/scripts/test_frontmatter_lint.py), fixtures on the MD100 harness model, run by the gate before the corpus checks.
   Nine of its ten lint cases fail against the old parser: five documents it wrongly passed (a field hidden by indentation, a plain scalar folded onto the next line, a duplicate key at the top level and inside an inline map, an unterminated quote), one it failed for the wrong reason, and three valid documents it rejected.
   The tenth pins the string-typing policy.
   In the corpus, the only value the old parser misread was the root README's `axis`, which carried its trailing `# comment` inside the value; nothing checked it, so nothing failed.

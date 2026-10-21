@@ -20,7 +20,7 @@ Derived in the Phase-07 self-application ([`self-application.md`](../phases/refo
 ## Open
 
 Nothing is currently open.
-The two schema forks (⚑ Decision 1 and 2) closed in Phase 10; what remains undecided is not a deliberation but a set of fields we have deliberately not ruled on yet — they are listed as `still_open` in [`../schema/frontmatter-rules.yaml`](../schema/frontmatter-rules.yaml) (the `distance`/`power` value sets, the `status` vocabulary, the shape of `concerns`, and the deferred `force × power` derivation of `constitutive`).
+The two schema forks (⚑ Decision 1 and 2) closed in Phase 10; what remains undecided is not a deliberation but a set of fields we have deliberately not ruled on yet — they are listed as `still_open` in the engine's vocabulary, [`frontmatter-rules.yaml`](https://github.com/Skl8em/docsys/blob/main/src/docsys/schema/frontmatter-rules.yaml) (the `distance`/`power` value sets, the `status` vocabulary, the shape of `concerns`, and the deferred `force × power` derivation of `constitutive`).
 A question opens here when someone needs it answered.
 
 ## From the design dialogue — ratified 2026-08-02
@@ -82,12 +82,12 @@ ULID = *identity* (which record); a per-record **content hash** = *fixity* (this
 The record-level `pin`.
 
 - **Ratified:** add an optional `hash:` sealing each frozen record at close.
-- **Decanted:** ADR-031 — [`content-hash-fixity`](../phases/refoundation/phase-10-schema/content-hash-fixity.md); `scripts/hash_seal.py` mints, `scripts/hash_check.py` verifies, and the gate runs it.
+- **Decanted:** ADR-031 — [`content-hash-fixity`](../phases/refoundation/phase-10-schema/content-hash-fixity.md); `docsys seal` writes the seal, the engine's fixity check verifies it, and the gate runs it.
 
 ## Closed
 
 - **⚑ Decision 1 — encode `intention` coarse or fine:** store the **coarse** family `state` · `formative` · `suasive` · `affective`, not the fine value.
-  **Decided coarse** (2026-08-02, on ADR-026's floor value), **executed in Phase 10**: the corpus was swept fine → coarse (`locate`/`model`/`enable` → `formative`, `convince` → `suasive`), and the coarse set is now a lint **error** in [`../schema/frontmatter-rules.yaml`](../schema/frontmatter-rules.yaml).
+  **Decided coarse** (2026-08-02, on ADR-026's floor value), **executed in Phase 10**: the corpus was swept fine → coarse (`locate`/`model`/`enable` → `formative`, `convince` → `suasive`), and the coarse set is now a lint **error** in the engine's vocabulary, [`frontmatter-rules.yaml`](https://github.com/Skl8em/docsys/blob/main/src/docsys/schema/frontmatter-rules.yaml).
   The fine values remain in the guidance as *readings* of a coarse value, not as storable ones.
 - **⚑ Decision 2 — store `register`, or derive it from `force`:** **decided derived** (2026-08-02), **executed in Phase 10**: stored `register` is removed from the corpus and is now a lint error, and the value is computed as `constitutive ? govern : direction-of-fit(force)`.
   Decanted into ADR-030 — [`register-derived-constitutive`](../phases/refoundation/phase-10-schema/register-derived-constitutive.md).
