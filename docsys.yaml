@@ -167,8 +167,8 @@ checks:
   # pinned version is part of the contract with the custom rule.
   - {name: markdownlint, tool: markdownlint-cli2}
   # Fixtures first, as above.
-  - {name: editor-markdownlint-test, python: scripts/test_editor_markdownlint.py}
+  - {name: editor-markdownlint-test, python: tools/test_editor_markdownlint.py}
   # The editor's markdownlint extension lints with the markdownlint-cli2 it bundles,
   # which must be the version the line above runs, or the editor and the gate disagree
   # on the same file. Last: it judges this machine's editor, not the corpus.
-  - {name: editor-markdownlint, python: scripts/editor_markdownlint.py}
+  - {name: editor-markdownlint, python: tools/editor_markdownlint.py}

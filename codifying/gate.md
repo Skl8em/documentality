@@ -74,7 +74,7 @@ The pinned versions are not a preference but part of the contract: markdownlint'
 So the gate never goes green on versions other than the pinned ones; a fixture in `scripts/test_check.py` shows it refusing to run on a path without `nix`.
 
 The editor lints Markdown as well, through its markdownlint extension, and that extension cannot be pointed at the devShell's binary: it runs the `markdownlint-cli2` it bundles.
-`editor-markdownlint` (`scripts/editor_markdownlint.py`) compares the two on the machine it runs on, and fails when the extension bundles another version than the one `flake.lock` pins, or when two copies of it are installed.
+`editor-markdownlint` (`tools/editor_markdownlint.py`) compares the two on the machine it runs on, and fails when the extension bundles another version than the one `flake.lock` pins, or when two copies of it are installed.
 It runs last, because it judges this machine's editor and not the corpus; where VS Code has no extensions (CI) it passes and says there is nothing to compare.
 [`environment.md`](../steering/environment.md) names the release of the extension that matches the flake.
 
