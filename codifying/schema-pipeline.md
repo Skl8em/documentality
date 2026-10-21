@@ -31,19 +31,11 @@ Editing the JSON by hand fails the same check, from the other side.
 The `docsys` engine, mounted at `docsys/`, ships the same vocabulary as `docsys/src/docsys/schema/frontmatter-rules.yaml` and reads that YAML itself, with no generated JSON, so the vocabulary exists twice while the gate still runs `scripts/`.
 A change to what a verdict depends on (a required field, an enum, an optional field, the root-only fields, the direction of fit, the hash pattern) is made in both; the engine's tests compare them when run from this repository and fail on a difference.
 The rationales and the comments are the engine's own prose and are not compared.
+Why the vocabulary is YAML, the strict loader every file goes through, what the frontmatter check knows beyond the schema, and which statuses close a record are explained with the engine, in [the vocabulary fiche](https://github.com/Skl8em/docsys/blob/main/docs/vocabulary.md); `scripts/` follows the same choices on this repository's copy.
+In `scripts/`, the loader is `StrictLoader` in [`scripts/yaml_frontmatter.py`](../scripts/yaml_frontmatter.py), and the frozen statuses are `FROZEN_STATUSES` and `OPEN_STATUSES` in `hash_seal.py`, guarded against the schema by `scripts/test_hash_check.py`.
 
 Where the two files live is instance configuration (`schema:` in [`docsys.yaml`](../docsys.yaml)); what they declare is the *methodology's*, shared by any project that adopts the vocabulary.
 [`engine-config-seam.md`](../phases/refoundation/phase-12-codifying/engine-config-seam.md) draws that line.
-
-## Why YAML is the source
-
-The schema used to be JSON.
-JSON cannot carry a comment, and the vocabulary is exactly the kind of file where the *reason* for a line matters more than the line: the file had grown a `"//"` key as a comment substitute.
-The file's name, `frontmatter.schema.json`, also claimed a JSON Schema dialect that the hand-written validator never implemented, so no standard tool could consume it.
-
-YAML fixes the first and the rename fixes the second.
-The reason is enforced, not hoped for: every key of `optional_fields` must carry a non-empty rationale string, and the linter refuses to load the schema if one does not.
-A field cannot be declared without being justified, because the two are the same act.
 
 ## Why there is still a JSON file
 
@@ -57,31 +49,9 @@ The dependency-free reader is a capability kept in reserve, not one in use.
 The case for a YAML *source* stands on its own; the case for a second, generated file rests on a reader that has not appeared, and is the pipeline's weakest joint.
 [Medium confidence: this reads the repository as it is now.]
 ADR-037 rules that the JSON **stays for now**, because the reader it is kept for — a generator, or a non-Python tool reading the schema — does not exist yet, and because keeping costs one green check.
-The answer lapses when the design of the agent machinery closes with no non-Python reader — in practice, at the end of the rush to MVP — or when the drift check fails for any reason other than a forgotten regeneration; collapsing to one file, loaded through the strict loader below, would then remove the drift check and the whole class of failure it guards.
+The answer lapses when the design of the agent machinery closes with no non-Python reader — in practice, at the end of the rush to MVP — or when the drift check fails for any reason other than a forgotten regeneration; collapsing to one file, loaded through the strict loader, would then remove the drift check and the whole class of failure it guards.
 The cross-package API proposed in [`imagining/multi-ecosystem-distribution.md`](../imagining/multi-ecosystem-distribution.md) has every package load the YAML methodology unchanged, which weakens the JSON's case further.
-
-## The trap the pipeline already fell into
-
-YAML 1.1 reads bare `yes` and `no` as booleans.
-Compiled with a plain `yaml.safe_load`, `error_enums.constitutive: [yes, no]` became `[true, false]`, which silently broke that enum.
-It is the same trap that frontmatter *documents* carry, reappearing in the schema's own source.
-
-The generator therefore loads through `StrictLoader` in [`scripts/yaml_frontmatter.py`](../scripts/yaml_frontmatter.py): scalars stay strings and only `null` resolves, and a duplicate key is an error at any depth, since `pyyaml` would otherwise keep the last one silently.
-The loader is shared by the document reader and the generator, so the fix is made once.
-The rule for a maintainer: **never load this vocabulary through a bare `safe_load`**, in a new script or a test.
-
-## What the linter still knows that the schema does not say
-
-The schema is data, but not all of what the linter enforces is in it.
-The linter's *code* encodes that the direction-of-fit table must partition `force` exactly, that `register` is derived and never stored, that the root README alone carries `axis` and `dominant-community`, and how a composite force `a+b` is read.
-Changing the vocabulary is an edit to the YAML; changing what the vocabulary is *allowed to express* is an edit to code.
-The schema-load refusals (a partition that does not cover the forces, an optional field without a reason) exist because those code-level assumptions can be broken from the data side.
-
-One duplication sits outside this pipeline and is named so a maintainer is not surprised by it: `hash_seal.py` decides which `status` words make a record *frozen*, and the schema declares which words exist.
-The definition stays in code, deliberately: the schema lists its status vocabulary among the questions it still leaves open, and a `frozen` declaration in it would rule on part of that question by side effect.
-`hash_seal.py` therefore classifies every status word twice over, `FROZEN_STATUSES` and `OPEN_STATUSES`, and `scripts/test_hash_check.py` fails the gate when the two lists together stop matching `warn_enums.status` — a word added to the schema and classified nowhere, a word the schema dropped, a word in both.
-So a schema edit that adds a status is met at the gate with the edit that clears it, not discovered as a record that silently never gets sealed.
-The definition moves into the schema when the status vocabulary is ruled.
+The project owner ruled on 2026-10-20 that `schema/` retires with `scripts/` when this repository's gate becomes `docsys check`, by an ADR that supersedes ADR-037 ([Phase 14 plan](../phases/rush-to-mvp/phase-14-adoption/plan.md), *Rulings*); until then ADR-037 stands.
 
 ## What the pipeline does not establish
 
@@ -91,4 +61,4 @@ The definition moves into the schema when the status vocabulary is ruled.
 - **That a consumer reads the schema through the pipeline.**
   A script that loaded the YAML directly, or hard-coded a value, would not be caught by `schema-drift`.
 - **That the closed vocabulary stays closed.**
-  The linter rejects an undeclared field and refuses a reason-less optional field, and neither rule has a fixture, so weakening either turns no test red ([technical debt](../steering/technical-debt.md)).
+  `frontmatter_lint.py` rejects an undeclared field and refuses a reason-less optional field, and neither rule has a fixture in `scripts/`, so weakening either turns no test red there ([technical debt](../steering/technical-debt.md)); the engine's check has a case for each.
