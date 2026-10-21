@@ -16,6 +16,13 @@ History of the documentation system itself.
 Append-only; each entry is dated-fixed.
 Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
 
+## [v4.0-alpha.43] — A branch is rebased on its destination before it is merged
+
+- **Added:** a rule in [`CONTRIBUTING.md`](CONTRIBUTING.md): a branch is kept rebased on the branch it will be merged into — at the start of each session, whenever the destination moves, and last before it is presented — and checked on its tip, since no hook runs during a rebase; the `--no-ff` merge is then a fast-forward recorded as a merge commit, which groups the steps without squashing them.
+  A track is rebased with `--rebase-merges`, so its tasks' merges stay; only branches never pushed are rebased.
+- **Changed:** the rule on the engine's mirror: a rebase is made in the engine first, and every pointer commit here is moved to the engine's rebased commit.
+  The skill `branch-and-commit` gives the procedure, and a command that finds a pointer left at a replaced commit.
+
 ## [v4.0-alpha.42] — Short names for the levels of a plan
 
 - **Changed:** branches and commit subjects name the levels of a plan `ph`, `ws`, `tr`, `ts` and `sp`, with no `feature/` prefix ([`CONTRIBUTING.md`](CONTRIBUTING.md)): the phase branch is `ph14-adoption` in both repositories, the track that set up continuous integration `ph14-ws2-tr1-ci`, its tasks `ph14-ws2-tr1-ts1-ci-engine-shell`, `-ts2-ci-engine-workflow` and `-ts3-ci-documentality`; a subject starts with its branch's name less `ph<NN>-`, or with `ph<NN>:` on the phase branch.
