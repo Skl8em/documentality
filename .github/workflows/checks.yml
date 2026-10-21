@@ -8,12 +8,14 @@ jobs:
   gate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7.0.1
         with:
+          # the engine, docsys/, is a submodule: the gate runs it.
+          submodules: true
           # paired-change reads commits back to `paired_change.since`; a shallow
           # checkout would lose the anchor and the check would refuse to run.
           fetch-depth: 0
-      # Installs Nix with flakes enabled. Pin to a released tag for full reproducibility.
-      - uses: DeterminateSystems/nix-installer-action@main
+      # Installs Nix with flakes enabled.
+      - uses: DeterminateSystems/nix-installer-action@v23
       # Same pinned toolchain (flake.lock) and same gate as local.
       - run: nix develop --command python3 scripts/check.py
