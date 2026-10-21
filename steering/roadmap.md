@@ -48,9 +48,13 @@ It takes a place, and later a number, only by a ruling.
 - **Life cycle.**
   Which states a document passes through, set by its coordinates; what closing an effort does to its documents; what a seal covers; the `status` vocabulary; the closure rule Phase 12 handed on; the lifecycle tutorial planned since Phase 07.
   The external review proposes reframing it around the records continuum before it starts — which dimensions of a record's continuing life the catalogue records, rather than which states it passes through — as the project's own third essay argues; that is to be weighed when it is unparked.
+  What a freeze has power over belongs to it: a seal can fix what the record itself says, not what it points at, and a link from a frozen record to a file, another repository or a web page breaks when the target moves, which the record cannot follow; so a freeze is to cover only what the record owns (project owner, 2026-10-21, after Phase 14 broke links from frozen records by retiring `scripts/`).
 - **A human cold reader** of the product and of the `codifying/` fiches.
   The rush to MVP tests an agent as a cold reader on `weft`; a human stranger has still read nothing.
 - **Re-running the structuring front-end for the agent community**, if the `weft` pilot shows the current audiences and functions do not fit it.
+- **A utility for renaming documents and migrating identifiers** — renaming a document while rewriting every link to it, and giving a corpus its identifiers in bulk, are needs most documentation projects meet; `migrate_ids.py`, kept in the engine's `legacy/` folder, is the lead.
+- **Moving markdownlint past 0.17.2**, the version nixos-25.05 pins: the gate and the editor's extension must run one version, and today no release of the extension bundles the version a newer nixpkgs pins (nixos-25.11: 0.18.1; the extension's 0.62.1 bundles 0.23.2).
+  Staying breaks nothing: the sentence-per-line rule reports the same findings under 0.21.0.
 - **A licence check on the engines' dependencies**, once a package bundles third-party code rather than calling it: the notices of what it bundles travel with it, GPL-2.0-only code such as git's is called as a separate program and never copied in, and a licence allowlist in each package's build (`pip-licenses`, `cargo-deny`) checks what the dependency tree pulls in ([ADR-043](../phases/rush-to-mvp/phase-13-design/licensing.md)).
 
 ## Plan changes
