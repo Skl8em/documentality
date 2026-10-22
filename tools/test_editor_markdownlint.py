@@ -8,27 +8,29 @@ installation. Every message must name the edit that clears it, after `fix:`.
 
     python3 tools/test_editor_markdownlint.py
 """
+
 import os
 import sys
+from collections.abc import Callable
+from typing import Final
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import editor_markdownlint as em  # noqa: E402
+import editor_markdownlint as em
 
-FIX_MARKER = "fix:"
+FIX_MARKER: Final = "fix:"
 
 
-def entry(ext_id, version):
+def entry(ext_id: str, version: str) -> dict[str, object]:
     """One entry of VS Code's extensions.json, reduced to what the check reads."""
-    return {"identifier": {"id": ext_id}, "version": version,
-            "location": {"path": f"/ext/{ext_id}-{version}"}}
+    return {"identifier": {"id": ext_id}, "version": version, "location": {"path": f"/ext/{ext_id}-{version}"}}
 
 
-def messages_verdict(got, fragments):
+def messages_verdict(got: list[str], fragments: list[str]) -> str | None:
     """None when `got` holds one message per fragment, each carrying it and a fix
     clause; else why not."""
     if len(got) != len(fragments):
         return f"expected {fragments}, got {got}"
-    for msg, fragment in zip(got, fragments):
+    for msg, fragment in zip(got, fragments, strict=True):
         if fragment not in msg:
             return f"expected {fragment!r} in {msg!r}"
         if FIX_MARKER not in msg:
@@ -36,12 +38,12 @@ def messages_verdict(got, fragments):
     return None
 
 
-def case_banner():
+def case_banner() -> str | None:
     got = em.pinned_version("markdownlint-cli2 v0.17.2 (markdownlint v0.37.4)\nhttps://...")
     return None if got == "0.17.2" else f"expected 0.17.2, got {got!r}"
 
 
-def case_banner_unreadable():
+def case_banner_unreadable() -> str | None:
     try:
         em.pinned_version("command not found")
     except ValueError as exc:
@@ -49,42 +51,59 @@ def case_banner_unreadable():
     return "an unreadable banner was accepted"
 
 
-def case_find_one():
+def case_find_one() -> str | None:
     got = em.find_extension([entry("charliermarsh.ruff", "2026.86.0"), entry(em.EXTENSION_ID, "0.59.0")])
     want = [("0.59.0", f"/ext/{em.EXTENSION_ID}-0.59.0")]
     return None if got == want else f"expected {want}, got {got}"
 
 
-def case_find_case_insensitive():
+def case_find_case_insensitive() -> str | None:
     # VS Code compares extension ids without regard to case.
     got = em.find_extension([entry("DavidAnson.vscode-markdownlint", "0.59.0")])
     return None if len(got) == 1 else f"expected one match, got {got}"
 
 
-def case_find_none():
+def case_find_none() -> str | None:
     got = em.find_extension([entry("charliermarsh.ruff", "2026.86.0")])
     return None if got == [] else f"expected no match, got {got}"
 
 
-CASES = [
+def case_find_malformed() -> str | None:
+    # An entry missing a field VS Code writes is refused with a fix, not a KeyError.
+    try:
+        em.find_extension([{"identifier": {"id": em.EXTENSION_ID}, "version": "0.59.0"}])
+    except ValueError as exc:
+        return None if FIX_MARKER in str(exc) else f"message without a `{FIX_MARKER}` clause: {exc}"
+    return "an entry without location.path was accepted"
+
+
+CASES: Final[list[tuple[str, Callable[[], str | None]]]] = [
     ("the pinned version is read from the banner", case_banner),
     ("an unreadable banner is refused, with a fix", case_banner_unreadable),
     ("the extension is found among the others", case_find_one),
     ("the extension id is matched without regard to case", case_find_case_insensitive),
     ("no extension, no match", case_find_none),
-    ("the same version on both sides passes",
-     lambda: messages_verdict(em.compare("0.17.2", [("0.59.0", "0.17.2")]), [])),
-    ("a different bundled version fails, naming both",
-     lambda: messages_verdict(em.compare("0.17.2", [("0.62.1", "0.23.2")]), ["0.23.2"])),
-    ("a version range is not the pinned version",
-     lambda: messages_verdict(em.compare("0.17.2", [("0.59.0", "^0.17.2")]), ["^0.17.2"])),
-    ("two installed copies fail: which one the editor runs is unknown",
-     lambda: messages_verdict(em.compare("0.17.2", [("0.59.0", "0.17.2"), ("0.62.1", "0.23.2")]),
-                              ["2 copies"])),
+    ("an entry of an unknown shape is refused, with a fix", case_find_malformed),
+    (
+        "the same version on both sides passes",
+        lambda: messages_verdict(em.compare("0.17.2", [("0.59.0", "0.17.2")]), []),
+    ),
+    (
+        "a different bundled version fails, naming both",
+        lambda: messages_verdict(em.compare("0.17.2", [("0.62.1", "0.23.2")]), ["0.23.2"]),
+    ),
+    (
+        "a version range is not the pinned version",
+        lambda: messages_verdict(em.compare("0.17.2", [("0.59.0", "^0.17.2")]), ["^0.17.2"]),
+    ),
+    (
+        "two installed copies fail: which one the editor runs is unknown",
+        lambda: messages_verdict(em.compare("0.17.2", [("0.59.0", "0.17.2"), ("0.62.1", "0.23.2")]), ["2 copies"]),
+    ),
 ]
 
 
-def main():
+def main() -> int:
     failures = 0
     for name, case in CASES:
         why = case()

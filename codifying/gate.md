@@ -71,7 +71,7 @@ The pinned versions are part of the contract: markdownlint's version is part of 
 [`environment.md`](../steering/environment.md) says how to enter the devShell.
 
 The editor lints Markdown as well, through its markdownlint extension, and that extension cannot be pointed at the devShell's binary: it runs the `markdownlint-cli2` it bundles.
-`editor-markdownlint` (`tools/editor_markdownlint.py`) compares the two on the machine it runs on, and fails when the extension bundles another version than the one `flake.lock` pins, or when two copies of it are installed.
+`editor-markdownlint` (`tools/editor_markdownlint.py`) compares the two on the machine it runs on, and fails when the extension bundles another version than the one `flake.lock` pins, or when two copies of it are installed; it refuses, with a fix, a VS Code `extensions.json` or extension manifest of a shape it does not know, rather than guess.
 Where VS Code has no extensions (CI) it passes and says there is nothing to compare; `environment.md` names the release of the extension that matches the flake.
 
 ## The output contract
