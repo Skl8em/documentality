@@ -24,6 +24,8 @@ Design rationale for each line lives in the matching ADR — listed in the regis
 - **Removed:** the engine's test that compared its vocabulary with this repository's copy.
 - **Moved:** this repository's own checks — the editor's markdownlint version and the problem matchers' fixtures — to `tools/`, run as `tools:` entries after `markdownlint`; the VS Code task's four problem matchers read the engine's output.
 - **Decided:** [ADR-044](../phases/rush-to-mvp/phase-14-adoption/one-vocabulary-read-directly.md), superseding [ADR-037](../phases/refoundation/phase-11-tooling-hardening/yaml-source-generated-json.md): the engine's YAML is the one frontmatter vocabulary, read directly, and `schema/` with its generated JSON retires with `scripts/`.
+- **Changed:** this repository links into the engine by relative paths into `docsys/`, which read the engine it runs and which the link check verifies; a record cites either repository by a URL at a commit, and ADR-044 names its engine in `pin:` (open point 6, settled by the project owner's ruling *Citing across the two repositories*).
+- **Fixed:** a changelog link to the engine's retired `docsys.yaml` reference, dead on its `main`, points at the commit that held it.
 - **Fixed:** the engine's `phase-state/folder` no longer takes a file directly under an era, such as the `.DS_Store` macOS leaves there, for a phase folder the ledger does not list.
 
 ## [v4.0-alpha.45] — The engine writes what its checks verify
