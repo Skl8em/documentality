@@ -58,7 +58,7 @@ A check that only this repository needs is a program in [`tools/`](../tools/), t
 
 ## What it reads
 
-Every Markdown file under the workspace is a document, tracked by git or not, unless `scope.exclude` in `docsys.yaml` leaves it out, with its reason: the upstream essays of `theorising/`, the pre-refoundation records of `phases/naive-sketch/`, the agent's `.claude/`, raw agent transcripts, the engine's submodule `docsys/`, which is another repository checked by its own CI, and the folders uv and direnv build.
+Every Markdown file under the workspace is a document, tracked by git or not, unless `scope.exclude` in `docsys.yaml` leaves it out, with its reason: the upstream essays of `theorising/`, the pre-refoundation records of `phases/naive-sketch/`, the agent's `.claude/`, raw agent transcripts, the engine's submodule `docsys/`, another repository, whose own CI checks its code and whose own gate is to check its documents once it adopts `docsys` (Phase 14 ws4), and the folders uv and direnv build.
 `docsys report` lists the exclusions with their reasons and counts.
 Because the gate reads the disk and not git's index, an untracked file is checked like a tracked one, and no separate check for untracked files is needed.
 

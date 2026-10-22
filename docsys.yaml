@@ -17,7 +17,7 @@ scope:
     phases/naive-sketch/: pre-refoundation frozen records, which predate `intention`
     .claude/: the agent's configuration and skills, not documents
     "**/blind-test/": raw agent transcripts, not catalogued documents
-    docsys/: the engine's submodule, another repository, checked by its own CI
+    docsys/: the engine's submodule, another repository, whose own gate is to check its documents (Phase 14 ws4)
     .venv/: the virtual environment uv builds, with its packages' files
     .direnv/: direnv's cache of the devShell
 
