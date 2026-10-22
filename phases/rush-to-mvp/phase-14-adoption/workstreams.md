@@ -102,7 +102,7 @@ The steps still to take are walked in [Closing ws2](ws2-closing.md).
   This repository's gate is `uv run --locked docsys check`, run inside the devShell by the pre-commit hook, by CI after `uv sync --locked`, and by the VS Code task, whose problem matchers read the engine's output.
   `docsys.yaml` is in the engine's shape; this repository's own checks, the editor's markdownlint version and the problem matchers' fixtures, run from `tools/` as `tools:` entries after `markdownlint`.
   The paired-change rule's mechanism is `docsys.yaml`, `tools/`, `.githooks/`, `.github/workflows/` and `flake.nix`, anchored at the last commit before the switch; the submodule pointer is not mechanism.
-  `scripts/` and `schema/` are gone; five links from frozen records into them are allowed in `docsys.yaml`, each with its reason.
+  `scripts/` and `schema/` are gone; the links from frozen records into them are allowed in `docsys.yaml`'s `links.allow`, each with its reason.
 - **The engine's check of itself** is ws4's, by the project owner's ruling.
 
 ## ws3 — The guided install

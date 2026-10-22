@@ -22,7 +22,7 @@ Settled by the project owner, 2026-10-09.
 The package has its own repository, included here as a git submodule and installed editable.
 An agent session on the engine does not load the theory corpus; this repository consumes the engine exactly as an adopter does.
 How the engine works inside is documented with it, in `docsys/docs/`, so the paired-change rule still pairs code and explanation inside one repository, while how a project uses and configures it stays in `codifying/` here.
-Costs accepted with it: four links from frozen phase records into `scripts/` and `schema/` stop resolving and are allowed by the link check, each with its reason; the schema, authored with the engine, is explained by `writing/frontmatter.md` across the repository boundary.
+Costs accepted with it: links from frozen phase records into `scripts/` and `schema/` stop resolving, and the link check allows each, with its reason, in `docsys.yaml`'s `links.allow`, which `links/allowance` keeps from outliving its reasons; the schema, authored with the engine, is explained by `writing/frontmatter.md` across the repository boundary.
 Blocking: no.
 
 ## 2. Non-Python adopters
