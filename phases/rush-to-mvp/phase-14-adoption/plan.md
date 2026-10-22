@@ -40,6 +40,7 @@ Each is taken by the project owner and stated in full in [Rulings](rulings.md).
 - **The engine is `Skl8em/docsys`**, a public repository mounted here as a submodule at `docsys/`.
 - **The scope**: every document is in scope; an exclusion carries its reason; an inclusion brings one back.
 - **Where the engine's documentation lives**: use and configuration in `codifying/`, the inside in `docsys/docs/`.
+- **Citing across the two repositories**: a page that states the present by a relative path into `docsys/`, a record at a commit.
 - **The tools for Python**: basedpyright and ruff, at the lockfile's versions.
 - **Checks that are not the engine's** run as opt-in `tools`.
 - **What precedes the switch**: accounts and author tools move to the engine, link allowances replace edits to frozen records, and `schema/` retires with `scripts/`.
@@ -77,7 +78,7 @@ The blocking rule of the [Phase 12 plan](../../refoundation/phase-12-codifying/p
 | 3 | What an adopter gets by default | settled |
 | 4 | Adopter frontmatter when the vocabulary changes | out of the era |
 | 5 | `weft`'s functions and provenance map | blocks ws4 |
-| 6 | Working across two repositories | ws2; self-check in ws4 |
+| 6 | Working across two repositories | settled; self-check in ws4 |
 
 ## Verification / definition of done
 

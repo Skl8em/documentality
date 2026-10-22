@@ -47,6 +47,14 @@ The excluded documents are the ones still owed: see *Strictness* below.
 Project owner, 2026-10-10.
 How a project uses `docsys` and configures it is documented here, in `codifying/`; how the engine works inside is documented in `docsys/docs/`, each fiche moving there when the check it explains is ported, since until then it explains `scripts/`.
 
+## Citing across the two repositories
+
+Project owner, 2026-10-22.
+A page that states the present links into the engine by a relative path into `docsys/`, which reads the engine at the commit the submodule pins and which the link check verifies; a record links to a file of either repository by a URL at a commit already on its remote, and names in `pin:` the one state of the engine it cites.
+A link to a branch, `main` included, reads content that moves under it, and the link check does not read web links.
+When a phase closes, its pages' relative links into `docsys/` become URLs at the pointer's commit.
+It settles the citation part of [open point 6](open-points.md#6-working-across-two-repositories).
+
 ## The tools for Python
 
 Project owner, 2026-10-10.

@@ -52,12 +52,15 @@ Blocking: it blocks ws4.
 
 ## 6. Working across two repositories
 
-Settled by ws2, but for the engine checking itself, which ws4 does.
-This repository consumes the engine through a submodule, as any adopter would through its lockfile.
-To settle as ws2 meets them:
+Settled by ws2, and by the project owner on 2026-10-22 for citations ([Rulings](rulings.md#citing-across-the-two-repositories)), but for the engine checking itself, which ws4 does.
+This repository consumes the engine through a submodule, as any adopter would through its lockfile:
 
-- CI checks out the submodule;
-- a document here that cites the engine's code cites it at the submodule's pinned commit (the `pin:` field, until now unused);
-- each `codifying/` fiche that explains the engine's inside moves to `docsys/docs/` with the check it explains, so the paired-change rule still pairs them inside one repository, and `docsys` is checked by `docsys` like any adopter.
+- CI checks out the submodule, at the commit its pointer names;
+- each fiche on the engine's inside is in `docsys/docs/`, beside the check it explains, so the paired-change rule pairs them inside the engine's repository;
+- a page that states the present links into the engine by a relative path into `docsys/`: it reads the engine this repository runs, and the link check fails when a move of the pointer breaks the link, where a link to the engine's `main` would read another engine, ahead of or behind the pointer, and break unseen, since the link check does not read web links;
+- a record cites a file of either repository by a URL at a commit already on that repository's remote, and a record that cites one state of the engine names it in `pin:`; a phase's pages become records when it closes, so their relative links into `docsys/` become commit URLs then.
 
+The binding rule is in [`CONTRIBUTING.md`](../../../steering/CONTRIBUTING.md).
+Cost accepted with it: GitHub's web view may not follow a relative link into a submodule; the reader of record is a checkout.
+Left to ws4: the engine's links to this repository, which point at its `main`, since the engine holds no copy of it.
 Blocking: no.

@@ -131,6 +131,6 @@ Delivers: an adoption record in this folder: what was run, what failed, what was
 
 ## ws5 — Close the phase
 
-A README, the ledger, the roadmap and the index.
+A README, the ledger, the roadmap and the index; the phase's relative links into `docsys/` become URLs at the pointer's commit, each page naming it in `pin:` ([Rulings](rulings.md#citing-across-the-two-repositories)).
 
 Delivers: the phase README.
