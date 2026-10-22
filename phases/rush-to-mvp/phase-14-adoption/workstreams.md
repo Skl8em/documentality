@@ -92,6 +92,7 @@ The steps still to take are walked in [Closing ws2](ws2-closing.md).
   The engine classifies every status word as frozen or open, and its suite fails when the classification and the vocabulary disagree.
 - **Types.**
   Every function, tests included, is checked by basedpyright and ruff from the test suite and from the editor at the same versions.
+  This repository's own `tools/` is checked the same way, at the same versions, from the gate and the editor; the gate runs `reuse lint` too.
 - **Opt-in tools.**
   `docsys.yaml` names external commands under `tools`; `docsys check` runs them after its own checks and reports `tools/failed` or `tools/missing`.
   The engine ships the sentence-per-line markdownlint rule, which this repository's markdownlint loads from the submodule; its test reads markdownlint-cli2's output under the pinned 0.17.2 and under 0.21.0.

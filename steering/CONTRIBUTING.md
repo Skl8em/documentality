@@ -36,7 +36,8 @@ Rules for documents you write *with* the system are in the product ([`../write/r
 - You **must** keep `provenance` meaningful: use the maintaining function (`theorising`/`operationalizing`/`writing`/`structuring`/`codifying`/`steering`/`imagining`) or the owning project (`phase-NN`), never a blanket id.
 
 - You **must** contribute under the licence [`REUSE.toml`](../REUSE.toml) assigns to the file you add or change: GPL-3.0-or-later for code, CC0-1.0 for what an adopter copies (templates, schema, starting configuration), CC BY-SA 4.0 for prose ([ADR-043](../phases/rush-to-mvp/phase-13-design/licensing.md)).
-  A new kind of file that no annotation fits gets one in the same commit; `reuse lint` confirms every file is covered.
+  A new kind of file that no annotation fits gets one in the same commit.
+  The gate runs `reuse lint`, which fails on a licence used without its text in `LICENSES/` or a text no annotation uses; it cannot see a file filed under the wrong licence, since the prose default covers every path, so that stays the review's.
 
 - You **must** pair a change to the tooling with its account: a commit that touches `docsys.yaml`, `tools/`, `.githooks/`, `.github/workflows/` or `flake.nix` also edits a file that explains it — under `writing/`, `structuring/`, `operationalizing/` or `codifying/`, or `steering/ARCHITECTURE.md` — in the same commit.
   In practice that is the [`codifying/`](../codifying/README.md) fiche for what you touched, or a new one.

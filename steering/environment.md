@@ -40,7 +40,8 @@ uv sync --locked                 # once, and whenever uv.lock changes: docsys, i
 uv run --locked docsys check     # the gate: the engine's checks, then markdownlint and this repository's own
 ```
 
-`docsys` is this repository's development dependency, installed editable from the submodule; `uv.lock` pins it with its Python packages, `pyyaml` among them.
+`docsys` is this repository's development dependency, installed editable from the submodule; `uv.lock` pins it with its Python packages, `pyyaml` among them, and the Python tools the gate runs: `reuse`, and basedpyright and ruff at the versions the engine's `uv.lock` pins.
+They are not on the shell's `PATH` but in `.venv/bin`, which `uv run` puts first: `uv run reuse lint`, `uv run basedpyright`, `uv run ruff check`.
 `markdownlint-cli2` needs the shell too (it is a Node binary), because its version is part of the contract with the custom rule the engine ships.
 The gate never runs from a stray global copy: the hook and the editor's task enter the shell themselves when started outside it, and `--locked` refuses a lockfile that no longer matches `pyproject.toml`.
 [The gate](../codifying/gate.md) explains what it checks and in what order.
@@ -77,7 +78,7 @@ A `.venv` points at the flake's interpreter by its Nix store path: after `nix fl
 
 In VS Code, open [`../documentation-system.code-workspace`](../documentation-system.code-workspace) rather than the folder, and install the extensions it recommends, basedpyright and Ruff.
 Each folder of the workspace names its interpreter, the `.venv` above, so the editor needs no global Python.
-The `docsys` folder runs the copies of basedpyright and ruff in `docsys/.venv`, with the engine's `pyproject.toml`, so the editor reports what `uv run pytest` reports.
+The `docsys` folder runs the copies of basedpyright and ruff in `docsys/.venv`, with the engine's `pyproject.toml`, so the editor reports what `uv run pytest` reports; the root folder runs those in `.venv`, with this repository's `pyproject.toml`, so it reports on `tools/` what the gate reports.
 basedpyright turns Pylance's own checking off.
 
 ## Lint Markdown in the editor
