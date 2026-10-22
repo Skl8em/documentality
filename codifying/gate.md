@@ -46,8 +46,11 @@ Then the tools run, in the order `docsys.yaml` lists them under `tools:`, each o
 
 1. **`markdownlint`** — `markdownlint-cli2`, with one shared ruleset and the custom one-sentence-per-line rule (ADR-021), which the engine ships in `docsys/src/docsys/markdownlint/` and tests in its own suite.
    Its configuration is its own, [`.markdownlint-cli2.jsonc`](../.markdownlint-cli2.jsonc), with its own list of what it skips.
-2. **`problem-matcher`** — the fixtures of the editor's problem matchers (*The output contract*, below).
-3. **`editor-markdownlint-test`**, then **`editor-markdownlint`** — the fixtures, then the check that the editor's markdownlint is the gate's (*The environment*, below).
+2. **`reuse`** — `reuse lint`: every file carries the licence [`REUSE.toml`](../REUSE.toml) assigns to its kind ([ADR-043](../phases/rush-to-mvp/phase-13-design/licensing.md)).
+   It does not read the submodule, whose licensing is the engine's.
+3. **`basedpyright`**, **`ruff`** and **`ruff-format`** — `tools/` is typed, linted and formatted as the engine's code is: basedpyright in strict mode with `Any` refused, and ruff's rules, both configured in [`pyproject.toml`](../pyproject.toml), which the editor reads too.
+4. **`problem-matcher`** — the fixtures of the editor's problem matchers (*The output contract*, below).
+5. **`editor-markdownlint-test`**, then **`editor-markdownlint`** — the fixtures, then the check that the editor's markdownlint is the gate's (*The environment*, below).
    It runs last, because it judges this machine's editor and not the corpus.
 
 A check's fixtures run before it, because a green check says nothing if it has stopped detecting anything.
@@ -64,9 +67,9 @@ Because the gate reads the disk and not git's index, an untracked file is checke
 
 ## The environment it enters
 
-The devShell pins the interpreter, `uv`, Node, `markdownlint-cli2` and the `git` through which the paired-change rule reads the history, through `flake.lock`; `uv.lock` pins `docsys`, installed editable from the submodule, and its Python dependencies, and `--locked` refuses to run on a lockfile that no longer matches `pyproject.toml`.
+The devShell pins the interpreter, `uv`, Node, `markdownlint-cli2` and the `git` through which the paired-change rule reads the history, through `flake.lock`; `uv.lock` pins `docsys`, installed editable from the submodule, and its Python dependencies, and the Python tools the gate runs, `reuse`, `basedpyright` and `ruff`, and `--locked` refuses to run on a lockfile that no longer matches `pyproject.toml`.
 CI enters the devShell, runs `uv sync --locked`, then the gate.
-`docsys` does not pin the tools it runs: it runs what the `PATH` finds, and inside the devShell under `uv run`, `markdownlint-cli2` is the flake's and `python3` the virtual environment's.
+`docsys` does not pin the tools it runs: it runs what the `PATH` finds, and inside the devShell under `uv run`, `markdownlint-cli2` is the flake's, and `python3`, `reuse`, `basedpyright` and `ruff` the virtual environment's.
 The pinned versions are part of the contract: markdownlint's version is part of the contract with the custom rule it loads, and a YAML parser from another environment could read a frontmatter differently.
 [`environment.md`](../steering/environment.md) says how to enter the devShell.
 

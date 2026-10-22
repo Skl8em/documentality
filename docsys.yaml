@@ -115,6 +115,18 @@ tools:
   # pinned version is part of the contract with the custom rule.
   - name: markdownlint
     command: [markdownlint-cli2]
+  # Every file carries the licence REUSE.toml assigns it (ADR-043). The submodule
+  # docsys/ is not read: the engine declares its own licensing.
+  - name: reuse
+    command: [reuse, lint]
+  # tools/ is typed and formatted as the engine's code is, by the copies uv.lock pins,
+  # configured in pyproject.toml, which the editor reads too.
+  - name: basedpyright
+    command: [basedpyright]
+  - name: ruff
+    command: [ruff, check]
+  - name: ruff-format
+    command: [ruff, format, --check]
   # The editor's gate task (.vscode/tasks.json) reads this output through problem
   # matchers; their fixtures show each shape of line read, and no other.
   - name: problem-matcher
