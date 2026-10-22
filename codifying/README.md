@@ -44,7 +44,7 @@ The tooling separates by rate of change ([`engine-config-seam.md`](../phases/ref
 | Home | What lives there | Read |
 | --- | --- | --- |
 | **engine** — [`docsys`](https://github.com/Skl8em/docsys), mounted at `docsys/` | the checks, the commands and the markdownlint rule: behaviour any project using this system runs unchanged | the engine's fiches below |
-| **methodology** — the engine's `src/docsys/schema/frontmatter-rules.yaml` | the frontmatter vocabulary, its enums, each optional field's reason | [the vocabulary fiche](https://github.com/Skl8em/docsys/blob/main/docs/vocabulary.md) |
+| **methodology** — the engine's `src/docsys/schema/frontmatter-rules.yaml` | the frontmatter vocabulary, its enums, each optional field's reason | [the vocabulary fiche](../docsys/docs/vocabulary.md) |
 | **instance** — `docsys.yaml`, and `tools/` | what is out of scope, its register's shape, where its phase ledger is, where the paired-change rule bites, which tools run after the checks; this repository's own checks | [the gate](gate.md) |
 
 ## The fiches
@@ -58,14 +58,14 @@ For a project that uses the engine, [`docsys`](https://github.com/Skl8em/docsys)
 
 How the engine works inside is explained with it, in its `docs/` folder, for the engine's maintainer:
 
-- [`runner`](https://github.com/Skl8em/docsys/blob/main/docs/runner.md) — why every check runs, what makes a run fail, how the tools run, and how a rule's severity is set.
-- [`links`](https://github.com/Skl8em/docsys/blob/main/docs/links.md) — what the link check resolves, and why a dead link is allowed only with its reason.
+- [`runner`](../docsys/docs/runner.md) — why every check runs, what makes a run fail, how the tools run, and how a rule's severity is set.
+- [`links`](../docsys/docs/links.md) — what the link check resolves, and why a dead link is allowed only with its reason.
 
-- [`referential-integrity`](https://github.com/Skl8em/docsys/blob/main/docs/referential-integrity.md) — why a dangling `supersedes` is an error, why supersession must be symmetric, and what the ULID check does not establish.
-- [`paired-change`](https://github.com/Skl8em/docsys/blob/main/docs/paired-change.md) — why the unit is the commit, what needs no account, where the rule fails rather than warns, and what it does not establish.
-- [`phase-state`](https://github.com/Skl8em/docsys/blob/main/docs/phase-state.md) — why the current phase is declared once in a ledger, what the ledger and phase-state checks verify against it, and what they do not establish.
-- [`vocabulary`](https://github.com/Skl8em/docsys/blob/main/docs/vocabulary.md) — why the vocabulary is YAML with a reason per field, why it is never loaded through a bare `safe_load`, what the frontmatter check knows beyond it, and which statuses close a record.
-- [`author-tools`](https://github.com/Skl8em/docsys/blob/main/docs/author-tools.md) — why the author's commands write what the checks verify, and where each refuses.
+- [`referential-integrity`](../docsys/docs/referential-integrity.md) — why a dangling `supersedes` is an error, why supersession must be symmetric, and what the ULID check does not establish.
+- [`paired-change`](../docsys/docs/paired-change.md) — why the unit is the commit, what needs no account, where the rule fails rather than warns, and what it does not establish.
+- [`phase-state`](../docsys/docs/phase-state.md) — why the current phase is declared once in a ledger, what the ledger and phase-state checks verify against it, and what they do not establish.
+- [`vocabulary`](../docsys/docs/vocabulary.md) — why the vocabulary is YAML with a reason per field, why it is never loaded through a bare `safe_load`, what the frontmatter check knows beyond it, and which statuses close a record.
+- [`author-tools`](../docsys/docs/author-tools.md) — why the author's commands write what the checks verify, and where each refuses.
 
 Still to write, in `docsys`'s `docs/`: the fixity check, and the sentence-per-line markdownlint rule.
 The environment the gate runs in is an `instruct` document, [`steering/environment.md`](../steering/environment.md), not a fiche.

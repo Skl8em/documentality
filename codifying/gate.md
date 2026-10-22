@@ -22,7 +22,7 @@ This repository runs [`docsys`](https://github.com/Skl8em/docsys) as an adopter 
 
 The property it establishes is a **conjunction**: the gate is green if and only if no finding is an error.
 A failing check does not stop the ones after it, nor a failing tool the next; the reader, a maintainer or an agent fixing a corpus, wants every failure from one run, not one per run.
-The engine's [runner fiche](https://github.com/Skl8em/docsys/blob/main/docs/runner.md) says how a run is made and what makes it fail.
+The engine's [runner fiche](../docsys/docs/runner.md) says how a run is made and what makes it fail.
 
 Red must mean *wrong*, never *unsettled*.
 Phase 09 built this in as a rule:
@@ -90,7 +90,7 @@ So the shape of a line is part of the contract: a failure on a file starts with 
 
 The paired-change rule ([ADR-039](../phases/refoundation/phase-12-codifying/paired-change-rule.md), refined by [ADR-040](../phases/refoundation/phase-12-codifying/paired-change-where-it-fails.md)) fails a commit that changes the mechanism and touches no file under `writing/`, `structuring/`, `operationalizing/` or `codifying/` and not `steering/ARCHITECTURE.md`.
 This fiche is one of the files that satisfies it, which is why a change to the gate lands with an edit here.
-How the rule works — the commit as the unit, what needs no account, where it fails rather than warns, the anchor, and what it does not establish — is explained with the engine's check, in [the paired-change fiche](https://github.com/Skl8em/docsys/blob/main/docs/paired-change.md).
+How the rule works — the commit as the unit, what needs no account, where it fails rather than warns, the anchor, and what it does not establish — is explained with the engine's check, in [the paired-change fiche](../docsys/docs/paired-change.md).
 
 What is this repository's is the configuration, `paired_change:` in `docsys.yaml`:
 
@@ -109,7 +109,7 @@ What is this repository's is the configuration, `paired_change:` in `docsys.yaml
 
 The current phase is declared once, in the ledger [`steering/phases.yaml`](../steering/phases.yaml): an ordered list of phases, each `done`, `current` or `planned`, the planned ones unnumbered (ADR-038).
 It is the project's state, kept with steering; `phases:` in `docsys.yaml` only says where it is and how to read every other place that speaks of the current phase.
-The phase-ledger check verifies the ledger's own rules, and the phase-state check every other place against it; what each rule verifies, and why, is explained with the engine's checks, in [the phase-ledger and phase-state fiche](https://github.com/Skl8em/docsys/blob/main/docs/phase-state.md).
+The phase-ledger check verifies the ledger's own rules, and the phase-state check every other place against it; what each rule verifies, and why, is explained with the engine's checks, in [the phase-ledger and phase-state fiche](../docsys/docs/phase-state.md).
 
 What is this repository's is where those places are: the phase folders under `phases/<era>/`, the phase rows of the [roadmap](../steering/roadmap.md) and of the [phases index](../phases/README.md) with their markers (`done`, `in progress`, `unnumbered`; the text after a ` — ` is free), the status line of the root `README.md`, and the `phase:` fields.
 The root `README.md` is also the root document, the one that carries the tree's `axis` and `dominant-community`.

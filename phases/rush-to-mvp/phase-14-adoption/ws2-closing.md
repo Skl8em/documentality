@@ -41,7 +41,7 @@ The rulings it carries out are in [Rulings](rulings.md); ws1's remaining defects
 4. Check: `gh run list -R Skl8em/docsys` and `gh run list` show a green run on each pushed commit.
    On a red run, read `gh run view <id> --log-failed`, fix it in a new task, and push again.
 
-The links from this repository to the engine's fiches and to its `main` point at a branch that receives the phase only when the phase closes: they stay dead on GitHub until then, and the link check does not read web links.
+This repository links into the engine by relative paths into `docsys/`, which resolve in any checkout with the submodule and which the link check verifies; GitHub's web view may not follow them into the submodule.
 
 ## When something fails
 

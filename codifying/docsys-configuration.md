@@ -124,7 +124,7 @@ links:
 An allowance covers that link in that document, on every line that holds it, and no other.
 An allowance whose link resolves, or whose document no longer holds that link, is reported by `links/allowance`, on `docsys.yaml`, so the list cannot outlive its reasons.
 An allowance without a reason, or one that repeats another's document and target, is refused.
-The engine's [fiche on the link check](https://github.com/Skl8em/docsys/blob/main/docs/links.md) says why.
+The engine's [fiche on the link check](../docsys/docs/links.md) says why.
 
 ### `register`
 
@@ -212,6 +212,6 @@ The command is not read by a shell, and `docsys` does not pin the program: it ru
 
 ## Out of scope
 
-- What each check verifies, and the default severity of its rules: stated case by case in the engine's [conformance suite](https://github.com/Skl8em/docsys/tree/main/conformance).
+- What each check verifies, and the default severity of its rules: stated case by case in the engine's [conformance suite](../docsys/conformance).
 - This repository's own `docsys.yaml`, and why it says what it says: [the gate](gate.md).
 - The frontmatter vocabulary, explained by [`writing/frontmatter.md`](../writing/frontmatter.md).
