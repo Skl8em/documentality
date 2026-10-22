@@ -106,7 +106,7 @@ Design rationale for each line lives in the matching ADR — listed in the regis
 
 ## [v4.0-alpha.33] — The engine reads its configuration
 
-- **Added:** `docsys` reads `docsys.yaml` in format version 1, listed key by key in the engine's [`docsys.yaml` reference](https://github.com/Skl8em/docsys/blob/main/codifying/configuration.md): a required `version`, a required `scope` of `include` and `exclude` patterns, a `root_document` that defaults to `README.md`, and `register`, `paired_change` and `phases` as optional sections whose checks run only when they are present.
+- **Added:** `docsys` reads `docsys.yaml` in format version 1, listed key by key in the engine's [`docsys.yaml` reference](https://github.com/Skl8em/docsys/blob/42746657b36618ddbee3e5ed82c898f7376b71f2/codifying/configuration.md): a required `version`, a required `scope` of `include` and `exclude` patterns, a `root_document` that defaults to `README.md`, and `register`, `paired_change` and `phases` as optional sections whose checks run only when they are present.
   `docsys check` refuses a malformed file with exit 2, naming the key and the fix.
 - **Not yet:** this repository's `docsys.yaml` is still in the shape `scripts/` reads, so `uv run docsys check` refuses it; it moves to format version 1 when the gate switches to `docsys check`.
   Written in format version 1, its scope selects the same 127 of 157 tracked Markdown files as the current ignore lists.
@@ -290,7 +290,7 @@ Design rationale for each line lives in the matching ADR — listed in the regis
   The code stays in `scripts/`, `schema/` and `docsys.yaml`; the account is shelved in `codifying/`.
   The boundary with `operationalizing` is by subject: a coordinate of the corpus is operationalizing, a mechanism that checks, generates or runs is codifying.
   ADR-033's count is refined, not superseded.
-- **Added:** the [`codifying/`](../codifying/README.md) shelf — an orient and three fiches for the maintainer: [the gate](../codifying/gate.md), [the schema pipeline](https://github.com/Skl8em/documentality/blob/09f7ebdfc1658d560469177c214cea858920171d/codifying/schema-pipeline.md) and [referential integrity](https://github.com/Skl8em/docsys/blob/main/docs/referential-integrity.md).
+- **Added:** the [`codifying/`](../codifying/README.md) shelf — an orient and three fiches for the maintainer: [the gate](../codifying/gate.md), [the schema pipeline](https://github.com/Skl8em/documentality/blob/09f7ebdfc1658d560469177c214cea858920171d/codifying/schema-pipeline.md) and [referential integrity](https://github.com/Skl8em/documentality/blob/8f103def71b2edc08a085721e8a31f406abc35a3/codifying/referential-integrity.md).
   Each states what it does not establish; none has been read cold by anyone but its author.
 - **Ruled:** [the community map](../phases/refoundation/phase-12-codifying/community-map.md) — gate-runner, maintainer and machine, with the adopter named and cut until a second consumer exists.
   `maintainer` is `contributor`, refined, for a distance judged in the tooling field; it stays the linter's warning rather than a schema enum.

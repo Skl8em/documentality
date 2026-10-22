@@ -15,7 +15,8 @@ status: accepted
 retention: permanent
 supersedes: 01M39G4VTECMXE57PBSCKYKW66
 superseded-by: null
-hash: sha256:20c923eeb255c219357dc19e2b7730804a5bfdca6226f2935258444f1f58495b
+pin: docsys@fc58fd6663539ce8ea387f476f84fafd9c769511
+hash: sha256:b963babe47fb4c6cb1722a00216c09bf59e7466f30dcae7824c6744625d40f72
 ---
 
 ## Status
@@ -58,7 +59,7 @@ While the gate still ran `scripts/`, the engine's test suite compared its vocabu
 
 ## Entail — what follows
 
-- A change to the vocabulary is a change to the engine, made in its repository and paired there with its account, the engine's [vocabulary fiche](https://github.com/Skl8em/docsys/blob/main/docs/vocabulary.md); this repository's [`writing/frontmatter.md`](../../../writing/frontmatter.md) explains the fields to the people who fill them, and follows the engine's version.
+- A change to the vocabulary is a change to the engine, made in its repository and paired there with its account, the engine's [vocabulary fiche](https://github.com/Skl8em/docsys/blob/fc58fd6663539ce8ea387f476f84fafd9c769511/docs/vocabulary.md); this repository's [`writing/frontmatter.md`](../../../writing/frontmatter.md) explains the fields to the people who fill them, and follows the engine's version.
 - Every load of the vocabulary goes through the engine's strict loader, never a bare `safe_load`, which keeps ADR-037's one obligation that outlives its JSON: YAML 1.1 reads a bare `yes` as a boolean, and the vocabulary's own enumerations would break silently.
 - The engine's test that compared its vocabulary with this repository's copy retires with the copy.
 - A link from a frozen record to `schema/` is allowed by the link check with its reason, as the other links into `scripts/` are.
