@@ -16,6 +16,13 @@ History of the documentation system itself.
 Append-only; each entry is dated-fixed.
 Design rationale for each line lives in the matching ADR — listed in the register [`ADR.md`](ADR.md), written in full in its [`phases/`](../phases/README.md) folder.
 
+## [v4.0-alpha.46] — The sentence-per-line rule sees a sentence that opens with inline code
+
+- **Fixed:** the `sentence-per-line` rule (MD100) takes a backtick for the start of a sentence, so a second sentence that opens with inline code, after a bold lead-in or after any sentence, is flagged; and it tries every candidate boundary of a line, so an abbreviation (`e.g.`) or a list number (`10.`) no longer hides the real boundary that follows it.
+- **Added:** `split-sentences.js`, beside the rule: `markdownlint-cli2 | node split-sentences.js` breaks, in place, the lines the rule flagged as two sentences, and touches nothing else; a sentence broken across lines is left for a person.
+- **Changed:** the corpus is reflowed where the stricter rule sees two sentences, 34 lines in 15 files, rendering-neutral.
+- **Parked:** four sealed records hold such lines (`ADR-023`, `ADR-025`, `ulid-identifiers.md`, `phase-10-schema/README.md`); a reflow would break their seal, so each is excluded from markdownlint by name in `.markdownlint-cli2.jsonc`, with the reason, until a person re-freezes it with `--reseal` or keeps it excluded.
+
 ## [v4.0-alpha.45] — The engine writes what its checks verify
 
 - **Added:** four `docsys` commands for the author: `docsys id` mints a ULID, `docsys seal` writes a frozen record's `hash:`, `docsys rename` moves a file or folder and rewrites every relative link to it, and `docsys slugify` names each document after its slug; the reference is [`codifying/docsys-commands.md`](../codifying/docsys-commands.md).
