@@ -31,7 +31,8 @@ Almost every first document is an **orient** — it situates a newcomer.
 You don't need to know the theory to write one; just answer four questions.
 
 1. Open [`writing/forces/know/orient/template.md`](forces/know/orient/template.md) and copy it to `README.md` next to your subject.
-2. Fill the four blanks: *what is this* (one line), *where you are*, *why it concerns you*, *where to go next*. Resist adding install steps or architecture — an orient hands off, it doesn't hold.
+2. Fill the four blanks: *what is this* (one line), *where you are*, *why it concerns you*, *where to go next*.
+   Resist adding install steps or architecture — an orient hands off, it doesn't hold.
 
 Done?
 You now have a working front door.
@@ -65,7 +66,8 @@ Think of one choice you made about your subject ("I used SQLite, not Postgres, b
 Write it down as a **decide** document — a different door entirely, and one that *freezes*.
 
 1. Copy [`writing/forces/govern-and-record/decide/template.md`](forces/govern-and-record/decide/template.md) to `decisions/ADR-001.md`.
-2. Fill context → options you considered → the decision → consequences you accept. Write the *why* for someone who disagrees; that reasoning is the whole point.
+2. Fill context → options you considered → the decision → consequences you accept.
+   Write the *why* for someone who disagrees; that reasoning is the whole point.
 
 Notice the difference you just felt: the orient was maintained and reader-facing; the ADR is dated, frozen, and written for the future.
 That contrast — maintained *state* vs frozen *record* — is the spine of the whole system.

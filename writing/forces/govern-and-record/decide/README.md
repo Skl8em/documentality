@@ -36,7 +36,8 @@ Use [`template.md`](template.md) to write one.
 State the context and forces → lay out the options genuinely considered → record the decision (`enact`) → give the reasoning (`justify`) → unfold the implications (`entail`): what must now change, what it commits us to, which `mandate`/`commit`/`instruct` follow, or which `propose` it reopens.
 
 - **Special property:** *dated-fixed*.
-  Never edit a decision to reflect a later choice; a superseding decision is a **new** record that sets `supersedes`. `view: diachronic`, `retention: permanent`.
+  Never edit a decision to reflect a later choice; a superseding decision is a **new** record that sets `supersedes`.
+`view: diachronic`, `retention: permanent`.
 - **Genres:** architecture decision record, committee minutes, sign-off, resolution.
   (A sign-off, where authorization outweighs reasoning, is written under the variant verb *ratify*.)
 

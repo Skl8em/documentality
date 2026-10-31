@@ -71,7 +71,8 @@ Keeping the *product* (`writing/`, `structuring/`) legible to a **user** and the
 
 A corpus serves two incompatible masters: **be found and read now** (communication) and **stand as evidence over time** (archive).
 No single order serves both.
-This system keeps them apart — the readable tree on one side, frozen provenance on the other — and stitches them at one point: *the frozen record of a change becomes the current state you maintain*. `structuring/concepts.md` develops it.
+This system keeps them apart — the readable tree on one side, frozen provenance on the other — and stitches them at one point: *the frozen record of a change becomes the current state you maintain*.
+`structuring/concepts.md` develops it.
 
 ## Licensing
 

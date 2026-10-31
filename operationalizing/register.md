@@ -10,7 +10,8 @@ reader: H+M
 status: draft
 ---
 
-**The apport.** `register: know | do | govern` — **derived, never stored**.
+**The apport.**
+`register: know | do | govern` — **derived, never stored**.
 
 **What it operationalizes.**
 A coarse navigational handle over the force.

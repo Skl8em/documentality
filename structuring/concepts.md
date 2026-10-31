@@ -46,7 +46,8 @@ A change touching three functions is not filed three times: its provenance is th
 ## Govern, and where it lives
 
 Governing is not a third place; it is a *face* every activity carries.
-A govern-document is placed by the **domain it governs**, not by its register: a rule binding the user's writing is product content (in the `writing` function); the same force binding contribution to the project is the project's governance. `steering` is simply the activity whose domain is the project itself, so it holds its own know/do/govern.
+A govern-document is placed by the **domain it governs**, not by its register: a rule binding the user's writing is product content (in the `writing` function); the same force binding contribution to the project is the project's governance.
+`steering` is simply the activity whose domain is the project itself, so it holds its own know/do/govern.
 
 A decision and the rule it installs are two documents, joined at the state/change seam below: the decision freezes with the effort that made it; the rule stays current with the activity it binds; the rule cites the decision.
 

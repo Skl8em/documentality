@@ -10,7 +10,8 @@ reader: H+M
 status: draft
 ---
 
-**The apport.** `view: synchronic | diachronic`, one value per document.
+**The apport.**
+`view: synchronic | diachronic`, one value per document.
 
 **What it operationalizes.**
 The *state/change seam* of the documentary system (essay 3): almost every domain runs two artifacts in parallel — a document that states the present **state** (kept current) and a record that fixes a **change** (frozen once made).

@@ -6,6 +6,12 @@
   "ignores": [
     "theorising/**", // upstream academic essays, not our authored guidance
     "phases/naive-sketch/**", // pre-refoundation records, predate ADR-021 (grandfathered)
+    // sealed records (hash check) that hold a second sentence behind an abbreviation or a list
+    // number, which the rule did not see when they were sealed: reflowing them breaks the seal
+    "phases/refoundation/phase-07-structuring-tutorial/ADR-023-tutorial-rewrite.md",
+    "phases/refoundation/phase-08-refactor/ADR-025-governance-axis.md",
+    "phases/refoundation/phase-09-tooling/ulid-identifiers.md",
+    "phases/refoundation/phase-10-schema/README.md",
     "imagining/**", // proposals and informal notes, not prose held to ADR-021
     ".claude/**", // the agent's configuration and skills, not authored documents
     "docsys/**", // the engine's submodule: another repository, checked by its own gate

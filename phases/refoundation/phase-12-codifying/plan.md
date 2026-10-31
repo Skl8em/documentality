@@ -41,7 +41,9 @@ Its own chain diagram —
 theorising → operationalizing → structuring / writing → designing → IT tools
 ```
 
-— has a fourth downstream link, "IT tools," that has never had a folder, a provenance owner, or an account of its own reasoning. `scripts/`, `schema/`, and the gate are real apparatus, argued nowhere, owned by no function. `operationalizing/view.md`'s own closing line says as much: the check that a coordinate holds "live[s] in the IT tools (the frontmatter linter) — not here."
+— has a fourth downstream link, "IT tools," that has never had a folder, a provenance owner, or an account of its own reasoning.
+`scripts/`, `schema/`, and the gate are real apparatus, argued nowhere, owned by no function.
+`operationalizing/view.md`'s own closing line says as much: the check that a coordinate holds "live[s] in the IT tools (the frontmatter linter) — not here."
 
 ## Workstreams
 

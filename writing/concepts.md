@@ -78,7 +78,8 @@ Crossing that with intention (reader *moved above the floor* or merely *served a
 | **Moved** (intention ≠ state) | explain / orient | teach |
 | **Floor only** (intention = state) | describe | instruct |
 
-Diátaxis sees only this 2×2. The forces this theory *adds* — prove, account, mandate, commit, propose, decide, recommend — fall outside it because they do not address a *user of a system*; they regulate relationships or fix a record. Hence three doors, not two:
+Diátaxis sees only this 2×2. The forces this theory *adds* — prove, account, mandate, commit, propose, decide, recommend — fall outside it because they do not address a *user of a system*; they regulate relationships or fix a record.
+Hence three doors, not two:
 
 - **know** — `orient`, `explain`, `describe`.
 - **do** — `instruct`, `teach`, `recommend` (a deontic gradient: *here is how* → *you should* → *you must*, that last being `mandate`).

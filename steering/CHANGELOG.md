@@ -433,7 +433,9 @@ The naming convention is kept **open**, with tools both ways — `scripts/slugif
 ## [v4.0-alpha.5] — roadmap: insert Phase 09 (tooling), renumber
 
 - **Changed:** the roadmap gains **Phase 09 — Tooling** (unified markdownlint sharing one ruleset between CLI and the VSCode extension; a *safe-starter* frontmatter-lint harness; ULID + slug identifiers replacing the sequential counts, with minting and verification).
-  The former schema-reconciliation phase becomes **Phase 10**, and design-of-Phase-II becomes **Phase 11**; the *refoundation* era now spans phases 06–10. Tooling is placed *before* the schema so the lint harness makes Phase 10 efficient. A detailed plan lives in [`phases/refoundation/phase-09-tooling/plan.md`](../phases/refoundation/phase-09-tooling/plan.md). Frozen records from earlier phases keep their-time phase numbers; the live plan and governance docs are renumbered.
+  The former schema-reconciliation phase becomes **Phase 10**, and design-of-Phase-II becomes **Phase 11**; the *refoundation* era now spans phases 06–10. Tooling is placed *before* the schema so the lint harness makes Phase 10 efficient.
+A detailed plan lives in [`phases/refoundation/phase-09-tooling/plan.md`](../phases/refoundation/phase-09-tooling/plan.md).
+Frozen records from earlier phases keep their-time phase numbers; the live plan and governance docs are renumbered.
 
 ## [v4.0-alpha.4] — refounded vocabulary, the twelve forces, and the gerund shelf (Phase 08 complete)
 

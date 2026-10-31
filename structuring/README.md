@@ -25,9 +25,11 @@ Like `writing/`, it is split by force so each concern is its own file.
   It lives here because choosing who the tree serves is a structural decision.
 - The metadata that makes the tree navigable is a `writing/` concern (you fill it while writing): [`../writing/frontmatter.md`](../writing/frontmatter.md).
 
-> These are **entry points routed by need, not a reading order.** `rules.md` (mandate) is binding even though it sits in the list like the rest: its rules are surfaced in [`setup.md`](setup.md) and enforced by `../writing/frontmatter.md` validation, so you meet them whether or not you read this list top to bottom.
+> These are **entry points routed by need, not a reading order.**
+`rules.md` (mandate) is binding even though it sits in the list like the rest: its rules are surfaced in [`setup.md`](setup.md) and enforced by `../writing/frontmatter.md` validation, so you meet them whether or not you read this list top to bottom.
 
 ## The one distinction
 
 A corpus serves two masters that no single order satisfies: a **present reader** who must *find* things now (communication → a readable tree), and a **future examiner** who must *trust* things later (archive → provenance).
-Keep them apart, and stitch them at one seam — the frozen record of a change becomes the maintained statement of a state. `concepts.md` is the whole of it.
+Keep them apart, and stitch them at one seam — the frozen record of a change becomes the maintained statement of a state.
+`concepts.md` is the whole of it.
